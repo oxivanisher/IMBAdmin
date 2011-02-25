@@ -5,7 +5,7 @@
  * Handling:
  * - Connection
  * - Fetch
- * - Query  
+ * - Query
  */
 class ManagerDatabase {
 	private $connection = NULL;
@@ -13,8 +13,11 @@ class ManagerDatabase {
 	private $counter = NULL;
 
 	public function __construct($host=NULL, $database=NULL, $user=NULL, $pass=NULL) {
-		$this -> connection = mysql_connect($host, $user, $pass, TRUE);
-		mysql_select_db($database, $this -> connection);
+		$this -> connection = mysql_pconnect($host, $user, $pass, TRUE);
+
+		if(!mysql_select_db($database, $this -> connection)) {
+			throw new Exception("Database Connection not working!");
+		}
 	}
 
 	public function disconnect() {
@@ -24,11 +27,16 @@ class ManagerDatabase {
 
 	public function query($query) {
 		$this -> result = mysql_query($query, $this -> connection);
+
+		if(!$this -> result) {
+			throw new Exception("Database Query not working!");
+		}
+
 		$this -> counter = NULL;
 	}
 
 	public function fetchRow() {
-		return  mysql_fetch_assoc($this -> result);
+		return    mysql_fetch_assoc($this -> result);
 	}
 
 	public function count() {

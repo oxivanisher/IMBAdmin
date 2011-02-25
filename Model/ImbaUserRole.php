@@ -8,6 +8,8 @@ class ImbaUserRole extends ImbaBase {
 	/**
  	* Fields
  	*/
- 	//protected handle	role	name	smf	eqdkp	wordpress	icon	phpraider 	
+ 	protected $handle;
+	protected $role;
+		name	smf	eqdkp	wordpress	icon	phpraider 	
 }
 ?>

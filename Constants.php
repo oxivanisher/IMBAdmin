@@ -16,10 +16,6 @@ class ImbaConstants {
 	/**
  	* Database - Tables
  	*/
-	private static $DB_TABLES_PREFIX = 'imba_';
-	private static $DB_TABLES_PREFIX_WOW = 'wow_';
-	private static $DB_TABLES_PREFIX_EVE = 'eve_';
-
-	//public static $DB_TABLES_ARMORY_CHARCACHE = $DB_TABLES_PREFIX . $DB_TABLES_PREFIX_WOW . 'armory_charcache';
+	public static $DB_TABLES_ARMORY_CHARCACHE =  "armory_charcache";
 }
 ?>

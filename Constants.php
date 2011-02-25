@@ -23,17 +23,17 @@ class ImbaConstants {
 	public static $DATABASE_TABLES_SYS_SYSTEMMESSAGES = "oom_openid_systemmessages";
 	public static $DATABASE_TABLES_SYS_ADMINUSERS = "oom_openid_usermanager";
 	public static $DATABASE_TABLES_SYS_FRONTEND_SAFE = "oom_openid_frontend_safe";
-	public static $DATABASE_TABLES_SYS_MULTIG_GAMES = "oom_openid_multig_games";
+	public static $DATABASE_TABLES_SYS_MULTIGAMING_GAMES = "oom_openid_multig_games";
 	public static $DATABASE_TABLES_SYS_USER_PROFILES = "oom_openid_user_profiles";
 
 	public static $DATABASE_TABLES_USR_MESSAGES = "oom_openid_messages";
-	public static $DATABASE_TABLES_USR_MULTIG_NAMES = "oom_openid_multig_names";
+	public static $DATABASE_TABLES_USR_MULTIGAMING_NAMES = "oom_openid_multig_names";
 	public static $DATABASE_TABLES_USR_APPLICATIONS = "oom_openid_user_applications";
 	public static $DATABASE_TABLES_USR_XMPP = "oom_openid_xmpp";
 	public static $DATABASE_TABLES_USR_LASTONLINE = "oom_openid_lastonline";
 
-	public static $DATABASE_TABLES_WOW_armory_itemcache = "oom_openid_armory_itemcache";
-	public static $DATABASE_TABLES_WOW_armory_names = "oom_openid_armory_names";
+	public static $DATABASE_TABLES_WOW_ARMORY_ITEMCACHE = "oom_openid_armory_itemcache";
+	public static $DATABASE_TABLES_WOW_ARMORY_NAMES = "oom_openid_armory_names";
 	public static $DATABASE_TABLES_WOW_CHARACTERS = "oom_openid_characters";
 	public static $DATABASE_TABLES_WOW_ARMORY_CHARCACHE = "oom_openid_armory_charcache";
 

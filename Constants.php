@@ -11,7 +11,7 @@ class ImbaConstants {
 	public static $DATABASE_HOST = 'localhost';
 	public static $DATABASE_USER = 'root';
 	public static $DATABASE_PASS = '';
-	public static $DATABASE_DB = 'alptroeim';
+	public static $DATABASE_DB   = 'alptroeim';
 
 	/**
  	* Database - Tables

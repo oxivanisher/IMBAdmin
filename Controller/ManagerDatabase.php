@@ -6,6 +6,7 @@
  * - Connection
  * - Fetch
  * - Query
+ * TODO: Umbennen in ImbaManagerDatabase
  */
 class ManagerDatabase {
 	private $connection = NULL;

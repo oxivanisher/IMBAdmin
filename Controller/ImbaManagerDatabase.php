@@ -8,7 +8,7 @@
  * - Query
  * TODO: Umbennen in ImbaManagerDatabase
  */
-class ManagerDatabase {
+class ImbaManagerDatabase {
 	private $connection = NULL;
 	private $result = NULL;
 	private $counter = NULL;

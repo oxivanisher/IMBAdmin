@@ -3,7 +3,7 @@
  * Load dependencies
  */
 require_once 'Constants.php';
-require_once 'Controller/ManagerDatabase.php';
+require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaUserRole.php';
 

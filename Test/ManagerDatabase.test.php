@@ -1,5 +1,5 @@
 <?php
-require_once '../Controller/ManagerDatabase.php';
+require_once '../Controller/ImbaManagerDatabase.php';
 
 /**
  * Prepare Variables

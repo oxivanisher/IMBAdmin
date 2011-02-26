@@ -1,6 +1,13 @@
 IMBAdmin README
 
-asdasdasd
+Trivia:
+=======
+Das Imbarste Website Tool für WOW Gilden.
+Für und von http://www.alptroeim.ch.
+
+
+Github: https://github.com/oxivanisher/IMBAdmin
+
 
 Devs:
 =======
@@ -9,3 +16,8 @@ Marc "Cernu" Urben
 Steffen "Aggra" Sommer
 Michael "Mozi" Sommer
 
+
+Libs:
+=======
+OpenID http://www.janrain.com/openid-enabled
+Ale (Eve Online) http://sourceforge.net/projects/eve-apiphp/

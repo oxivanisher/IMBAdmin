@@ -39,7 +39,7 @@ $pape_policy_uris = array(
  * Prepare variables and objects
  */
 $managerOpenId = new ImbaManagerOpenID();
-$managerDatabase = new ImbaManagerDatabase(ImbaConstants::$DATABASE_HOST, ImbaConstants::$DATABASE_DB, ImbaConstants::$DATABASE_USER, ImbaConstants::$DATABASE_PASS);
+//$managerDatabase = new ImbaManagerDatabase(ImbaConstants::$DATABASE_HOST, ImbaConstants::$DATABASE_DB, ImbaConstants::$DATABASE_USER, ImbaConstants::$DATABASE_PASS);
 
 /**
  * OpenID auth logic

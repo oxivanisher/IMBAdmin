@@ -155,7 +155,7 @@ class ImbaManagerOpenID {
         // For OpenID 1, send a redirect.  For OpenID 2, use a Javascript
         // form to send a POST request to the server.
         if ($auth_request->shouldSendRedirect()) {
-            $redirectUrl = $auth_request->redirectURL(getTrustRoot(), getReturnTo());
+            $redirectUrl = $auth_request->redirectURL($this->getTrustRoot(), $this->getReturnTo());
             // If the redirect URL can't be built, display an error
             // message.
             if (Auth_OpenID::isFailure($redirectUrl)) {
@@ -164,7 +164,7 @@ class ImbaManagerOpenID {
         } else {
             // Generate form markup and render it.
             $form_id = 'openid_message';
-            $formHtml = $auth_request->formMarkup(getTrustRoot(), getReturnTo(), false, array('id' => $form_id, 'name' => $form_id));
+            $formHtml = $auth_request->formMarkup($this->getTrustRoot(), $this->getReturnTo(), false, array('id' => $form_id, 'name' => $form_id));
 
             // Display an error if the form markup couldn't be generated;
             // otherwise, render the HTML.

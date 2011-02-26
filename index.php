@@ -10,8 +10,6 @@ $starttime = $m_time;
  * start the php session
  */
 session_start();
-$_SESSION[IUC_loggedIn] = "";
-
 
 /**
  * Load dependencies
@@ -76,7 +74,7 @@ if ($_GET["logout"] == true) {
     }
 } else {
     echo "logged in! :DD";
-    echo "\n<a href='?logout=true'>Logout</a>";
+    echo "<br /><a href='?logout=true'>Logout</a>";
 }
 ?>
 
@@ -86,3 +84,10 @@ if ($_GET["logout"] == true) {
 <a href="http://sampit-pc/IMBAdmin/?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a>
 <br />
 
+<?php
+// generate runtime output
+$m_time = explode(" ", microtime());
+$totaltime = (($m_time[0] + $m_time[1]) - $starttime);
+echo "<hr /><center>Page loading took:" . round($totaltime, 3) . " seconds</center><br /><br /></div>";
+echo "</body>\n</html>";
+?>

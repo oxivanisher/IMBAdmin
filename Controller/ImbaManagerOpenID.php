@@ -14,7 +14,9 @@ require_once "Auth/OpenID/PAPE.php";
 chdir($tmpPath);
 
 require_once "Controller/ImbaUserContext.php";
-require_once "Controller/ImbaUser.php";
+require_once "Controller/ImbaManagerDatabase.php";
+require_once "Controller/ImbaManagerUser.php";
+require_once "Model/ImbaUser.php";
 require_once "Constants.php";
 
 /**
@@ -239,7 +241,7 @@ class ImbaManagerOpenID {
             }
 
             // TODO: logging! (ich bin eingeloggt)
-            
+
             if ($response->endpoint->canonicalID)
                 $escaped_canonicalID = escape($response->endpoint->canonicalID);
 
@@ -247,64 +249,65 @@ class ImbaManagerOpenID {
 
             $sreg = $sreg_resp->contents($sreg_resp);
 
-            if ($sreg['email'])
-                throw new Exception ("waaaaahhhhh! ". escape($sreg['email']));
+            // TODO: Irgendwann mal gucken, ob wir mehr Daten von den OpenId Providern bekommen
+            /*
+              if ($sreg['email'])
+              throw new Exception("waaaaahhhhh! " . escape($sreg['email']));
 
-/*            if (@$sreg['nickname'])
-                $_SESSION[user][nickname] = escape($sreg['nickname']);
+              if (@$sreg['nickname'])
+              $_SESSION[user][nickname] = escape($sreg['nickname']);
 
-            if (@$sreg['fullname'])
-                $_SESSION[user][fullname] = escape($sreg['fullname']);
+              if (@$sreg['fullname'])
+              $_SESSION[user][fullname] = escape($sreg['fullname']);
 
-            if (@$sreg['dob'])
-                $_SESSION[user][dob] = escape($sreg['dob']);
+              if (@$sreg['dob'])
+              $_SESSION[user][dob] = escape($sreg['dob']);
 
-            if (@$sreg['gender'])
-                $_SESSION[user][gender] = escape($sreg['gender']);
+              if (@$sreg['gender'])
+              $_SESSION[user][gender] = escape($sreg['gender']);
 
-            if (@$sreg['country'])
-                $_SESSION[user][country] = escape($sreg['country']);
+              if (@$sreg['country'])
+              $_SESSION[user][country] = escape($sreg['country']);
 
-            if (@$sreg['language'])
-                $_SESSION[user][language] = escape($sreg['language']);
+              if (@$sreg['language'])
+              $_SESSION[user][language] = escape($sreg['language']);
 
-            if (@$sreg['timezone'])
-                $_SESSION[user][timezone] = escape($sreg['timezone']);
+              if (@$sreg['timezone'])
+              $_SESSION[user][timezone] = escape($sreg['timezone']);
 
-            if (@$sreg['postalcode'])
-                $_SESSION[user][postalcode] = escape($sreg['postalcode']);
-*/
-//	$pape_resp = Auth_OpenID_PAPE_Response::fromSuccessResponse($response);
+              if (@$sreg['postalcode'])
+              $_SESSION[user][postalcode] = escape($sreg['postalcode']);
+             */
 
-            /* 	if ($pape_resp) {
-              if ($pape_resp->auth_policies) {
-              $success .= "<p>The following PAPE policies affected the authentication:</p><ul>";
+            $pape_resp = Auth_OpenID_PAPE_Response::fromSuccessResponse($response);
+            if ($pape_resp) {
+                if ($pape_resp->auth_policies) {
+                    $success .= "<p>The following PAPE policies affected the authentication:</p><ul>";
 
-              foreach ($pape_resp->auth_policies as $uri) {
-              $escaped_uri = escape($uri);
-              $success .= "<li><tt>$escaped_uri</tt></li>";
-              }
+                    foreach ($pape_resp->auth_policies as $uri) {
+                        $escaped_uri = escape($uri);
+                        $success .= "<li><tt>$escaped_uri</tt></li>";
+                    }
 
-              $success .= "</ul>";
-              } else {
-              $success .= "<p>No PAPE policies affected the authentication.</p>";
-              }
+                    $success .= "</ul>";
+                } else {
+                    $success .= "<p>No PAPE policies affected the authentication.</p>";
+                }
 
-              if ($pape_resp->auth_age) {
-              $age = escape($pape_resp->auth_age);
-              $success .= "<p>The authentication age returned by the " .
-              "server is: <tt>".$age."</tt></p>";
-              }
+                if ($pape_resp->auth_age) {
+                    $age = escape($pape_resp->auth_age);
+                    $success .= "<p>The authentication age returned by the " .
+                            "server is: <tt>" . $age . "</tt></p>";
+                }
 
-              if ($pape_resp->nist_auth_level) {
-              $auth_level = escape($pape_resp->nist_auth_level);
-              $success .= "<p>The NIST auth level returned by the " .
-              "server is: <tt>".$auth_level."</tt></p>";
-              }
-
-              } else {
-              $success .= "<p>No PAPE response was sent by the provider.</p>";
-              } */
+                if ($pape_resp->nist_auth_level) {
+                    $auth_level = escape($pape_resp->nist_auth_level);
+                    $success .= "<p>The NIST auth level returned by the " .
+                            "server is: <tt>" . $auth_level . "</tt></p>";
+                }
+            } else {
+                $success .= "<p>No PAPE response was sent by the provider.</p>";
+            }
             return true;
         }
     }

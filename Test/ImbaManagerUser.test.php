@@ -23,7 +23,9 @@ if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
     $output.= "Fehler bei selectByOpenId.\n";
 }
 
-// ID ändern für insert Test
+/**
+ * Insert User
+ */
 $user->setOpenId($user->getOpenId() . "1");
 try {
     $managerUser->insert($user);
@@ -32,6 +34,9 @@ try {
     $output.= "Fehler bei insert.\n";
 }
 
+/**
+ * Delete user
+ */
 try {
     $managerUser->delete($user->getOpenId());
     $output.= "delete geht.\n";

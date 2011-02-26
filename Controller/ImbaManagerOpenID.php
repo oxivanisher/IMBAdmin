@@ -3,12 +3,18 @@
 /**
  * load the needed classes for OpenID operations
  */
-require_once "Libs/OpenId/Auth/OpenID/Consumer.php";
-require_once "Libs/OpenId/Auth/OpenID/FileStore.php";
-require_once "Libs/OpenId/Auth/OpenID/SReg.php";
-require_once "Libs/OpenId/Auth/OpenID/PAPE.php";
+$tmpPath = getcwd();
+chdir("Libs/OpenId");
+require_once "Auth/OpenID/Consumer.php";
+require_once "Auth/OpenID/FileStore.php";
+require_once "Auth/OpenID/SReg.php";
+require_once "Auth/OpenID/PAPE.php";
+// test oxi: require_once "Auth/OpenID.php";
+
+chdir ($tmpPath);
 
 require_once "Controller/ImbaUserContext.php";
+require_once "Constants.php";
 
 /**
  * set the requested PAPE policies
@@ -67,7 +73,7 @@ class ImbaManagerOpenID {
      * get the Consumer
      */
     protected function &getConsumer() {
-        $store = getStore();
+        $store = $this->getStore();
         $r = new Auth_OpenID_Consumer($store);
         return $r;
     }
@@ -90,7 +96,7 @@ class ImbaManagerOpenID {
      */
     protected function getReturnTo() {
         // FIXME: hier view anpassen?
-        return sprintf("%s://%s:%s%s/finish_auth.php", getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s:%s%s/finish_auth.php", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**
@@ -98,7 +104,7 @@ class ImbaManagerOpenID {
      * get the trust root
      */
     protected function getTrustRoot() {
-        return sprintf("%s://%s:%s%s/", getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**
@@ -117,15 +123,15 @@ class ImbaManagerOpenID {
         $consumer = $this->getConsumer();
 
         if (!ImbaSharedFunctions::isValidURL($openid)) {
-            throw new Exception("Invalid OpenID URL");
+            throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
         }
 
         // Begin the OpenID authentication process.
         $auth_request = $consumer->begin($openid);
-
+        
         // No auth request means we can't begin OpenID.
         if (!$auth_request) {
-            throw new Exception("Invalid or unauth OpenID");
+            throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_REQUEST_FAILED);
         }
 
         $sreg_request = Auth_OpenID_SRegRequest::build(
@@ -137,7 +143,7 @@ class ImbaManagerOpenID {
         if ($sreg_request) {
             $auth_request->addExtension($sreg_request);
         }
-
+        
         $pape_request = new Auth_OpenID_PAPE_Request($policy_uris);
         if ($pape_request) {
             $auth_request->addExtension($pape_request);
@@ -153,7 +159,7 @@ class ImbaManagerOpenID {
             // If the redirect URL can't be built, display an error
             // message.
             if (Auth_OpenID::isFailure($redirectUrl)) {
-                throw new Exception("Could not redirect to server" . $redirectUrl);
+                throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_REDIRECT_FAILED, $redirectUrl);
             }
         } else {
             // Generate form markup and render it.
@@ -163,7 +169,7 @@ class ImbaManagerOpenID {
             // Display an error if the form markup couldn't be generated;
             // otherwise, render the HTML.
             if (Auth_OpenID::isFailure($formHtml)) {
-                throw new Exception("Form markup could not be generated", $formHtml);
+                throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_FORM_FAILED, $formHtml);
             }
         }
     }
@@ -183,10 +189,10 @@ class ImbaManagerOpenID {
         // Check the response status.
         if ($response->status == Auth_OpenID_CANCEL) {
             // This means the authentication was cancelled.
-            throw new Exception("Verification cancelled");
+            throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_CANCEL);
         } else if ($response->status == Auth_OpenID_FAILURE) {
             // Authentication failed; display the error message.
-            throw new Exception("OpenID authentication failed", $response->message);
+            throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_FAILURE);
         } else if ($response->status == Auth_OpenID_SUCCESS) {
             // This means the authentication succeeded; extract the
             // identity URL and Simple Registration data (if it was

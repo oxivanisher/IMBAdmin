@@ -13,6 +13,17 @@ class ImbaConstants {
 	public static $DATABASE_PASS = '';
 	public static $DATABASE_DB = 'alptroeim';
 
+        /**
+         * Error Codes
+         */
+        // TODO: $ERROR_OPENID_Auth_OpenID_REDIRECT_FAILED -> $ERROR_Auth_OpenID_REDIRECT_FAILED
+        public static $ERROR_OPENID_Auth_OpenID_INVALID_URI = "Auth_OpenID_INVALID_URI";
+        public static $ERROR_OPENID_Auth_OpenID_REQUEST_FAILED = "Auth_OpenID_REQUEST_FAILED";
+        public static $ERROR_OPENID_Auth_OpenID_REDIRECT_FAILED = "Auth_OpenID_REDIRECT_FAILED";
+        public static $ERROR_OPENID_Auth_OpenID_FORM_FAILED = "Auth_OpenID_FORM_FAILED";
+        public static $ERROR_OPENID_Auth_OpenID_CANCEL = "Auth_OpenID_CANCEL";
+        public static $ERROR_OPENID_Auth_OpenID_FAILURE = "Auth_OpenID_FAILURE";
+        
 	/**
  	* Database - Tables
  	*/
@@ -40,6 +51,7 @@ class ImbaConstants {
 	public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
 	public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
 
+        
 }
 
 ?>

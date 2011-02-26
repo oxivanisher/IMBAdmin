@@ -6,8 +6,182 @@
 class SharedFunctions {
 
 	// TODO: Cernus Methoden hier rein packen als !!!static!!!
-	public static function CernuMethod() {
+	public static function cernuMethod() {
 		return "do that thing do it!";
+	}
+
+	public static function isValidURL($url) {
+		return          preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+	}
+
+	public static function getAge($timestamp) {
+		$ageOfMsg = time() - $timestamp;
+		if($timestamp == 0) {
+			$ageOfMsgReturn = "";
+		} elseif($ageOfMsg < '60') {
+			$ageOfMsgReturn = $ageOfMsg . " sec(s)";
+		} elseif($ageOfMsg > '59' && $ageOfMsg < '3600') {
+			$ageOfMsg = round(($ageOfMsg / 60), 1);
+			$ageOfMsgReturn = $ageOfMsg . " min(s)";
+		} elseif($ageOfMsg >= '3600' && $ageOfMsg < '86400') {
+			$ageOfMsg = round(($ageOfMsg / 3600), 1);
+			$ageOfMsgReturn = $ageOfMsg . " hr(s)";
+		} elseif($ageOfMsg >= '86400' && $ageOfMsg < '604800') {
+			$ageOfMsg = round(($ageOfMsg / 86400), 1);
+			$ageOfMsgReturn = $ageOfMsg . " day(s)";
+		} elseif($ageOfMsg >= '604800' && $ageOfMsg < '31449600') {
+			$ageOfMsg = round(($ageOfMsg / 604800), 1);
+			$ageOfMsgReturn = $ageOfMsg . " week(s)";
+		} else {
+			$ageOfMsg = round(($ageOfMsg / 31449600), 1);
+			$ageOfMsgReturn = $ageOfMsg . " year(s)";
+		}
+		return $ageOfMsgReturn;
+	}
+
+	public static function getNiceAge($timestamp) {
+		$ageOfMsg = time() - $timestamp;
+		if($timestamp == 0) {
+			$ageOfMsgReturn = "noch nie";
+		} elseif($ageOfMsg < '60') {
+			$ageOfMsgReturn = "vor " . $ageOfMsg . " Sek";
+		} elseif($ageOfMsg < '3600') {
+			$ageOfMsg = round(($ageOfMsg / 60), 1);
+			$ageOfMsgReturn = "vor " . $ageOfMsg . " Min";
+		} elseif($ageOfMsg <= '86400') {
+			$ageOfMsgReturn = strftime("um %H:%M Uhr", $timestamp);
+		} elseif($ageOfMsg <= '604800') {
+			$ageOfMsgReturn = strftime("am %A", $timestamp);
+		} elseif($ageOfMsg <= '2419200') {
+			$ageOfMsgReturn = strftime("im %B", $timestamp);
+		} else {
+			$ageOfMsg = round(($ageOfMsg / 31449600), 1);
+			$ageOfMsgReturn = strftime("anno %Y", $timestamp);
+		}
+		return $ageOfMsgReturn;
+	}
+
+	public static function generateHash() {
+		$result = "";
+		$charPool = '0123456789abcdefghijklmnopqrstuvwxyz';
+		for($p = 0; $p < 15; $p++)
+			$result .= $charPool[mt_rand(0, strlen($charPool) - 1)];
+		return         sha1(md5(sha1($result)));
+	}
+
+	public static function genTime($timestamp) {
+		return          strftime("%e. %B %Y, %H:%M:%S", $timestamp);
+	}
+
+	public static function getIP() {
+		$ip;
+
+		if(getenv("HTTP_CLIENT_IP"))
+			$ip = getenv("HTTP_CLIENT_IP");
+		else if(getenv("HTTP_X_FORWARDED_FOR"))
+			$ip = getenv("HTTP_X_FORWARDED_FOR");
+		else if(getenv("REMOTE_ADDR"))
+			$ip = getenv("REMOTE_ADDR");
+		else
+			$ip = "UNKNOWN";
+
+		return $ip;
+	}
+
+	public static function makeClickableURL($url) {
+		$in = array('`((?:https?|ftp)://\S+[[:alnum:]]/?)`si', '`((?<!//)(www\.\S+[[:alnum:]]/?))`si');
+		$out = array('<a href="$1" rel="nofollow" target="new" class="ssoMessageLink">$1</a> ', '<a href="http://$1" rel="nofollow" target="new" class="ssoMessageLink">$1</a>');
+		return      preg_replace($in, $out, $url);
+	}
+
+	// TODO: irgendwie ein logging einbauen
+	public static function sysmsg($msg, $lvl =2, $user ="", $subject ="") {
+		switch ($lvl) {
+			case 0 :
+				$rmsg = "ERROR: ";
+				break;
+
+			case 1 :
+				$rmsg = "WARNING: ";
+				break;
+
+			case 2 :
+				$rmsg = "INFO: ";
+				break;
+
+			default :
+				$rmsg = "UNSET: ";
+		}
+
+		if($GLOBALS[bot]) {
+			$thash = $subject;
+			$tmodule = "xmpp_daemon";
+			$tuser = $user;
+			$tip = "XMPP";
+		} else {
+			$thash = $_SESSION[hash];
+			$tmodule = $_POST[module];
+			$tuser = $_SESSION[openid_identifier];
+			$tip = getIP();
+		}
+
+		if($lvl <= $GLOBALS[sysmsglvl])
+			$sqlsysmsg = mysql_query("INSERT INTO " . $GLOBALS[cfg][systemmsgsdb] . " (timestamp,user,ip,module,session,msg,lvl) VALUES " . "('" . time() . "', '" . $tuser . "', '" . $tip . "', '" . $tmodule . "', '" . $thash . "', '" . $msg . "', '" . $lvl . "');");
+
+		if($lvl < 2)
+			$GLOBALS[html] .= "<b>" . $msg . "</b>";
+
+		if($lvl == 0)
+			alert($rmsg . $msg, $tuser);
+	}
+
+	// TODO: irgendwie ein alerting einbauen
+	public static function alert($msg, $from) {
+		$alertsql = mysql_query("SELECT openid FROM " . $GLOBALS[cfg][admintablename] . " WHERE dev='1';");
+		while($alertrow = mysql_fetch_array($alertsql)) {
+			$sql = mysql_query("INSERT INTO " . $GLOBALS[cfg][msg][msgtable] . " (sender,receiver,timestamp,subject,message,new,xmpp) VALUES " . "('" . $from . "', '" . $alertrow[openid] . "', '" . time() . "', 'SYSTEM INFORMATION', '" . $msg . "', 1, 1);");
+		}
+	}
+
+	// TODO: irgendwie ein user alerting einbauen
+	public static function informUsers($msg, $role) {
+		$alertsql = mysql_query("SELECT openid FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE role>='" . $role . "';");
+		while($alertrow = mysql_fetch_array($alertsql)) {
+			$sql = mysql_query("INSERT INTO " . $GLOBALS[cfg][msg][msgtable] . " (sender,receiver,timestamp,subject,message,new,xmpp) VALUES " . "('" . $_SESSION[openid_identifier] . "', '" . $alertrow[openid] . "', '" . time() . "', 'SYSTEM MESSAGE', '" . $msg . "', 1, 1);");
+		}
+	}
+
+	public static function sendMail($target, $subject, $message) {
+		if(substr($target, 0, 4) == "http") {
+			// FIXME: ich bin hässlich hard-gecodet ohne DB manager!
+			$sql = "SELECT email FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE openid='" . $target . "';";
+			$sqlr = mysql_query($sql);
+			while($row = mysql_fetch_array($sqlr))
+				$targetaddr = $row[email];
+		} else {
+			$targetaddr = $target;
+		}
+		#check for correct email addr
+		if(filter_var($targetaddr, FILTER_VALIDATE_EMAIL)) {
+			if($GLOBALS[adminemailname]) {
+				$sender = $GLOBALS[adminemailname];
+			} else {
+				$sender = "IMBA Admin @ " . $_SERVER[SERVER_NAME];
+			}
+
+			// FIXME: 8ung! hier fehlt eine konstante für die admin email adresse
+			$header = 'MIME-Version: 1.0' . "\n" . 'Content-type: text/plain; charset=UTF-8' . "\n" . 'From: ' . $sender . ' <' . $GLOBALS[adminemail] . ">\n";
+			// Make sure there are no bare linefeeds in the headers
+			$header = preg_replace('#(?<!\r)\n#si', "\r\n", $header);
+			// Fix any bare linefeeds in the message to make it RFC821 Compliant.
+			$message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
+
+			mail($targetaddr, $subject, $message, $header);
+			return $targetaddr;
+
+		} else {
+			return false;
+		}
 	}
 
 	/* import from functions.inc.php ! BIG
@@ -71,10 +245,6 @@ class SharedFunctions {
 
  	#unset smf cookie
  	setcookie ('alpCookie', serialize(array(0, '', 0)), time() - 3600,$GLOBALS[cfg][cookiepath],$GLOBALS[cfg][cookiedomain]);
- 	}
-
- 	function isValidURL($url) {
- 	return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
  	}
 
  	#called after openid verification, searches the users in all registered databases ($GLOBALS[cfg][sites])
@@ -305,58 +475,6 @@ class SharedFunctions {
  	return $tmphtml;
  	}
 
- 	function getAge($timestamp) {
- 	$ageOfMsg = time() - $timestamp;
- 	if ($timestamp == 0) {
- 	$ageOfMsgReturn = "";
- 	} elseif ($ageOfMsg < '60') {
- 	$ageOfMsgReturn = $ageOfMsg." sec(s)";
- 	} elseif ($ageOfMsg > '59' && $ageOfMsg < '3600') {
- 	$ageOfMsg = round(($ageOfMsg/60),1);
- 	$ageOfMsgReturn = $ageOfMsg." min(s)";
- 	} elseif ($ageOfMsg >= '3600' && $ageOfMsg < '86400') {
- 	$ageOfMsg = round(($ageOfMsg/3600),1);
- 	$ageOfMsgReturn = $ageOfMsg." hr(s)";
- 	} elseif ($ageOfMsg >= '86400' && $ageOfMsg < '604800') {
- 	$ageOfMsg = round(($ageOfMsg/86400),1);
- 	$ageOfMsgReturn = $ageOfMsg." day(s)";
- 	} elseif ($ageOfMsg >= '604800' && $ageOfMsg < '31449600') {
- 	$ageOfMsg = round(($ageOfMsg/604800),1);
- 	$ageOfMsgReturn = $ageOfMsg." week(s)";
- 	} else  {
- 	$ageOfMsg = round(($ageOfMsg/31449600),1);
- 	$ageOfMsgReturn = $ageOfMsg." year(s)";
- 	}
- 	return $ageOfMsgReturn;
- 	}
-
- 	function getNiceAge($timestamp) {
- 	$ageOfMsg = time() - $timestamp;
- 	if ($timestamp == 0) {
- 	$ageOfMsgReturn = "noch nie";
- 	} elseif ($ageOfMsg < '60') {
- 	$ageOfMsgReturn = "vor ".$ageOfMsg." Sek";
- 	} elseif ($ageOfMsg < '3600') {
- 	$ageOfMsg = round(($ageOfMsg/60),1);
- 	$ageOfMsgReturn = "vor ".$ageOfMsg." Min";
- 	} elseif ($ageOfMsg <= '86400') {
- 	$ageOfMsgReturn = strftime("um %H:%M Uhr", $timestamp);
- 	} elseif ($ageOfMsg <= '604800') {
- 	$ageOfMsgReturn = strftime("am %A", $timestamp);
- 	} elseif ($ageOfMsg <= '2419200') {
- 	$ageOfMsgReturn = strftime("im %B", $timestamp);
- 	} else  {
- 	$ageOfMsg = round(($ageOfMsg/31449600),1);
- 	$ageOfMsgReturn = strftime("anno %Y", $timestamp);
- 	}
- 	return $ageOfMsgReturn;
- 	}
-
- 	function genTime($timestamp) {
- 	return strftime("%e. %B %Y, %H:%M:%S", $timestamp);
-
- 	}
-
  	function genUserLink($user) {
  	#	return "<a href='?module=messaging&myjob=composemessage&user=".$GLOBALS[users][byuri][$user][uri].
  	#					"'>".$GLOBALS[users][byuri][$user][name]."</a>";
@@ -373,14 +491,6 @@ class SharedFunctions {
 
  	if ($bool)	$GLOBALS[forcelogout] = 1;
  	else				$GLOBALS[forcelogout] = 0;
- 	}
-
- 	function generateHash () {
- 	$result = "";
- 	$charPool = '0123456789abcdefghijklmnopqrstuvwxyz';
- 	for($p = 0; $p<15; $p++)
- 	$result .= $charPool[mt_rand(0,strlen($charPool)-1)];
- 	return sha1(md5(sha1($result)));
  	}
 
  	function createSession () {
@@ -656,17 +766,6 @@ class SharedFunctions {
  	$sqltsu = mysql_query("UPDATE ".$GLOBALS[cfg][lastonlinedb]." SET timestamp='".time()."' WHERE openid='".$openid."';");
  	}
 
- 	function getIP() {
- 	$ip;
-
- 	if (getenv("HTTP_CLIENT_IP")) $ip = getenv("HTTP_CLIENT_IP");
- 	else if(getenv("HTTP_X_FORWARDED_FOR")) $ip = getenv("HTTP_X_FORWARDED_FOR");
- 	else if(getenv("REMOTE_ADDR")) $ip = getenv("REMOTE_ADDR");
- 	else $ip = "UNKNOWN";
-
- 	return $ip;
- 	}
-
  	################## Chat / Messaging Functions ##################
 
  	function getAllChatChannels ($owner = NULL) {
@@ -821,79 +920,9 @@ class SharedFunctions {
  	return $tret."</table>\n";
  	}
 
- 	function makeClickableURL($url){
- 	$in=array(
- 	'`((?:https?|ftp)://\S+[[:alnum:]]/?)`si',
- 	'`((?<!//)(www\.\S+[[:alnum:]]/?))`si'
- 	);
- 	$out=array(
- 	'<a href="$1" rel="nofollow" target="new" class="ssoMessageLink">$1</a> ',
- 	'<a href="http://$1" rel="nofollow" target="new" class="ssoMessageLink">$1</a>'
- 	);
- 	return preg_replace($in,$out,$url);
- 	}
-
- 	################## System Message Functions ##################
-
- 	function sysmsg($msg, $lvl = 2, $user = "", $subject = "") {
- 	switch ($lvl) {
- 	case 0:
- 	$rmsg = "ERROR: ";
- 	break;
-
- 	case 1:
- 	$rmsg = "WARNING: ";
- 	break;
-
- 	case 2:
- 	$rmsg = "INFO: ";
- 	break;
-
- 	default:
- 	$rmsg = "UNSET: ";
- 	}
-
- 	if ($GLOBALS[bot]) {
- 	$thash = $subject;
- 	$tmodule = "xmpp_daemon";
- 	$tuser = $user;
- 	$tip = "XMPP";
- 	} else {
- 	$thash = $_SESSION[hash];
- 	$tmodule = $_POST[module];
- 	$tuser = $_SESSION[openid_identifier];
- 	$tip = getIP();
- 	}
-
- 	if ($lvl <= $GLOBALS[sysmsglvl])
- 	$sqlsysmsg = mysql_query("INSERT INTO ".$GLOBALS[cfg][systemmsgsdb]." (timestamp,user,ip,module,session,msg,lvl) VALUES ".
- 	"('".time()."', '".$tuser."', '".$tip."', '".$tmodule."', '".$thash."', '".$msg."', '".$lvl."');");
-
- 	if ($lvl < 2)
- 	$GLOBALS[html] .= "<b>".$msg."</b>";
-
- 	if ($lvl == 0)
- 	alert($rmsg.$msg, $tuser);
- 	}
-
- 	function alert ($msg, $from) {
- 	$alertsql = mysql_query("SELECT openid FROM ".$GLOBALS[cfg][admintablename]." WHERE dev='1';");
- 	while ($alertrow = mysql_fetch_array($alertsql)) {
- 	$sql = mysql_query("INSERT INTO ".$GLOBALS[cfg][msg][msgtable]." (sender,receiver,timestamp,subject,message,new,xmpp) VALUES ".
- 	"('".$from."', '".$alertrow[openid]."', '".time()."', 'SYSTEM INFORMATION', '".$msg."', 1, 1);");
- 	}
- 	}
-
- 	function informUsers ($msg, $role) {
- 	$alertsql = mysql_query("SELECT openid FROM ".$GLOBALS[cfg][userprofiletable]." WHERE role>='".$role."';");
- 	while ($alertrow = mysql_fetch_array($alertsql)) {
- 	$sql = mysql_query("INSERT INTO ".$GLOBALS[cfg][msg][msgtable]." (sender,receiver,timestamp,subject,message,new,xmpp) VALUES ".
- 	"('".$_SESSION[openid_identifier]."', '".$alertrow[openid]."', '".time()."', 'SYSTEM MESSAGE', '".$msg."', 1, 1);");
- 	}
- 	}
-
  	################## OpenID Profile Functions ##################
 
+ 	TODO: hier werden die profile für die verschienen tools angepasst (ask oxi)
  	function applyProfile ($myuser, $myprofile) {
  	#apply profile function
  	fetchUsers();
@@ -1359,37 +1388,6 @@ class SharedFunctions {
  	}
  	$dd .= "</select>\n";
  	return $dd;
- 	}
-
- 	################## Mail Functions ##################
-
- 	function sendMail ($target, $subject, $message) {
- 	if (substr($target, 0, 4) == "http") {
- 	$sql = "SELECT email FROM ".$GLOBALS[cfg][userprofiletable]." WHERE openid='".$target."';";
- 	$sqlr = mysql_query($sql);
- 	while ($row = mysql_fetch_array($sqlr))
- 	$targetaddr = $row[email];
- 	} else {
- 	$targetaddr = $target;
- 	}
- 	#check for correct email addr
- 	if (filter_var($targetaddr, FILTER_VALIDATE_EMAIL)) {
- 	if ($GLOBALS[adminemailname])
- 	$sender = $GLOBALS[adminemailname];
- 	else
- 	$sender = "IMBA Admin @ ".$_SERVER[SERVER_NAME];
-
- 	$header = 'MIME-Version: 1.0' . "\n" . 'Content-type: text/plain; charset=UTF-8'
- 	. "\n" . 'From: '.$sender.' <'.$GLOBALS[adminemail].">\n";
- 	// Make sure there are no bare linefeeds in the headers
- 	$header = preg_replace('#(?<!\r)\n#si', "\r\n", $header);
- 	// Fix any bare linefeeds in the message to make it RFC821 Compliant.
- 	$message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
-
- 	mail($targetaddr, $subject, $message, $header);
- 	return $targetaddr;
-
- 	} else return false;
  	}
 
  	################## Multigaming Functions ##################

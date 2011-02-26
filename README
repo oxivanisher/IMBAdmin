@@ -1,24 +1,41 @@
-IMBAdmin README
+::::::::::: ::::    ::::  :::::::::      :::     :::::::::  ::::    ::::  ::::::::::: ::::    ::: 
+    :+:     +:+:+: :+:+:+ :+:    :+:   :+: :+:   :+:    :+: +:+:+: :+:+:+     :+:     :+:+:   :+: 
+    +:+     +:+ +:+:+ +:+ +:+    +:+  +:+   +:+  +:+    +:+ +:+ +:+:+ +:+     +:+     :+:+:+  +:+ 
+    +#+     +#+  +:+  +#+ +#++:++#+  +#++:++#++: +#+    +:+ +#+  +:+  +#+     +#+     +#+ +:+ +#+ 
+    +#+     +#+       +#+ +#+    +#+ +#+     +#+ +#+    +#+ +#+       +#+     +#+     +#+  +#+#+# 
+    #+#     #+#       #+# #+#    #+# #+#     #+# #+#    #+# #+#       #+#     #+#     #+#   #+#+# 
+########### ###       ### #########  ###     ### #########  ###       ### ########### ###    #### 
+
+
 
 Trivia:
-=======
-Das Imbarste Website Tool für WOW Gilden.
-Für und von http://www.alptroeim.ch.
+=================
+The most imbarst website tool for WoW guilds.
+For and from http://www.alptroeim.ch.
 
 
+More Information:
+=================
 Project Wiki: https://github.com/oxivanisher/IMBAdmin/wiki
 Github: https://github.com/oxivanisher/IMBAdmin
 
 
 Devs:
-=======
+=================
 Sebastian "Richie" Lemke
 Marc "Cernu" Urben
 Steffen "Aggra" Sommer
 Michael "Mozi" Sommer
 
 
-Libs:
-=======
+Used Libs:
+=================
 OpenID http://www.janrain.com/openid-enabled
 Ale (Eve Online) http://sourceforge.net/projects/eve-apiphp/
+
+
+Used Tools:
+=================
+SMF
+Wordpress
+MediaWiki

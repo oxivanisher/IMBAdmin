@@ -11,25 +11,25 @@ class ImbaUser extends ImbaBase {
     /**
      * Fields
      */
-    protected $openId;
-    protected $nickname;
-    protected $email;
-    protected $firstname;
-    protected $lastname;
-    protected $birthday;
-    protected $birthmonth;
-    protected $birthyear;
-    protected $sex;
-    protected $icq;
-    protected $msn;
-    protected $skype;
-    protected $usertitle;
-    protected $avatar;
-    protected $signature;
-    protected $website;
-    protected $motto;
-    protected $accurate;
-    protected $role;
+    protected $openId = null;
+    protected $nickname = null;
+    protected $email = null;
+    protected $firstname = null;
+    protected $lastname = null;
+    protected $birthday = null;
+    protected $birthmonth = null;
+    protected $birthyear = null;
+    protected $sex = null;
+    protected $icq = null;
+    protected $msn = null;
+    protected $skype = null;
+    protected $usertitle = null;
+    protected $avatar = null;
+    protected $signature = null;
+    protected $website = null;
+    protected $motto = null;
+    protected $accurate = null;
+    protected $role = null;
     // deleted protected $armorychars; oxi, 25.02.2011
 
     /**

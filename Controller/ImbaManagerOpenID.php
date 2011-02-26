@@ -11,9 +11,10 @@ require_once "Auth/OpenID/SReg.php";
 require_once "Auth/OpenID/PAPE.php";
 // test oxi: require_once "Auth/OpenID.php";
 
-chdir ($tmpPath);
+chdir($tmpPath);
 
 require_once "Controller/ImbaUserContext.php";
+require_once "Controller/ImbaUser.php";
 require_once "Constants.php";
 
 /**
@@ -128,7 +129,7 @@ class ImbaManagerOpenID {
 
         // Begin the OpenID authentication process.
         $auth_request = $consumer->begin($openid);
-        
+
         // No auth request means we can't begin OpenID.
         if (!$auth_request) {
             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_REQUEST_FAILED);
@@ -143,7 +144,7 @@ class ImbaManagerOpenID {
         if ($sreg_request) {
             $auth_request->addExtension($sreg_request);
         }
-        
+
         $pape_request = new Auth_OpenID_PAPE_Request($policy_uris);
         if ($pape_request) {
             $auth_request->addExtension($pape_request);
@@ -165,7 +166,7 @@ class ImbaManagerOpenID {
             // Generate form markup and render it.
             $form_id = 'openid_message';
             $formHtml = $auth_request->formMarkup($this->getTrustRoot(), $this->getReturnTo(), false, array('id' => $form_id, 'name' => $form_id));
-            
+
             // Display an error if the form markup couldn't be generated;
             // otherwise, render the HTML.
             if (Auth_OpenID::isFailure($formHtml)) {
@@ -178,7 +179,7 @@ class ImbaManagerOpenID {
      *
      * verify the OpenID
      */
-    public function openidVerify() {
+    public function openidVerify(ImbaManagerDatabase $database) {
         $consumer = $this->getConsumer();
 
         // Complete the authentication process using the server's
@@ -200,63 +201,56 @@ class ImbaManagerOpenID {
             $openid = $response->getDisplayIdentifier();
             $esc_identity = $this->escape($openid);
 
-            if (($_POST[mydo] == "verifyme") AND ($_POST[module] == "register")) {
-                $_SESSION[registred] = 1;
-                $GLOBALS[newopenid] = $esc_identity;
-            } else {
-                $sql = "SELECT role FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE openid='" . $esc_identity . "';";
-                $sqlr = mysql_query($sql);
-                $bool = false;
-                while ($row = mysql_fetch_array($sqlr))
-                    if ($row[role] > 0)
-                        $bool = true;
+            $userManager = new ImbaManagerUser($database);
+            $currentUser = new ImbaUser();
+            $currentUser = $userManager->selectByOpenId($esc_identity);
 
-                if ($bool)
-                    $_SESSION[loggedin] = 1;
-                else {
-                    $applicant = 0;
-                    $sql = "SELECT nickname,timestamp,state,answer FROM " . $GLOBALS[cfg][userapplicationtable] . " WHERE openid='" . $esc_identity . "';";
-                    $sqlr = mysql_query($sql);
-                    while ($row = mysql_fetch_array($sqlr)) {
-                        $applicant = 1;
-                        $appname = $row[nickname];
-                        $appanswer = $row[answer];
-                        $appstate = $row[state];
-                        $appage = getNiceAge($row[timestamp]);
-                    }
+            $bFoundRole = false;
 
-                    if ($applicant) {
-                        $atmp = templGetFile("waiting.html");
-                        $atmp = templReplText($atmp, "NICK", $appname);
-                        $atmp = templReplText($atmp, "ANSWER", $appanswer);
-                        $atmp = templReplText($atmp, "STATE", $appstate);
-                        $atmp = templReplText($atmp, "AGE", $appage);
-                        $GLOBALS[html] .= $atmp;
-                    } else {
-                        sysmsg("Unauthorized access / Banned! " . $esc_identity, 1);
-                    }
-                    return false;
-                }
+            if ($currentUser->getRole() != null)
+                ImbaUserContext::setLoggedIn(true);
+            else {
+                throw new Exception("Registrierung noch nicht implementiert");
+                // TODO: Registriereung wieder einbauen
+                /*
+                  $applicant = 0;
+                  $sql = "SELECT nickname,timestamp,state,answer FROM " . $GLOBALS[cfg][userapplicationtable] . " WHERE openid='" . $esc_identity . "';";
+                  $sqlr = mysql_query($sql);
+                  while ($row = mysql_fetch_array($sqlr)) {
+                  $applicant = 1;
+                  $appname = $row[nickname];
+                  $appanswer = $row[answer];
+                  $appstate = $row[state];
+                  $appage = getNiceAge($row[timestamp]);
+                  }
+
+                  if ($applicant) {
+                  $atmp = templGetFile("waiting.html");
+                  $atmp = templReplText($atmp, "NICK", $appname);
+                  $atmp = templReplText($atmp, "ANSWER", $appanswer);
+                  $atmp = templReplText($atmp, "STATE", $appstate);
+                  $atmp = templReplText($atmp, "AGE", $appage);
+                  $GLOBALS[html] .= $atmp;
+                  } else {
+                  sysmsg("Unauthorized access / Banned! " . $esc_identity, 1);
+                  }
+                  return false;
+                 */
             }
 
-            // Now we are logged in!
-            $GLOBALS[myreturn][loggedin] = 1;
-
-            sysmsg('OpenID ' . $esc_identity . ' successfully verified.', 2);
-            if ($response->endpoint->canonicalID) {
+            // TODO: logging! (ich bin eingeloggt)
+            
+            if ($response->endpoint->canonicalID)
                 $escaped_canonicalID = escape($response->endpoint->canonicalID);
-                $GLOBALS[html] .= '  (XRI CanonicalID: ' . $escaped_canonicalID . ') ';
-            }
 
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 
             $sreg = $sreg_resp->contents($sreg_resp);
 
-//				print_r($sreg); exit;
-            if (@$sreg['email'])
-                $_SESSION[user][email] = escape($sreg['email']);
+            if ($sreg['email'])
+                throw new Exception ("waaaaahhhhh! ". escape($sreg['email']));
 
-            if (@$sreg['nickname'])
+/*            if (@$sreg['nickname'])
                 $_SESSION[user][nickname] = escape($sreg['nickname']);
 
             if (@$sreg['fullname'])
@@ -279,7 +273,7 @@ class ImbaManagerOpenID {
 
             if (@$sreg['postalcode'])
                 $_SESSION[user][postalcode] = escape($sreg['postalcode']);
-
+*/
 //	$pape_resp = Auth_OpenID_PAPE_Response::fromSuccessResponse($response);
 
             /* 	if ($pape_resp) {
@@ -311,7 +305,6 @@ class ImbaManagerOpenID {
               } else {
               $success .= "<p>No PAPE response was sent by the provider.</p>";
               } */
-            $GLOBALS[myreturn][msg] .= $success;
             return true;
         }
     }

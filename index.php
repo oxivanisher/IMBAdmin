@@ -38,7 +38,7 @@ $pape_policy_uris = array(
  * Prepare variables and objects
  */
 $managerOpenId = new ImbaManagerOpenID();
-//$managerDatabase = new ImbaManagerDatabase(ImbaConstants::$DATABASE_HOST, ImbaConstants::$DATABASE_DB, ImbaConstants::$DATABASE_USER, ImbaConstants::$DATABASE_PASS);
+$managerDatabase = new ImbaManagerDatabase(ImbaConstants::$DATABASE_HOST, ImbaConstants::$DATABASE_DB, ImbaConstants::$DATABASE_USER, ImbaConstants::$DATABASE_PASS);
 
 /**
  * OpenID auth logic
@@ -48,6 +48,7 @@ if ($_GET["logout"] == true) {
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
     session_write_close();
+    header("location: " . $_SERVER["PHP_SELF"]);
 } elseif (!ImbaUserContext::getLoggedIn()) {
     if ($_GET["authDone"] != true) {
         if (!empty($_GET["openid"])) {
@@ -67,8 +68,7 @@ if ($_GET["logout"] == true) {
         }
     } else {
         try {
-            $managerOpenId->openidVerify();
-            ImbaUserContext::setLoggedIn(true);
+            $managerOpenId->openidVerify($managerDatabase);
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
             echo "ERROR: " . $ex->getMessage();

@@ -51,6 +51,12 @@ if (!ImbaUserContext::getLoggedIn()) {
     $openid = $_GET["openid"];
     try {
         $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
+        if (!empty($redirectUrl)) {
+            //$redirectUrl = urldecode($redirectUrl);
+            header("Location: " . $redirectUrl);
+        } else {
+            echo "Ehhrmm keine URL, weil ehhrmm.";
+        }
     } catch (Exception $ex) {
         echo "ERROR: " . $ex->getMessage();
     }

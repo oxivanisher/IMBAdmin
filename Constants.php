@@ -14,6 +14,11 @@ class ImbaConstants {
 	public static $DATABASE_DB = 'alptroeim';
 
         /**
+         * Open ID
+         */
+        //public static $OPENID_RETURN_TO_URL = ""
+        
+        /**
          * Error Codes
          */
         // TODO: $ERROR_OPENID_Auth_OpenID_REDIRECT_FAILED -> $ERROR_Auth_OpenID_REDIRECT_FAILED

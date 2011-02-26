@@ -96,7 +96,7 @@ class ImbaManagerOpenID {
      */
     protected function getReturnTo() {
         // FIXME: hier view anpassen?
-        return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**
@@ -104,7 +104,7 @@ class ImbaManagerOpenID {
      * get the trust root
      */
     protected function getTrustRoot() {
-        return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**
@@ -198,7 +198,7 @@ class ImbaManagerOpenID {
             // identity URL and Simple Registration data (if it was
             // returned).
             $openid = $response->getDisplayIdentifier();
-            $esc_identity = escape($openid);
+            $esc_identity = $this->escape($openid);
 
             if (($_POST[mydo] == "verifyme") AND ($_POST[module] == "register")) {
                 $_SESSION[registred] = 1;

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * get start time of script
  */
@@ -44,21 +43,46 @@ $managerOpenId = new ImbaManagerOpenID();
 /**
  * OpenID auth logic
  */
-if (!ImbaUserContext::getLoggedIn()) {
-    $redirectUrl = null;
-    $formHtml = null;
-    // TODO: evtl. braucht $policy_uris content und muss ein array sein
-    $openid = $_GET["openid"];
-    try {
-        $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
-        if (!empty($redirectUrl)) {
-            //$redirectUrl = urldecode($redirectUrl);
-            header("Location: " . $redirectUrl);
-        } else {
-            echo "Ehhrmm keine URL, weil ehhrmm.";
+if ($_GET["logout"] == true) {
+    ImbaSharedFunctions::killCookies();
+    setcookie(session_id(), "", time() - 3600);
+    session_destroy();
+    session_write_close();
+} elseif (!ImbaUserContext::getLoggedIn()) {
+    if ($_GET["authDone"] != true) {
+        if (!empty($_GET["openid"])) {
+            $redirectUrl = null;
+            $formHtml = null;
+            $openid = $_GET["openid"];
+            try {
+                $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
+                if (!empty($redirectUrl)) {
+                    header("Location: " . $redirectUrl);
+                } else {
+                    echo "Ehhrmm keine URL, weil ehhrmm.";
+                }
+            } catch (Exception $ex) {
+                echo "ERROR: " . $ex->getMessage();
+            }
         }
-    } catch (Exception $ex) {
-        echo "ERROR: " . $ex->getMessage();
+    } else {
+        try {
+            $managerOpenId->openidVerify();
+            ImbaUserContext::setLoggedIn(true);
+            header("location: " . $_SERVER["PHP_SELF"]);
+        } catch (Exception $ex) {
+            echo "ERROR: " . $ex->getMessage();
+        }
     }
+} else {
+    echo "logged in! :DD";
+    echo "\n<a href='?logout=true'>Logout</a>";
 }
 ?>
+
+<br />
+<a href="http://turak/IMBAdmin/?openid=https://oom.ch/openid/identity/oxi">Cernu</a>
+<br />
+<a href="http://sampit-pc/IMBAdmin/?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a>
+<br />
+

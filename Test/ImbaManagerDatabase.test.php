@@ -1,6 +1,7 @@
 <?php
 
-require_once '../Controller/ImbaManagerDatabase.php';
+chdir ("../");
+require_once 'Controller/ImbaManagerDatabase.php';
 
 /**
  * Prepare Variables

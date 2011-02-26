@@ -1,7 +1,7 @@
 <?php
 
-require_once '../Constants.php';
-require_once 'ImbaBase.php';
+require_once 'Constants.php';
+require_once 'Model/ImbaBase.php';
 
 /**
  *  Class for all Users

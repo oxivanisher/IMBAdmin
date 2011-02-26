@@ -1,8 +1,9 @@
 <?php
 
-require_once '../Controller/ImbaManagerUser.php';
-require_once '../Controller/ImbaManagerDatabase.php';
-require_once '../Model/ImbaUser.php';
+chdir ("../");
+require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Model/ImbaUser.php';
 
 /**
  * Prepare Variables

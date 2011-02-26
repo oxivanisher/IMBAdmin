@@ -3,15 +3,10 @@
 /**
  * Collection of Functions
  */
-class SharedFunctions {
-
-	// TODO: Cernus Methoden hier rein packen als !!!static!!!
-	public static function cernuMethod() {
-		return "do that thing do it!";
-	}
+class ImbaSharedFunctions {
 
 	public static function isValidURL($url) {
-		return          preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
+		return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
 	}
 
 	public static function getAge($timestamp) {

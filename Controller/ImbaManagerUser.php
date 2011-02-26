@@ -4,7 +4,7 @@ require_once 'ImbaManagerDatabase.php';
 require_once '../Model/ImbaUser.php';
 
 /**
- *  Controller / Manager for User and Roles
+ *  Controller / Manager for User
  *  - insert, update, delete Users
  */
 class ImbaManagerUser {

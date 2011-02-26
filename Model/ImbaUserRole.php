@@ -15,10 +15,8 @@ class ImbaUserRole extends ImbaBase {
     protected $role;
     protected $name;
     protected $smf;
-    protected $eqdkp;
     protected $wordpress;
     protected $icon;
-    protected $phpraider;
 
     /**
      * Properties
@@ -55,14 +53,6 @@ class ImbaUserRole extends ImbaBase {
         $this->smf = $smf;
     }
 
-    public function getEqdkp() {
-        return $this->eqdkp;
-    }
-
-    public function setEqdkp($eqdkp) {
-        $this->eqdkp = $eqdkp;
-    }
-
     public function getWordpress() {
         return $this->wordpress;
     }
@@ -79,14 +69,6 @@ class ImbaUserRole extends ImbaBase {
         $this->icon = $icon;
     }
 
-    public function getPhpraider() {
-        return $this->phpraider;
-    }
-
-    public function setPhpraider($phpraider) {
-        $this->phpraider = $phpraider;
-    }
-
     /**
      * Methods
      */
@@ -100,10 +82,8 @@ class ImbaUserRole extends ImbaBase {
         $this->setRole($result["role"]);
         $this->setName($result["name"]);
         $this->setSmf($result["smf"]);
-        $this->setEqdkp($result["eqdkp"]);
         $this->setWordpress($result["wordpress"]);
         $this->setIcon($result["icon"]);
-        $this->setPhpraider($result["phpraider"]);
     }
 
     public function toString() {

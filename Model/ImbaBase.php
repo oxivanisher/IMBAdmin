@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Constants.php';
-
 /**
  * Base class for all Models
  */
@@ -22,10 +20,11 @@ class ImbaBase {
     public function setId($id) {
         $this->Id = $id;
     }
-    
-    public function toString(){
-        return json_encode($this, JSON_FORCE_OBJECT);
+
+    public function toString() {
+        return json_encode($this);
     }
+
 }
 
 ?>

@@ -25,7 +25,7 @@ class ImbaManagerUser {
      * Inserts a user into the Database
      */
     public function insert(ImbaUser $user) {
-        $query = "INSERT INTO " . ImbaConfig::$DATABASE_TABLES_SYS_USER_PROFILES . " ";
+        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " ";
         $query .= "(openid, nickname, email, surname, forename, dob, mob, yob, sex, icq, msn, skype, usertitle, avatar, signature, website, motto, accurate, role) VALUES ";
         $query .= "('" . $user->getOpenId() . "', '" . $user->getNickname() . "', '" . $user->getEmail() . "', '" . $user->getLastname() . "', '" . $user->getFirstname() . "', '" . $user->getBirthday() . "', '" . $user->getBirthmonth() . "', '" . $user->getBirthyear() . "', '" . $user->getSex() . "', '" . $user->getIcq() . "', '" . $user->getMsn() . "', '" . $user->getSkype() . "', '" . $user->getUsertitle() . "', '" . $user->getAvatar() . "', '" . $user->getSignature() . "', '" . $user->getWebsite() . "', '" . $user->getMotto() . "', '" . $user->getAccurate() . "', '" . $user->getRole() . "')";
         $this->database->query($query);
@@ -35,7 +35,7 @@ class ImbaManagerUser {
      * Delets a user by Id
      */
     public function delete($openId) {
-        $query = "DELETE FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
+        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
         $this->database->query($query);
     }
 
@@ -43,7 +43,7 @@ class ImbaManagerUser {
      * Select one User by OpenId
      */
     public function selectByOpenId($openId) {
-        $query = "SELECT * FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
+        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
 
         $this->database->query($query);
         $result = $this->database->fetchRow();

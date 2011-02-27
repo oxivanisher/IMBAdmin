@@ -79,10 +79,9 @@ if ($_GET["logout"] == true) {
 ?>
 
 <br />
-<a href="http://turak/IMBAdmin/?openid=https://oom.ch/openid/identity/oxi">Cernu</a>
-<br />
-<a href="http://sampit-pc/IMBAdmin/?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a>
-<br />
+<a href="?openid=https://oom.ch/openid/identity/richart">richart</a><br />
+<a href="?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a><br />
+<a href="?openid=https://oom.ch/openid/identity/oxi">Cernu</a><br />
 
 <?php
 // generate runtime output

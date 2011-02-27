@@ -17,7 +17,7 @@ require_once "Controller/ImbaUserContext.php";
 require_once "Controller/ImbaManagerDatabase.php";
 require_once "Controller/ImbaManagerUser.php";
 require_once "Model/ImbaUser.php";
-require_once "Constants.php";
+require_once "ImbaConstants.php";
 
 /**
  * set the requested PAPE policies

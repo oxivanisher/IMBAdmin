@@ -1,7 +1,7 @@
 <?php
 
-require_once 'ImbaManagerDatabase.php';
-require_once '../Model/ImbaUserRole.php';
+require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Model/ImbaUserRole.php';
 
 /**
  *  Controller / Manager for Role

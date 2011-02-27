@@ -13,7 +13,7 @@ $output = "";
  * Databaseconnection test
  */
 try {
-    $managerDatabase = new ImbaManagerDatabase("localhost", "alptroeim", "root", "");
+    $managerDatabase = new ImbaManagerDatabase("localhost", "imbadmin", "imbadmin", "ua0Quee2");
     $output .= "Database working.\n";
 } catch (Exception $e) {
     $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";

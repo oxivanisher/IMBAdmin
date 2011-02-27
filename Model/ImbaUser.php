@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Constants.php';
+require_once 'ImbaConstants.php';
 require_once 'Model/ImbaBase.php';
 
 /**

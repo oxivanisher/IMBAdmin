@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Constants.php';
+require_once 'ImbaConstants.php';
 require_once 'Model/ImbaBase.php';
 
 /**
@@ -73,7 +73,7 @@ class ImbaUserRole extends ImbaBase {
      * Methods
      */
     public function loadById($imbaDatabaseManager, $id) {
-        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
+        $query = "SELECT * FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
         $imbaDatabaseManager->query($query);
         $result = $imbaDatabaseManager->fetchRow();
 

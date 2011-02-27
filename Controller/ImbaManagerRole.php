@@ -29,7 +29,7 @@ class ImbaManagerUserRole {
      * Inserts a user into the Database
      */
     public function insert(ImbaUserRole $user) {
-        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_PROFILES . " ";
+        $query = "INSERT INTO " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " ";
         $query .= "(handle, role, name, smf, wordpress, icon) VALUES ";
         $query .= "('" . $role->getHandle() . "', '" . $role->getRole() . "', '" . $role->getName() . "', '" . $role->getSmf() . "', '" . $role->getWordpress() . "', '" . $role->getIcon() . "')";
         $this->database->query($query);
@@ -40,7 +40,7 @@ class ImbaManagerUserRole {
      * Delets a Role by Id
      */
     public function delete($id) {        
-        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
+        $query = "DELETE FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
         $this->database->query($query);
     }
 
@@ -48,7 +48,7 @@ class ImbaManagerUserRole {
      * Select one Role by Id
      */
     public function selectById($id) {
-        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
+        $query = "SELECT * FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
 
         $this->database->query($query);
         $result = $this->database->fetchRow();

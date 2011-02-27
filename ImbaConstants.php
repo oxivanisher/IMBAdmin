@@ -3,7 +3,7 @@
 /**
  * Load the config
  */
-require_once 'Config.php';
+require_once 'ImbaConfig.php';
 
 /**
  * static class holding:

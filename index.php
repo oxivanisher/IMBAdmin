@@ -14,7 +14,7 @@ session_start();
 /**
  * Load dependencies
  */
-require_once "Constants.php";
+require_once "ImbaConstants.php";
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaUserContext.php';

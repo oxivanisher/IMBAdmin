@@ -60,6 +60,8 @@ class ImbaManagerMessage {
     }
 
     
+    // TODO: public function selectConversation($openid)
+    // TODO: public function markRead($id)
     
 }
 

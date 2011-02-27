@@ -19,9 +19,18 @@ $user = new ImbaUser();
 $user = $managerUser->selectByOpenId("https://oom.ch/openid/identity/test");
 
 if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
-    $output.= "selectByOpenId geht.\n";    
+    $output.= "selectByOpenId geht.\n";
 } else {
     $output.= "Fehler bei selectByOpenId.\n";
+}
+
+/**
+ * Check if json_encode is working in toString()
+ */
+if ($user->toString() != "{}") {
+    $output .= "toString geht. Json: " . $user->toString() . "\n";
+} else {
+    $output .= "Json geht nicht.\n";
 }
 
 /**

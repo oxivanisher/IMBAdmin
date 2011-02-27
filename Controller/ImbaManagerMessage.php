@@ -24,50 +24,39 @@ class ImbaManagerMessage {
      * Inserts a message into the Database
      */
     public function insert(ImbaMessage $message) {
-        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " ";
-        $query .= "(openid, nickname, email, surname, forename, dob, mob, yob, sex, icq, msn, skype, usertitle, avatar, signature, website, motto, accurate, role) VALUES ";
-        $query .= "('" . $user->getOpenId() . "', '" . $user->getNickname() . "', '" . $user->getEmail() . "', '" . $user->getLastname() . "', '" . $user->getFirstname() . "', '" . $user->getBirthday() . "', '" . $user->getBirthmonth() . "', '" . $user->getBirthyear() . "', '" . $user->getSex() . "', '" . $user->getIcq() . "', '" . $user->getMsn() . "', '" . $user->getSkype() . "', '" . $user->getUsertitle() . "', '" . $user->getAvatar() . "', '" . $user->getSignature() . "', '" . $user->getWebsite() . "', '" . $user->getMotto() . "', '" . $user->getAccurate() . "', '" . $user->getRole() . "')";
+        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " ";
+        $query .= "(sender, receiver, timestamp, subject, message, new, xmpp) VALUES ";
+        $query .= "('" . $message->getSender() . "', '" . $message->getReceiver() . "', '" . $message->getTimestamp() . "', '" . $message->getSubject() . "', '" . $message->getMessage() . "', '" . $message->getNew() . "', '" . $message->getXmpp() . "')";
         $this->database->query($query);
     }
 
     /**
-     * Delets a user by Id
+     * Delets a message by Id
      */
     public function delete($id) {
-        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
+        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " Where id = '" . $id . "';";
         $this->database->query($query);
     }
 
     /**
-     * Select one User by OpenId
+     * Select one message by id
      */
-    public function selectByOpenId($openId) {
-        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
+    public function selectById($id) {
+        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " Where id = '" . $id . "';";
 
         $this->database->query($query);
         $result = $this->database->fetchRow();
 
-        $user = new ImbaUser();
-        $user->setOpenId($openId);
-        $user->setNickname($result["nickname"]);
-        $user->setEmail($result["email"]);
-        $user->setFirstname($result["forename"]);
-        $user->setLastname($result["surname"]);
-        $user->setBirthday($result["dob"]);
-        $user->setBirthmonth($result["mob"]);
-        $user->setBirthyear($result["yob"]);
-        $user->setSex($result["sex"]);
-        $user->setIcq($result["icq"]);
-        $user->setMsn($result["msn"]);
-        $user->setSkype($result["skype"]);
-        $user->setUsertitle($result["usertitle"]);
-        $user->setAvatar($result["avatar"]);
-        $user->setSignature($result["signature"]);
-        $user->setWebsite($result["website"]);
-        $user->setMotto($result["motto"]);
-        $user->setAccurate($result["accurate"]);
-        $user->setRole($result["role"]);
-        return $user;
+        $message = new ImbaMessage();
+        $message->setOpenId($id);
+        $message->setSender($result["sender"]);
+        $message->setReceiver($result["receiver"]);
+        $message->setTimestamp($result["timestamp"]);
+        $message->setSubject($result["subject"]);
+        $message->setMessage($result["message"]);
+        $message->setNew($result["new"]);
+        $message->setXmpp($result["xmpp"]);
+        return $message;
     }
 
     

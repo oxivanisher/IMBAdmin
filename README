@@ -7,7 +7,6 @@
 ########### ###       ### #########  ###     ### #########  ###       ### ########### ###    #### 
 
 
-
 Trivia:
 =================
 The most imbarst website tool for WoW guilds.
@@ -18,6 +17,18 @@ More Information:
 =================
 Project Wiki: https://github.com/oxivanisher/IMBAdmin/wiki
 Github: https://github.com/oxivanisher/IMBAdmin
+
+
+
+ToDo:
+=================
+- Messaging Class
+- Chat Class?
+- WOW Module
+ - Armory XML
+
+
+
 
 
 Devs:

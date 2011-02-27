@@ -1,17 +1,15 @@
 <?php
+
+/**
+ * Load the config
+ */
+require_once 'Config.php';
+
 /**
  * static class holding:
  *  - Database
  */
-class ImbaConstants {
-
-	/**
- 	* Database
- 	*/
-	public static $DATABASE_HOST = 'localhost';
-	public static $DATABASE_USER = 'root';
-	public static $DATABASE_PASS = '';
-	public static $DATABASE_DB = 'alptroeim';
+class ImbaConstants extends Config {
 
         /**
          * Open ID

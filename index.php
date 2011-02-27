@@ -14,9 +14,7 @@ session_start();
 /**
  * Load dependencies
  */
-require_once 'Constants.php';
-if (file_exists("Constants.local.php"))
-    require_once "Constants.local.php";
+require_once "Constants.php";
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -38,7 +36,7 @@ $pape_policy_uris = array(
  * Prepare variables and objects
  */
 $managerOpenId = new ImbaManagerOpenID();
-$managerDatabase = new ImbaManagerDatabase(ImbaConstants::$DATABASE_HOST, ImbaConstants::$DATABASE_DB, ImbaConstants::$DATABASE_USER, ImbaConstants::$DATABASE_PASS);
+$managerDatabase = new ImbaManagerDatabase(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
 
 /**
  * OpenID auth logic

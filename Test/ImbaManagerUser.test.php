@@ -1,6 +1,6 @@
 <?php
 
-chdir ("../");
+chdir("../");
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaUser.php';
@@ -19,8 +19,7 @@ $user = new ImbaUser();
 $user = $managerUser->selectByOpenId("https://oom.ch/openid/identity/test");
 
 if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
-    $output.= "selectByOpenId geht.\n";
-	echo $user->toString();
+    $output.= "selectByOpenId geht.\n";    
 } else {
     $output.= "Fehler bei selectByOpenId.\n";
 }

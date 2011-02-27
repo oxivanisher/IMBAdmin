@@ -86,10 +86,6 @@ class ImbaUserRole extends ImbaBase {
         $this->setIcon($result["icon"]);
     }
 
-    public function toString() {
-        return json_encode($this);
-    }
-
 }
 
 ?>

@@ -186,11 +186,6 @@ class ImbaUser extends ImbaBase {
     public function setRole($role) {
         $this->role = $role;
     }
-
-    public function toString() {
-        return json_encode($this);
-    }
-
 }
 
 ?>

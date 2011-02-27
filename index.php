@@ -15,6 +15,8 @@ session_start();
  * Load dependencies
  */
 require_once 'Constants.php';
+if (file_exists("Constants.local.php"))
+    require_once "Constants.local.php";
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaUserContext.php';

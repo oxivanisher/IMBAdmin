@@ -56,7 +56,7 @@ class ImbaConstants {
 	public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
 	public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
 
-        
+
 }
 
 ?>

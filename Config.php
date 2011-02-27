@@ -10,7 +10,7 @@ class ImbaConfig {
      * Database
      */
     public static $DATABASE_HOST = 'localhost';
-    public static $DATABASE_USER = 'imadmin';
+    public static $DATABASE_USER = 'imbadmin';
     public static $DATABASE_PASS = 'ua0Quee2';
     public static $DATABASE_DB   = 'imbadmin';
 

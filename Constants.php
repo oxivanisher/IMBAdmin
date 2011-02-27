@@ -9,7 +9,7 @@ require_once 'Config.php';
  * static class holding:
  *  - Database
  */
-class ImbaConstants extends Config {
+class ImbaConstants extends ImbaConfig {
 
         /**
          * Open ID

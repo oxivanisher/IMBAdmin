@@ -27,9 +27,9 @@ require_once 'Model/ImbaUserRole.php';
  */
 global $pape_policy_uris;
 $pape_policy_uris = array(
-    PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
-    PAPE_AUTH_MULTI_FACTOR,
-    PAPE_AUTH_PHISHING_RESISTANT
+    //PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
+    //PAPE_AUTH_MULTI_FACTOR,
+    //PAPE_AUTH_PHISHING_RESISTANT
 );
 
 /**
@@ -74,7 +74,6 @@ if ($_GET["logout"] == true) {
     }
 } else {
     echo "logged in! :DD";
-    echo "<br /><a href='?logout=true'>Logout</a>";
 }
 ?>
 
@@ -82,7 +81,8 @@ if ($_GET["logout"] == true) {
 <a href="?openid=https://oom.ch/openid/identity/richart">richart</a><br />
 <a href="?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a><br />
 <a href="?openid=https://oom.ch/openid/identity/oxi">Cernu</a><br />
-
+<a href="?openid=http://openid-provider.appspot.com/m.remmos@googlemail.com">m0zi</a><br/>
+<br /><a href='?logout=true'>destroy session</a>
 <?php
 // generate runtime output
 $m_time = explode(" ", microtime());

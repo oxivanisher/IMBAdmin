@@ -8,7 +8,7 @@ require_once 'Model/ImbaUser.php';
 /**
  * Prepare Variables
  */
-$managerDatabase = new ImbaManagerDatabase("localhost", "alptroeim", "root", "");
+$managerDatabase = new ImbaManagerDatabase("localhost", "imbadmin", "imbadmin", "ua0Quee2");
 $managerUser = new ImbaManagerUser($managerDatabase);
 $output = "";
 
@@ -20,6 +20,7 @@ $user = $managerUser->selectByOpenId("https://oom.ch/openid/identity/test");
 
 if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
     $output.= "selectByOpenId geht.\n";
+	echo $user->toString();
 } else {
     $output.= "Fehler bei selectByOpenId.\n";
 }

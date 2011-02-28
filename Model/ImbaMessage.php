@@ -86,7 +86,7 @@ class ImbaMessageSimple {
     public $receiver = null;
     public $timestamp = null;
     public $subject = null;
-    protected $message = null;
+    public $message = null;
 
 }
 

@@ -5,7 +5,11 @@
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js"></script> 
         <script type="text/javascript">
+            // Single point of Ajax entry            
             ajaxEntry = "../ajax.php";
+            
+            // TODO: Mit AJAX offene Konversationen und Channel holen
+            // TODO: X zum Schliessen
             var Chats = new Array();
             Chats[-1] = new Object();
             Chats[-1]["name"] = "Aggravate";
@@ -23,7 +27,7 @@
             Chats[2]["name"] = "Mozi";
             Chats[2]["openid"] = "http://openid-provider.appspot.com/m.remmos@googlemail.com";
 
-            // jQuery Document
+            // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
                 // Load the Messages as Tabs
                 $msgTabs = $('#imbaMessages').tabs();
@@ -47,7 +51,7 @@
 
                 // Loading the Chattabs
                 for (var i = 0; i < Chats.length; i++) {
-                    $msgTabs.tabs("add", "#imbaMessagesTab_" + i, Chats[i]["name"]);
+                    $msgTabs.tabs("add", "#imbaMessagesTab_" + i, Chats[i]["name"]).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
                 }
                 
                 // user submits the textbox
@@ -57,10 +61,9 @@
                     var msgReciver = Chats[selectedTab]["openid"];
                     var msgText = $("#imbaMessageText").val();
                     
-                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, message: msgText, action:"messenger"},
-                    function(data) {
-                        if (data != "Message sent"){
-                            alert(data);
+                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, message: msgText, action:"messenger"}, function(response) {
+                        if (response != "Message sent"){
+                            alert(response);
                         }
                     });
 
@@ -108,7 +111,7 @@
                 height: 200px;
                 left: 10px;
                 bottom: 10px;
-                
+
                 z-index: 9999;
             }
 
@@ -136,8 +139,10 @@
         <div id="imbaMessages">
             <ul></ul>
             <div id="imbaMessageTextDiv">
-                <input id="imbaMessageText" type="text"/>
-                <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
+                <form>
+                    <input id="imbaMessageText" type="text" />
+                    <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
+                </form>
             </div>
         </div>
     </body>

@@ -39,20 +39,24 @@ if (isset($_POST['sender']) && isset($_POST['reciever']) && isset($_POST['messag
  * Recieve Messages
  */
 if (isset($_POST['loadMessages']) && isset($_POST['sender']) && isset($_POST['reciever'])) {
-    $managerDatabase = new ImbaManagerDatabase(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-    $managerMessage = new ImbaManagerMessage($managerDatabase);
-    $conversation = $managerMessage->selectConversation($_POST['sender'], $_POST['reciever']);
+    try {
+        $managerDatabase = new ImbaManagerDatabase(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+        $managerMessage = new ImbaManagerMessage($managerDatabase);
+        $conversation = $managerMessage->selectConversation($_POST['sender'], $_POST['reciever']);
 
-    $resultHTML = "<div id='imbaChatConversation'>";
-    foreach ($conversation as $message) {
-        if ($message->getSender() == $_POST['sender']) {
-            $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
-        } else {
-            $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
+        $resultHTML = "<div id='imbaChatConversation'>";
+        foreach ($conversation as $message) {
+            if ($message->getSender() == $_POST['sender']) {
+                $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
+            } else {
+                $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
+            }
         }
-    }
-    $resultHTML .= "</div>";
+        $resultHTML .= "</div>";
 
-    echo $resultHTML;
+        echo $resultHTML;
+    } catch (Exception $ex) {
+        echo "Error: " . $ex->getMessage();
+    }
 }
 ?>

@@ -77,17 +77,4 @@ class ImbaMessage extends ImbaBase {
 
 }
 
-/**
- * Simple Message w/o function only for transmission
- */
-class ImbaMessageSimple {
-
-    public $sender = null;
-    public $receiver = null;
-    public $timestamp = null;
-    public $subject = null;
-    public $message = null;
-
-}
-
 ?>

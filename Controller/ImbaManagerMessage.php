@@ -58,7 +58,10 @@ class ImbaManagerMessage {
      */
     public function delete($id) {
         $query = "DELETE FROM  %s Where id = '%s';";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $id));
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $id
+        ));
     }
 
     /**
@@ -67,7 +70,10 @@ class ImbaManagerMessage {
     public function selectById($id) {
         $query = "SELECT * FROM  %s Where id = '%s';";
 
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $id));
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $id
+        ));
         $result = $this->database->fetchRow();
 
         $message = new ImbaMessage();

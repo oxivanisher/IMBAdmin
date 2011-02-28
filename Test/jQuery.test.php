@@ -5,6 +5,7 @@
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js"></script> 
         <script type="text/javascript">
+            ajaxEntry = "../ajax.php";
             var Chats = new Array();
             Chats[-1] = new Object();
             Chats[-1]["name"] = "Aggravate";
@@ -31,7 +32,7 @@
                     var selectedTab =  ui.index;
                     var msgSender = Chats[-1]["openid"];
                     var msgReciver = Chats[selectedTab]["openid"];
-                    $.post("../Ajax/Messenger.php", {sender: msgSender, reciever: msgReciver, loadMessages: "true"}, function(response) {
+                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                         // Showing the content
                         $("#imbaMessagesTab_" + ui.index).html(response);
                     });
@@ -40,7 +41,7 @@
                 // Load First Tab
                 var msgSender = Chats[-1]["openid"];
                 var msgReciver = Chats[0]["openid"];
-                $.post("../Ajax/Messenger.php", {sender: msgSender, reciever: msgReciver, loadMessages: "true"}, function(response) {
+                $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                     $("#imbaMessagesTab_" + 0).html(response);
                 });
 
@@ -56,14 +57,14 @@
                     var msgReciver = Chats[selectedTab]["openid"];
                     var msgText = $("#imbaMessageText").val();
                     
-                    $.post("../Ajax/Messenger.php", {sender: msgSender, reciever: msgReciver, message: msgText},
+                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, message: msgText, action:"messenger"},
                     function(data) {
                         if (data != "Message sent"){
                             alert(data);
                         }
                     });
 
-                    $.post("../Ajax/Messenger.php", {sender: msgSender, reciever: msgReciver, loadMessages: "true"}, function(response) {
+                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                         // Showing the content
                         $("#imbaMessagesTab_" + selectedTab).html(response);
                     });

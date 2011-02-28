@@ -4,12 +4,12 @@
 session_start();
 
 $tmpPath = getcwd();
-chdir("../");
+//chdir("../");
 require_once 'Model/ImbaMessage.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
-chdir($tmpPath);
+//chdir($tmpPath);
 
 /**
  * Send a Message

@@ -43,11 +43,16 @@ if (isset($_POST['loadMessages']) && isset($_POST['sender']) && isset($_POST['re
     $managerMessage = new ImbaManagerMessage($managerDatabase);
     $conversation = $managerMessage->selectConversation($_POST['sender'], $_POST['reciever']);
 
-    $resultHTML = "";
+    $resultHTML = "<div id='imbaChatConversation'>";
     foreach ($conversation as $message) {
-        $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " " . $message->getSender() . ":" . $message->getMessage() . "</div>\n";
+        if ($message->getSender() == $_POST['sender']) {
+            $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
+        } else {
+            $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
+        }
     }
+    $resultHTML .= "</div>";
 
-    return $resultHTML;
+    echo $resultHTML;
 }
 ?>

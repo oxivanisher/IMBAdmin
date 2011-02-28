@@ -15,8 +15,12 @@
             Chats[0]["openid"] = "https://oom.ch/openid/identity/richart";
 
             Chats[1] = new Object();
-            Chats[1]["name"] = "Esci";
-            Chats[1]["openid"] = "https://oom.ch/openid/identity/escii";
+            Chats[1]["name"] = "Cernu";
+            Chats[1]["openid"] = "https://oom.ch/openid/identity/oxi";
+
+            Chats[2] = new Object();
+            Chats[2]["name"] = "Mozi";
+            Chats[2]["openid"] = "http://openid-provider.appspot.com/m.remmos@googlemail.com";
 
             // jQuery Document
             $(document).ready(function(){

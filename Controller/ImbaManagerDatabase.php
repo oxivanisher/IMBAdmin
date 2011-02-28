@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Controller / Manager Database
  * Handling:
@@ -27,9 +26,13 @@ class ImbaManagerDatabase {
             mysql_close($this->connection);
     }
 
-    public function query($query) {
+    public function query($queryStr, array $args = array()) {
+        foreach ($args as $key => $value) {
+            $args[$key] = mysql_real_escape_string($value);
+        }
+        $query = vsprintf($queryStr, $args);        
         $this->result = mysql_query($query, $this->connection);
-
+        
         if (!$this->result) {
             throw new Exception("Database Query not working!");
         }

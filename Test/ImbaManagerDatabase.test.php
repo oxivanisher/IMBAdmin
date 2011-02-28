@@ -23,7 +23,7 @@ try {
  * Database Fetch testen
  */
 try {
-    $managerDatabase->query("SELECT * FROM `oom_openid_settings` Where name = 'realm'");
+    $managerDatabase->query("SELECT * FROM `oom_openid_settings` Where name = '%s'", array("realm"));    
     $result = $managerDatabase->fetchRow();
     if ($result["value"] == "Krag'jin") {
         $output .= "Query working.\n";

@@ -8,6 +8,7 @@ require_once 'Model/ImbaMessage.php';
  *
  */
 class ImbaManagerMessage {
+
     /**
      * ImbaManagerDatabase
      */
@@ -24,7 +25,7 @@ class ImbaManagerMessage {
      * Inserts a message into the Database
      */
     public function insert(ImbaMessage $message) {
-        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " ";
+        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " ";
         $query .= "(sender, receiver, timestamp, subject, message, new, xmpp) VALUES ";
         $query .= "('" . $message->getSender() . "', '" . $message->getReceiver() . "', '" . $message->getTimestamp() . "', '" . $message->getSubject() . "', '" . $message->getMessage() . "', '" . $message->getNew() . "', '" . $message->getXmpp() . "')";
         $this->database->query($query);
@@ -34,7 +35,7 @@ class ImbaManagerMessage {
      * Delets a message by Id
      */
     public function delete($id) {
-        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " Where id = '" . $id . "';";
+        $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " Where id = '" . $id . "';";
         $this->database->query($query);
     }
 
@@ -42,7 +43,7 @@ class ImbaManagerMessage {
      * Select one message by id
      */
     public function selectById($id) {
-        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES . " Where id = '" . $id . "';";
+        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " Where id = '" . $id . "';";
 
         $this->database->query($query);
         $result = $this->database->fetchRow();
@@ -59,10 +60,29 @@ class ImbaManagerMessage {
         return $message;
     }
 
-    
+    public function selectConversation($openidMe, $openidOpponent) {
+        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " Where (sender = '$openidMe' and receiver = '$openidOpponent') or (sender = '$openidOpponent' and receiver = '$openidMe') order by timestamp;";
+        $this->database->query($query);
+
+        $result = new ArrayObject();
+        while ($row = $this->database->fetchRow()) {
+            $message = new ImbaMessage();
+            $message->setId($row["id"]);
+            $message->setSender($row["sender"]);
+            $message->setReceiver($row["receiver"]);
+            $message->setTimestamp($row["timestamp"]);
+            $message->setSubject($row["subject"]);
+            $message->setMessage($row["message"]);
+            $message->setNew($row["new"]);
+            $message->setXmpp($row["xmpp"]);
+            $result->append($message);
+        }
+
+        return $result;
+    }
+
     // TODO: public function selectConversation($openid)
     // TODO: public function markRead($id)
-    
 }
 
 ?>

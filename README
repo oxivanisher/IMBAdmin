@@ -25,7 +25,7 @@ Oxis Brainstorm:
 - AJAX EventManager Class
  - Messages
  - ImbaGame requests
- - Events
+ - Events (e.g. New Members, Applicants)
 - ImbaEvents class
  - meetings
  - ingame events

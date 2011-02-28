@@ -7,6 +7,7 @@ require_once 'Model/ImbaBase.php';
  *
  */
 class ImbaMessage extends ImbaBase {
+
     /**
      * Fields
      */
@@ -74,6 +75,18 @@ class ImbaMessage extends ImbaBase {
         $this->xmpp = $xmpp;
     }
 
+}
+
+/**
+ * Simple Message w/o function only for transmission
+ */
+class ImbaMessageSimple {
+
+    public $sender = null;
+    public $receiver = null;
+    public $timestamp = null;
+    public $subject = null;
+    public $message = null;
 
 }
 

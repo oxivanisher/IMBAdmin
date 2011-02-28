@@ -25,6 +25,17 @@ class ImbaManagerMessage {
      * Inserts a message into the Database
      */
     public function insert(ImbaMessage $message) {
+        if ($message->getMessage() == null || $message->getMessage() == "") {
+            throw new Exception("No Message!");
+        }
+        if ($message->getSender() == null || $message->getSender() == "") {
+            throw new Exception("No Sender!");
+        }
+
+        if ($message->getReceiver() == null || $message->getReceiver() == "") {
+            throw new Exception("No Reciever!");
+        } 
+
         $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " ";
         $query .= "(sender, receiver, timestamp, subject, message, new, xmpp) VALUES ";
         $query .= "('" . $message->getSender() . "', '" . $message->getReceiver() . "', '" . $message->getTimestamp() . "', '" . $message->getSubject() . "', '" . $message->getMessage() . "', '" . $message->getNew() . "', '" . $message->getXmpp() . "')";
@@ -61,7 +72,7 @@ class ImbaManagerMessage {
     }
 
     public function selectConversation($openidMe, $openidOpponent) {
-        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " Where (sender = '$openidMe' and receiver = '$openidOpponent') or (sender = '$openidOpponent' and receiver = '$openidMe') order by timestamp;";
+        $query = "SELECT * FROM  " . ImbaConstants::$DATABASE_TABLES_USR_MESSAGES . " Where (sender = '$openidMe' and receiver = '$openidOpponent') or (sender = '$openidOpponent' and receiver = '$openidMe') order by timestamp DESC;";
         $this->database->query($query);
 
         $result = new ArrayObject();

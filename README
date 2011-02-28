@@ -20,27 +20,36 @@ Github: https://github.com/oxivanisher/IMBAdmin
 
 
 
-Notes:
+Oxis Brainstorm:
 =================
-- EventManager Class
+- AJAX EventManager Class
  - Messages
- - Game requests
+ - ImbaGame requests
  - Events
-- Event class
+- ImbaEvents class
  - meetings
  - ingame events
-- Chat Class?
-- Social/Friends module
+- ImbaChat Class?
+ - Rooms
+ - ImbaMultigaming Rooms autojoin
+ - Role room autojoin
+- ImbaFriends/Social class 
  - Who is Online/Offline
+ - Status (Online, afk, remote, offline)
+ - Status Message
+ - User Grouping
  - Ignore
- - Show as Offline (host based saved. (cookies))
+ - Show as Offline (host based saved? (cookie))
  - Fun Games support
   - 4 gewinnt z.b.
-  - round based (eg via messaging, schiffeversenken, schach, poker)
-- WOW Module
+  - round based (eg via messaging, schiffe versenken, chess, poker)
+- ImbaMultigaming WOW Module
  - Armory XML
-- EVE Module
- - Ingame Browser Tools
+- ImbaMultigaming EVE Module
+ - Ingame Browser (IGB) Tools
+ - IGB Chat view
+ - IGB Messages view
+ -> is IGB a own view?
 
 
 

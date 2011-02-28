@@ -20,14 +20,27 @@ Github: https://github.com/oxivanisher/IMBAdmin
 
 
 
-ToDo:
+Notes:
 =================
-- Messaging Class
+- EventManager Class
+ - Messages
+ - Game requests
+ - Events
+- Event class
+ - meetings
+ - ingame events
 - Chat Class?
 - Social/Friends module
+ - Who is Online/Offline
+ - Ignore
+ - Show as Offline (host based saved. (cookies))
+ - Fun Games support
+  - 4 gewinnt z.b.
+  - round based (eg via messaging, schiffeversenken, schach, poker)
 - WOW Module
  - Armory XML
-
+- EVE Module
+ - Ingame Browser Tools
 
 
 

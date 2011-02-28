@@ -8,7 +8,7 @@ require_once 'Model/ImbaUser.php';
 /**
  * Prepare Variables
  */
-$managerDatabase = new ImbaManagerDatabase("localhost", "imbadmin", "imbadmin", "ua0Quee2");
+$managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
 $managerUser = new ImbaManagerUser($managerDatabase);
 $output = "";
 

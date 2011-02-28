@@ -10,15 +10,33 @@
 class ImbaManagerDatabase {
 
     private $connection = NULL;
+    /**
+     * Recent response from sql server.
+     */
     private $result = NULL;
+    /**
+     * Number of rows afflicted by the recent successful query send.
+     */
     private $counter = NULL;
+    /**
+     * Singleton implementation.
+     * 
+     * @var type singleton object.
+     */
+    private static $instance = NULL;
 
-    public function __construct($host, $database, $user, $pass) {
+    private function __construct($host, $database, $user, $pass) {
         $this->connection = mysql_pconnect($host, $user, $pass, TRUE);
 
         if (!mysql_select_db($database, $this->connection)) {
             throw new Exception("Database Connection not working!");
         }
+    }
+
+    public static function getInstance($host, $database, $user, $pass) {
+        if (self::$instance === NULL)
+            self::$instance = new self($host, $database, $user, $pass);
+        return self::$instance;
     }
 
     public function disconnect() {
@@ -30,16 +48,16 @@ class ImbaManagerDatabase {
         foreach ($args as $key => $value) {
             $args[$key] = mysql_real_escape_string($value);
         }
-        $query = vsprintf($queryStr, $args);        
+        $query = vsprintf($queryStr, $args);
         $this->result = mysql_query($query, $this->connection);
-        
+
         if (!$this->result) {
             throw new Exception("Database Query not working!");
         }
 
         $this->counter = NULL;
     }
-
+    
     public function fetchRow() {
         return mysql_fetch_assoc($this->result);
     }

@@ -25,7 +25,7 @@ if (isset($_POST['sender']) && isset($_POST['reciever']) && isset($_POST['messag
     $message->setSubject("Was soll hier rein?");
 
     try {
-        $managerDatabase = new ImbaManagerDatabase(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
         $managerMessage = new ImbaManagerMessage($managerDatabase);
         $managerMessage->insert($message);
 
@@ -40,7 +40,7 @@ if (isset($_POST['sender']) && isset($_POST['reciever']) && isset($_POST['messag
  */
 if (isset($_POST['loadMessages']) && isset($_POST['sender']) && isset($_POST['reciever'])) {
     try {
-        $managerDatabase = new ImbaManagerDatabase(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
         $managerMessage = new ImbaManagerMessage($managerDatabase);
         $conversation = $managerMessage->selectConversation($_POST['sender'], $_POST['reciever']);
 

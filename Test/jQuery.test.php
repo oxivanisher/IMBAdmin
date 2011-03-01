@@ -24,7 +24,6 @@
                 }
             }    
     
-
             // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
                 
@@ -162,6 +161,9 @@
                 margin-top: 5px;
                 margin-left: 10px;
                 width: 320px;
+                background-color: #222222;
+                border: 1px solid #999999;
+                color: #FFFFFF;
             }
 
             #imbaChatConversation{

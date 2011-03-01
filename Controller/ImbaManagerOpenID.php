@@ -214,9 +214,10 @@ class ImbaManagerOpenID {
 
             $bFoundRole = false;
 
-            if ($currentUser->getRole() != null)
+            if ($currentUser->getRole() != null) {
                 ImbaUserContext::setLoggedIn(true);
-            else {
+                ImbaUserContext::setOpenIdUrl($openid);
+            } else {
                 throw new Exception("Registrierung noch nicht implementiert");
                 // TODO: Registriereung wieder einbauen
                 /*

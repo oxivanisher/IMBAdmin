@@ -19,7 +19,7 @@ do
 	echo -e "###############################################################################"
 	echo -e "   git Commit  |  eXit  |  git Reset  |  git Status  |  Update (pull && push)  "
 	echo -e "###############################################################################"
-	read -n 1 -p "[c|x|r|s|u]:" input
+	read -n 1 -p "Your input [c|x|r|s|u]:" input
         case "$input" in
         c|commit)
             run=true

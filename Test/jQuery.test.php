@@ -8,36 +8,39 @@
             // Single point of Ajax entry            
             ajaxEntry = "../ajax.php";
             
-            // TODO: Mit AJAX offene Konversationen und Channel holen
             // TODO: X zum Schliessen
             // TODO: Interval mit Chat2 Nachladen (gucken wo New = 1)
-            var Chats = new Array();
-            Chats[-1] = new Object();
-            Chats[-1]["name"] = "Aggravate";
-            Chats[-1]["openid"] = "http://openid-provider.appspot.com/Steffen.So@googlemail.com";
-
-            Chats[0] = new Object();
-            Chats[0]["name"] = "Richart";
-            Chats[0]["openid"] = "https://oom.ch/openid/identity/richart";
-
-            Chats[1] = new Object();
-            Chats[1]["name"] = "Cernu";
-            Chats[1]["openid"] = "https://oom.ch/openid/identity/oxi";
-
-            Chats[2] = new Object();
-            Chats[2]["name"] = "Mozi";
-            Chats[2]["openid"] = "http://openid-provider.appspot.com/m.remmos@googlemail.com";
-
+            
             // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
+                var Chats = new Array();
+                
                 // Load the Tabs an inits the Variable for them
                 $msgTabs = $('#imbaMessages').tabs();
-                
-                // Loading the Chattabs
-                for (var i = 0; i < Chats.length; i++) {
-                    $msgTabs.tabs("add", "#imbaMessagesTab_" + i, Chats[i]["name"]).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
-                }
 
+                // Load latest Conversation
+                $.post(ajaxEntry, {chatinit: "true", action:"messenger"}, function(response) {
+                    // Showing the content                    
+                    var jsonResponse = $.each($.parseJSON(response), function(key, val) {
+                        // Loading the Chattabs
+                        var name = val.name;
+                        var openid = val.openid;
+                        $msgTabs.tabs("add", "#imbaMessagesTab_" + key, name).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+
+                        // Chats speichern
+                        Chats[key] = new Object();
+                        Chats[key]["name"] = name;
+                        Chats[key]["openid"] = openid;
+
+                        if (key == 0){
+                            // Load First Tab                            
+                            $.post(ajaxEntry, {reciever: openid, loadMessages: "true", action:"messenger"}, function(response) {
+                                $("#imbaMessagesTab_" + 0).html(response);
+                            });
+                        }
+                    });
+                });
+                
                 // Tab selected change Event (Reload content of that chat window
                 $msgTabs.bind("tabsselect", function(event, ui) {
                     var selectedTab =  ui.index;
@@ -46,12 +49,6 @@
                         // Showing the content
                         $("#imbaMessagesTab_" + ui.index).html(response);
                     });
-                });
-
-                // Load First Tab
-                var msgReciver = Chats[0]["openid"];
-                $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
-                    $("#imbaMessagesTab_" + 0).html(response);
                 });
                 
                 // User submits the textbox
@@ -73,6 +70,16 @@
 
                     $("#imbaMessageText").attr("value", "");
                     return false;
+                });
+
+                // Setting a Template for the tabs, making them closeable
+                $msgTabs.tabs({ tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>"});
+
+                // close icon: removing the tab on click
+                // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
+                $( "#imbaMessages span.ui-icon-close" ).live( "click", function() {
+                    var index = $( "li", $msgTabs ).index( $( this ).parent() );
+                    $msgTabs.tabs( "remove", index );
                 });
             });
 
@@ -130,6 +137,8 @@
 
                 z-index: 9999;
             }
+
+            #imbaMessages li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
 
             #imbaMessageText {
                 margin-top: 5px;

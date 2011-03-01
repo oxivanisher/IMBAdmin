@@ -3,60 +3,76 @@
 // Extern Session start
 session_start();
 
-$tmpPath = getcwd();
-//chdir("../");
 require_once 'Model/ImbaMessage.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
-//chdir($tmpPath);
+require_once 'Controller/ImbaUserContext.php';
 
-/**
- * Send a Message
- */
-if (isset($_POST['sender']) && isset($_POST['reciever']) && isset($_POST['message'])) {
-    $message = new ImbaMessage();
-    $message->setSender($_POST['sender']);
-    $message->setReceiver($_POST['reciever']);
-    $message->setMessage($_POST['message']);
-    $message->setTimestamp(Date("U"));
-    $message->setXmpp(0);
-    $message->setNew(1);
-    $message->setSubject("Was soll hier rein?");
-
-    try {
-        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-        $managerMessage = new ImbaManagerMessage($managerDatabase);
-        $managerMessage->insert($message);
-
-        echo "Message sent";
-    } catch (Exception $ex) {
-        echo "Error: " . $ex->getMessage();
+// TODO: DEBUG ONLY!!!!!!
+//if (ImbaUserContext::getLoggedIn()) {
+ImbaUserContext::setLoggedIn(true);
+ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+if (true) {
+    /**
+     * Recieve Statup Data
+     *  - Who am I
+     *  - Who was I am talking to
+     * @returns JSON array
+     */
+    if (isset($_POST['chatinit'])) {
+        echo "chatinit";
     }
-}
 
-/**
- * Recieve Messages
- */
-if (isset($_POST['loadMessages']) && isset($_POST['sender']) && isset($_POST['reciever'])) {
-    try {
-        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-        $managerMessage = new ImbaManagerMessage($managerDatabase);
-        $conversation = $managerMessage->selectConversation($_POST['sender'], $_POST['reciever']);
+    /**
+     * Send a Message
+     */
+    if (isset($_POST['message']) && isset($_POST['reciever'])) {
+        $message = new ImbaMessage();
+        $message->setSender(ImbaUserContext::getOpenIdUrl());
+        $message->setReceiver($_POST['reciever']);
+        $message->setMessage($_POST['message']);
+        $message->setTimestamp(Date("U"));
+        $message->setXmpp(0);
+        $message->setNew(1);
+        $message->setSubject("Was soll hier rein?");
 
-        $resultHTML = "<div id='imbaChatConversation'>";
-        foreach ($conversation as $message) {
-            if ($message->getSender() == $_POST['sender']) {
-                $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
-            } else {
-                $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
-            }
+        try {
+            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+            $managerMessage = new ImbaManagerMessage($managerDatabase);
+            $managerMessage->insert($message);
+
+            echo "Message sent";
+        } catch (Exception $ex) {
+            echo "Error: " . $ex->getMessage();
         }
-        $resultHTML .= "</div>";
-
-        echo $resultHTML;
-    } catch (Exception $ex) {
-        echo "Error: " . $ex->getMessage();
     }
+
+    /**
+     * Recieve Messages
+     */
+    if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
+        try {
+            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+            $managerMessage = new ImbaManagerMessage($managerDatabase);
+            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
+
+            $resultHTML = "<div id='imbaChatConversation'>";
+            foreach ($conversation as $message) {
+                if ($message->getSender() == ImbaUserContext::getOpenIdUrl()) {
+                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
+                } else {
+                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
+                }
+            }
+            $resultHTML .= "</div>";
+
+            echo $resultHTML;
+        } catch (Exception $ex) {
+            echo "Error: " . $ex->getMessage();
+        }
+    }
+} else {
+    echo "Not logged in!";
 }
 ?>

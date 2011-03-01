@@ -8,9 +8,21 @@
             // Single point of Ajax entry            
             ajaxEntry = "../ajax.php";
             
+            var currentTabIndex = -1;
+            
             // TODO: X zum Schliessen
             // TODO: Interval mit Chat2 Nachladen (gucken wo New = 1)
-            
+            var interval = setInterval('refreshChat()', 1000);
+            function refreshChat(){
+                //$('#test').html(currentTabIndex);
+                $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
+                    // Showing the content
+                    $("#imbaMessagesTab_" + currentTabIndex).html(response);
+                });
+            }
+    
+    
+
             // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
                 var Chats = new Array();
@@ -36,6 +48,7 @@
                             // Load First Tab                            
                             $.post(ajaxEntry, {reciever: openid, loadMessages: "true", action:"messenger"}, function(response) {
                                 $("#imbaMessagesTab_" + 0).html(response);
+                                currentTabIndex = 0;
                             });
                         }
                     });
@@ -48,6 +61,7 @@
                     $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                         // Showing the content
                         $("#imbaMessagesTab_" + ui.index).html(response);
+                        currentTabIndex = ui.index;
                     });
                 });
                 
@@ -81,6 +95,9 @@
                     var index = $( "li", $msgTabs ).index( $( this ).parent() );
                     $msgTabs.tabs( "remove", index );
                 });
+                
+                
+                
             });
 
         </script>
@@ -154,6 +171,7 @@
     </head>
     <body>
 
+        <div id="test"></div>
 
         <div class="imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all"></div>
         <div id="imbaSsoLogin">

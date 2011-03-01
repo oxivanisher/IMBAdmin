@@ -1,7 +1,9 @@
 <?php
 
 require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Controller/ImbaManagerUser.php';
 require_once 'Model/ImbaMessage.php';
+require_once 'Model/ImbaUser.php';
 
 /**
  * Description of ImbaManagerMessage
@@ -122,14 +124,39 @@ class ImbaManagerMessage {
      * Selects the last Conversations of an User with OpenId
      */
     public function seletLastConversation($openid) {
-        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC;";
-        $this->database->query($query, array(
+        $databaseresult = array();
+
+        $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $this->database->query($query1, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openidMe,
-            $openidOpponent,
-            $openidOpponent,
-            $openidMe
+            $openid
         ));
+
+        while ($row = $this->database->fetchRow()) {
+            array_push($databaseresult, $row["opponent"]);
+        }
+
+        $query2 = "SELECT DISTINCT sender   as opponent FROM %s Where `receiver` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $this->database->query($query2, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openid
+        ));
+
+        while ($row = $this->database->fetchRow()) {
+            array_push($databaseresult, $row["opponent"]);
+        }
+
+        $databaseresult = array_unique($databaseresult);
+
+        $result = array();
+        $managerUser = new ImbaManagerUser($this->database);
+        foreach ($databaseresult as $value) {
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId($value);
+            array_push($result, array("name" => $user->getNickname(), "openid" => $value));
+        }
+
+        return json_encode($result);
     }
 
     // TODO: public function selectConversation($openid)

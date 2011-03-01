@@ -61,6 +61,7 @@ openauth pdf doc http://tools.ietf.org/pdf/draft-ietf-oauth-v2-12.pdf
 Gravatar Links:
 =================
 http://en.gravatar.com/site/implement/images/
+(how wo calc email hash: echo md5( strtolower( trim( "MyEmailAddress@example.com " ) ) ); )
 http://excid3.com/blog/2010/10/using-gravatar-on-your-site/
 
 

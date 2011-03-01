@@ -26,7 +26,6 @@ do
             run git commit -a
             ;;
         x|exit)
-            echo "Exiting"
             exit 0
             ;;
         r|reset)

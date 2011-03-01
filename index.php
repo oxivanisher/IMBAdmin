@@ -1,4 +1,3 @@
-
 <?php
 /**
  * get start time of script

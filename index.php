@@ -1,3 +1,4 @@
+
 <?php
 /**
  * get start time of script
@@ -78,11 +79,20 @@ if ($_GET["logout"] == true) {
 ?>
 
 <br />
+
 <a href="?openid=https://oom.ch/openid/identity/richart">richart</a><br />
 <a href="?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a><br />
 <a href="?openid=https://oom.ch/openid/identity/oxi">Cernu</a><br />
 <a href="?openid=http://openid-provider.appspot.com/m.remmos@googlemail.com">m0zi</a><br/>
-<br /><a href='?logout=true'>destroy session</a>
+
+<hr />
+
+<a href='?logout=true'>destroy session</a>
+
+<hr />
+
+<a href='Test/jQuery.test.php'>jQuery Test</a> (after login)
+
 <?php
 // generate runtime output
 $m_time = explode(" ", microtime());

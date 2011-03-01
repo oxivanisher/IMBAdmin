@@ -1,6 +1,7 @@
  #!/bin/bash
 
 name=$(basename $0)
+#md5="$(md5 -q $0)"
 
 function run {
         echo -e "\n"
@@ -26,7 +27,7 @@ do
             run git commit -a
             ;;
         x|exit)
-            exit 0
+            exit 1
             ;;
         r|reset)
             run=true
@@ -37,11 +38,17 @@ do
             run git status
             ;;
         u|update|*)
-            run=true
-            run git pull
+						run=true
+						run git pull
             run git push
+#						if [ "$md5" != "$(md5 -p $0)" ];
+#						then
+#							echo -e "\n\nRestarting myself because i am old and long gone..."
+#						else
+#	            run=true
+#						fi
             ;;
         esac
 	sleep 1
-
 done
+echo -e "\n"

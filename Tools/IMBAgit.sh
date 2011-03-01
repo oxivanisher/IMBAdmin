@@ -5,7 +5,7 @@ name=$(basename $0)
 function run {
         echo -e "\n"
 	echo -e "###############################################################################"
-	echo -e "# $name:\t${@}"
+	echo -e "   $name:\t${@}"
 	echo -e "###############################################################################"
 	${@}
         echo -e "\n\n"
@@ -17,7 +17,7 @@ do
 	run=false
 
 	echo -e "###############################################################################"
-	echo -e "#  git Commit  |  eXit  |  git Reset  |  git Status  |  Update (pull && push) #"
+	echo -e "   git Commit  |  eXit  |  git Reset  |  git Status  |  Update (pull && push)  "
 	echo -e "###############################################################################"
 	read -n 1 -p "[c|x|r|s|u]:" input
         case "$input" in

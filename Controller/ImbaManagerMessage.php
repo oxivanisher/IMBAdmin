@@ -1,80 +1,166 @@
 <?php
 
-// Extern Session start
-// session_start();
-
-require_once 'Model/ImbaMessage.php';
-require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
-require_once 'Controller/ImbaUserContext.php';
+require_once 'Controller/ImbaManagerUser.php';
+require_once 'Model/ImbaMessage.php';
+require_once 'Model/ImbaUser.php';
 
-//DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
+/**
+ * Description of ImbaManagerMessage
+ *
+ */
+class ImbaManagerMessage {
 
-if (ImbaUserContext::getLoggedIn()) {
     /**
-     * Recieve Statup Data
-     *  - Who was I am talking to
-     * @returns JSON array
+     * ImbaManagerDatabase
      */
-    if (isset($_POST['chatinit'])) {
-        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-        $managerMessage = new ImbaManagerMessage($managerDatabase);
-        echo $managerMessage->seletLastConversation(ImbaUserContext::getOpenIdUrl());
+    protected $database = null;
+
+    /**
+     * Ctor
+     */
+    public function __construct(ImbaManagerDatabase $database) {
+        $this->database = $database;
     }
 
     /**
-     * Send a Message
+     * Tries to send an insert command to the database.
+     * Inserts a message into the Database if successfully.
      */
-    if (isset($_POST['message']) && isset($_POST['reciever'])) {
+    public function insert(ImbaMessage $message) {
+        if ($message->getMessage() == null || $message->getMessage() == "") {
+            throw new Exception("No Message!");
+        }
+        if ($message->getSender() == null || $message->getSender() == "") {
+            throw new Exception("No Sender!");
+        }
+
+        if ($message->getReceiver() == null || $message->getReceiver() == "") {
+            throw new Exception("No Reciever!");
+        }
+
+        $query = "INSERT INTO %s ";
+        $query .= "(sender, receiver, timestamp, subject, message, new, xmpp) VALUES ";
+        $query .= "('%s', '%s', '%s', '%s', '%s', '%s','%s')";
+
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $message->getSender(),
+            $message->getReceiver(),
+            $message->getTimestamp(),
+            $message->getSubject(),
+            $message->getMessage(),
+            $message->getNew(),
+            $message->getXmpp()
+        ));
+    }
+
+    /**
+     * Delets a message by Id
+     */
+    public function delete($id) {
+        $query = "DELETE FROM  %s Where id = '%s';";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $id
+        ));
+    }
+
+    /**
+     * Select one message by id
+     */
+    public function selectById($id) {
+        $query = "SELECT * FROM  %s Where id = '%s';";
+
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $id
+        ));
+        $result = $this->database->fetchRow();
+
         $message = new ImbaMessage();
-        $message->setSender(ImbaUserContext::getOpenIdUrl());
-        $message->setReceiver($_POST['reciever']);
-        $message->setMessage($_POST['message']);
-        $message->setTimestamp(Date("U"));
-        $message->setXmpp(0);
-        $message->setNew(1);
-        $message->setSubject("Was soll hier rein?");
-
-        try {
-            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-            $managerMessage = new ImbaManagerMessage($managerDatabase);
-            $managerMessage->insert($message);
-
-            echo "Message sent";
-        } catch (Exception $ex) {
-            echo "Error: " . $ex->getMessage();
-        }
+        $message->setOpenId($id);
+        $message->setSender($result["sender"]);
+        $message->setReceiver($result["receiver"]);
+        $message->setTimestamp($result["timestamp"]);
+        $message->setSubject($result["subject"]);
+        $message->setMessage($result["message"]);
+        $message->setNew($result["new"]);
+        $message->setXmpp($result["xmpp"]);
+        return $message;
     }
 
     /**
-     * Recieve Messages
+     * Selects a complete Conversation between two OpenIds
      */
-    if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
-        try {
-            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-            $managerMessage = new ImbaManagerMessage($managerDatabase);
-            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
+    public function selectConversation($openidMe, $openidOpponent) {
+        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC;";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openidMe,
+            $openidOpponent,
+            $openidOpponent,
+            $openidMe
+        ));
 
-            $resultHTML = "<div id='imbaChatConversation'>";
-            foreach ($conversation as $message) {
-                if ($message->getSender() == ImbaUserContext::getOpenIdUrl()) {
-                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
-                } else {
-                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
-                }
-            }
-            $resultHTML .= "</div>";
-
-            echo $resultHTML;
-        } catch (Exception $ex) {
-            echo "Error: " . $ex->getMessage();
+        $result = new ArrayObject();
+        while ($row = $this->database->fetchRow()) {
+            $message = new ImbaMessage();
+            $message->setId($row["id"]);
+            $message->setSender($row["sender"]);
+            $message->setReceiver($row["receiver"]);
+            $message->setTimestamp($row["timestamp"]);
+            $message->setSubject($row["subject"]);
+            $message->setMessage($row["message"]);
+            $message->setNew($row["new"]);
+            $message->setXmpp($row["xmpp"]);
+            $result->append($message);
         }
+
+        return $result;
     }
-} else {
-    echo "Not logged in!";
+
+    /**
+     * Selects the last Conversations of an User with OpenId
+     */
+    public function seletLastConversation($openid) {
+        $databaseresult = array();
+
+        $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $this->database->query($query1, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openid
+        ));
+
+        while ($row = $this->database->fetchRow()) {
+            array_push($databaseresult, $row["opponent"]);
+        }
+
+        $query2 = "SELECT DISTINCT sender   as opponent FROM %s Where `receiver` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $this->database->query($query2, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openid
+        ));
+
+        while ($row = $this->database->fetchRow()) {
+            array_push($databaseresult, $row["opponent"]);
+        }
+
+        $databaseresult = array_unique($databaseresult);
+
+        $result = array();
+        $managerUser = new ImbaManagerUser($this->database);
+        foreach ($databaseresult as $value) {
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId($value);
+            array_push($result, array("name" => $user->getNickname(), "openid" => $value));
+        }
+
+        return json_encode($result);
+    }
+
+    // TODO: public function selectConversation($openid)
+    // TODO: public function markRead($id)
 }
+
 ?>

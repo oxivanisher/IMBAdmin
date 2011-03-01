@@ -5,15 +5,17 @@
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-1.4.4.min.js"></script>
         <script type="text/javascript" src="../Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js"></script> 
         <script type="text/javascript">
+            
             // Single point of Ajax entry            
             ajaxEntry = "../ajax.php";
             var Chats = new Array();           
             var currentTabIndex = -1;
             
-            // TODO: X zum Schliessen
-            // TODO: Interval mit Chat2 Nachladen (gucken wo New = 1)
+            // TODO: /w mit autocomplete => namen anbieten
+            // TODO: * für neue nachricht (New == 1)
+            
+            // Reload Chats every 2000 ms
             var interval = setInterval('refreshChat()', 2000);
-           
             function refreshChat(){
                 if (Chats[currentTabIndex]["openid"] != ""){
                     $.post(ajaxEntry, {reciever: Chats[currentTabIndex]["openid"], loadMessages: "true", action:"messenger"}, 
@@ -28,7 +30,7 @@
             $(document).ready(function(){
                 
                 // Load the Tabs an inits the Variable for them
-                $msgTabs = $('#imbaMessages').tabs();
+                $msgTabs = $('#imbaMessages').tabs({collapsible: true});
                 $( "#imbaMessagesDialog" ).dialog();
 
                 // Load latest Conversation
@@ -97,8 +99,6 @@
                     $msgTabs.tabs( "remove", index );
                 });
                 
-                
-                
             });
 
         </script>
@@ -159,9 +159,6 @@
             #imbaMessages li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
 
             #imbaMessageText {
-                margin-top: 5px;
-                margin-left: 10px;
-                width: 320px;
                 background-color: #222222;
                 border: 1px solid #999999;
                 color: #FFFFFF;

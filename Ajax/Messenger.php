@@ -1,7 +1,7 @@
 <?php
 
 // Extern Session start
-session_start();
+// session_start();
 
 require_once 'Model/ImbaMessage.php';
 require_once 'ImbaConstants.php';

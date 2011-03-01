@@ -7,25 +7,26 @@
         <script type="text/javascript">
             // Single point of Ajax entry            
             ajaxEntry = "../ajax.php";
-            
+            var Chats = new Array();           
             var currentTabIndex = -1;
             
             // TODO: X zum Schliessen
             // TODO: Interval mit Chat2 Nachladen (gucken wo New = 1)
-            var interval = setInterval('refreshChat()', 1000);
+            var interval = setInterval('refreshChat()', 2000);
+           
             function refreshChat(){
-                //$('#test').html(currentTabIndex);
-                $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
-                    // Showing the content
-                    $("#imbaMessagesTab_" + currentTabIndex).html(response);
-                });
-            }
-    
+                if (Chats[currentTabIndex]["openid"] != ""){
+                    $.post(ajaxEntry, {reciever: Chats[currentTabIndex]["openid"], loadMessages: "true", action:"messenger"}, 
+                    function(response) {                      
+                        $("#test").html( Math.random());
+                        $("#imbaMessagesTab_" + currentTabIndex).html(response);
+                    });
+                }
+            }    
     
 
             // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
-                var Chats = new Array();
                 
                 // Load the Tabs an inits the Variable for them
                 $msgTabs = $('#imbaMessages').tabs();

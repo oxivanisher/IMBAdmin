@@ -52,6 +52,11 @@ Oxis Brainstorm:
  -> is IGB a own view?
 
 
+Facebook SSO Links:
+=================
+facebook on openid http://developers.facebook.com/blog/post/246/
+facebook openauth http://developers.facebook.com/docs/authentication/
+openauth pdf doc http://tools.ietf.org/pdf/draft-ietf-oauth-v2-12.pdf
 
 
 Devs:

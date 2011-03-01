@@ -9,19 +9,21 @@ require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 
-// TODO: DEBUG ONLY!!!!!!
-//if (ImbaUserContext::getLoggedIn()) {
-ImbaUserContext::setLoggedIn(true);
-ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-if (true) {
+//DEBUG ONLY!!!!!!
+//ImbaUserContext::setLoggedIn(true);
+//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+//if (true) {
+
+if (ImbaUserContext::getLoggedIn()) {
     /**
      * Recieve Statup Data
-     *  - Who am I
      *  - Who was I am talking to
      * @returns JSON array
      */
     if (isset($_POST['chatinit'])) {
-        echo "chatinit";
+        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+        $managerMessage = new ImbaManagerMessage($managerDatabase);
+        echo $managerMessage->seletLastConversation(ImbaUserContext::getOpenIdUrl());
     }
 
     /**

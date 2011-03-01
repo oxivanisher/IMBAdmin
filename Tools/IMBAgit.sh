@@ -1,5 +1,5 @@
  #!/bin/bash
-
+exit 0 #temporaer 
 name=$(basename $0)
 #md5="$(md5 -q $0)"
 

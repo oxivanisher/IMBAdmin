@@ -29,6 +29,7 @@
                 
                 // Load the Tabs an inits the Variable for them
                 $msgTabs = $('#imbaMessages').tabs();
+                $( "#imbaMessagesDialog" ).dialog();
 
                 // Load latest Conversation
                 $.post(ajaxEntry, {chatinit: "true", action:"messenger"}, function(response) {
@@ -146,13 +147,13 @@
             }
 
             #imbaMessages {
-                position: absolute;
+                /*position: absolute;
                 width: 400px;
                 height: 200px;
                 left: 10px;
-                bottom: 10px;
+                top: 10px;
 
-                z-index: 9999;
+                z-index: 9999;*/
             }
 
             #imbaMessages li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
@@ -187,13 +188,15 @@
             </div>
         </div>
 
-        <div id="imbaMessages">
-            <ul></ul>
-            <div id="imbaMessageTextDiv">
-                <form action="" method="post">
-                    <input id="imbaMessageText" type="text" />
-                    <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
-                </form>
+        <div id="imbaMessagesDialog" title="Alptr&ouml;im Messaging">
+            <div id="imbaMessages">
+                <ul></ul>
+                <div id="imbaMessageTextDiv">
+                    <form action="" method="post">
+                        <input id="imbaMessageText" type="text" />
+                        <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
+                    </form>
+                </div>
             </div>
         </div>
     </body>

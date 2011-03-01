@@ -10,6 +10,7 @@
             
             // TODO: Mit AJAX offene Konversationen und Channel holen
             // TODO: X zum Schliessen
+            // TODO: Interval mit Chat2 Nachladen (gucken wo New = 1)
             var Chats = new Array();
             Chats[-1] = new Object();
             Chats[-1]["name"] = "Aggravate";
@@ -29,45 +30,43 @@
 
             // jQuery DOM-Document wurde geladen
             $(document).ready(function(){
-                // Load the Messages as Tabs
+                // Load the Tabs an inits the Variable for them
                 $msgTabs = $('#imbaMessages').tabs();
+                
+                // Loading the Chattabs
+                for (var i = 0; i < Chats.length; i++) {
+                    $msgTabs.tabs("add", "#imbaMessagesTab_" + i, Chats[i]["name"]).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+                }
 
-                $("#imbaMessages").bind("tabsselect", function(event, ui) {
+                // Tab selected change Event (Reload content of that chat window
+                $msgTabs.bind("tabsselect", function(event, ui) {
                     var selectedTab =  ui.index;
-                    var msgSender = Chats[-1]["openid"];
                     var msgReciver = Chats[selectedTab]["openid"];
-                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
+                    $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                         // Showing the content
                         $("#imbaMessagesTab_" + ui.index).html(response);
                     });
                 });
 
                 // Load First Tab
-                var msgSender = Chats[-1]["openid"];
                 var msgReciver = Chats[0]["openid"];
-                $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
+                $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                     $("#imbaMessagesTab_" + 0).html(response);
                 });
-
-                // Loading the Chattabs
-                for (var i = 0; i < Chats.length; i++) {
-                    $msgTabs.tabs("add", "#imbaMessagesTab_" + i, Chats[i]["name"]).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
-                }
                 
-                // user submits the textbox
+                // User submits the textbox
                 $("#imbaMessageTextSubmit").click(function(){
-                    var selectedTab =  $('#imbaMessages').tabs('option', 'selected');
-                    var msgSender = Chats[-1]["openid"];
+                    var selectedTab =  $msgTabs.tabs('option', 'selected');
                     var msgReciver = Chats[selectedTab]["openid"];
                     var msgText = $("#imbaMessageText").val();
                     
-                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, message: msgText, action:"messenger"}, function(response) {
+                    $.post(ajaxEntry, {reciever: msgReciver, message: msgText, action:"messenger"}, function(response) {
                         if (response != "Message sent"){
                             alert(response);
                         }
                     });
 
-                    $.post(ajaxEntry, {sender: msgSender, reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
+                    $.post(ajaxEntry, {reciever: msgReciver, loadMessages: "true", action:"messenger"}, function(response) {
                         // Showing the content
                         $("#imbaMessagesTab_" + selectedTab).html(response);
                     });
@@ -80,24 +79,41 @@
         </script>
 
         <style type="text/css">
-            body{ font: 60% "Trebuchet MS", sans-serif; margin: 50px;}
+            body{
+                font: 60% "Trebuchet MS", sans-serif;
+            }
+
+            #imbaSsoLogin {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                width: 250px;
+                height: 70px;
+                z-index: 9999;
+            }
+
+            #imbaSsoLogin input {
+                background-color: white;
+            }
+
+            .imbaSsoLoginBorder {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                z-index: 9999;
+                width: 250px;
+                height: 70px;
+            }
+
+            #imbaSsoLoginInner
+            {
+                padding: 12px 12px;
+            }
 
             #imbaSsoLogo {
                 float: left;
                 width: 48px;
                 width: 48px;
-            }
-
-            #imbaSsoLogin {
-                position: absolute;
-                right: 40px;
-                top: 10px;
-                padding-top: 10px;
-                padding-left: 10px;
-                padding-right: 10px;
-                border: 1px solid black;
-
-                z-index: 9999;
             }
 
             #imbaSsoOpenIdSubmit {
@@ -118,7 +134,7 @@
             #imbaMessageText {
                 margin-top: 5px;
                 margin-left: 10px;
-                width: 200px;
+                width: 320px;
             }
 
             #imbaChatConversation{
@@ -128,18 +144,23 @@
         </style>
     </head>
     <body>
+
+
+        <div class="imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all"></div>
         <div id="imbaSsoLogin">
-            <img id="imbaSsoLogo" src="../Images/guild_logo.png" alt="Guild Logo" />
-            <form id="imbaSsoLoginForm" action="../index.php" method="get">
-                <input name="openid" type="text" /> 
-                <input id="imbaSsoOpenIdSubmit" type="submit" />
-            </form>
+            <div id="imbaSsoLoginInner">
+                <img id="imbaSsoLogo" src="../Images/guild_logo.png" alt="Guild Logo" />
+                <form id="imbaSsoLoginForm" action="../index.php" method="get">
+                    <input name="openid" type="text" />
+                    <input id="imbaSsoOpenIdSubmit" type="submit" />
+                </form>
+            </div>
         </div>
 
         <div id="imbaMessages">
             <ul></ul>
             <div id="imbaMessageTextDiv">
-                <form>
+                <form action="" method="post">
                     <input id="imbaMessageText" type="text" />
                     <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
                 </form>

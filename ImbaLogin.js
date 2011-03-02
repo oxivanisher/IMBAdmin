@@ -1,35 +1,121 @@
-            
-// Single point of Ajax entry            
-ajaxEntry = "ImbaAuth.php";
-var Chats = new Array();           
-var currentTabIndex = -1;
-            
 // TODO: /w mit autocomplete => namen anbieten
 // TODO: * für neue nachricht (New == 1)
             
+// Single point of Ajax entry            
+ajaxEntry = "../ajax.php";
+var Chats = new Array();
+var ChatsCount = 0;
+var currentTabIndex = -1;
+            
 // Reload Chats every 2000 ms
 var interval = setInterval('refreshChat()', 2000);
-function refreshChat(){
-    if (Chats[currentTabIndex]["openid"] != ""){
+
+// Refreshs the current chatwindow
+function refreshChat() {
+    // TODO: Chats ausgeben rausnehmen
+    /*var ChatsStr = "";
+                $.each(Chats, function(key, value) {
+                    ChatsStr += key + "=>" + value.name + "(" + value.openid +") [" + value.namingIndex + "]<br />";
+                });
+                $("#test").html(ChatsStr);*/
+
+    $.post(ajaxEntry, {
+        gotnewmessages: "true", 
+        action: "messenger"
+    },  function(response) {
+        $.each($.parseJSON(response), function(key, val) {
+            //alert(key + val);
+            // look in Chats if there is an open window with val
+            $.each(Chats, function(key1, val1){
+                // ok, there is one window open with that val
+                if (val == val1.openid){
+                    loadChatWindowContent(val1.namingIndex);
+                }
+            });
+        });
+    });
+                
+    $("#test").html(Math.random());
+}
+
+// Refreshs a special chatwindow
+function loadChatWindowContent(tabIndex) {
+    currentTabIndex = tabIndex;
+    if (Chats[tabIndex]["openid"] != ""){
         $.post(ajaxEntry, {
-            reciever: Chats[currentTabIndex]["openid"], 
+            reciever: Chats[tabIndex]["openid"], 
             loadMessages: "true", 
-            action:"messenger"
-        }, 
-        function(response) {                      
-            $("#test").html( Math.random());
-            $("#imbaMessagesTab_" + currentTabIndex).html(response);
+            action: "messenger"
+        },
+        function(response) {
+            $("#imbaMessagesTab_" + Chats[tabIndex].namingIndex).html(response);
         });
     }
-}    
-    
-// jQuery DOM-Document wurde geladen
-$(document).ready(function(){
-                
-    // Load the Tabs an inits the Variable for them
-    $msgTabs = $('#imbaMessages').tabs({
-        collapsible: true
+}
+
+// Sends a Message to a reciver
+function sendChatWindowMessage(msgReciver, msgText) {
+    $.post(ajaxEntry, {
+        reciever: msgReciver, 
+        message: msgText, 
+        action: "messenger"
+    }, function(response) {
+        if (response != "Message sent"){
+            alert(response);
+        }
     });
+}
+
+// Creats a chatwindow
+function createChatWindow(name, openid) {
+    // Run through open chats and check if its not already opend,
+    // if so => select that
+    var found = false;
+    $.each(Chats, function(key, value) {
+        if (value.openid == openid){
+            // Select the clicked window
+            $('#imbaMessages').tabs("select", key);
+            found = true;
+        }
+    });
+
+    if (!found){
+        // Save Chats
+        var tmp = Chats.length;
+        Chats[tmp] = new Object();
+        Chats[tmp]["name"] = name;
+        Chats[tmp]["openid"] = openid;
+        Chats[tmp]["namingIndex"] = ChatsCount;
+        $('#imbaMessages').tabs("add", "#imbaMessagesTab_" + ChatsCount, name).find( ".ui-tabs-nav" ).sortable({
+            axis: "x"
+        });
+
+        //loadChatWindowContent(ChatsCount);
+        $('#imbaMessages').tabs("select", tmp);
+                    
+        ChatsCount++;
+    }
+}
+
+// Removes a chatwindow
+function removeChatWindow(tabIndex){
+    $('#imbaMessages').tabs( "remove", tabIndex);
+
+    $.each(Chats, function(key, value) {
+        if (key > tabIndex){
+            Chats[key-1] = Chats[key];
+        }
+    });
+                
+    Chats.pop();
+}
+
+// jQuery DOM-Document wurde geladen
+$(document).ready(function() {
+    // Load the Tabs an inits the Variable for them
+    $msgTabs = $('#imbaMessages').tabs(/*{collapsible: true}*/);
+
+    // Creats the Dialog around the chattabs
     $( "#imbaMessagesDialog" ).dialog();
 
     // Load latest Conversation
@@ -37,73 +123,30 @@ $(document).ready(function(){
         chatinit: "true", 
         action:"messenger"
     }, function(response) {
-        // Showing the content                    
-        var jsonResponse = $.each($.parseJSON(response), function(key, val) {
+        // Showing the content
+        $.each($.parseJSON(response), function(key, val) {
             // Loading the Chattabs
-            var name = val.name;
-            var openid = val.openid;
-            $msgTabs.tabs("add", "#imbaMessagesTab_" + key, name).find( ".ui-tabs-nav" ).sortable({
-                axis: "x"
-            });
+            createChatWindow(val.name, val.openid);
 
-            // Chats speichern
-            Chats[key] = new Object();
-            Chats[key]["name"] = name;
-            Chats[key]["openid"] = openid;
-
+            // Load First Tab
             if (key == 0){
-                // Load First Tab                            
-                $.post(ajaxEntry, {
-                    reciever: openid, 
-                    loadMessages: "true", 
-                    action:"messenger"
-                }, function(response) {
-                    $("#imbaMessagesTab_" + 0).html(response);
-                    currentTabIndex = 0;
-                });
+                loadChatWindowContent(0);
             }
         });
     });
                 
     // Tab selected change Event (Reload content of that chat window
     $msgTabs.bind("tabsselect", function(event, ui) {
-        var selectedTab =  ui.index;
-        var msgReciver = Chats[selectedTab]["openid"];
-        $.post(ajaxEntry, {
-            reciever: msgReciver, 
-            loadMessages: "true", 
-            action:"messenger"
-        }, function(response) {
-            // Showing the content
-            $("#imbaMessagesTab_" + ui.index).html(response);
-            currentTabIndex = ui.index;
-        });
+        loadChatWindowContent(ui.index);
     });
                 
     // User submits the textbox
     $("#imbaMessageTextSubmit").click(function(){
-        var selectedTab =  $msgTabs.tabs('option', 'selected');
-        var msgReciver = Chats[selectedTab]["openid"];
+        var msgReciver = Chats[currentTabIndex]["openid"];
         var msgText = $("#imbaMessageText").val();
-                    
-        $.post(ajaxEntry, {
-            reciever: msgReciver, 
-            message: msgText, 
-            action:"messenger"
-        }, function(response) {
-            if (response != "Message sent"){
-                alert(response);
-            }
-        });
 
-        $.post(ajaxEntry, {
-            reciever: msgReciver, 
-            loadMessages: "true", 
-            action:"messenger"
-        }, function(response) {
-            // Showing the content
-            $("#imbaMessagesTab_" + selectedTab).html(response);
-        });
+        sendChatWindowMessage(msgReciver, msgText);
+        loadChatWindowContent(currentTabIndex);
 
         $("#imbaMessageText").attr("value", "");
         return false;
@@ -118,7 +161,25 @@ $(document).ready(function(){
     // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
     $( "#imbaMessages span.ui-icon-close" ).live( "click", function() {
         var index = $( "li", $msgTabs ).index( $( this ).parent() );
-        $msgTabs.tabs( "remove", index );
+        removeChatWindow(index);
     });
-                
+
+    // Fill Users into selectbox
+    $.post(ajaxEntry, {
+        action: "user", 
+        loaduserlist: "true"
+    }, function(response) {
+        $.each($.parseJSON(response), function(key, val) {
+            $("#imbaUsers").append(new Option(val.name, val.openid, false, false));
+        });
+    });
+
+    // Bind Clickevent to Selectbox
+    $("#imbaUsers").bind("click", function(event, ui) {
+        var name = $("#imbaUsers option:selected").text();
+        var openid= $("#imbaUsers option:selected").val();
+        if (name != "" && openid != ""){
+            createChatWindow(name, openid);
+        }
+    });
 });

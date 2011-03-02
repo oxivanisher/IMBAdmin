@@ -7,9 +7,7 @@ var ChatsCount = 0;
 var currentTabIndex = -1;
             
 // Reload Chats every 2000 ms
-if (userLoggedIn) {
-    setInterval('refreshChat()', 2000);
-}
+setInterval('refreshChat()', 2000);
 
 // Refreshs the current chatwindow
 function refreshChat() {

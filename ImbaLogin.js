@@ -7,7 +7,6 @@
 
 // Single point of Ajax entry   
 var ajaxEntry = "ajax.php";
-var userLoggedIn = false;
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
@@ -17,9 +16,7 @@ $(document).ready(function() {
         if (response == "Not logged in"){
             $("#imbaUsers").hide();         
             $("#imbaMessagesDialog").hide();         
-        } else {
-            userLoggedIn = true;
-        }
+        } 
     })
 });
 

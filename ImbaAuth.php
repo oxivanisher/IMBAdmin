@@ -103,6 +103,9 @@ if ($_GET["logout"] == true) {
      * we are logged in! everithing is ok and we have a party here
      */
     echo "logged in! :DD";
+    
+    ImbaUserContext::setLoggedIn(true);
+    ImbaUserContext::setOpenIdUrl($openIdUrl);
 }
 
 // generate runtime output

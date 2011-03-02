@@ -1,0 +1,47 @@
+<html>                                                                  
+    <head>                                                                  
+        <link type="text/css" href="Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css" rel="Stylesheet" />	
+        <script type="text/javascript" src="Libs/jQuery/js/jquery-1.4.4.min.js"></script>
+        <script type="text/javascript" src="Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js"></script> 
+
+        <link type="text/css" href="ImbaLogin.css" rel="Stylesheet" />	
+        <script type="text/javascript" src="ImbaLogin.js"></script>
+    </head>
+    <body>
+        <div id="content">
+            <br / >
+            <a href="ImbaAuth.php?openid=https://oom.ch/openid/identity/richart">richart</a><br />
+            <a href="ImbaAuth.php?openid=http://openid-provider.appspot.com/Steffen.So@googlemail.com">Aggravate</a><br />
+            <a href="ImbaAuth.php?openid=https://oom.ch/openid/identity/oxi">Cernu</a><br />
+            <a href="ImbaAuth.php?openid=http://openid-provider.appspot.com/m.remmos@googlemail.com">m0zi</a><br/>
+            <hr />
+            <a href='ImbaAuth.php??logout=true'>destroy session</a>
+            <hr />
+            <a href='Test/jQuery.test.php'>jQuery Test</a> (after login)
+        </div>
+        <div id="test"></div>
+
+        <div class="imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all"></div>
+        <div id="imbaSsoLogin">
+            <div id="imbaSsoLoginInner">
+                <img id="imbaSsoLogo" src="Images/guild_logo.png" alt="Guild Logo" />
+                <form id="imbaSsoLoginForm" action="ImbaLogin.php" method="get">
+                    <input name="openid" type="text" />
+                    <input id="imbaSsoOpenIdSubmit" type="submit" />
+                </form>
+            </div>
+        </div>
+
+        <div id="imbaMessagesDialog" title="Alptr&ouml;im Messaging">
+            <div id="imbaMessages">
+                <ul></ul>
+                <div id="imbaMessageTextDiv">
+                    <form action="" method="post">
+                        <input id="imbaMessageText" type="text" />
+                        <input id="imbaMessageTextSubmit" type="submit" value="Send"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

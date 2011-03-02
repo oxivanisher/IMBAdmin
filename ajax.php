@@ -28,6 +28,7 @@ switch ($_POST["action"]) {
         break;
      */
 
+    // TODO: use default case for event polling?
     default:
         break;
 }

@@ -11,6 +11,13 @@ setInterval('refreshChat()', 2000);
 
 // Refreshs the current chatwindow
 function refreshChat() {
+    // TODO: Chats ausgeben rausnehmen
+    var ChatsStr = "";
+    $.each(Chats, function(key, value) {
+        ChatsStr += key + "=>" + value.name + "(" + value.openid +") [" + value.namingIndex + "]<br />";
+    });
+    $("#test").html(ChatsStr);
+    
     $.post(ajaxEntry, {
         gotnewmessages: "true", 
         action: "messenger"
@@ -27,7 +34,7 @@ function refreshChat() {
         });
     });
                 
-    $("#test").html(Math.random());
+//$("#test").html(Math.random());
 }
 
 // Refreshs a special chatwindow
@@ -47,6 +54,7 @@ function loadChatWindowContent(tabIndex) {
 
 // Sends a Message to a reciver
 function sendChatWindowMessage(msgReciver, msgText) {
+    alert(msgReciver);
     $.post(ajaxEntry, {
         reciever: msgReciver, 
         message: msgText, 

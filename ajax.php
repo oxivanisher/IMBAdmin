@@ -9,12 +9,12 @@ switch ($_POST["action"]) {
         include 'Ajax/Messenger.php';
         break;
 
-    /**
-     * Some other examples
     case "user":
         include 'Ajax/User.php';
         break;
 
+    /**
+     * Some other examples
     case "role":
         include 'Ajax/Role.php';
         break;

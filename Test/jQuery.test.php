@@ -233,15 +233,7 @@
         </style>
     </head>
     <body>
-        <?php
-            $tmp = getcwd();
-            chdir("../");
-            require_once 'Controller/ImbaUserContext.php';
-            chdir($tmp);
-            
-            echo "you are: " . ImbaUserContext::getOpenIdUrl();
-        ?>
-        
+
         <div id="test"></div>
 
         <select id="imbaUsers" size="10" ></select>

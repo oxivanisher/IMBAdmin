@@ -12,9 +12,11 @@ require_once 'ImbaConfig.php';
 class ImbaConstants extends ImbaConfig {
 
         /**
-         * Open ID
+         * Files and Folders
          */
-        //public static $OPENID_RETURN_TO_URL = ""
+        public static $WEB_SITE_PATH = "/IMBAdmin";    
+        public static $WEB_OPENID_AUTH_PATH = "ImbaAuth.php";    
+        public static $WEB_ENTRY_INDEX_FILE = "index.html";
         
         /**
          * Error Codes

@@ -50,7 +50,7 @@ if ($_GET["logout"] == true) {
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
     session_write_close();
-    header("location: " . $_SERVER["PHP_SELF"]);
+    header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
      * we are NOT logged in

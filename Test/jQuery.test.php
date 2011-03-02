@@ -110,7 +110,7 @@
                 $msgTabs = $('#imbaMessages').tabs(/*{collapsible: true}*/);
 
                 // Creats the Dialog around the chattabs
-                $( "#imbaMessagesDialog" ).dialog();
+                $("#imbaMessagesDialog").dialog();
 
                 // Load latest Conversation
                 $.post(ajaxEntry, {chatinit: "true", action:"messenger"}, function(response) {

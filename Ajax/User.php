@@ -31,4 +31,7 @@ if (ImbaUserContext::getLoggedIn()) {
         echo json_encode($result);
     }
 }
+else {
+    echo "Not logged in";
+}
 ?>

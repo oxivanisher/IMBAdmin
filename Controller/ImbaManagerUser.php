@@ -71,6 +71,44 @@ class ImbaManagerUser {
         return $user;
     }
 
+    /**
+     * Selects a list of Users into an array w/o yourself
+     */
+    public function selectAllUser($openidYourself) {
+        // Only fetch Users with role <> banned
+        $query = "SELECT * FROM %s Where openid <> '%s' And Role <> 0;";
+
+        $result = array();
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself));
+        
+        while ($row = $this->database->fetchRow()) {
+            $user = new ImbaUser();
+            $user->setOpenId($row["openid"]);
+            $user->setNickname($row["nickname"]);
+            $user->setEmail($row["email"]);
+            $user->setFirstname($row["forename"]);
+            $user->setLastname($row["surname"]);
+            $user->setBirthday($row["dob"]);
+            $user->setBirthmonth($row["mob"]);
+            $user->setBirthyear($row["yob"]);
+            $user->setSex($row["sex"]);
+            $user->setIcq($row["icq"]);
+            $user->setMsn($row["msn"]);
+            $user->setSkype($row["skype"]);
+            $user->setUsertitle($row["usertitle"]);
+            $user->setAvatar($row["avatar"]);
+            $user->setSignature($row["signature"]);
+            $user->setWebsite($row["website"]);
+            $user->setMotto($row["motto"]);
+            $user->setAccurate($row["accurate"]);
+            $user->setRole($row["role"]);
+
+            array_push($result, $user);
+        }
+
+        return $result;
+    }
+
 }
 
 ?>

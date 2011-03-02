@@ -25,6 +25,16 @@ if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
 }
 
 /**
+ * Select Users
+ */
+$users = $managerUser->selectAllUser();
+if (count($users) > 0) {
+    $output.= "selectAllUser geht.\n";
+} else {
+    $output.= "Fehler bei selectAllUser.\n";
+}
+
+/**
  * Check if json_encode is working in toString()
  */
 if ($user->toString() != "{}") {

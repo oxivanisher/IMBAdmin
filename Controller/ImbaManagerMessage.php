@@ -159,6 +159,21 @@ class ImbaManagerMessage {
         return json_encode($result);
     }
 
+    /**
+     * Selects all new Messages for a user
+     */
+    public function selectNewMessagesByOpenid($openid) {
+        $query = "SELECT sender FROM %s WHERE `receiver` =  '%s' AND new = 1";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openid));
+
+        $result = array();
+        while ($row = $this->database->fetchRow()) {
+            array_push($result, $row["sender"]);
+        }
+
+        return json_encode($result);
+    }
+
     // TODO: public function selectConversation($openid)
     // TODO: public function markRead($id)
 }

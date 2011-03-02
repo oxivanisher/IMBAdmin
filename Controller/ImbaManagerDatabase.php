@@ -49,7 +49,10 @@ class ImbaManagerDatabase {
             $args[$key] = mysql_real_escape_string($value);
         }
         $query = vsprintf($queryStr, $args);
+
         $this->result = mysql_query($query, $this->connection);
+
+        //echo $query;
 
         if (!$this->result) {
             throw new Exception("Database Query not working!");

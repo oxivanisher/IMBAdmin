@@ -10,20 +10,27 @@ require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 
 //DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
+ImbaUserContext::setLoggedIn(true);
+ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 
-if (ImbaUserContext::getLoggedIn()) {
+if (true) {
+//if (ImbaUserContext::getLoggedIn()) {
+    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+    $managerMessage = new ImbaManagerMessage($managerDatabase);
+
     /**
      * Recieve Statup Data
      *  - Who was I am talking to
-     * @returns JSON array
      */
     if (isset($_POST['chatinit'])) {
-        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-        $managerMessage = new ImbaManagerMessage($managerDatabase);
         echo $managerMessage->seletLastConversation(ImbaUserContext::getOpenIdUrl());
+    }
+
+    /**
+     * Got something new for user?
+     */
+    if (isset($_POST['gotnewmessages'])) {        
+        echo $managerMessage->selectNewMessagesByOpenid(ImbaUserContext::getOpenIdUrl());
     }
 
     /**
@@ -40,8 +47,6 @@ if (ImbaUserContext::getLoggedIn()) {
         $message->setSubject("Was soll hier rein?");
 
         try {
-            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-            $managerMessage = new ImbaManagerMessage($managerDatabase);
             $managerMessage->insert($message);
 
             echo "Message sent";
@@ -55,8 +60,6 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
-            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-            $managerMessage = new ImbaManagerMessage($managerDatabase);
             $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
 
             $resultHTML = "<div id='imbaChatConversation'>";

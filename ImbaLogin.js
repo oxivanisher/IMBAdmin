@@ -40,7 +40,7 @@ htmlContent = " \
             <ul></ul> \
             <div id='imbaMessageTextDiv'> \
                 <form action='' method='post'> \
-                    <input id='imbaMessageText' type='text' /> \
+                    <input id='imbaMessageText' type='text' autocomplete='off' /> \
                     <input id='imbaMessageTextSubmit' type='submit' value='Send'/> \
                 </form> \
             </div> \

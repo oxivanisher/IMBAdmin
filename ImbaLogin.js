@@ -6,7 +6,7 @@
 // TODO: * für neue nachricht (New == 1)
 
 // Single point of Ajax entry   
-var ajaxEntry = "AJAX_ENTRY_REPLACE";
+var ajaxEntry = "ajax.php";
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {

@@ -19,28 +19,28 @@ $user = new ImbaUser();
 $user = $managerUser->selectByOpenId("https://oom.ch/openid/identity/test");
 
 if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
-    $output.= "selectByOpenId geht.\n";
+    $output.= "selectByOpenId working.\n";
 } else {
-    $output.= "Fehler bei selectByOpenId.\n";
+    $output.= "Error at selectByOpenId.\n";
 }
 
 /**
  * Select Users
  */
-$users = $managerUser->selectAllUser();
+$users = $managerUser->selectAllUser("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 if (count($users) > 0) {
-    $output.= "selectAllUser geht.\n";
+    $output.= "selectAllUser working.\n";
 } else {
-    $output.= "Fehler bei selectAllUser.\n";
+    $output.= "Error at selectAllUser.\n";
 }
 
 /**
  * Check if json_encode is working in toString()
  */
 if ($user->toString() != "{}") {
-    $output .= "toString geht. Json: " . $user->toString() . "\n";
+    $output .= "toString working. Json: " . $user->toString() . "\n";
 } else {
-    $output .= "Json geht nicht.\n";
+    $output .= "Error at Json.\n";
 }
 
 /**
@@ -49,9 +49,9 @@ if ($user->toString() != "{}") {
 $user->setOpenId($user->getOpenId() . "1");
 try {
     $managerUser->insert($user);
-    $output.= "insert geht.\n";
+    $output.= "insert working.\n";
 } catch (Exception $e) {
-    $output.= "Fehler bei insert.\n";
+    $output.= "Error at insert.\n";
 }
 
 /**
@@ -59,9 +59,9 @@ try {
  */
 try {
     $managerUser->delete($user->getOpenId());
-    $output.= "delete geht.\n";
+    $output.= "delete working.\n";
 } catch (Exception $e) {
-    $output.= "Fehler bei delete.\n";
+    $output.= "Error at delete.\n";
 }
 
 

@@ -1,5 +1,5 @@
 /* 
- * TODO: Beschreibung
+ * The ImbaManagerMessenger is the Controller Javascript for the Frontend
  */
    
 var Chats = new Array();
@@ -9,55 +9,72 @@ var currentTabIndex = -1;
 // Reload Chats every 2000 ms
 setInterval('refreshChat()', 2000);
 
-// Refreshs the current chatwindow
+/**
+ * Refreshs the current chatwindow
+ */
 function refreshChat() {
     // TODO: Chats ausgeben rausnehmen
     var ChatsStr = "";
     $.each(Chats, function(key, value) {
         ChatsStr += key + "=>" + value.name + "(" + value.openid +") [" + value.namingIndex + "]<br />";
     });
-    $("#test").html(ChatsStr);
+    ChatsStr += "<br />";
+    ChatsStr += "Current tab index: " + currentTabIndex;
+    ChatsStr += "<br />";
+    ChatsStr += Math.random();
     
     $.post(ajaxEntry, {
         gotnewmessages: "true", 
         action: "messenger"
     },  function(response) {
-        $.each($.parseJSON(response), function(key, val) {
-            //alert(key + val);
-            // look in Chats if there is an open window with val
+        $.each($.parseJSON(response), function(key, newMessageFrom) {
+            var foundWindow = false;
+            // look in Chats if there is an open window with val            
             $.each(Chats, function(key1, val1){
                 // ok, there is one window open with that val
-                if (val == val1.openid){
-                    loadChatWindowContent(val1.namingIndex);
+                if (newMessageFrom.openid == val1.openid){
+                    // if there is a new message in currentTab, then give it to me plix
+                    if (val1.namingIndex == currentTabIndex){
+                        loadChatWindowContent(val1.namingIndex);
+                    }
+                    foundWindow = true;
                 }
             });
+
+            if (!foundWindow){
+                createChatWindow(newMessageFrom.name, newMessageFrom.openid)
+            }
         });
     });
-                
-//$("#test").html(Math.random());
+    
+    $("#test").html(ChatsStr);
 }
 
-// Refreshs a special chatwindow
+/**
+* Refreshs a special chatwindow
+*/
 function loadChatWindowContent(tabIndex) {
     currentTabIndex = tabIndex;
     if (Chats[tabIndex]["openid"] != ""){
         $.post(ajaxEntry, {
-            reciever: Chats[tabIndex]["openid"], 
-            loadMessages: "true", 
+            reciever: Chats[tabIndex]["openid"],
+            loadMessages: "true",
             action: "messenger"
         },
         function(response) {
-            $("#imbaMessagesTab_" + Chats[tabIndex].namingIndex).html(response);
+            $("#imbaMessagesTab_" + Chats[tabIndex]["namingIndex"]).html(response);
         });
     }
 }
 
-// Sends a Message to a reciver
+/**
+* Sends a Message to a reciver
+*/
 function sendChatWindowMessage(msgReciver, msgText) {
     alert(msgReciver);
     $.post(ajaxEntry, {
-        reciever: msgReciver, 
-        message: msgText, 
+        reciever: msgReciver,
+        message: msgText,
         action: "messenger"
     }, function(response) {
         if (response != "Message sent"){
@@ -66,7 +83,9 @@ function sendChatWindowMessage(msgReciver, msgText) {
     });
 }
 
-// Creats a chatwindow
+/**
+* Creats a chatwindow
+*/
 function createChatWindow(name, openid) {
     // Run through open chats and check if its not already opend,
     // if so => select that
@@ -97,7 +116,9 @@ function createChatWindow(name, openid) {
     }
 }
 
-// Removes a chatwindow
+/**
+* Removes a chatwindow
+*/
 function removeChatWindow(tabIndex){
     $('#imbaMessages').tabs( "remove", tabIndex);
 
@@ -110,7 +131,9 @@ function removeChatWindow(tabIndex){
     Chats.pop();
 }
 
-// jQuery DOM-Document wurde geladen
+/**
+* jQuery DOM-Document has been loaded
+*/
 $(document).ready(function() {
     // Load the Tabs an inits the Variable for them
     $msgTabs = $('#imbaMessages').tabs();
@@ -120,9 +143,9 @@ $(document).ready(function() {
     
     // Load latest Conversation
     $.post(ajaxEntry, {
-        chatinit: "true", 
-        action:"messenger"
-    }, function(response) {        
+        chatinit: "true",
+        action: "messenger"
+    }, function(response) {
         // Showing the content
         $.each($.parseJSON(response), function(key, val) {
             // Loading the Chattabs
@@ -166,7 +189,7 @@ $(document).ready(function() {
 
     // Fill Users into selectbox
     $.post(ajaxEntry, {
-        action: "user", 
+        action: "user",
         loaduserlist: "true"
     }, function(response) {
         $.each($.parseJSON(response), function(key, val) {
@@ -183,4 +206,3 @@ $(document).ready(function() {
         }
     });
 });
-

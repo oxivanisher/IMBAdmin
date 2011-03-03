@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 // Write ImbaOutput
 // TODO: Mach mich schoen!
-/*htmlContent = " \
+htmlContent = " \
     <div id='test'></div> \
     <select id='imbaUsers' size='10' ></select> \
     <div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'></div> \
@@ -48,10 +48,10 @@ $(document).ready(function() {
     </div> \
     ";
 document.write(htmlContent);
-*/
+
 /**
 * Backup for if the cosmetics did not work
-*/
+
 document.writeln('<div id="test"></div>');
 document.writeln('<select id="imbaUsers" size="10" ></select>');
 document.writeln('<div class="imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all"></div>');
@@ -75,3 +75,4 @@ document.writeln('</form>');
 document.writeln('</div>');
 document.writeln('</div>');
 document.writeln('</div>');
+*/

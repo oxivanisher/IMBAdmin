@@ -150,7 +150,8 @@ class ImbaManagerMessage {
 
         $result = array();
         $managerUser = new ImbaManagerUser($this->database);
-        foreach ($databaseresult as $value) {
+        for ($i = 0; $i < 3; $i++) {
+            $value = $databaseresult[$i];
             $user = new ImbaUser();
             $user = $managerUser->selectByOpenId($value);
             array_push($result, array("name" => $user->getNickname(), "openid" => $value));
@@ -163,12 +164,12 @@ class ImbaManagerMessage {
      * Selects all new Messages for a user
      */
     public function selectNewMessagesByOpenid($openid) {
-        $query = "SELECT sender FROM %s WHERE `receiver` =  '%s' AND new = 1";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openid));
+        $query = "SELECT m.sender, p.nickname FROM %s m join %s p on p.openid = m.sender Where `receiver` = '%s' and new = 1";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openid));
 
         $result = array();
         while ($row = $this->database->fetchRow()) {
-            array_push($result, $row["sender"]);
+            array_push($result, array("openid" => $row["sender"], "name" => $row["nickname"]));
         }
 
         return json_encode($result);

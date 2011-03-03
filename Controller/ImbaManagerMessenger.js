@@ -71,7 +71,6 @@ function loadChatWindowContent(tabIndex) {
 * Sends a Message to a reciver
 */
 function sendChatWindowMessage(msgReciver, msgText) {
-    alert(msgReciver);
     $.post(ajaxEntry, {
         reciever: msgReciver,
         message: msgText,

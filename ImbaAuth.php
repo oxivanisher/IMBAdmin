@@ -108,6 +108,7 @@ if ($_GET["logout"] == true) {
 // generate runtime output
 $m_time = explode(" ", microtime());
 $totaltime = (($m_time[0] + $m_time[1]) - $starttime);
+echo "<br /><br /><a href='" . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE . "'>Back to Index</a>";
 echo "<hr /><center>Page loading took:" . round($totaltime, 3) . " seconds</center><br /><br /></div>";
 echo "</body>\n</html>";
 ?>

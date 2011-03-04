@@ -1,4 +1,8 @@
 <?php
+/**
+ * Load dependencies
+ */
+require_once "ImbaConstants.php";
 
 /**
  * Controller / Manager Database
@@ -24,6 +28,11 @@ class ImbaManagerDatabase {
      * @var type singleton object.
      */
     private static $instance = NULL;
+    
+    /**
+     * Test
+     */
+    public $test = NULL;
 
     private function __construct($host, $database, $user, $pass) {
         /**

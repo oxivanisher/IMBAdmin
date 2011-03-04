@@ -3,11 +3,22 @@
 chdir ("../");
 require_once 'Controller/ImbaManagerDatabase.php';
 
+        
 /**
  * Prepare Variables
  */
 $managerDatabase = null;
 $output = "";
+
+if (isset($_GET["setquery"])) {    
+    $managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
+    $managerDatabase->test = $_GET["setquery"];
+}
+
+if (isset($_GET["getquery"])){
+    $managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
+    echo $managerDatabase->test;    
+}
 
 /**
  * Databaseconnection test
@@ -33,4 +44,5 @@ try {
 }
 
 echo "<pre>ImbaManagerDatabase Test:\n" . $output . "</pre>"
+
 ?>

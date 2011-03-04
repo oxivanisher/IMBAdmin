@@ -156,7 +156,7 @@ function loadChatWindowContent(tabIndex) {
             var htmlConversation = "<div id='imbaChatConversation'>";
             
             $.each($.parseJSON(response), function(key, val) {
-                htmlConversation += "<div>{0} {1}: {2}</div>".format(val.time, val.sender, val.message);
+                htmlConversation += "<div>" + val.time + " " + val.sender + ": " + val.message + "</div>";
             });
 
             htmlConversation += "</div>";

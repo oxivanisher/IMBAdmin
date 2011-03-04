@@ -27,7 +27,7 @@ class ImbaManagerDatabase {
 
     private function __construct($host, $database, $user, $pass) {
         $this->connection = mysql_pconnect($host, $user, $pass, TRUE);
-        $this->connection->query('set character set utf8;', array());
+        mysql_query('set character set utf8;');
         mysql_set_charset('UTF8', $this->connection);
 
         if (!mysql_select_db($database, $this->connection)) {

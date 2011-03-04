@@ -8,6 +8,7 @@
 // Single point of Ajax entry   
 var ajaxEntry = "ajax.php";
 
+
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
     $.post(ajaxEntry, {
@@ -19,6 +20,14 @@ $(document).ready(function() {
         } 
     })
 });
+
+String.prototype.format = function() {
+    var formatted = this;
+    for(arg in arguments) {
+        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+    }
+    return formatted;
+};
 
 // Write ImbaOutput
 // TODO: Mach mich schoen!

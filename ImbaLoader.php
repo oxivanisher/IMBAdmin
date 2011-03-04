@@ -12,7 +12,7 @@ if (isset($_GET["js"])) {
       ImbaConstants::$WEB_AJAX_ENTRY_FILE,
       file_get_contents("ImbaLogin.js") . "\n"); */
     echo file_get_contents("ImbaLogin.js") . "\n";
-    echo file_get_contents("Controller/ImbaManagerMessenger.js") . "\n";
+    echo file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
     echo file_get_contents("Controller/ImbaManagerOpenID.js") . "\n";
 } else if (isset($_GET["css"])) {
     echo file_get_contents("Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css") . "\n";

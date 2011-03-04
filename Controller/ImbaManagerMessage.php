@@ -93,14 +93,15 @@ class ImbaManagerMessage {
     /**
      * Selects a complete Conversation between two OpenIds
      */
-    public function selectConversation($openidMe, $openidOpponent) {
-        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC;";
+    public function selectConversation($openidMe, $openidOpponent, $lines) {
+        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC LIMIT 0, %s;";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openidMe,
             $openidOpponent,
             $openidOpponent,
-            $openidMe
+            $openidMe,
+            $lines
         ));
 
         $result = new ArrayObject();
@@ -164,7 +165,7 @@ class ImbaManagerMessage {
      * Selects all new Messages for a user
      */
     public function selectNewMessagesByOpenid($openid) {
-        $query = "SELECT m.sender, p.nickname FROM %s m join %s p on p.openid = m.sender Where `receiver` = '%s' and new = 1";
+        $query = "SELECT DISTINCT m.sender, p.nickname FROM %s m join %s p on p.openid = m.sender Where `receiver` = '%s' and new = 1";
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openid));
 
         $result = array();

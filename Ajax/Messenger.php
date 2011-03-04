@@ -10,11 +10,11 @@ require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 
 //DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
+ImbaUserContext::setLoggedIn(true);
+ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+if (true) {
 
-if (ImbaUserContext::getLoggedIn()) {
+//if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerMessage = new ImbaManagerMessage($managerDatabase);
 
@@ -29,7 +29,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Got something new for user?
      */
-    if (isset($_POST['gotnewmessages'])) {        
+    if (isset($_POST['gotnewmessages'])) {
         echo $managerMessage->selectNewMessagesByOpenid(ImbaUserContext::getOpenIdUrl());
     }
 
@@ -60,19 +60,26 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
-            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
+            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 8);
 
-            $resultHTML = "<div id='imbaChatConversation'>";
+            $result = array();
             foreach ($conversation as $message) {
+                $time = "";
+                $sender = "";
+                $msg = "";
                 if ($message->getSender() == ImbaUserContext::getOpenIdUrl()) {
-                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " You : " . $message->getMessage() . "</div>\n";
+                    $time =  date("d.m.y H:m:s", $message->getTimestamp());
+                    $sender = "You";
+                    $msg = $message->getMessage();
                 } else {
-                    $resultHTML .= "<div>" . date("d.m.y H:m:s", $message->getTimestamp()) . " The other : " . $message->getMessage() . "</div>\n";
+                    $time =  date("d.m.y H:m:s", $message->getTimestamp());
+                    $sender = "The other";
+                    $msg = $message->getMessage();
                 }
-            }
-            $resultHTML .= "</div>";
 
-            echo $resultHTML;
+                array_push($result, array("time" => $time, "sender" => $sender, "message" => $msg));                
+            }
+            echo json_encode($result);
         } catch (Exception $ex) {
             echo "Error: " . $ex->getMessage();
         }

@@ -19,20 +19,24 @@ function refreshChat() {
             // look in Chats if there is an open window with val            
             var foundTab = false;
             $.each($("#imbaMessages a"), function (k, v) {
-                var tmp = v.toString().split("#");
-                tmp = "#" + tmp[1];
-                var openid = $(tmp).data("openid");
-                if (openid == newMessageFrom.openid){                  
-                    showStarChatWindowTitle(tmp, true);
-                    foundTab = true;
+                if (k == getSelectedTabIndex()) {
+                    loadChatWindowContent(k);
+                } else {
+                    var tmp = v.toString().split("#");
+                    tmp = "#" + tmp[1];
+                    var openid = $(tmp).data("openid");
+                    if (openid == newMessageFrom.openid){                  
+                        showStarChatWindowTitle(tmp, true);
+                        foundTab = true;
+                    }
                 }
             });
             
             // TODO: Briefkasten anzeigen
             if (!foundTab){
                 var i = 5;
-                // span mit class= .icon .ui-icon-mail-closed
-                // warum geht das nicht, fickeneee
+            // span mit class= .icon .ui-icon-mail-closed
+            // warum geht das nicht, fickeneee
             }
         });
     });

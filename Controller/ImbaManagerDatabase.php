@@ -26,6 +26,11 @@ class ImbaManagerDatabase {
     private static $instance = NULL;
 
     private function __construct($host, $database, $user, $pass) {
+        /**
+         * Setting the local Timezone
+         */
+        setlocale (ImbaConstants::$CONTEXT_LOCALE);
+
         $this->connection = mysql_pconnect($host, $user, $pass, TRUE);
         mysql_query('set character set utf8;');
         mysql_set_charset('UTF8', $this->connection);

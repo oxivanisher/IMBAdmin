@@ -10,7 +10,11 @@ require_once 'ImbaConfig.php';
  *  - Database
  */
 class ImbaConstants extends ImbaConfig {
-
+    /**
+     * Site context settings
+     */
+    public static $CONTEXT_SITE_TITLE = "IMBAdmin";
+    
     /**
      * Files and Folders
      */

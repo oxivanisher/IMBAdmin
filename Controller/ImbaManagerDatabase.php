@@ -29,7 +29,8 @@ class ImbaManagerDatabase {
         /**
          * Setting the local Timezone
          */
-        setlocale (ImbaConstants::$CONTEXT_LOCALE);
+        setlocale(ImbaConstants::$CONTEXT_LOCALE[0], ImbaConstants::$CONTEXT_LOCALE[1], ImbaConstants::$CONTEXT_LOCALE[2], ImbaConstants::$CONTEXT_LOCALE[3], ImbaConstants::$CONTEXT_LOCALE[4]
+        );
 
         $this->connection = mysql_pconnect($host, $user, $pass, TRUE);
         mysql_query('set character set utf8;');
@@ -67,7 +68,7 @@ class ImbaManagerDatabase {
 
         $this->counter = NULL;
     }
-    
+
     public function fetchRow() {
         return mysql_fetch_assoc($this->result);
     }

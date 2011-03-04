@@ -23,7 +23,8 @@ class ImbaBase {
 
     public function toString() {
         foreach ($this as $key => $value) {
-            $json->$key = htmlentities ($value);
+//            $json->$key = htmlentities ($value);
+            $json->$key = $value;
         }
         return json_encode($json);
     }

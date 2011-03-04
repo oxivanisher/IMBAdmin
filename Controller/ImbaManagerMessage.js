@@ -11,31 +11,34 @@ setInterval('refreshChat()', 2000);
  * Refreshs the current chatwindow
  */
 function refreshChat() {
-    /*$.post(ajaxEntry, {
+    $.post(ajaxEntry, {
         gotnewmessages: "true", 
         action: "messenger"
     },  function(response) {
         $.each($.parseJSON(response), function(key, newMessageFrom) {
-            var foundWindow = false;
             // look in Chats if there is an open window with val            
-            $.each(Chats, function(key1, val1){
-                // ok, there is one window open with that val
-                if (newMessageFrom.openid == val1.openid){
-                    // if there is a new message in currentTab, then give it to me plix
-                    if (val1.namingIndex == currentTabIndex){
-                        loadChatWindowContent(val1.namingIndex);
-                    }
-                    foundWindow = true;
+            var foundTab = false;
+            $.each($("#imbaMessages a"), function (k, v) {
+                var tmp = v.toString().split("#");
+                tmp = "#" + tmp[1];
+                var openid = $(tmp).data("openid");
+                if (openid == newMessageFrom.openid){                  
+                    showStarChatWindowTitle(tmp, true);
+                    foundTab = true;
                 }
             });
-
-            if (!foundWindow){
-                createChatWindow(newMessageFrom.name, newMessageFrom.openid)
+            
+            // TODO: Briefkasten anzeigen
+            if (!foundTab){
+                var i = 5;
+                // span mit class= .icon .ui-icon-mail-closed
+                // warum geht das nicht, fickeneee
             }
         });
     });
     
-    $("#test").html(Math.random());*/
+
+    $("#test").html(Math.random());
 }
 
 /**

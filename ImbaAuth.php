@@ -75,7 +75,10 @@ if ($_GET["logout"] == true) {
                      * we get a html form as answer. display it
                      * TODO: make it autosubmit
                      */
+                    echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
+                    echo "<body onload='submitForm()'><h2>Redirecting...</h2>";
                     echo $formHtml;
+                    echo "<script type='text/javascript'>document.openid_message.submit();</script>";
                 } else {
                     /**
                      * something went wrong. display error end exit

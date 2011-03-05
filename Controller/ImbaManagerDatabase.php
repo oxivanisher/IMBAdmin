@@ -29,11 +29,6 @@ class ImbaManagerDatabase {
      */
     private static $instance = NULL;
     
-    /**
-     * Test
-     */
-    public $test = NULL;
-
     private function __construct($host, $database, $user, $pass) {
         /**
          * Setting the local Timezone

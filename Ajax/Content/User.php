@@ -15,14 +15,16 @@ $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
 
 if ($_POST["action"] != "navigation") {
+    echo "DEBUG:<br /><pre>";
+    print_r($_POST);
+    echo "</pre><br />";
+    
     switch ($_POST["tabId"]) {
         case "overview";
             echo "OVERVIEW";
-            print_r($_POST);
             break;
         case "myprofile";
             echo "MYPROFILE";
-            print_r($_POST);
             break;
     }
 }

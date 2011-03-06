@@ -12,9 +12,6 @@ body{
 
 #ImbaErrorMsg {
     color: red;
-    border: 1px red dashed;
-    margin: 2px;
-    width: 100%;
 }
 
 /* IMBAdmin login window */

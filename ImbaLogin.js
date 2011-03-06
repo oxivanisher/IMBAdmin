@@ -5,7 +5,47 @@
 var ajaxEntry = "ajax.php";
 
 // Test if user is online, if then show chat, else hide
-$(document).ready(function() {    
+$(document).ready(function() {
+
+    $("ul.subnav").parent().append("<span></span>"); 
+
+    $("ul.topnav li span").click(function() { 
+
+        $(this).parent().find("ul.subnav").slideDown('fast').show(); 
+
+        $(this).parent().hover(function() {
+            }, function(){
+                $(this).parent().find("ul.subnav").slideUp('slow');
+            });         
+    });
+    
+    $("#imbaMenu").hide();    
+    var menuIsThere = false;
+    $("#imbaSsoLogo").click(function() {
+        if (!menuIsThere){
+            showMenu();
+            menuIsThere = true;
+        }
+        else {
+            hideMenu();
+            menuIsThere = false;
+        }
+        
+        return false;
+    });
+    
+    function showMenu() {        
+        // run the effect
+        $("#imbaMenu").effect("slide", {
+            direction: "right"
+        }, 1000, null);
+    }
+    
+    function hideMenu() {        
+        // run the effect
+        $("#imbaMenu").hide();
+    }
+    
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
@@ -14,7 +54,7 @@ $(document).ready(function() {
             $("#imbaMessagesDialog").hide();
             $("#imbaContentDialog").hide();
         } 
-    })
+    });
 });
 
 String.prototype.format = function() {
@@ -29,7 +69,42 @@ String.prototype.format = function() {
 // TODO: Mach mich schoen!
 htmlContent = " \
     <div id='test'></div> \
-    <select id='imbaUsers' size='10' ></select> \
+    <select id='imbaUsers' size='10' ></select>\
+       <div id='imbaMenu'>\
+            <ul class='topnav'>\
+                <li>\
+                    <a href='#'>Communication</a>\
+                    <ul class='subnav'>\
+                        <li><a href='#'>Chat Kan&auml;le konfigurieren</a></li>\
+                        <li><a href='#'>Private Nachrichten</a></li>\
+                        <li><a href='#'>Benutzer &Uuml;bersicht</a></li>\
+                    </ul>\
+                </li>\
+                <li>\
+                    <a href='#'>Community Funktionen</a>\
+                    <ul class='subnav'>\
+                        <li><a href='#'>Multigaming konfigurieren</a></li>\
+                        <li><a href='#'>Benutzer Profil</a></li>\
+                    </ul>\
+                </li>\
+                <li>\
+                    <a href='#'>Spiele</a>\
+                    <ul class='subnav'>\
+                        <li><a href='#'>WoW - Top 10</a></li>\
+                        <li><a href='#'>WoW - Armory</a></li>\
+                        <li><a href='#'>Eve - irgendwas</a></li>\
+                    </ul>\
+                </li>\
+                <li>\
+                    <a href='#'>Offizier Funktionen</a>\
+                    <ul class='subnav'>\
+                        <li><a href='#'>Registrieren / Best&auml;tigen</a></li>\
+                        <li><a href='#'>Main / Twink Check</a></li>\
+                        <li><a href='#'>Admin User Manager</a></li>\
+                    </ul>\
+                </li>\
+            </ul>\
+        </div>\
     <div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'></div> \
     <div id='imbaSsoLogin'> \
         <div id='imbaSsoLoginInner'> \

@@ -72,3 +72,77 @@ body{
 }
 
 #imbaContent li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+
+#imbaMenu {
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    z-index: 9999;
+}
+
+/* IMAdmin Menu */
+#imbaMenu ul.topnav {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+    float: left;
+    width: 750px;
+    background: #222;
+    font-size: 1.2em;
+    background: url(Images/topnav_bg.gif) repeat-x;
+}
+
+#imbaMenu ul.topnav li {
+    float: left;
+    margin: 0;
+    padding: 0 15px 0 0;
+    position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+
+#imbaMenu ul.topnav li a{
+    padding: 10px 5px;
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    float: left;
+}
+
+#imbaMenu ul.topnav li span { 
+    width: 17px;
+    height: 35px;
+    float: left;
+    background: url(Images/subnav_btn.gif) no-repeat center top;
+}
+
+#imbaMenu ul.topnav li span.subhover {background-position: center bottom; cursor: pointer;}
+
+#imbaMenu ul.topnav li ul.subnav {
+    list-style: none;
+    position: absolute;
+    left: 0; top: 35px;
+    background: #333;
+    margin: 0; padding: 0;
+    display: none;
+    float: left;
+    width: 170px;
+    border: 1px solid #111;
+}
+
+#imbaMenu ul.topnav li ul.subnav li{
+    margin: 0; padding: 0;
+    border-top: 1px solid #252525;
+    border-bottom: 1px solid #444;
+    clear: both;
+    width: 170px;
+}
+
+#imbaMenu html ul.topnav li ul.subnav li a {
+    float: left;
+    width: 145px;
+    background: #333 url(Images/dropdown_linkbg.gif) no-repeat 10px center;
+    padding-left: 20px;
+}
+
+#imbaMenu html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+    background: #222 url(Images/dropdown_linkbg.gif) no-repeat 10px center;
+}

@@ -17,7 +17,7 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
 if ($_POST["action"] != "navigation") {
     echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
     print_r($_POST);
-    echo "</pre><div>";
+    echo "</pre></div>";
 
     switch ($_POST["tabId"]) {
         

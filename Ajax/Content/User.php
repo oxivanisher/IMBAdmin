@@ -41,11 +41,11 @@ if (ImbaUserContext::getLoggedIn()) {
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
 
-        /* Debug output
+        /* Debug output */
           echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
           print_r($_POST);
           echo "</pre></div>";
-         */
+         /**/
         switch ($_POST["tabId"]) {
 
             case "#myprofile":
@@ -73,7 +73,6 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('susers', $smarty_users);
 
                 $smarty->display('ImbaWebUserOverview.tpl');
-                print_r($users);
                 break;
         }
     }

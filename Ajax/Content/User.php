@@ -6,6 +6,7 @@ session_start();
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaContentNavigation.php';
 require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -63,14 +64,11 @@ if (ImbaUserContext::getLoggedIn()) {
                 break;
 
             default:
-                $smarty->assign('action', $_POST["mod_user"]);
-                $smarty->assign('tabId', "viewprofile");
-                $smarty->assign('module', $_POST["User"]);
+                $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "viewprofile", $_POST["User"]));
                 
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
                 $smarty_users = array();
-
                 foreach ($users as $user) {
                     array_push($smarty_users, array('nickname' => $user->getNickname(), 'openid' => $user->getOpenID()));
                 }

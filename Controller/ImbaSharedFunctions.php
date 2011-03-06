@@ -178,6 +178,10 @@ class ImbaSharedFunctions {
         }
     }
 
+    public static function genAjaxWebLink($action, $tabId, $module) {
+        return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
+    }
+    
     public static function killCookies() {
         // unset smf cookie
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);

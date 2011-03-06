@@ -33,7 +33,7 @@ switch ($_POST["action"]) {
          * $tmpModule = "User"
          */
         $tmpModule = 'User';
-        
+        echo "www";
         echo "<div id='ImbaContentContainer'>";
         include "Ajax/Content/" . $tmpModule . ".php";
         echo "</div>";

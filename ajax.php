@@ -10,7 +10,11 @@
  */
 if (!isset($_POST["action"]))
     $_POST = $_GET;
-
+        
+//FIXME: I am just temporary here for testing purposes
+$_POST["module"] = "User";
+        
+        
 switch ($_POST["action"]) {
     case "messenger":
         include 'Ajax/Messenger.php';
@@ -25,10 +29,6 @@ switch ($_POST["action"]) {
         break;
     
     case "mod_user":
-        
-        //FIXME: I am just temporary here for testing purposes
-        $_POST["module"] = "User";
-        
         include 'Ajax/Content/User.php';
         break;
 

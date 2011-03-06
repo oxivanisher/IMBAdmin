@@ -33,7 +33,7 @@ define("FULL_RECORD_LENGTH",50);
 $tmpPath = getcwd();
 chdir("Libs/GeoIP");
 require_once 'geoip.inc';
-require_once 'geoipregionvars.php';
+require_once 'geoipregionvars.inc';
 chdir($tmpPath);
 
 class geoiprecord {

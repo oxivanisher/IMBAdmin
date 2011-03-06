@@ -8,7 +8,7 @@
 // The old format (GEO-132) will not work.
 
 chdir ("../../");
-include("Libs/GeoIP/geoipcity.inc");
+include("Libs/GeoIP/GeoIP.php");
 
 // uncomment for Shared Memory support
 // geoip_load_shared_mem("/usr/local/share/GeoIP/GeoIPCity.dat");

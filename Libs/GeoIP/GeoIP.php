@@ -31,7 +31,7 @@
 define("FULL_RECORD_LENGTH",50);
 
 $tmpPath = getcwd();
-chdir("Libs/GeoIP");
+chdir("Libs/GeoIP/Inlcude");
 require_once 'geoip.inc';
 require_once 'geoipregionvars.inc';
 chdir($tmpPath);

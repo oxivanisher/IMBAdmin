@@ -3,12 +3,7 @@
 
 set_time_limit('300');
 
-chdir("../../Libs/GeoIP/");
-include("geoip.inc");
-include("geoipcity.inc");
-define("GEOIP_COUNTRY_DATABASE",0);
-define("GEOIP_REGION_DATABASE",1);
-define("GEOIP_CITY_DATABASE",2);
+include("../../Libs/GeoIP/geoipcity.inc");
 
 class mainappc{
   var $dbfilename = array("/usr/local/share/GeoIP/GeoIP.dat","/usr/local/share/GeoIP/GeoIPRegion.dat","/usr/local/share/GeoIP/GeoIPCity.dat");

@@ -2,8 +2,7 @@
 
 // This code demonstrates how to lookup the country by IP Address
 
-chdir("../../Libs/GeoIP/");
-include("geoip.inc");
+include("../../Libs/GeoIP/geoipcity.inc");
 
 // Uncomment if querying against GeoIP/Lite City.
 // include("geoipcity.inc");

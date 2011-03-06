@@ -7,9 +7,7 @@
 // Note that you must download the New Format of GeoIP City (GEO-133).
 // The old format (GEO-132) will not work.
 
-chdir("../../Libs/GeoIP/");
-include("geoipcity.inc");
-include("geoipregionvars.php");
+include("../../Libs/GeoIP/geoipcity.inc");
 
 // uncomment for Shared Memory support
 // geoip_load_shared_mem("/usr/local/share/GeoIP/GeoIPCity.dat");

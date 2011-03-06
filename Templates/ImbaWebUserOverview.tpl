@@ -7,6 +7,7 @@ $(document).ready(function() {
         } );
 } );
 </script>
+<div id="ImbaWebUsersOverviewTableContainer">
 <table id="ImbaWebUsersOverviewTable" cellpadding="0" cellspacing="0" border="0" class="display">
     <thead>
         <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr>
@@ -19,3 +20,4 @@ $(document).ready(function() {
 
     </tbody>
 </table>
+</div>

@@ -64,7 +64,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             default:
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
-               
+               print_r($users);
                 $smarty->display('ImbaWebUserOverview.tpl');
                 break;
         }

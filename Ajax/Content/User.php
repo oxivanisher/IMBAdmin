@@ -15,7 +15,15 @@ $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
 
 if ($_POST["action"] != "navigation") {
-    echo "huhu test";
-    print_r($_POST);
+    switch ($_POST["tabId"]) {
+        case "overview";
+            echo "OVERVIEW";
+            print_r($_POST);
+            break;
+        case "myprofile";
+            echo "MYPROFILE";
+            print_r($_POST);
+            break;
+    }
 }
 ?>

@@ -15,8 +15,9 @@ $(document).ready(function() {
         action: "user"
     }, function (response){
         if (response == "Not logged in"){
-            $("#imbaUsers").hide();         
-            $("#imbaMessagesDialog").hide();         
+            $("#imbaUsers").hide();
+            $("#imbaMessagesDialog").hide();
+            $("#imbaContentDialog").hide();
         } 
     })
 });
@@ -54,6 +55,10 @@ htmlContent = " \
                 </form> \
             </div> \
         </div> \
+    </div> \
+    <div id='imbaContentDialog'> \
+    <hr /> \
+    <a href='ImbaAuth.php?logout=true'>destroy session</a> \
     </div> \
     ";
 document.write(htmlContent);

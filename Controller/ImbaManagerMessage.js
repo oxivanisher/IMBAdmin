@@ -113,6 +113,11 @@ function createChatWindow(name, openid) {
     // if so => select that
     var found = false;
     var countOpenChats = 0;
+    
+    if (countOpenChats == 0){
+         $("#imbaMessagesDialog").dialog("open");
+    }
+    
     $.each($("#imbaMessages a"), function (k, v) {
         var tmpId = v.toString().split("#");
         var tmpOpenId = $("#" + tmpId[1]).data("openid");
@@ -210,7 +215,9 @@ $(document).ready(function() {
     $msgTabs = $('#imbaMessages').tabs();
 
     // Creats the Dialog around the chattabs
-    $("#imbaMessagesDialog").dialog();
+    $("#imbaMessagesDialog").dialog({
+        autoOpen: false
+    });
 
     // Fill the Selectbox with users
     fillUsers();

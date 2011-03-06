@@ -51,21 +51,29 @@ if (ImbaUserContext::getLoggedIn()) {
             case "#myprofile":
                 $smarty->assign('name', 'Ned');
 
-                
+
                 $smarty->display('ImbaWebUserMyprofile.tpl');
                 break;
 
             case "#viewprofile":
                 $smarty->assign('name', 'Ned');
-                
-                
+
+
                 $smarty->display('ImbaWebUserViewprofile.tpl');
                 break;
 
             default:
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
-               print_r($users);
+
+                $smarty_users = array();
+
+                foreach ($users as $user) {
+                    array_push($smarty_users, array('nickname' => $user->getNickname(), 'openid' => $user->getOpenID()));
+                }
+                $smarty->assign('susers', $smarty_users);
+
                 $smarty->display('ImbaWebUserOverview.tpl');
+                print_r($users);
                 break;
         }
     }

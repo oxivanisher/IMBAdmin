@@ -1,7 +1,8 @@
+<script type="text/javascript">
 $(document).ready(function() {
 	$('#ImbaWebUsersOverviewTable').dataTable();
 } );
-
+</script>
 <table id="ImbaWebUsersOverviewTable">
     <thead>
         <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr>

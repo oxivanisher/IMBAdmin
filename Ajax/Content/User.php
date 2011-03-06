@@ -3,6 +3,7 @@
 // Extern Session start
 
 session_start();
+echo "echo";
 require_once 'Model/ImbaContentNavigation.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Controller/ImbaManagerDatabase.php';

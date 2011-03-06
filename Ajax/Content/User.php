@@ -40,11 +40,9 @@ if (ImbaUserContext::getLoggedIn()) {
             default:
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
                 $result = array();
-                echo "<pre>";
                 foreach ($users as $user) {
                     echo $user->getNickname() . " ";
                 }
-                echo "</pre>";
 
                 echo json_encode($result);
 

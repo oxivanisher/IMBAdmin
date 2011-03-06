@@ -1,4 +1,8 @@
 <?php
+/**
+ * FIXME: No integration of user roles for security!
+ */
+
 
 /**
  * Base class for all navigations

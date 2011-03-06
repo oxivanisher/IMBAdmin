@@ -14,8 +14,8 @@ $Navigation = new ImbaContentNavigation();
 $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
 
-echo "huhu test";
-print_r($_POST);
-
-
+if ($_POST["action"] != "navigation") {
+    echo "huhu test";
+    print_r($_POST);
+}
 ?>

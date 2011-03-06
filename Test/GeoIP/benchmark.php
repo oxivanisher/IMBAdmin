@@ -3,7 +3,7 @@
 set_time_limit('300');
 
 chdir ("../../");
-include("../../Libs/GeoIP/geoipcity.inc");
+include("Libs/GeoIP/geoipcity.inc");
 
 class mainappc{
   var $dbfilename = array("/usr/local/share/GeoIP/GeoIP.dat","/usr/local/share/GeoIP/GeoIPRegion.dat","/usr/local/share/GeoIP/GeoIPCity.dat");

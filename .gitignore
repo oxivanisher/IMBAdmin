@@ -1,3 +1,5 @@
 /nbproject/
 .gitignore
 /Tools/imbadmin.sql.zip
+/Libs/smarty/cache/*
+/Libs/smarty/templates_c/*

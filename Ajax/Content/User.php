@@ -4,11 +4,11 @@
 
 session_start();
 echo "echo";
+require_once 'ImbaConstants.php';
+require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaContentNavigation.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Controller/ImbaManagerDatabase.php';
-require_once 'Model/ImbaUser.php';
-require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 

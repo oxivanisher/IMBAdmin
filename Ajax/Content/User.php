@@ -74,7 +74,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
                 $smarty->assign('susers', $smarty_users);
 
-                echo "<div id='ImbaWebContainer'>";
+                echo "<div id='ImbaContentContainer'>";
                 $smarty->display('ImbaWebUserOverview.tpl');
                 echo "</div>";
                 break;

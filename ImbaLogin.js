@@ -30,6 +30,8 @@ $(document).ready(function() {
         });        
     });
 
+    $('imbaContentNav').tabs("select", 0);
+
     $.post(ajaxEntry, {
         action: "navigation",
         navigation_for_user : true
@@ -98,3 +100,4 @@ String.prototype.format = function() {
     }
     return formatted;
 };
+

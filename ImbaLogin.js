@@ -45,7 +45,7 @@ htmlContent = " \
             </form> \
         </div> \
     </div> \
-    <div id='imbaMessagesDialog' title='Alptr&ouml;im Messaging'> \
+    <div id='imbaMessagesDialog' title='IMBA Messaging'> \
         <div id='imbaMessages'> \
             <ul></ul> \
             <div id='imbaMessageTextDiv'> \
@@ -56,9 +56,12 @@ htmlContent = " \
             </div> \
         </div> \
     </div> \
-    <div id='imbaContentDialog'> \
+    <div id='imbaContentDialog' title='IMBAdmin'> \
+        <div id='imbaContent'> \
+            <ul></ul> \
+            <a href='ImbaAuth.php?logout=true'>destroy session</a> \
+        </div> \
     <hr /> \
-    <a href='ImbaAuth.php?logout=true'>destroy session</a> \
     </div> \
     ";
 document.write(htmlContent);

@@ -1,8 +1,14 @@
 @import url('Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css') all;
 
+/* test page content 
+    TODO: remove me
+*/
+
 body{
     font: 60% "Trebuchet MS", sans-serif;
 }
+
+/* IMBAdmin login window */
 
 #imbaSsoLogin {
     position: absolute;
@@ -42,6 +48,8 @@ body{
     border: 1px solid black;
 }
 
+/* IMBAdmin chat window */
+
 #imbaMessages {
 }
 
@@ -57,3 +65,10 @@ body{
     /*overflow-y: scroll;*/
     /*height: 80%;*/
 }
+
+/* IMBAdmin main content window */
+
+#imbaContent {
+}
+
+#imbaContent li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }

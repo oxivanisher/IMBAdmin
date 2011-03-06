@@ -77,6 +77,9 @@ Used Libs:
 =================
 OpenID http://www.janrain.com/openid-enabled
 Ale (Eve Online) http://sourceforge.net/projects/eve-apiphp/
+GeoLite City (GeoIP) http://www.maxmind.com/app/geolitecity
+  downloaded from: http://geolite.maxmind.com/download/geoip/api/php/
+  for updating the database read: http://www.maxmind.com/app/installation?city=1
 
 
 Used Tools:

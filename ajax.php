@@ -28,7 +28,20 @@ switch ($_POST["action"]) {
         break;
 
     case "mod_user":
-        include 'Ajax/Content/User.php';
+        /**
+         * This block will be the same for every module
+         * $tmpModule = "User"
+         */
+        $tmpModule = 'User';
+        
+        session_start();
+        require_once 'Model/ImbaContentNavigation.php';
+        require_once 'Controller/ImbaSharedFunctions.php';
+        require_once 'Controller/ImbaManagerDatabase.php';
+        echo "<div id='ImbaContentContainer'>";
+        include "Ajax/Content/" . $tmpModule . ".php";
+        echo "</div>";
+        
         break;
 
     /**

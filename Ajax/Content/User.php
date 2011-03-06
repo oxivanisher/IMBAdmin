@@ -1,13 +1,9 @@
 <?php
 
 // Extern Session start
-session_start();
 
 require_once 'Model/ImbaUser.php';
-require_once 'Model/ImbaContentNavigation.php';
 require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaSharedFunctions.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 
@@ -74,9 +70,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
                 $smarty->assign('susers', $smarty_users);
 
-                echo "<div id='ImbaContentContainer'>";
                 $smarty->display('ImbaWebUserOverview.tpl');
-                echo "</div>";
                 break;
         }
     }

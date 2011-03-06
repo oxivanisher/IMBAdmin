@@ -41,7 +41,6 @@ if (ImbaUserContext::getLoggedIn()) {
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
 
-           $smarty->testInstall();
         /* Debug output
           echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
           print_r($_POST);
@@ -51,19 +50,22 @@ if (ImbaUserContext::getLoggedIn()) {
 
             case "#myprofile":
                 $smarty->assign('name', 'Ned');
-                $smarty->display('index.tpl');
-                echo "MYPROFILE";
+
+                
+                $smarty->display('ImbaWebUserMyprofile.tpl');
+                break;
+
+            case "#viewprofile":
+                $smarty->assign('name', 'Ned');
+                
+                
+                $smarty->display('ImbaWebUserViewprofile.tpl');
                 break;
 
             default:
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
-                $result = array();
-                foreach ($users as $user) {
-                    echo $user->getNickname() . " ";
-                }
-
-                echo json_encode($result);
-
+               
+                $smarty->display('ImbaWebUserOverview.tpl');
                 break;
         }
     }

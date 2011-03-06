@@ -4,6 +4,13 @@
  * Single point of Ajax entry
  *
  */
+
+/**
+ * FIXME: Kill me after bugfixing
+ */
+if (!isset($_POST["action"]))
+    $_POST = $_GET;
+
 switch ($_POST["action"]) {
     case "messenger":
         include 'Ajax/Messenger.php';

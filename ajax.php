@@ -25,6 +25,10 @@ switch ($_POST["action"]) {
         break;
     
     case "mod_user":
+        
+        //FIXME: I am just temporary here for testing purposes
+        $_POST["module"] = "User";
+        
         include 'Ajax/Content/User.php';
         break;
 

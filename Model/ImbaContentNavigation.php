@@ -5,11 +5,11 @@
  */
 class ImbaContentNavigation {
 
-    private $Options = null;
+    private $Options = array();
 
     public function getElements() {
         $elements = array();
-        foreach ($Options as $Option) {
+        foreach ($this->Options as $Option) {
             array_push($elements, $Option->getIdentifier());
         }
         return $elements;
@@ -19,9 +19,16 @@ class ImbaContentNavigation {
         $newElement = new ImbaContentNavigationOption();
         $newElement->setName($Name);
         $newElement->setIdentifier($Identifier);
-        return true;
+        array_push($this->Options, $newElement);
     }
 
+    public function getElementName($Identifier){
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getName();
+            }
+        }
+    }
 }
 
 /**

@@ -1,6 +1,10 @@
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#ImbaWebUsersOverviewTable').dataTable();
+	$('#ImbaWebUsersOverviewTable').dataTable( {
+            "bFilter": true,
+            "sPaginationType": "full_numbers",
+            "bJQueryUI": true,
+        } );
 } );
 </script>
 <table id="ImbaWebUsersOverviewTable" cellpadding="0" cellspacing="0" border="0" class="display">

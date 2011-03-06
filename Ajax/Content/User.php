@@ -63,6 +63,10 @@ if (ImbaUserContext::getLoggedIn()) {
                 break;
 
             default:
+                $smarty->assign('action', $_POST["mod_user"]);
+                $smarty->assign('tabId', $_POST["tabId"]);
+                $smarty->assign('module', $_POST["User"]);
+                
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
                 $smarty_users = array();

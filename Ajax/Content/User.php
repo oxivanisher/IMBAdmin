@@ -42,7 +42,7 @@ if (ImbaUserContext::getLoggedIn()) {
         $smarty->setConfigDir('Libs/smarty/configs');
 
         /* Debug output */
-          echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
+          echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";
           print_r($_POST);
           echo "</pre></div>";
          /**/

@@ -7,6 +7,7 @@
 // Note that you must download the New Format of GeoIP City (GEO-133).
 // The old format (GEO-132) will not work.
 
+chdir ("../../");
 include("../../Libs/GeoIP/geoipcity.inc");
 
 // uncomment for Shared Memory support

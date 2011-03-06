@@ -1,8 +1,8 @@
-#!/usr/bin/php -q
 <?php
 
 set_time_limit('300');
 
+chdir ("../../");
 include("../../Libs/GeoIP/geoipcity.inc");
 
 class mainappc{

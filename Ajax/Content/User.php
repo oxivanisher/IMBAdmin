@@ -15,16 +15,18 @@ $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
 
 if ($_POST["action"] != "navigation") {
-    echo "DEBUG:<br /><pre>";
+    echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
     print_r($_POST);
-    echo "</pre><br />";
-    
+    echo "</pre><div />";
+
     switch ($_POST["tabId"]) {
-        case "overview";
-            echo "OVERVIEW";
-            break;
-        case "myprofile";
+        
+        case "#myprofile":
             echo "MYPROFILE";
+            break;
+
+        default:
+            echo "OVERVIEW";
             break;
     }
 }

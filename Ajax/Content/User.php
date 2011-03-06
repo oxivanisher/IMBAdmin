@@ -27,13 +27,31 @@ if (ImbaUserContext::getLoggedIn()) {
         $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
         $managerUser = new ImbaManagerUser($managerDatabase);
 
-        echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
-        print_r($_POST);
-        echo "</pre></div>";
+        /**
+         *  put full path to Smarty.class.php
+         */
+        require('Libs/smarty/libs/Smarty.class.php');
+        $smarty = new Smarty();
 
+        /**
+         * Set smarty dirs
+         */
+        $smarty->setTemplateDir('Templates');
+        $smarty->setCompileDir('Libs/smarty/templates_c');
+        $smarty->setCacheDir('Libs/smarty/smarty/cache');
+        $smarty->setConfigDir('Libs/smarty/smarty/configs');
+
+           $smarty->testInstall();
+        /* Debug output
+          echo "<div id='ImbaErrorMsg'>DEBUG:<br /><pre>";
+          print_r($_POST);
+          echo "</pre></div>";
+         */
         switch ($_POST["tabId"]) {
 
             case "#myprofile":
+                $smarty->assign('name', 'Ned');
+                $smarty->display('index.tpl');
                 echo "MYPROFILE";
                 break;
 

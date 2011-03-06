@@ -21,6 +21,10 @@
         </li>
         <li>
             <a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>
+            <ul class='subnav'>
+                <li><a href='#'>Benutzer</a></li>
+                <li><a href='#'>Administration</a></li>
+            </ul>
         </li>
     </ul>
 </div>

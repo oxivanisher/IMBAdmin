@@ -1,16 +1,11 @@
 /**
  * TODO: Beschreibung erstellen
  */
-
-// TODO: /w mit autocomplete => namen anbieten
-// TODO: * für neue nachricht (New == 1)
-
 // Single point of Ajax entry   
 var ajaxEntry = "ajax.php";
 
-
 // Test if user is online, if then show chat, else hide
-$(document).ready(function() {
+$(document).ready(function() {    
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){

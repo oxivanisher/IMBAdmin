@@ -32,7 +32,7 @@ switch ($_GET["load"]) {
         break;
 
     case "css":
-        echo file_get_contents("ImbaLogin.css") . "\n";
+        header("location: ImbaLogin.css");
         break;
 
     default:

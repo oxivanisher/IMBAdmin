@@ -34,8 +34,16 @@ $(document).ready(function() {
         action: "navigation",
         navigation_for_user : true
     }, function (response){
-        $.each($.parseJSON(response), function(key, value){
+        $.each($.parseJSON(response), function(key, value){            
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+            if (key == 0){
+                $.post(ajaxEntry, {
+                    action : "mod_user", 
+                    tabId : "#" + value.id
+                }, function(response){
+                    $("#" + value.id).html(response);
+                });  
+            }
         });
     });
     

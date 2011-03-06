@@ -4,35 +4,23 @@
 <div id='imbaMenu'>
     <ul class='topnav'>
         <li>
-            <a href='#'>Communication</a>
+            <a href='#'>News/Blog</a>
+            <!--
             <ul class='subnav'>
-                <li><a href='#'>Chat Kan&auml;le konfigurieren</a></li>
-                <li><a href='#'>Private Nachrichten</a></li>
-                <li><a href='#'>Benutzer &Uuml;bersicht</a></li>
+                <li><a href='#'>Sub1</a></li>
+                <li><a href='#'>Sub2</a></li>
+                <li><a href='#'>Sub3</a></li>
             </ul>
+            -->
         </li>
         <li>
-            <a href='#'>Community Funktionen</a>
-            <ul class='subnav'>
-                <li><a href='#'>Multigaming konfigurieren</a></li>
-                <li><a href='#'>Benutzer Profil</a></li>
-            </ul>
+            <a href='#'>Forum</a>
         </li>
         <li>
-            <a href='#'>Spiele</a>
-            <ul class='subnav'>
-                <li><a href='#'>WoW - Top 10</a></li>
-                <li><a href='#'>WoW - Armory</a></li>
-                <li><a href='#'>Eve - irgendwas</a></li>
-            </ul>
+            <a href='#'>Games / Module</a>
         </li>
         <li>
-            <a href='#'>Offizier Funktionen</a>
-            <ul class='subnav'>
-                <li><a href='#'>Registrieren / Best&auml;tigen</a></li>
-                <li><a href='#'>Main / Twink Check</a></li>
-                <li><a href='#'>Admin User Manager</a></li>
-            </ul>
+            <a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>
         </li>
     </ul>
 </div>
@@ -47,6 +35,7 @@
         </form>
     </div>
 </div>
+
 <div id='imbaMessagesDialog' title='IMBA Messaging'>
     <div id='imbaMessages'>
         <ul></ul>
@@ -58,10 +47,9 @@
         </div>
     </div>
 </div>
+
 <div id='imbaContentDialog' title='IMBAdmin'>
-    <div id='imbaContent'>
+    <div id='imbaContentNav'>
         <ul></ul>
-        <a href='ImbaAuth.php?logout=true'>destroy session</a>
     </div>
-    <hr />
 </div>

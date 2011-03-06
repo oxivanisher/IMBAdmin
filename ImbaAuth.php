@@ -42,7 +42,7 @@ $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, 
 /**
  * OpenID auth logic
  */
-if ($_GET["logout"] == true) {
+if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we want to log out
      */

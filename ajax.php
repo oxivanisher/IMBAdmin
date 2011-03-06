@@ -13,6 +13,14 @@ switch ($_POST["action"]) {
         include 'Ajax/User.php';
         break;
 
+    case "navigation":
+        include 'Ajax/Navigation.php';
+        break;
+    
+    case "mod_user":
+        include 'Ajax/Content/User.php';
+        break;
+
     /**
      * Some other examples
     case "role":

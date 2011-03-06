@@ -6,9 +6,49 @@ var ajaxEntry = "ajax.php";
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
+    // Init, hide Windows
+    $("#imbaContentDialog").dialog({
+        autoOpen: false
+    })
+    .dialog("option", "width", 600)
+    .dialog( "option", "height", 480 );
+    
+    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
+        var tmpTabId = "";
+        $.each($("#imbaContentNav a"), function (k, v) {
+            if (k == ui.index){
+                var tmp = v.toString().split("#");
+                tmpTabId = "#" + tmp[1];
+            }
+        });
+        
+        $.post(ajaxEntry, {
+            action : "mod_user", 
+            tabId : tmpTabId
+        }, function(response){
+            $(tmpTabId).html(response);
+        });        
+    });
 
+    $.post(ajaxEntry, {
+        action: "navigation",
+        navigation_for_user : true
+    }, function (response){
+        $.each($.parseJSON(response), function(key, value){
+            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+        });
+    });
+    
+    $.post(ajaxEntry, {
+        action: "user"
+    }, function (response){
+        if (response == "Not logged in"){
+            $("#imbaUsers").hide();
+        } 
+    });
+    
+    // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
-
     $("ul.topnav li span").click(function() { 
 
         $(this).parent().find("ul.subnav").slideDown('fast').show(); 
@@ -17,10 +57,8 @@ $(document).ready(function() {
             }, function(){
                 $(this).parent().find("ul.subnav").slideUp('slow');
             });         
-    });
-    
-    $("#imbaMenu").hide();    
-    var menuIsThere = false;
+    }); 
+    var menuIsThere = true;
     $("#imbaSsoLogo").click(function() {
         if (!menuIsThere){
             showMenu();
@@ -44,17 +82,13 @@ $(document).ready(function() {
     function hideMenu() {        
         // run the effect
         $("#imbaMenu").hide();
-    }
+    }    
     
-    $.post(ajaxEntry, {
-        action: "user"
-    }, function (response){
-        if (response == "Not logged in"){
-            $("#imbaUsers").hide();
-            $("#imbaMessagesDialog").hide();
-            $("#imbaContentDialog").hide();
-        } 
+    // show ImbAdmin
+    $("#imbaMenuImbAdmin").click(function(){
+        $("#imbaContentDialog").dialog("open");
     });
+    
 });
 
 String.prototype.format = function() {
@@ -64,4 +98,3 @@ String.prototype.format = function() {
     }
     return formatted;
 };
-    

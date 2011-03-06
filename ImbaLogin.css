@@ -86,7 +86,7 @@ body{
     padding: 0 20px;
     margin: 0;
     float: left;
-    width: 750px;
+    width: 600px;
     background: #222;
     font-size: 1.2em;
     background: url(Images/topnav_bg.gif) repeat-x;
@@ -145,4 +145,9 @@ body{
 
 #imbaMenu html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
     background: #222 url(Images/dropdown_linkbg.gif) no-repeat 10px center;
+}
+
+/* IMBAdmin Content */
+#imbaContentNav div {
+    height: 80%;
 }

@@ -20,6 +20,7 @@ switch ($_GET["load"]) {
             foreach ($file_array as $line) {
                 echo trim($line) . " \\\n";
             }
+                        
             echo "\";\n\ndocument.write(htmlContent);\n";
         } else {
             echo 'alert("FATAL ERROR: File not found: ' . $IMBAdminIndexTemplate . '");';

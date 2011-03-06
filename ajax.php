@@ -28,9 +28,7 @@ switch ($_POST["action"]) {
         break;
 
     case "mod_user":
-        echo "<div id='ImbaWebContainer'>";
         include 'Ajax/Content/User.php';
-        echo "</div>";
         break;
 
     /**

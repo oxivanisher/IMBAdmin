@@ -46,7 +46,7 @@ if (ImbaUserContext::getLoggedIn()) {
           echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";
           print_r($_POST);
           echo "</pre></div>";
-        */
+         */
         switch ($_POST["tabId"]) {
 
             case "#myprofile":
@@ -65,7 +65,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             default:
                 $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "viewprofile", $_POST["User"]));
-                
+
                 $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
                 $smarty_users = array();
@@ -74,7 +74,9 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
                 $smarty->assign('susers', $smarty_users);
 
+                echo "<div id='ImbaWebContainer'>";
                 $smarty->display('ImbaWebUserOverview.tpl');
+                echo "</div>";
                 break;
         }
     }

@@ -38,8 +38,8 @@ if (ImbaUserContext::getLoggedIn()) {
          */
         $smarty->setTemplateDir('Templates');
         $smarty->setCompileDir('Libs/smarty/templates_c');
-        $smarty->setCacheDir('Libs/smarty/smarty/cache');
-        $smarty->setConfigDir('Libs/smarty/smarty/configs');
+        $smarty->setCacheDir('Libs/smarty/cache');
+        $smarty->setConfigDir('Libs/smarty/configs');
 
            $smarty->testInstall();
         /* Debug output

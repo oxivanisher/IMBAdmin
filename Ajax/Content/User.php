@@ -41,11 +41,11 @@ if (ImbaUserContext::getLoggedIn()) {
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
 
-        /* Debug output */
+        /* Debug output
           echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";
           print_r($_POST);
           echo "</pre></div>";
-         /**/
+        */
         switch ($_POST["tabId"]) {
 
             case "#myprofile":

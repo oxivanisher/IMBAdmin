@@ -77,8 +77,10 @@ if ($_GET["logout"] == true) {
                      */
                     echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
                     echo "<body onload='submitForm()'><h2>Redirecting...</h2>";
+                    echo "Please submit the following form:<br />";
                     echo $formHtml;
                     echo "<script type='text/javascript'>document.openid_message.submit();</script>";
+                    echo "</body></html>";
                 } else {
                     /**
                      * something went wrong. display error end exit
@@ -87,7 +89,7 @@ if ($_GET["logout"] == true) {
                     exit;
                 }
             } catch (Exception $ex) {
-                echo "ERROR: " . $ex->getMessage();
+                echo "openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")";
             }
         }
     } else {
@@ -98,7 +100,7 @@ if ($_GET["logout"] == true) {
             $managerOpenId->openidVerify($managerDatabase);
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
-            echo "ERROR: " . $ex->getMessage();
+            echo "openidVerify ERROR: " . $ex->getMessage();
         }
     }
 } else {

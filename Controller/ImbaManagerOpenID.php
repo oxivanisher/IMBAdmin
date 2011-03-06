@@ -102,7 +102,7 @@ class ImbaManagerOpenID {
         // 
         // this sould be like that, if the webserver would be set up correctly
         // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
-        return sprintf("%s://%s/IMBAdmin/ImbaAuth.php?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME']);
+        return sprintf("%s://%s/%s/ImbaAuth.php?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**
@@ -112,7 +112,7 @@ class ImbaManagerOpenID {
     protected function getTrustRoot() {
         // this sould be like that, if the webserver would be set up correctly
         // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
-        return sprintf("%s://%s:%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s/%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
     }
 
     /**

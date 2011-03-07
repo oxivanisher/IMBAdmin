@@ -87,14 +87,12 @@ $(document).ready(function() {
     
     function showMenu() {        
         // run the effect
-        $("#imbaMenu").effect("slide", {
-            direction: "right"
-        }, 1000, null);
+        $("#imbaMenu").show("slide", {direction: "right"});
     }
     
     function hideMenu() {        
         // run the effect
-        $("#imbaMenu").hide();
+        $("#imbaMenu").hide("slide", {direction: "right"});
     }    
     
     // show ImbAdmin

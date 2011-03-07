@@ -7,8 +7,6 @@ $IMBAdminIndexTemplate = "Templates/ImbaIndex.html.tpl";
 
 switch ($_GET["load"]) {
     case "js":
-        session_start();
-
         echo file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
         echo file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
         echo file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";

@@ -1,6 +1,6 @@
 <div id='test'></div>
 <select id='imbaUsers' size='10' ></select>
-<!--
+
 <div id='imbaMenu'>
     <ul class='topnav'>
         <li>
@@ -21,7 +21,7 @@
         </li>
     </ul>
 </div>
--->
+
 
 <div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'></div>
 <div id='imbaSsoLogin'>

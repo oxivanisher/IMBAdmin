@@ -24,7 +24,7 @@ switch ($_GET["load"]) {
              * Generate TopNavigation
              */
 // FIXME: OXI!
-            include 'Ajax/TopNavigation.php';
+//            include 'Ajax/TopNavigation.php';
 
             /**
              * Generate HTML construct (divs)

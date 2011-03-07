@@ -1,6 +1,4 @@
 <?php
-if (empty(session_id()))
-    session_start();
 // Extern Session start
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';

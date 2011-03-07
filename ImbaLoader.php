@@ -7,6 +7,8 @@ $IMBAdminIndexTemplate = "Templates/ImbaIndex.html.tpl";
 
 switch ($_GET["load"]) {
     case "js":
+        session_start();
+
         echo file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
         echo file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
         echo file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
@@ -17,15 +19,25 @@ switch ($_GET["load"]) {
          */
         if (file_exists($IMBAdminIndexTemplate)) {
             echo "htmlContent = \" \\\n";
+
+            /**
+             * Generate TopNavigation
+             */
+            require 'Ajax/TopNavigation.php';
+
+            /**
+             * Generate HTML construct (divs)
+             */
             $file_array = file($IMBAdminIndexTemplate);
             foreach ($file_array as $line) {
                 echo trim($line) . " \\\n";
             }
-                        
-            echo "\";\n\ndocument.write(htmlContent);\n";
+
+            echo "\";\ndocument.write(htmlContent);\n\n";
         } else {
             echo 'alert("FATAL ERROR: File not found: ' . $IMBAdminIndexTemplate . '");';
         }
+
 
         echo file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
         echo file_get_contents("Controller/ImbaManagerOpenID.js") . "\n";

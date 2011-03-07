@@ -1,17 +1,11 @@
 <div id='test'></div>
 <select id='imbaUsers' size='10' ></select>
 
+<!--
 <div id='imbaMenu'>
     <ul class='topnav'>
         <li>
             <a href='#'>News/Blog</a>
-            <!--
-            <ul class='subnav'>
-                <li><a href='#'>Sub1</a></li>
-                <li><a href='#'>Sub2</a></li>
-                <li><a href='#'>Sub3</a></li>
-            </ul>
-            -->
         </li>
         <li>
             <a href='#'>Forum</a>
@@ -28,6 +22,7 @@
         </li>
     </ul>
 </div>
+-->
 
 <div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'></div>
 <div id='imbaSsoLogin'>

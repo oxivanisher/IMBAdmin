@@ -1,0 +1,152 @@
+<?php
+
+/**
+ * FIXME: No integration of user roles for security!
+ */
+
+/**
+ * Base class for all navigations
+ */
+class ImbaContentNavigation {
+
+    private $Options = array();
+
+    public function getElements() {
+        $elements = array();
+        foreach ($this->Options as $Option) {
+            array_push($elements, $Option->getIdentifier());
+        }
+        return $elements;
+    }
+
+    public function addElement($Identifier, $Name) {
+        $newElement = new ImbaContentNavigationOption();
+        $newElement->setName($Name);
+        $newElement->setIdentifier($Identifier);
+        array_push($this->Options, $newElement);
+    }
+
+    public function getElementName($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getName();
+            }
+        }
+    }
+
+}
+
+/**
+ * Class for navigation options
+ */
+class ImbaContentNavigationOption {
+
+    /**
+     * Fields for class ImbaContentNavigationOption
+     */
+    protected $Identifier = null;
+    protected $Name = null;
+
+    public function getIdentifier() {
+        return $this->Identifier;
+    }
+
+    public function setIdentifier($Identifier) {
+        $this->Identifier = $Identifier;
+    }
+
+    public function getName() {
+        return $this->Name;
+    }
+
+    public function setName($Name) {
+        $this->Name = $Name;
+    }
+
+}
+
+/**
+ * Top navigation class
+ */
+class ImbaTopNavigationOption Extends ImbaContentNavigationOption {
+
+    protected $Target = null;
+    protected $URL = null;
+
+    public function getTarget() {
+        return $this->Target;
+    }
+
+    public function setTarget($Target) {
+        $this->Target = $Target;
+    }
+
+    public function getUrl() {
+        return $this->URL;
+    }
+
+    public function setUrl($Url) {
+        $this->URL = $Url;
+    }
+
+}
+
+/**
+ * class for top navigation
+ */
+class ImbaTopNavigation Extends ImbaContentNavigation {
+
+    private $Options = array();
+
+    public function getElements() {
+        $elements = array();
+        foreach ($this->Options as $Option) {
+            array_push($elements, $Option->getIdentifier());
+        }
+        return $elements;
+    }
+
+    public function addElement($Identifier, $Name, $Target, $Url) {
+        $newElement = new ImbaContentNavigationOption();
+        $newElement->setName($Name);
+        $newElement->setIdentifier($Identifier);
+        $newElement->setIdentifier($Target);
+        $newElement->setIdentifier($Url);
+        array_push($this->Options, $newElement);
+    }
+
+    public function getElementIdentifier($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getIdentifier();
+            }
+        }
+    }
+
+    public function getElementName($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getName();
+            }
+        }
+    }
+
+    public function getElementTarget($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getTarget();
+            }
+        }
+    }
+
+    public function getElementUrl($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->geUrl();
+            }
+        }
+    }
+
+}
+
+?>

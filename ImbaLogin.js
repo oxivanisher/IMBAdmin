@@ -30,7 +30,7 @@ $(document).ready(function() {
         });        
     });
 
-    $('imbaContentNav').tabs("select", 0);
+    $('#imbaContentNav').tabs("select", 0);
 
     $.post(ajaxEntry, {
         action: "navigation",

@@ -1,7 +1,14 @@
 <?php
+
 // Extern Session start
 
-session_start();
+if (isset($_COOKIE['PHPSESSID'])) {
+    $sessid = $_COOKIE['PHPSESSID'];
+} else if (isset($_GET['PHPSESSID'])) {
+    $sessid = $_GET['PHPSESSID'];
+} else {
+    session_start();
+}
 echo "test1";
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
@@ -20,12 +27,12 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
  */
 print_r($_COOKIE);
 if (ImbaUserContext::getLoggedIn()) {
-echo "test2";
+    echo "test2";
     /**
      * generate no content if only navigation is needed
      */
     if ($_POST["action"] != "navigation") {
-echo "test3";
+        echo "test3";
 
         /**
          * Load the database

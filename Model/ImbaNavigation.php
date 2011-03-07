@@ -34,6 +34,14 @@ class ImbaContentNavigation {
         }
     }
     
+    public function getElementIdentifier($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getIdentifier();
+            }
+        }
+    }
+    
     public function getElement($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {

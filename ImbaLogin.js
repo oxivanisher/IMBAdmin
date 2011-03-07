@@ -30,7 +30,10 @@ $(document).ready(function() {
         });        
     });
 
-    $('#imbaContentNav').tabs("select", 0);
+    /**
+     * FIXME: Wei mir der aggra nicht funktionierenden code hinterlaesst ... tsss
+     *$('#imbaContentNav').tabs("select", 0);
+     */
 
     $.post(ajaxEntry, {
         action: "navigation",

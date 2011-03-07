@@ -79,7 +79,5 @@ if (ImbaUserContext::getLoggedIn()) {
                 break;
         }
     }
-} else {
- //   echo "Not logged in";
 }
 ?>

@@ -9,7 +9,6 @@ require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 
-echo "test";
 $Navigation = new ImbaContentNavigation();
 $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
@@ -17,6 +16,7 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
+echo "test";
     /**
      * generate no content if only navigation is needed
      */

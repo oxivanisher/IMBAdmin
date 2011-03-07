@@ -30,13 +30,9 @@ switch ($_POST["action"]) {
     case "mod_user":
         /**
          * This block will be the same for every module
-         * $tmpModule = "User"
+         * $_POST["module"]
          */
-        $tmpModule = 'User';
-        echo "ladida";
-        echo "<div id='ImbaContentContainer'>";
-        include "Ajax/Content/" . $tmpModule . ".php";
-        echo "</div>";
+        include "Ajax/Content/" . $_POST["module"] . ".php";
         
         break;
 

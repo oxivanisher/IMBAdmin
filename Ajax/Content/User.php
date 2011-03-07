@@ -80,6 +80,6 @@ if (ImbaUserContext::getLoggedIn()) {
         }
     }
 } else {
-    echo "Not logged in";
+ //   echo "Not logged in";
 }
 ?>

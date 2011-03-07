@@ -5,14 +5,12 @@
         <li><a href='#'>Games / Module</a></li> \
         <li> \
             <a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a> \
-            {if $navs} \
             <ul class='subnav'> \
                 <!-- FIXME: add imbaadmin open function  --> \
                 {foreach $navs as $nav} \
                 <li><a href='{$nav.url}'>{$nav.name}</a></li> \
                 {/foreach} \
             </ul> \
-            {fi}
         </li> \
     </ul> \
 </div> \

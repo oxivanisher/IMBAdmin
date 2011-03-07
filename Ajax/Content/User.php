@@ -2,7 +2,7 @@
 
 // Extern Session start
 
-if (empty($_SESSION)) {
+if ($_POST["action"] != "navigation") {
     session_start();
 }
 

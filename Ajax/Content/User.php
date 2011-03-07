@@ -2,13 +2,10 @@
 
 // Extern Session start
 
-if (isset($_COOKIE['PHPSESSID'])) {
-    $sessid = $_COOKIE['PHPSESSID'];
-} else if (isset($_GET['PHPSESSID'])) {
-    $sessid = $_GET['PHPSESSID'];
-} else {
+if (empty($_SESSION)) {
     session_start();
 }
+
 echo "test1";
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';

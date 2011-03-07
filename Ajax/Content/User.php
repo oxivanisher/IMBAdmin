@@ -20,7 +20,6 @@ if (ImbaUserContext::getLoggedIn()) {
      * generate no content if only navigation is needed
      */
     if ($_POST["action"] != "navigation") {
-        echo "test";
 
         /**
          * Load the database

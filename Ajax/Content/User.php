@@ -1,5 +1,6 @@
 <?php
 // Extern Session start
+echo "test1";
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerDatabase.php';
@@ -16,10 +17,12 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
+echo "test2";
     /**
      * generate no content if only navigation is needed
      */
     if ($_POST["action"] != "navigation") {
+echo "test3";
 
         /**
          * Load the database

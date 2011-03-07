@@ -25,7 +25,7 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
 /**
  * are we logged in?
  */
-print_r($_COOKIE);
+print_r($_SESSION);
 if (ImbaUserContext::getLoggedIn()) {
     echo "test2";
     /**

@@ -32,8 +32,19 @@ switch ($_POST["action"]) {
          * This block will be the same for every module
          * $_POST["module"]
          */
+        session_start();
+
+        require_once 'Model/ImbaUser.php';
+        require_once 'ImbaConstants.php';
+        require_once 'Controller/ImbaManagerDatabase.php';
+        require_once 'Controller/ImbaManagerUser.php';
+        require_once 'Controller/ImbaUserContext.php';
+
+        require_once 'Model/ImbaNavigation.php';
+        require_once 'Controller/ImbaSharedFunctions.php';
+
         include "Ajax/Content/" . $_POST["module"] . ".php";
-        
+
         break;
 
     /**

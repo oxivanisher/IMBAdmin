@@ -1,5 +1,7 @@
 <?php
 // Extern Session start
+
+session_start();
 echo "test1";
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
@@ -16,7 +18,7 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
 /**
  * are we logged in?
  */
-print_r($_SESSION);
+print_r($_COOKIE);
 if (ImbaUserContext::getLoggedIn()) {
 echo "test2";
     /**

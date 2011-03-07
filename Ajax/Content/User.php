@@ -16,11 +16,12 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
-echo "test";
     /**
      * generate no content if only navigation is needed
      */
     if ($_POST["action"] != "navigation") {
+        echo "test";
+
         /**
          * Load the database
          */

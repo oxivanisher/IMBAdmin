@@ -46,7 +46,7 @@ if (ImbaUserContext::getLoggedIn()) {
     foreach ($topNav->getElements() as $nav) {
         $navEntry = $topNav->getElementIdentifier($nav);
         array_push($smarty_navs, array(
-            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "", $topNav->getElementIdentifier($Identifier)),
+            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "", $navEntry),
             "name" => $topNav->getElementName($navEntry)
         ));
     }

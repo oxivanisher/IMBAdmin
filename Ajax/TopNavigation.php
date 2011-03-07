@@ -55,8 +55,10 @@ if (ImbaUserContext::getLoggedIn()) {
     $smarty->assign('navs', $smarty_navs);
 } else {
     $smarty->assign('navs', array(
-        "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "register", $_POST["User"]),
-        "name" => "Registrieren"
+        array(
+            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "register", "User"),
+            "name" => "Registrieren"
+        )
     ));
 }
 

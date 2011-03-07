@@ -21,7 +21,6 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
 /**
  * are we logged in?
  */
-print_r($_SESSION);
 if (ImbaUserContext::getLoggedIn()) {
     /**
      * generate no content if only navigation is needed
@@ -85,6 +84,10 @@ if (ImbaUserContext::getLoggedIn()) {
                 echo "</div>";
                 break;
         }
+    }
+} else {
+    if ($_POST["action"] != "navigation") {
+        echo "Not logged in";
     }
 }
 ?>

@@ -34,9 +34,11 @@ function refreshChat() {
             
             // TODO: Briefkasten anzeigen
             if (!foundTab){
-                var i = 5;
-            // span mit class= .icon .ui-icon-mail-closed
-            // warum geht das nicht, fickeneee
+                $("#imbaGotMessage").effect("pulsate", {
+                    times:3
+                }, 2000);
+            } else {
+                $("#imbaGotMessage").hide();
             }
         });
     });
@@ -115,7 +117,7 @@ function createChatWindow(name, openid) {
     var countOpenChats = 0;
     
     if (countOpenChats == 0){
-         $("#imbaMessagesDialog").dialog("open");
+        $("#imbaMessagesDialog").dialog("open");
     }
     
     $.each($("#imbaMessages a"), function (k, v) {
@@ -207,12 +209,22 @@ function showStarChatWindowTitle(id, showStar){
     }
 }
 
+function showTabsWithNewMessage(){
+    
+}
+
 /**
  * jQuery DOM-Document has been loaded
  */
 $(document).ready(function() {
     // Load the Tabs an inits the Variable for them
     $msgTabs = $('#imbaMessages').tabs();
+
+    // Hide new Message Icon and create Click
+    $("#imbaGotMessage").hide().click(function(){
+        showTabsWithNewMessage();
+        $("#imbaGotMessage").hide();
+    });
 
     // Creats the Dialog around the chattabs
     $("#imbaMessagesDialog").dialog({

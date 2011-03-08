@@ -52,6 +52,7 @@ body{
     float: left;
     width: 48px;
     width: 48px;
+    cursor: pointer;
 }
 
 #imbaSsoOpenIdSubmit {
@@ -62,6 +63,13 @@ body{
 /* IMBAdmin chat window */
 
 #imbaMessages {
+}
+
+#imbaGotMessage{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
 }
 
 #imbaMessages li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }

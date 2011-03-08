@@ -10,11 +10,11 @@ require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 
 //DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
+ImbaUserContext::setLoggedIn(true);
+ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+if (true) {
 
-if (ImbaUserContext::getLoggedIn()) {
+//if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerUser = new ImbaManagerUser($managerDatabase);
 

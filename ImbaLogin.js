@@ -62,14 +62,13 @@ $(document).ready(function() {
     
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
-    $("ul.topnav li span").click(function() { 
-
-        $(this).parent().find("ul.subnav").slideDown('fast').show(); 
-
-        $(this).parent().hover(function() {
-            }, function(){
-                $(this).parent().find("ul.subnav").slideUp('slow');
-            });         
+    $("ul.topnav li span").click(function() {
+        var subNav = $(this).parent().find("ul.subnav");
+        if (subNav.is(":hidden")){
+            subNav.slideDown('fast').show();
+        }else {
+            subNav.slideUp('fast').show();
+        }
     }); 
     var menuIsThere = true;
     $("#imbaSsoLogo").click(function() {
@@ -87,12 +86,16 @@ $(document).ready(function() {
     
     function showMenu() {        
         // run the effect
-        $("#imbaMenu").show("slide", {direction: "right"});
+        $("#imbaMenu").show("slide", {
+            direction: "right"
+        });
     }
     
     function hideMenu() {        
         // run the effect
-        $("#imbaMenu").hide("slide", {direction: "right"});
+        $("#imbaMenu").hide("slide", {
+            direction: "right"
+        });
     }    
     
     // show ImbAdmin

@@ -26,17 +26,17 @@ if (ImbaUserContext::getLoggedIn()) {
      * create a new smarty object
      */
     $smarty = ImbaSharedFunctions::newSmarty();
-echo "--".$_POST["tabId"]."--";
+
     switch ($_POST["tabId"]) {
 
-        case "#myprofile":
+        case "myprofile":
             $smarty->assign('name', 'Ned');
 
 
             $smarty->display('ImbaWebUserMyprofile.tpl');
             break;
 
-        case "#viewprofile":
+        case "viewprofile":
             $smarty->assign('name', 'Ned');
 
 

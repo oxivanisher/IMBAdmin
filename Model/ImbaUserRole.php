@@ -19,6 +19,17 @@ class ImbaUserRole extends ImbaBase {
     protected $icon;
 
     /**
+     * ImbaManagerDatabase
+     */
+    protected $database = null;
+
+    /**
+     * Ctor
+     */
+    public function __construct(ImbaManagerDatabase $database) {
+        $this->database = $database;
+    }
+    /**
      * Properties
      */
     public function getHandle() {
@@ -72,9 +83,9 @@ class ImbaUserRole extends ImbaBase {
     /**
      * Methods
      */
-    public function loadById($imbaDatabaseManager, $id) {
+    public function loadById($id) {
         $query = "SELECT * FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
-        $imbaDatabaseManager->query($query);
+        $this->database->query($query);
         $result = $imbaDatabaseManager->fetchRow();
 
         $this->setId($id);

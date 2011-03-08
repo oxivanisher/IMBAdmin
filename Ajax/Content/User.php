@@ -52,7 +52,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('website', $user->getWebsite());
             
             $role = new ImbaUserRole();
-            $role->selectById($user->getRole());
+            $role->loadById($user->getRole());
             
             
             $smarty->assign('role', $role->getName());

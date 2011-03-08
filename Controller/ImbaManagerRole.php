@@ -59,7 +59,7 @@ class ImbaManagerUserRole {
      * Select one Role by Id
      */
     public function selectById($id) {
-        $query = "SELECT * FROM  %s Where id = '%s';";
+        $query = "SELECT * FROM  %s Where role = '%s';";
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,

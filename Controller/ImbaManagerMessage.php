@@ -176,8 +176,19 @@ class ImbaManagerMessage {
         return json_encode($result);
     }
 
-    // TODO: public function selectConversation($openid)
-    // TODO: public function markRead($id)
+    /**
+     * Mark a message as read
+     */
+    public function setMessageRead($openidMe, $openidOpponent) {
+        $query = "UPDATE %s SET new = 0 where sender = '%s' and receiver = '%s';";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openidOpponent,
+            $openidMe
+        ));
+        //echo sprintf($query, ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidOpponent, $openidMe);
+    }
+
 }
 
 ?>

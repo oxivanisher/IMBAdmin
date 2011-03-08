@@ -3,26 +3,30 @@
  */
 // Stores how many tabs have already been opend
 var chatsCount = 0;
-            
+
 // Reload Chats every 2000 ms
 setInterval('refreshChat()', 2000);
 
 /**
  * Refreshs the current chatwindow
  */
-function refreshChat() {
+function refreshChat() {    
     $.post(ajaxEntry, {
         gotnewmessages: "true", 
         action: "messenger"
     },  function(response) {
+        // reset gotNewMessages
+        var gotNewMessages = 0;
+        var selectedTab = getSelectedTabIndex();
+
         $.each($.parseJSON(response), function(key, newMessageFrom) {
             // look in Chats if there is an open window with val            
             var foundTab = false;
-            $.each($("#imbaMessages a"), function (k, v) {
-                if (k == getSelectedTabIndex()) {
-                    loadChatWindowContent(k);
+            $.each($("#imbaMessages a"), function (tabIndex, tabString) {
+                if (tabIndex == selectedTab) {
+                    loadChatWindowContent(tabIndex);                    
                 } else {
-                    var tmp = v.toString().split("#");
+                    var tmp = tabString.toString().split("#");
                     tmp = "#" + tmp[1];
                     var openid = $(tmp).data("openid");
                     if (openid == newMessageFrom.openid){                  
@@ -32,17 +36,21 @@ function refreshChat() {
                 }
             });
             
-            // TODO: Briefkasten anzeigen
+            // show got new messages
             if (!foundTab){
-                $("#imbaGotMessage").effect("pulsate", {
-                    times:3
-                }, 2000);
-            } else {
-                $("#imbaGotMessage").hide();
+                gotNewMessages++;
             }
         });
+
+        // show icon for new message
+        if (gotNewMessages > 0){
+            $("#imbaGotMessage").effect("pulsate", {
+                times:3
+            }, 2000);
+        } else {
+            $("#imbaGotMessage").hide();
+        }
     });
-    
 
     $("#test").html(Math.random());
 }
@@ -158,8 +166,10 @@ function createChatWindow(name, openid) {
  */
 function loadChatWindowContent(tabIndex) {
     if (getOpenIdFromTabIndex(tabIndex) != ""){
+        var tabReciever = getOpenIdFromTabIndex(tabIndex)
+        // load chat
         $.post(ajaxEntry, {
-            reciever: getOpenIdFromTabIndex(tabIndex),
+            reciever: tabReciever,
             loadMessages: "true",
             action: "messenger"
         },
@@ -174,6 +184,16 @@ function loadChatWindowContent(tabIndex) {
 
             $(getTabIdFromTabIndex(tabIndex)).html(htmlConversation);
         });
+        
+        // mark as read
+        $.post(ajaxEntry, {
+            reciever: tabReciever,
+            action: "messenger",
+            setread: "true"
+        },
+        function(response) {
+            // nothing to do here            
+            });
     }
 }
 
@@ -210,7 +230,32 @@ function showStarChatWindowTitle(id, showStar){
 }
 
 function showTabsWithNewMessage(){
-    
+    $.post(ajaxEntry, {
+        gotnewmessages: "true",
+        action: "messenger"
+    },  function(response) {
+        $.each($.parseJSON(response), function(key, newMessageFrom) {
+            // look in Chats if there is an open window with val
+            var foundTab = false;
+            $.each($("#imbaMessages a"), function (k, v) {
+                if (k == getSelectedTabIndex()) {
+                // do nothing here
+                } else {
+                    var tmp = v.toString().split("#");
+                    tmp = "#" + tmp[1];
+                    var openid = $(tmp).data("openid");
+                    if (openid == newMessageFrom.openid){
+                        foundTab = true;
+                    }
+                }
+            });
+
+            // show got new messages
+            if (!foundTab){
+                createChatWindow(newMessageFrom.name, newMessageFrom.openid);
+            } 
+        });
+    });
 }
 
 /**
@@ -237,7 +282,7 @@ $(document).ready(function() {
     // Tab selected change Event (Reload content of that chat window
     $msgTabs.bind("tabsselect", function(event, ui) {
         loadChatWindowContent(ui.index);
-        showStarChatWindowTitle(getTabIdFromTabIndex(ui.index), false);
+        showStarChatWindowTitle(getTabIdFromTabIndex(ui.index), false);       
     });
 
     // User submits the textbox

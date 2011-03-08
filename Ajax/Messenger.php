@@ -9,12 +9,15 @@ require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 
+/**
+ * are we logged in?
+ */
 //DEBUG ONLY!!!!!!
-ImbaUserContext::setLoggedIn(true);
-ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-if (true) {
+//ImbaUserContext::setLoggedIn(true);
+//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+//if (true) {
 
-//if (ImbaUserContext::getLoggedIn()) {
+if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerMessage = new ImbaManagerMessage($managerDatabase);
 
@@ -56,6 +59,13 @@ if (true) {
     }
 
     /**
+     * Set read for a message
+     */
+    if (isset($_POST['reciever']) && isset($_POST['setread'])) {
+        $managerMessage->setMessageRead(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
+    }
+
+    /**
      * Recieve Messages
      */
     if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
@@ -68,16 +78,16 @@ if (true) {
                 $sender = "";
                 $msg = "";
                 if ($message->getSender() == ImbaUserContext::getOpenIdUrl()) {
-                    $time =  date("d.m.y H:m:s", $message->getTimestamp());
+                    $time = date("d.m.y H:m:s", $message->getTimestamp());
                     $sender = "You";
                     $msg = $message->getMessage();
                 } else {
-                    $time =  date("d.m.y H:m:s", $message->getTimestamp());
+                    $time = date("d.m.y H:m:s", $message->getTimestamp());
                     $sender = "The other";
                     $msg = $message->getMessage();
                 }
 
-                array_push($result, array("time" => $time, "sender" => $sender, "message" => $msg));                
+                array_push($result, array("time" => $time, "sender" => $sender, "message" => $msg));
             }
             echo json_encode($result);
         } catch (Exception $ex) {

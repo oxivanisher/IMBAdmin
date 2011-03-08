@@ -22,11 +22,11 @@ $Navigation->addElement("myprofile", "Mein Profil Editieren");
  * are we logged in?
  */
 //DEBUG ONLY!!!!!!
-ImbaUserContext::setLoggedIn(true);
-ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-if (true) {
+//ImbaUserContext::setLoggedIn(true);
+//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+//if (true) {
 
-//if (ImbaUserContext::getLoggedIn()) {
+if (ImbaUserContext::getLoggedIn()) {
     /**
      * generate no content if only navigation is needed
      */

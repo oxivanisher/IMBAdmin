@@ -18,6 +18,7 @@ require_once 'Controller/ImbaSharedFunctions.php';
 $Navigation = new ImbaContentNavigation();
 $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
+
 /**
  * are we logged in?
  */

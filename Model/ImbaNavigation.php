@@ -20,7 +20,7 @@ class ImbaContentNavigation {
         return $this->Name;
     }
 
-    private function setName($Name) {
+    public function setName($Name) {
         $this->Name = $Name;
     }
 

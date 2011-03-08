@@ -76,7 +76,7 @@ class ImbaManagerUser {
      */
     public function selectAllUser($openidYourself) {
         // Only fetch Users with role <> banned
-        $query = "SELECT * FROM %s Where openid <> '%s' And Role <> 0;";
+        $query = "SELECT * FROM %s Where openid <> '%s' And Role <> 0 order by nickname;";
 
         $result = array();
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself));

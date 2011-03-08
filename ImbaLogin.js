@@ -89,12 +89,20 @@ $(document).ready(function() {
         $("#imbaMenu").show("slide", {
             direction: "right"
         });
+
+        $("#imbaUsers").show("slide", {
+            direction: "up"
+        });
     }
     
     function hideMenu() {        
         // run the effect
         $("#imbaMenu").hide("slide", {
             direction: "right"
+        });
+
+        $("#imbaUsers").hide("slide", {
+            direction: "up"
         });
     }    
     

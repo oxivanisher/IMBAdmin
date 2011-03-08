@@ -70,7 +70,7 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
-            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 8);
+            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 10);
 
             $result = array();
             foreach ($conversation as $message) {

@@ -273,7 +273,10 @@ $(document).ready(function() {
 
     // Creats the Dialog around the chattabs
     $("#imbaMessagesDialog").dialog({
-        autoOpen: false
+        autoOpen: false,
+        resizable: false,
+        height: 270,
+        width: 600
     });
 
     // Fill the Selectbox with users

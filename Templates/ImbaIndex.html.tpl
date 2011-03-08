@@ -1,5 +1,5 @@
 <div id='test'></div>
-<select id='imbaUsers' size='10' ></select>
+
 <!--
 <div id='imbaMenu'>
     <ul class='topnav'>
@@ -23,15 +23,18 @@
 </div>
 -->
 
-<div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'></div>
-<div id='imbaSsoLogin'>
-    <div id='imbaSsoLoginInner'>
-        <img id='imbaSsoLogo' src='Images/guild_logo.png' alt='Guild Logo' />
-        <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='get'>
-            <input name='openid' type='text' />
-            <input id='imbaSsoOpenIdSubmit' type='submit' />
-        </form>
-        <img id='imbaGotMessage' src='Images/message.png' alt='M'/>
+<div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'>
+    <div id='imbaSsoLogin'>
+        <div id='imbaSsoLoginInner'>
+            <img id='imbaSsoLogo' src='Images/guild_logo.png' alt='Guild Logo' />
+            <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='get'>
+                <input name='openid' type='text' />
+                <input id='imbaSsoOpenIdSubmit' type='submit' />
+            </form>
+            <img id='imbaGotMessage' src='Images/message.png' alt='M'/>
+        </div>
+        <div id='imbaUsersOnline'>1 On 3 AFK von 74</div>
+        <select id='imbaUsers' size='10' ></select>
     </div>
 </div>
 

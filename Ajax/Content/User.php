@@ -42,6 +42,7 @@ if (ImbaUserContext::getLoggedIn()) {
             foreach ($user as $key => $value) {
                 $smarty->assign($key, $value);
             }
+            echo $_POST["user"];
             $smarty->assign("test", "asdasd");
             var_dump($Smarty->_tpl_vars);
 

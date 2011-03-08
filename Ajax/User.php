@@ -33,6 +33,19 @@ if (ImbaUserContext::getLoggedIn()) {
 
         echo json_encode($result);
     }
+
+    /**
+     * Gets a list of users as JSON, with starting like
+     */
+    if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
+        $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
+        $result = array();
+        foreach ($users as $user) {
+            array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
+        }
+
+        echo json_encode($result);
+    }
 }
 else {
     echo "Not logged in";

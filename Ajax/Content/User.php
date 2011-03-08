@@ -23,25 +23,10 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = new ImbaManagerUser($managerDatabase);
 
     /**
-     *  put full path to Smarty.class.php
+     * create a new smarty object
      */
-    //require('Libs/smarty/libs/Smarty.class.php');
-    //$smarty = new Smarty();
-
-    /**
-     * Set smarty dirs
-     */
-    //$smarty->setTemplateDir('Templates');
-    //$smarty->setCompileDir('Libs/smarty/templates_c');
-    //$smarty->setCacheDir('Libs/smarty/cache');
-    //$smarty->setConfigDir('Libs/smarty/configs');
     $smarty = ImbaSharedFunctions::newSmarty();
 
-    /* Debug output
-      echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";
-      print_r($_POST);
-      echo "</pre></div>";
-     */
     switch ($_POST["tabId"]) {
 
         case "#myprofile":

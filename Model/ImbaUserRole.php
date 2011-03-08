@@ -19,17 +19,6 @@ class ImbaUserRole extends ImbaBase {
     protected $icon;
 
     /**
-     * ImbaManagerDatabase
-     */
-    protected $database = null;
-
-    /**
-     * Ctor
-     */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
-    }
-    /**
      * Properties
      */
     public function getHandle() {
@@ -78,23 +67,6 @@ class ImbaUserRole extends ImbaBase {
 
     public function setIcon($icon) {
         $this->icon = $icon;
-    }
-
-    /**
-     * Methods
-     */
-    public function loadById($id) {
-        $query = "SELECT * FROM  " . ImbaConfig::$DATABASE_TABLES_SYS_PROFILES . " Where id = '" . $id . "';";
-        $this->database->query($query);
-        $result = $imbaDatabaseManager->fetchRow();
-
-        $this->setId($id);
-        $this->setHandle($result["handle"]);
-        $this->setRole($result["role"]);
-        $this->setName($result["name"]);
-        $this->setSmf($result["smf"]);
-        $this->setWordpress($result["wordpress"]);
-        $this->setIcon($result["icon"]);
     }
 
 }

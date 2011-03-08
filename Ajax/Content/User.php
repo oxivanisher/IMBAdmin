@@ -51,8 +51,8 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
             
-            $role = new ImbaUserRole();
-            $role->loadById($user->getRole());
+            $roleManager = new ImbaManagerUserRole();
+            $role = $roleManager->selectById($user->getRole());
             
             
             $smarty->assign('role', $role->getName());

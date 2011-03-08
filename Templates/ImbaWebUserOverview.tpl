@@ -16,7 +16,7 @@
     <tbody>
 
         {foreach $susers as $user}
-        <tr onclick="javascript: loadImbaAdminTabContent('{$user.openid}', "viewprofile");"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr onclick="javascript: loadImbaAdminTabContent('{$user.openid}', 'viewprofile');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         {/foreach}
 
     </tbody>

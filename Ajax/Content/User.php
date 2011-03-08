@@ -42,7 +42,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('user', array(
                 array('nickname' => $user->getNickname())
             ));
-
+            echo $user->getNickname();
 
             print_r($_POST);
 

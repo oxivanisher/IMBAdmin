@@ -12,7 +12,7 @@
         <tr><td>MSN:</td><td >{$msn}</td></tr>
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         <tr><td>Webseite:</td><td><a href="javascript: viewUserProfile('{$website}');">{$website}</a></td></tr>
-        <tr><td>Rang:</td><td>{$role}</td></tr>
+        <tr><td>Rang:</td><td><img src="{$roleIcon}" />{$role}</td></tr>
         <tr><td>Games:</td><td>{$games}</td></tr>
         <tr><td>Letzter Login:</td><td>{$lastLogin}</td></tr>
         

@@ -55,6 +55,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $role = $roleManager->selectById($user->getRole());
             
             $smarty->assign('role', $role->getName());
+            $smarty->assign('roleIcon', $role->getIcon());
 //            $smarty->assign('games', $user->getGames());
 //            $smarty->assign('lastLogin', $user->getLastLogin());
             

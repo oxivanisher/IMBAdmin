@@ -7,6 +7,15 @@
         } );
     } );   
     
+    function loadUserProfile(openid){
+        var data = {
+            action: "module",
+            module: "User",
+            tabId: "viewprofile",
+            openid: openid
+        };
+        loadImbaAdminTabContent(data);
+    }
    
 </script>
 <table id="ImbaWebUsersOverviewTable" class="display">
@@ -16,7 +25,7 @@
     <tbody>
 
         {foreach $susers as $user}
-        <tr onclick="javascript: loadImbaAdminTabContent('{$user.openid}', 'viewprofile');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr onclick="javascript: loadUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         {/foreach}
 
     </tbody>

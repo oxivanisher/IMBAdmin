@@ -126,6 +126,7 @@ function getSelectedImbaAdminTabIndex(){
 
 /**
      * Return the Id of a tab from a tabIndex
+     * 
      */
 function getImbaAdminTabIdFromTabIndex(tabIndex){
     var result = "";
@@ -139,13 +140,8 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
     return result;
 }
     
-function loadImbaAdminTabContent(openid, tabId) {
-    $.post(ajaxEntry, {
-        action: "module",
-        module: "User",
-        tabId: tabId,
-        openid: openid
-    }, function (response){
+function loadImbaAdminTabContent(data) {
+    $.post(ajaxEntry, data, function (response){
         if (response != ""){
             $(getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex())).html(response);
         }

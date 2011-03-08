@@ -14,7 +14,7 @@
         <tr><td>Webseite:</td><td><a href="javascript: viewUserProfile('{$user.website}');">{$website}</a></td></tr>
         <tr><td>Rang:</td><td>{$role}</td></tr>
         <tr><td>Games:</td><td>{$games}</td></tr>
-        <tr><td>Letzter Login:</td><td>{$lastlogin}</td></tr>
+        <tr><td>Letzter Login:</td><td>{$lastLogin}</td></tr>
         
     </tbody>
 </table>

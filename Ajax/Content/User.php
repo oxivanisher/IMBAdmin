@@ -8,6 +8,7 @@ require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -49,7 +50,12 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('msn', $user->getMsn());
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
-            $smarty->assign('role', $user->getRole());
+            
+            $role = new ImbaUserRole();
+            $role->selectById($user->getRole());
+            
+            
+            $smarty->assign('role', $role->getName());
 //            $smarty->assign('games', $user->getGames());
 //            $smarty->assign('lastLogin', $user->getLastLogin());
             

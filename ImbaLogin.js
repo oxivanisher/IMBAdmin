@@ -30,15 +30,9 @@ $(document).ready(function() {
         });        
     });
 
-    /**
-     * FIXME: Wei mir der aggra nicht funktionierenden code hinterlaesst ... tsss
-     *$('#imbaContentNav').tabs("select", 0);
-     */
-
     $.post(ajaxEntry, {
         action: "navigation",
-        request: "nav",
-        navigation_for_user : true
+        request: "nav"
     }, function (response){
         $.each($.parseJSON(response), function(key, value){            
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);

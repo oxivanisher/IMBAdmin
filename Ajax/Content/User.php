@@ -26,7 +26,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * create a new smarty object
      */
     $smarty = ImbaSharedFunctions::newSmarty();
-
+echo "--".$_POST["tabId"]."--";
     switch ($_POST["tabId"]) {
 
         case "#myprofile":

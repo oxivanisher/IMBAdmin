@@ -20,8 +20,7 @@ if (file_exists($moduleFile)) {
             }
             break;
         case "name":
-                $myName = $Navigation->getName();
-                array_push(array("name" => $myName));
+                array_push($nav, array("name" => $Navigation->getName()));
             break;
     }
 } else {

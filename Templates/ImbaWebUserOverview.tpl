@@ -11,7 +11,8 @@
         $.post(ajaxEntry, {
             action: "module",
             module: "User",
-            tabId: "viewprofile"
+            tabId: "viewprofile",
+            openid: $user
         }, function (response){
             if (response != ""){
                 ImbaContentContainer.innerHTML = response;

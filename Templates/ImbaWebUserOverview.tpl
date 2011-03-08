@@ -15,7 +15,9 @@
             openid: $user
         }, function (response){
             if (response != ""){
-                ImbaContentContainer.innerHTML = response;
+//                ImbaContentContainer.innerHTML = response;
+                $("#viewprofile").html(response);
+
             }
         });
     }
@@ -27,7 +29,7 @@
     <tbody>
 
         {foreach $susers as $user}
-        <tr onclick="javascript: viewUserProfile('{$user.openid}');"><td><a  href="@">{$user.nickname}</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr onclick="javascript: viewUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         {/foreach}
 
     </tbody>

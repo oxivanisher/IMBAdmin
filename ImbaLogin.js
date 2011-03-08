@@ -37,6 +37,7 @@ $(document).ready(function() {
 
     $.post(ajaxEntry, {
         action: "navigation",
+        request: "nav",
         navigation_for_user : true
     }, function (response){
         $.each($.parseJSON(response), function(key, value){            
@@ -51,6 +52,7 @@ $(document).ready(function() {
             }
         });
     });
+    // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel für den dialog (IMBAdmin: XXXX oder sowas)
     
     $.post(ajaxEntry, {
         action: "user"

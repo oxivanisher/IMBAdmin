@@ -9,7 +9,20 @@
  */
 class ImbaContentNavigation {
 
+    private $Name = null;
     private $Options = array();
+
+    private function __construct($newname) {
+        $this->setName($newname);
+    }
+
+    public function getName() {
+        return $this->Name;
+    }
+
+    private function setName($Name) {
+        $this->Name = $Name;
+    }
 
     public function getElements() {
         $elements = array();
@@ -33,7 +46,7 @@ class ImbaContentNavigation {
             }
         }
     }
-    
+
     public function getElementIdentifier($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
@@ -41,7 +54,7 @@ class ImbaContentNavigation {
             }
         }
     }
-    
+
     public function getElement($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
@@ -78,7 +91,7 @@ class ImbaContentNavigationOption {
     public function setName($Name) {
         $this->Name = $Name;
     }
-    
+
     public function get() {
         return $this;
     }

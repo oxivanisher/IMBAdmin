@@ -15,7 +15,7 @@ require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaNavigation.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
-$Navigation = new ImbaContentNavigation();
+$Navigation = new ImbaContentNavigation("Benuterverwaltung");
 $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
 $Navigation->addElement("myprofile", "Mein Profil Editieren");
 

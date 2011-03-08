@@ -39,15 +39,21 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewprofile":
             $user = $managerUser->selectByOpenId($_POST["openid"]);
 
-            $smarty->assign('user', array(
-                array('nickname' => $user->getNickname())
-            ));
-            echo $user->getNickname();
-
             $smarty->assign('nickname', $user->getNickname());
+            $smarty->assign('lastname', $user->getLastname());
+            $smarty->assign('firstname', $user->getFirstname());
+            $smarty->assign('birthday', $user->getBirthday());
+            $smarty->assign('birthmonth', $user->getBirthmonth());
+            $smarty->assign('birthyear', $user->getBirthyear());
+            $smarty->assign('icq', $user->getIcq());
+            $smarty->assign('msn', $user->getMsn());
+            $smarty->assign('skype', $user->getSkype());
+            $smarty->assign('website', $user->getWebsite());
+            $smarty->assign('role', $user->getRole());
+            $smarty->assign('games', $user->getGames());
+            $smarty->assign('lastLogin', $user->getLastLogin());
             
-            print_r($_POST);
-
+           
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;
 

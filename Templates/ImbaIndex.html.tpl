@@ -1,28 +1,5 @@
 <div id='test'></div>
 
-<!--
-<div id='imbaMenu2'>
-    <ul class='topnav'>
-        <li>
-            <a href='#'>News/Blog</a>
-        </li>
-        <li>
-            <a href='#'>Forum</a>
-        </li>
-        <li>
-            <a href='#'>Games / Module</a>
-        </li>
-        <li>
-            <a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>
-            <ul class='subnav'>
-                <li><a href='#'>Benutzer</a></li>
-                <li><a href='#'>Administration</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
--->
-
 <div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'>
     <div id='imbaSsoLogin'>
         <div id='imbaSsoLoginInner'>

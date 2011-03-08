@@ -23,7 +23,6 @@ switch ($_GET["load"]) {
             /**
              * Generate TopNavigation
              */
-// FIXME: OXI!
             include 'Ajax/TopNavigation.php';
 
             /**

@@ -16,7 +16,7 @@
         }, function (response){
             if (response != ""){
 //                ImbaContentContainer.innerHTML = response;
-                $("#viewprofile").html(response);
+                $("#overview").html(response);
 
             }
         });

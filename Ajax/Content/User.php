@@ -50,8 +50,8 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
             $smarty->assign('role', $user->getRole());
-            $smarty->assign('games', $user->getGames());
-            $smarty->assign('lastLogin', $user->getLastLogin());
+//            $smarty->assign('games', $user->getGames());
+//            $smarty->assign('lastLogin', $user->getLastLogin());
             
            
             $smarty->display('ImbaWebUserViewprofile.tpl');

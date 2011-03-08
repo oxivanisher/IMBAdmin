@@ -23,7 +23,7 @@ $(document).ready(function() {
         });
         
         $.post(ajaxEntry, {
-            action : "mod_user", 
+            action : "module", 
             tabId : tmpTabId
         }, function(response){
             $(tmpTabId).html(response);
@@ -37,13 +37,14 @@ $(document).ready(function() {
 
     $.post(ajaxEntry, {
         action: "navigation",
+        request: "nav",
         navigation_for_user : true
     }, function (response){
         $.each($.parseJSON(response), function(key, value){            
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){
                 $.post(ajaxEntry, {
-                    action : "mod_user", 
+                    action : "module", 
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);
@@ -51,6 +52,7 @@ $(document).ready(function() {
             }
         });
     });
+    // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
     
     $.post(ajaxEntry, {
         action: "user"

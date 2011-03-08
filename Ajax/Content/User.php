@@ -2,98 +2,64 @@
 
 // Extern Session start
 
-if ($_POST["action"] != "navigation") {
-    session_start();
-}
+session_start();
 
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
-
-require_once 'Model/ImbaNavigation.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-
-$Navigation = new ImbaContentNavigation();
-$Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
-$Navigation->addElement("myprofile", "Mein Profil Editieren");
 
 /**
  * are we logged in?
  */
-//DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
-
 if (ImbaUserContext::getLoggedIn()) {
+
     /**
-     * generate no content if only navigation is needed
+     * Load the database
      */
-    if ($_POST["action"] != "navigation") {
+    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+    $managerUser = new ImbaManagerUser($managerDatabase);
 
-        /**
-         * Load the database
-         */
-        $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-        $managerUser = new ImbaManagerUser($managerDatabase);
+    /**
+     * create a new smarty object
+     */
+    $smarty = ImbaSharedFunctions::newSmarty();
 
-        /**
-         *  put full path to Smarty.class.php
-         */
-        require('Libs/smarty/libs/Smarty.class.php');
-        $smarty = new Smarty();
+    switch ($_POST["tabId"]) {
 
-        /**
-         * Set smarty dirs
-         */
-        $smarty->setTemplateDir('Templates');
-        $smarty->setCompileDir('Libs/smarty/templates_c');
-        $smarty->setCacheDir('Libs/smarty/cache');
-        $smarty->setConfigDir('Libs/smarty/configs');
-
-        /* Debug output
-          echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";
-          print_r($_POST);
-          echo "</pre></div>";
-         */
-        switch ($_POST["tabId"]) {
-
-            case "#myprofile":
-                $smarty->assign('name', 'Ned');
+        case "#myprofile":
+            $smarty->assign('name', 'Ned');
 
 
-                $smarty->display('ImbaWebUserMyprofile.tpl');
-                break;
+            $smarty->display('ImbaWebUserMyprofile.tpl');
+            break;
 
-            case "#viewprofile":
-                $smarty->assign('name', 'Ned');
+        case "#viewprofile":
+            $smarty->assign('name', 'Ned');
 
 
-                $smarty->display('ImbaWebUserViewprofile.tpl');
-                break;
+            $smarty->display('ImbaWebUserViewprofile.tpl');
+            break;
 
-            default:
-                $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "viewprofile", $_POST["User"]));
+        default:
+            $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
 
-                $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
+            $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
-                $smarty_users = array();
-                foreach ($users as $user) {
-                    array_push($smarty_users, array('nickname' => $user->getNickname(), 'openid' => $user->getOpenID()));
-                }
-                $smarty->assign('susers', $smarty_users);
+            $smarty_users = array();
+            foreach ($users as $user) {
+                array_push($smarty_users, array('nickname' => $user->getNickname(), 'openid' => $user->getOpenID()));
+            }
+            $smarty->assign('susers', $smarty_users);
 
-                echo "<div id='ImbaContentContainer'>";
-                $smarty->display('ImbaWebUserOverview.tpl');
-                echo "</div>";
-                break;
-        }
+            echo "<div id='ImbaContentContainer'>";
+            $smarty->display('ImbaWebUserOverview.tpl');
+            echo "</div>";
+            break;
     }
 } else {
-    if ($_POST["action"] != "navigation") {
-        echo "Not logged in";
-    }
+    echo "Not logged in";
 }
 ?>

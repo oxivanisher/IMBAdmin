@@ -7,7 +7,33 @@
         } );
     } );
     
+    
+    /**
+     * Returns the current selected tab index
+     */
+    function getSelectedTabIndex(){
+        return $('#imbaContentNav').tabs('option', 'selected');
+    }
+
+    /**
+     * Return the Id of a tab from a tabIndex
+     */
+    function getTabIdFromTabIndex(tabIndex){
+        var result = "";
+        $.each($("#imbaContentNav a"), function (k, v) {
+            if (k == tabIndex){
+                var tmp = v.toString().split("#");
+                result = "#" + tmp[1];
+            }
+        });
+
+        return result;
+    }
+    
     function viewUserProfile ($user) {
+        
+        alert(getTabIdFromTabIndex(getSelectedTabIndex()));
+        
         $.post(ajaxEntry, {
             action: "module",
             module: "User",
@@ -15,7 +41,7 @@
             openid: $user
         }, function (response){
             if (response != ""){
-//                ImbaContentContainer.innerHTML = response;
+                //                ImbaContentContainer.innerHTML = response;
                 $("#overview").html(response);
 
             }

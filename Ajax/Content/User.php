@@ -37,8 +37,11 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewprofile":
-            $smarty->assign('name', 'Ned');
+            $user = $managerUser->selectByOpenId($_POST["user"]);
 
+            foreach ($user as $key => $value) {
+                $smarty->assign($key, $value);
+            }
 
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;

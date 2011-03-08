@@ -115,9 +115,9 @@ class ImbaManagerUser {
     public function selectAllUserStartWith($openidYourself, $startingWith) {
         // Only fetch Users with role <> banned
         $query = "SELECT * FROM %s Where openid <> '%s' And Role <> 0 And nickname like '%s%%' order by nickname;";
-        
+
         $result = array();
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,  $openidYourself, $startingWith));
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself, $startingWith));
 
         while ($row = $this->database->fetchRow()) {
             $user = new ImbaUser();

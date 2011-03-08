@@ -25,16 +25,17 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      *  put full path to Smarty.class.php
      */
-    require('Libs/smarty/libs/Smarty.class.php');
-    $smarty = new Smarty();
+    //require('Libs/smarty/libs/Smarty.class.php');
+    //$smarty = new Smarty();
 
     /**
      * Set smarty dirs
      */
-    $smarty->setTemplateDir('Templates');
-    $smarty->setCompileDir('Libs/smarty/templates_c');
-    $smarty->setCacheDir('Libs/smarty/cache');
-    $smarty->setConfigDir('Libs/smarty/configs');
+    //$smarty->setTemplateDir('Templates');
+    //$smarty->setCompileDir('Libs/smarty/templates_c');
+    //$smarty->setCacheDir('Libs/smarty/cache');
+    //$smarty->setConfigDir('Libs/smarty/configs');
+    $smarty = ImbaSharedFunctions::newSmarty();
 
     /* Debug output
       echo "<div id='ImbaErrorMsg' style=''>DEBUG:<br /><pre>";

@@ -181,7 +181,23 @@ class ImbaSharedFunctions {
     public static function genAjaxWebLink($action, $tabId, $module) {
         return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
     }
-    
+
+    public static function newSmarty($name) {
+        require_once('Libs/smarty/libs/Smarty.class.php');
+        
+        $smarty = new Smarty();
+
+        /**
+         * Set smarty dirs
+         */
+        $smarty->setTemplateDir('Templates');
+        $smarty->setCompileDir('Libs/smarty/templates_c');
+        $smarty->setCacheDir('Libs/smarty/cache');
+        $smarty->setConfigDir('Libs/smarty/configs');
+        
+        return $smarty;
+    }
+
     public static function killCookies() {
         // unset smf cookie
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);

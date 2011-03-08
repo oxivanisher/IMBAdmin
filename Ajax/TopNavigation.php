@@ -48,7 +48,7 @@ if (ImbaUserContext::getLoggedIn()) {
     foreach ($topNav->getElements() as $nav) {
         $navEntry = $topNav->getElement($nav);
         array_push($smarty_navs, array(
-            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "", $navEntry->getIdentifier()),
+            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "", $navEntry->getIdentifier()),
             "name" => $navEntry->getName($navEntry)
         ));
     }
@@ -56,7 +56,7 @@ if (ImbaUserContext::getLoggedIn()) {
 } else {
     $smarty->assign('navs', array(
         array(
-            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["mod_user"], "register", "User"),
+            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "register", "User"),
             "name" => "Registrieren"
         )
     ));

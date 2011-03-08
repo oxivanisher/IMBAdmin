@@ -5,7 +5,7 @@
  */
 $nav = array();
 
-$moduleFile = "Ajax/Content/" . $_POST["module"] . "Navigation.php";
+$moduleFile = "Ajax/Content/" . $_POST["module"] . ".Navigation.php";
 
 if (file_exists($moduleFile)) {
     /**

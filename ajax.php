@@ -27,7 +27,7 @@ switch ($_POST["action"]) {
         include 'Ajax/Navigation.php';
         break;
 
-    case "mod_user":
+    case "module":
         /**
          * This block will be the same for every module
          * $_POST["module"]
@@ -36,7 +36,7 @@ switch ($_POST["action"]) {
         /**
          * Load my module navigation
          */
-        $moduleConfigFile = "Ajax/Content/" . $_POST["module"] . "Navigation.php";
+        $moduleConfigFile = "Ajax/Content/" . $_POST["module"] . ".Navigation.php";
         if (file_exists($moduleConfigFile)) {
             include $moduleConfigFile;
         }

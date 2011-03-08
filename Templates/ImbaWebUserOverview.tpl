@@ -6,6 +6,18 @@
             "bJQueryUI": true,
         } );
     } );
+    
+    function viewUserProfile ($user) {
+        $.post(ajaxEntry, {
+            action: "module",
+            module: "User",
+            tabId: "viewprofile"
+        }, function (response){
+            if (response != ""){
+                ImbaContentContainer.innerHTML = response;
+            } 
+        });
+    }
 </script>
 <table id="ImbaWebUsersOverviewTable" cellpadding="0" cellspacing="0" border="0" class="display">
     <thead>
@@ -14,7 +26,7 @@
     <tbody>
 
         {foreach $susers as $user}
-        <tr><td><a href="{$link}&openid={$user.openid}">{$user.nickname}</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td><a href="javascript: viewUserProfile('{$user.openid}');">{$user.nickname}</a></td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         {/foreach}
 
     </tbody>

@@ -117,3 +117,37 @@ String.prototype.format = function() {
     return formatted;
 };
 
+/**
+     * Returns the current selected tab index
+     */
+function getSelectedImbaAdminTabIndex(){
+    return $('#imbaContentNav').tabs('option', 'selected');
+}
+
+/**
+     * Return the Id of a tab from a tabIndex
+     */
+function getImbaAdminTabIdFromTabIndex(tabIndex){
+    var result = "";
+    $.each($("#imbaContentNav a"), function (k, v) {
+        if (k == tabIndex){
+            var tmp = v.toString().split("#");
+            result = "#" + tmp[1];
+        }
+    });
+
+    return result;
+}
+    
+function loadImbaAdminTabContent(openid, tabId) {
+    $.post(ajaxEntry, {
+        action: "module",
+        module: "User",
+        tabId: tabId,
+        openid: openid
+    }, function (response){
+        if (response != ""){
+            $(getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex())).html(response);
+        }
+    });
+}

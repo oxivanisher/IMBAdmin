@@ -12,10 +12,6 @@ class ImbaContentNavigation {
     private $Name = null;
     private $Options = array();
 
-    private function __construct($newname) {
-        $this->setName($newname);
-    }
-
     public function getName() {
         return $this->Name;
     }

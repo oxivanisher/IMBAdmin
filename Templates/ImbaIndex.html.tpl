@@ -31,7 +31,7 @@
             <input name='openid' type='text' />
             <input id='imbaSsoOpenIdSubmit' type='submit' />
         </form>
-        <span id='imbaGotMessage' class='ui-icon ui-icon-mail-closed'>M</span>
+        <img id='imbaGotMessage' src='Images/message.png' alt='M'/>
     </div>
 </div>
 

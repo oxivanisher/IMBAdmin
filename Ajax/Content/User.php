@@ -37,7 +37,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewprofile":
-            $user = $managerUser->selectByOpenId($_POST["user"]);
+            $user = $managerUser->selectByOpenId($_POST["openid"]);
 
             foreach ($user as $key => $value) {
                 $smarty->assign($key, $value);

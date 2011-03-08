@@ -5,7 +5,7 @@
     <tbody>
 
         <tr><td>Nickname:</td><td>{$user.nickname}</td></tr>
-        <tr><td>Vorname:</td><td>{$user.firstname}</td></tr>
+        <tr><td>Vorname:</td><td>{$nickname}</td></tr>
         <tr><td>Nachname:</td><td>{$user.lastname}</td></tr>
         <tr><td>Geburtsdatum:</td><td>{$user.birthday}.{$user.birthmonth}.{$user.birthyear}</td></tr>
         <tr><td>ICQ:</td><td>{$user.icq}</td></tr>

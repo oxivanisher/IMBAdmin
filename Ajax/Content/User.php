@@ -44,6 +44,8 @@ if (ImbaUserContext::getLoggedIn()) {
             ));
             echo $user->getNickname();
 
+            $smarty->assign('nickname', $user->getNickname());
+            
             print_r($_POST);
 
             $smarty->display('ImbaWebUserViewprofile.tpl');

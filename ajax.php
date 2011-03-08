@@ -33,8 +33,18 @@ switch ($_POST["action"]) {
          * $_POST["module"]
          */
         
-        include "Ajax/Content/" . $_POST["module"] . ".php";
-        
+        /**
+         * Load my module navigation
+         */
+        $moduleConfigFile = "Ajax/Content/" . $_POST["module"] . "Navigation.php";
+        if (file_exists($moduleConfigFile)) {
+            include $moduleConfigFile;
+        }
+        $moduleFile = "Ajax/Content/" . $_POST["module"] . ".php";
+        if (file_exists($moduleFile)) {
+            include $moduleFile;
+        }
+
         break;
 
     /**

@@ -42,7 +42,8 @@ if (ImbaUserContext::getLoggedIn()) {
             foreach ($user as $key => $value) {
                 $smarty->assign($key, $value);
             }
-var_dump($Smarty->_tpl_vars);
+            $smarty->assign("test", "asdasd");
+            var_dump($Smarty->_tpl_vars);
 
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;

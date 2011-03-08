@@ -24,11 +24,11 @@ class ImbaManagerDatabase {
     private $counter = NULL;
     /**
      * Singleton implementation.
-     * 
+     *
      * @var type singleton object.
      */
     private static $instance = NULL;
-    
+
     private function __construct($host, $database, $user, $pass) {
         /**
          * Setting the local Timezone

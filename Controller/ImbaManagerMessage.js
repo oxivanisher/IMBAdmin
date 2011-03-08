@@ -229,6 +229,9 @@ function showStarChatWindowTitle(id, showStar){
     }
 }
 
+/**
+ * Creates all tabs with new Messages
+ */
 function showTabsWithNewMessage(){
     $.post(ajaxEntry, {
         gotnewmessages: "true",
@@ -262,6 +265,38 @@ function showTabsWithNewMessage(){
  * jQuery DOM-Document has been loaded
  */
 $(document).ready(function() {
+    // autocomplete for Chat
+    $("#imbaUserComplete").autocomplete({
+        source: function( request, response ) {
+            $.ajax({
+                url: ajaxEntry,
+                dataType: "json",
+                data: {
+                    action: "user",
+                    loaduser: "true",
+                    startwith: request.term
+                },
+                success: function( data ) {                    
+                    response( $.map( data, function( item ) {
+                        return {
+                            label: item.name,
+                            value: item.openid
+                        }
+                    }));
+
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {            
+            createChatWindow(ui.item.label, ui.item.value);
+        },
+        close: function() {
+            $("#imbaUserComplete").attr("value", "");
+        }
+    });
+
+
     // Load the Tabs an inits the Variable for them
     $msgTabs = $('#imbaMessages').tabs();
 

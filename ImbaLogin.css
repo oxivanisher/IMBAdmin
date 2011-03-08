@@ -101,6 +101,9 @@ body {
     z-index: 9999;
 }
 
+#ImbaContentContainer {
+    color: #999999;
+}
 /* IMAdmin Menu */
 #imbaMenu ul.topnav {
     list-style: none;

@@ -182,7 +182,7 @@ class ImbaSharedFunctions {
         return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
     }
 
-    public static function newSmarty($name) {
+    public static function newSmarty() {
         require_once('Libs/smarty/libs/Smarty.class.php');
         
         $smarty = new Smarty();

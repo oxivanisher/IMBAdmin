@@ -43,7 +43,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign($key, $value);
             }
             print_r($_POST);
-            $smarty->assign("test", "asdasd");
+            $smarty->assign("user.nickname", "asdasd");
             var_dump($Smarty->_tpl_vars);
 
             $smarty->display('ImbaWebUserViewprofile.tpl');

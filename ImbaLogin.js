@@ -150,10 +150,10 @@ function loadImbaAdminTabContent(data) {
 
 function loadImbaAdminModule(module){
     alert(module);
-    $("#imbaContentDialog").dialog("open");
     var data = {
         action: "module",
         module: module
     };
     loadImbaAdminTabContent(data);
+    $("#imbaContentDialog").dialog("open");
 }

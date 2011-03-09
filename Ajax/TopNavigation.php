@@ -49,9 +49,7 @@ if (ImbaUserContext::getLoggedIn()) {
         while (false !== ($file = readdir($handle))) {
             if (strrpos($file, ".Navigation.php") > 0) {
                 include 'Ajax/Content/' . $file;
-                foreach ($Navigation->getElements() as $nav) {
-                    echo "<li><a href='" . str_replace(".Navigation.php","", $file) . "'>" . $Navigation->getName($nav) . "</a></li>";
-                }
+                echo "<li><a href='" . str_replace(".Navigation.php", "", $file) . "'>" . $Navigation->getName($nav) . "</a></li>";
                 $Navigation = null;
             }
         }

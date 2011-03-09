@@ -3,6 +3,8 @@
  */
 // Single point of Ajax entry   
 var ajaxEntry = "ajax.php";
+
+// FIXME: dirty hack because tab nav didn't know the module. tab switching is buggy with this
 var currentModule = "User";
 
 // Test if user is online, if then show chat, else hide

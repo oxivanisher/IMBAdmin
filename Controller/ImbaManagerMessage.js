@@ -265,34 +265,41 @@ function showTabsWithNewMessage(){
  * jQuery DOM-Document has been loaded
  */
 $(document).ready(function() {
-    // autocomplete for Chat
-    $("#imbaUserComplete").autocomplete({
-        source: function( request, response ) {
-            $.ajax({
-                url: ajaxEntry,
-                dataType: "json",
-                data: {
-                    action: "user",
-                    loaduser: "true",
-                    startwith: request.term
-                },
-                success: function( data ) {                    
-                    response( $.map( data, function( item ) {
-                        return {
-                            label: item.name,
-                            value: item.openid
-                        }
-                    }));
+    $.ajaxSetup({
+        async:true
+    });
 
-                }
-            });
+    // autocomplete for Chat
+    $("#imbaMessageText").autocomplete({
+        source: function( request, response ) {
+            if (request.term.substr(0,2) == "/w"){
+                $.ajax({
+                    url: ajaxEntry,
+                    dataType: "json",
+                    data: {
+                        action: "user",
+                        loaduser: "true",
+                        startwith: request.term.substr(3 ,request.term.length)
+                    },
+                    success: function( data ) {
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: item.name,
+                                value: "/w " + item.name,
+                                data: item.openid
+                            }
+                        }));
+
+                    }
+                });
+            }
         },
-        minLength: 1,
-        select: function( event, ui ) {            
-            createChatWindow(ui.item.label, ui.item.value);
+        minLength: 0,
+        select: function( event, ui ) {
+            createChatWindow(ui.item.label, ui.item.data);
         },
         close: function() {
-            $("#imbaUserComplete").attr("value", "");
+            $("#imbaMessageText").attr("value", "");
         }
     });
 
@@ -312,6 +319,12 @@ $(document).ready(function() {
         resizable: false,
         height: 270,
         width: 600
+    });
+
+
+    // open messaging on click
+    $("#imbaOpenMessaging").click(function(){
+        $("#imbaMessagesDialog").dialog("open");
     });
 
     // Fill the Selectbox with users

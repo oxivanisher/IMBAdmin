@@ -7,15 +7,38 @@ var ajaxEntry = "ajax.php";
 // FIXME: dirty hack because tab nav didn't know the module. tab switching is buggy with this
 var currentModule = "User";
 
+// Storring if user is logged in
+var isUserLoggedIn = false;
+
+function setLoggedIn(isLoggedIn){
+    isUserLoggedIn = isLoggedIn;
+}
+
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
-    // Init, hide Windows
+    // Checking if user is online
+    $.ajaxSetup({
+        async:false
+    });
+    
+    $.post(ajaxEntry, {
+        action: "user"
+    }, function (response){
+        if (response == "Not logged in"){
+            setLoggedIn(false);
+        } else {
+            setLoggedIn(true);
+        }
+    });
+
+    // Setting up the Dialog for the ImbaAdmin
     $("#imbaContentDialog").dialog({
         autoOpen: false
     })
     .dialog("option", "width", 600)
     .dialog( "option", "height", 480 );
-    
+
+    // Setting up the content of the Dialog as tabs
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
         var tmpTabId = "";
         $.each($("#imbaContentNav a"), function (k, v) {
@@ -32,7 +55,7 @@ $(document).ready(function() {
             $(tmpTabId).html(response);
         });        
     });
-
+    
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
@@ -51,14 +74,11 @@ $(document).ready(function() {
         });
     });
     // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
-    
-    $.post(ajaxEntry, {
-        action: "user"
-    }, function (response){
-        if (response == "Not logged in"){
-            $("#imbaUsers").hide();
-        } 
-    });
+
+    // Hiding the online users div, when not logged in
+    if (!isUserLoggedIn){
+        $("#imbaUsers").hide();
+    }
     
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
@@ -83,29 +103,7 @@ $(document).ready(function() {
         
         return false;
     });
-    
-    function showMenu() {        
-        // run the effect
-        $("#imbaMenu").show("slide", {
-            direction: "right"
-        });
 
-        $("#imbaUsers").show("slide", {
-            direction: "up"
-        });
-    }
-    
-    function hideMenu() {        
-        // run the effect
-        $("#imbaMenu").hide("slide", {
-            direction: "right"
-        });
-
-        $("#imbaUsers").hide("slide", {
-            direction: "up"
-        });
-    }    
-    
     // show ImbAdmin
     $("#imbaMenuImbAdmin").click(function(){
         $("#imbaContentDialog").dialog("open");
@@ -113,6 +111,9 @@ $(document).ready(function() {
     
 });
 
+/**
+ * String formatting (not working in IE!!!)
+ */
 String.prototype.format = function() {
     var formatted = this;
     for(arg in arguments) {
@@ -122,16 +123,47 @@ String.prototype.format = function() {
 };
 
 /**
-     * Returns the current selected tab index
-     */
+ * Shows the Menu and stuff around
+ */
+function showMenu() {
+    // run the effect
+    $("#imbaMenu").show("slide", {
+        direction: "right"
+    });
+
+    if(isUserLoggedIn){
+        $("#imbaUsers").show("slide", {
+            direction: "up"
+        });
+    }
+}
+
+/**
+ * Hids the Menu and stuff around
+ */
+function hideMenu() {
+    // run the effect
+    $("#imbaMenu").hide("slide", {
+        direction: "right"
+    });
+
+    if(isUserLoggedIn){
+        $("#imbaUsers").hide("slide", {
+            direction: "up"
+        });
+    }
+}
+
+/**
+ * Returns the current selected tab index
+ */
 function getSelectedImbaAdminTabIndex(){
     return $('#imbaContentNav').tabs('option', 'selected');
 }
 
 /**
-     * Return the Id of a tab from a tabIndex
-     * 
-     */
+ * Return the Id of a tab from a tabIndex
+ */
 function getImbaAdminTabIdFromTabIndex(tabIndex){
     var result = "";
     $.each($("#imbaContentNav a"), function (k, v) {
@@ -143,7 +175,10 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 
     return result;
 }
-    
+
+/**
+ * loads the ImbaAdminTab content, depending on the data for the post request
+ */
 function loadImbaAdminTabContent(data) {
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
@@ -152,8 +187,11 @@ function loadImbaAdminTabContent(data) {
     });
 }
 
-function loadImbaAdminModule(myModule){
-    currentModule = myModule;
+/**
+ * loads the ImbaAdmin module
+ */
+function loadImbaAdminModule(moduleName){
+    currentModule = moduleName;
     var data = {
         action: "module",
         module: currentModule

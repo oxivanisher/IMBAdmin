@@ -10,10 +10,9 @@
             </form>
             <img id='imbaGotMessage' src='Images/message.png' alt='M' title='Open Messaging' />
         </div>
+        <span id='imbaOpenMessaging' class='ui-icon ui-icon-comment'>Open Messaging</span>
         <div id='imbaUsersOnline'>1 On 3 AFK von 74</div>
-        <select id='imbaUsers' size='5' ></select>
-        <br />
-        Message: <input id='imbaUserComplete' style='width: 120px; margin-right: 6px;' />
+        <select id='imbaUsers' size='5' ></select>        
     </div>
 </div>
 
@@ -22,7 +21,7 @@
         <ul></ul>
         <div id='imbaMessageTextDiv'>
             <form action='' method='post'>
-                <input id='imbaMessageText' type='text' autocomplete='off' />
+                Message: <input id='imbaMessageText' type='text' autocomplete='off' />
                 <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
             </form>
         </div>

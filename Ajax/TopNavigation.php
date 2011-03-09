@@ -35,10 +35,13 @@ if (ImbaUserContext::getLoggedIn()) {
     $contentNav = new ImbaContentNavigation();
 
     if ($handle = opendir('Ajax/Content/')) {
+        $identifiers = array();
         while (false !== ($file = readdir($handle))) {
             if (strrpos($file, ".Navigation.php") > 0) {
                 include 'Ajax/Content/' . $file;
-                echo "<li><a href='" . str_replace(".Navigation.php", "", $file) . "'>" . $Navigation->getName($nav) . "</a></li>";
+                $modIdentifier = str_replace(".Navigation.php", "", $file);
+                echo "<li onclick='javascript: loadImbaAdminModule(" . $modIdentifier . ");'>" . $Navigation->getName($nav) . "</a></li>";
+                array_push($identifiers, $modIdentifier);
                 $Navigation = null;
             }
         }
@@ -53,15 +56,4 @@ echo "</li>";
 echo "</li></ul></div>";
 echo "\";\ndocument.write(htmlContent);\n\n";
 
-
-/*
-  function loadUserProfile(openid){
-  var data = {
-  action: "module",
-  module: "User",
-  tabId: "viewprofile",
-  openid: openid
-  };
-  loadImbaAdminTabContent(data);
-  } */
 ?>    

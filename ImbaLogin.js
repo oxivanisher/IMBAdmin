@@ -147,3 +147,11 @@ function loadImbaAdminTabContent(data) {
         }
     });
 }
+
+function loadImbaAdminModule(module){
+    var data = {
+        action: "module",
+        module: module
+    };
+    loadImbaAdminTabContent(data);
+}

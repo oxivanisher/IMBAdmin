@@ -11,7 +11,7 @@ if (!isset($_POST["action"]))
     $_POST = $_GET;
 
 //FIXME: I am just temporary here for testing purposes
-$_POST["module"] = "User";
+//$_POST["module"] = "User";
 
 
 switch ($_POST["action"]) {

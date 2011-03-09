@@ -101,6 +101,7 @@ class ImbaTopNavigationOption Extends ImbaContentNavigationOption {
 
     protected $Target = null;
     protected $URL = null;
+    protected $Name = null;
 
     public function getTarget() {
         return $this->Target;
@@ -116,6 +117,14 @@ class ImbaTopNavigationOption Extends ImbaContentNavigationOption {
 
     public function setUrl($Url) {
         $this->URL = $Url;
+    }
+
+    public function getName() {
+        return $this->Name;
+    }
+
+    public function setName($Name) {
+        $this->Name = $Name;
     }
 
 }
@@ -136,11 +145,11 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
     }
 
     public function addElement($Identifier, $Name, $Target, $Url) {
-        $newElement = new ImbaContentNavigationOption();
+        $newElement = new ImbaTopNavigationOption();
         $newElement->setName($Name);
         $newElement->setIdentifier($Identifier);
-        $newElement->setIdentifier($Target);
-        $newElement->setIdentifier($Url);
+        $newElement->setTarget($Target);
+        $newElement->setUrl($Url);
         array_push($this->Options, $newElement);
     }
 
@@ -171,7 +180,7 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
     public function getElementUrl($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
-                return $Option->geUrl();
+                return $Option->getUrl();
             }
         }
     }

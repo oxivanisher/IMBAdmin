@@ -21,16 +21,16 @@ $managerUser = new ImbaManagerUser($managerDatabase);
 /**
  *  put full path to Smarty.class.php
  */
-require('Libs/smarty/libs/Smarty.class.php');
-$smarty = new Smarty();
+//require('Libs/smarty/libs/Smarty.class.php');
+//$smarty = new Smarty();
 
 /**
  * Set smarty dirs
  */
-$smarty->setTemplateDir('Templates');
-$smarty->setCompileDir('Libs/smarty/templates_c');
-$smarty->setCacheDir('Libs/smarty/cache');
-$smarty->setConfigDir('Libs/smarty/configs');
+//$smarty->setTemplateDir('Templates');
+//$smarty->setCompileDir('Libs/smarty/templates_c');
+//$smarty->setCacheDir('Libs/smarty/cache');
+//$smarty->setConfigDir('Libs/smarty/configs');
 
 /**
  * FIXME: please add security to this file!
@@ -38,29 +38,58 @@ $smarty->setConfigDir('Libs/smarty/configs');
 /**
  * are we logged in?
  */
-if (ImbaUserContext::getLoggedIn()) {
-    $topNav = new ImbaContentNavigation();
+$topNav = new ImbaTopNavigation();
+$topNav->addElement("blog", "Blog / News", "_top", "http://alptroeim.ch/blog/");
+$topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/");
 
-    $topNav->addElement("User", "Benutzer");
-    $topNav->addElement("Admin", "Administration");
 
-    $smarty_navs = array();
-    foreach ($topNav->getElements() as $nav) {
-        $navEntry = $topNav->getElement($nav);
-        array_push($smarty_navs, array(
-            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "", $navEntry->getIdentifier()),
-            "name" => $navEntry->getName($navEntry)
-        ));
-    }
-    $smarty->assign('navs', $smarty_navs);
-} else {
-    $smarty->assign('navs', array(
-        array(
-            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "register", "User"),
-            "name" => "Registrieren"
-        )
-    ));
+echo "<div id='imbaMenu'><ul class='topnav'>";
+
+foreach ($topNav->getElements() as $nav) {
+    echo "<li><a href='" . $topNav->getElementUrl($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
 }
 
-$smarty->display('ImbaTopNavigation.tpl');
-?>
+echo "<li>";
+
+echo "<a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>";
+echo "<ul class='subnav'>";
+
+if (ImbaUserContext::getLoggedIn()) {
+    $contentNav = new ImbaContentNavigation();
+
+    $contentNav->addElement("User", "Benutzer");
+    $contentNav->addElement("Admin", "Administration");
+
+
+    $smarty_navs = array();
+    foreach ($contentNav->getElements() as $nav) {
+        $moduleConfigFile = "Ajax/Content/" . $contentNav->getElementIdentifier($nav) . ".Navigation.php";
+        if (file_exists($moduleConfigFile)) {
+            include $moduleConfigFile;
+
+            echo "<li><a href='" . $contentNav->getElementIdentifier($nav) . "'>" . $contentNav->getElementName($nav) . "</a></li>";
+        }
+//        array_push($smarty_navs, array(
+//            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "", $navEntry->getIdentifier()),
+//            "name" => $navEntry->getName($navEntry)
+//        ));
+    }
+//    $smarty->assign('navs', $smarty_navs);
+} else {
+    echo "<li><a href=''>Registrieren</a></li>";
+//    $smarty->assign('navs', array(
+//        array(
+//            "url" => ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "register", "User"),
+//            "name" => "Registrieren"
+//        )
+//    ));
+}
+
+echo "</ul>";
+
+echo "</li>";
+
+echo "</li></ul></div>";
+
+//$smarty->display('ImbaTopNavigation.tpl');
+?>    

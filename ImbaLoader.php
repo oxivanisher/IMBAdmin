@@ -18,12 +18,12 @@ switch ($_GET["load"]) {
          * Load IMBAdmin index template
          */
         if (file_exists($IMBAdminIndexTemplate)) {
-            echo "htmlContent = \" \\\n";
-
+            echo "\nhtmlContent = \" \\\n";
             /**
              * Generate TopNavigation
              */
             include 'Ajax/TopNavigation.php';
+            echo " \\\n";
 
             /**
              * Generate HTML construct (divs)

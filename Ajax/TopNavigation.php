@@ -40,7 +40,7 @@ if (ImbaUserContext::getLoggedIn()) {
             if (strrpos($file, ".Navigation.php") > 0) {
                 include 'Ajax/Content/' . $file;
                 $modIdentifier = str_replace(".Navigation.php", "", $file);
-                echo "<li onclick='javascript: loadImbaAdminModule(" . $modIdentifier . ");'>" . $Navigation->getName($nav) . "</a></li>";
+                echo "<li onclick='javascript: loadImbaAdminModule(" . $modIdentifier . ");'>" . $Navigation->getName($nav) . "</li>";
                 array_push($identifiers, $modIdentifier);
                 $Navigation = null;
             }

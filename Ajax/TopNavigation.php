@@ -55,17 +55,4 @@ echo "</ul>";
 echo "</li>";
 echo "</li></ul></div>";
 echo "\";\ndocument.write(htmlContent);\n\n";
-
-    echo '
-      function loadUserProfile(openid){
-      var data = {
-      action: "module",
-      module: "User",
-      tabId: "viewprofile",
-      openid: openid
-      };
-      loadImbaAdminTabContent(data);
-      }
-    ';
-
 ?>    

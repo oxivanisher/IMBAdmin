@@ -149,6 +149,7 @@ function loadImbaAdminTabContent(data) {
 }
 
 function loadImbaAdminModule(module){
+    $("#imbaContentDialog").dialog("open");
     var data = {
         action: "module",
         module: module

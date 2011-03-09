@@ -15,19 +15,16 @@ require_once 'Controller/ImbaSharedFunctions.php';
 /**
  * Load the database
  */
-$managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-$managerUser = new ImbaManagerUser($managerDatabase);
+//$managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+//$managerUser = new ImbaManagerUser($managerDatabase);
 
 /**
  * FIXME: please add security to this file!
  */
-/**
- * are we logged in?
- */
+
 $topNav = new ImbaTopNavigation();
 $topNav->addElement("blog", "Blog / News", "_top", "http://alptroeim.ch/blog/");
 $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/");
-
 
 echo "<div id='imbaMenu'><ul class='topnav'>";
 
@@ -42,9 +39,6 @@ echo "<ul class='subnav'>";
 if (ImbaUserContext::getLoggedIn()) {
     $contentNav = new ImbaContentNavigation();
 
-    /**
-     * fixme find files
-     */
     if ($handle = opendir('Ajax/Content/')) {
         while (false !== ($file = readdir($handle))) {
             if (strrpos($file, ".Navigation.php") > 0) {
@@ -55,10 +49,6 @@ if (ImbaUserContext::getLoggedIn()) {
         }
         closedir($handle);
     }
-
-//    $contentNav->addElement("User", "Benutzer");
-//    $contentNav->addElement("Admin", "Administration");
-//    $smarty_navs = array();
 } else {
     echo "<li><a href=''>Registrieren</a></li>";
 }

@@ -1,8 +1,5 @@
 <?php
 
-//require_once 'ImbaConstants.php';
-//echo ImbaConstants::$WEB_AJAX_ENTRY_FILE;
-
 $IMBAdminIndexTemplate = "Templates/ImbaIndex.html.tpl";
 
 switch ($_GET["load"]) {

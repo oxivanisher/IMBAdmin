@@ -13,19 +13,14 @@ require_once 'Model/ImbaNavigation.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
- * Load the database
- */
-//$managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-//$managerUser = new ImbaManagerUser($managerDatabase);
-
-/**
  * FIXME: please add security to this file!
+ * FIXME: load top navigation from database
  */
-
 $topNav = new ImbaTopNavigation();
 $topNav->addElement("blog", "Blog / News", "_top", "http://alptroeim.ch/blog/");
 $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/");
 
+echo "\nhtmlContent = \" \\\n";
 echo "<div id='imbaMenu'><ul class='topnav'>";
 
 foreach ($topNav->getElements() as $nav) {
@@ -56,4 +51,17 @@ if (ImbaUserContext::getLoggedIn()) {
 echo "</ul>";
 echo "</li>";
 echo "</li></ul></div>";
+echo "\";\ndocument.write(htmlContent);\n\n";
+
+
+/*
+  function loadUserProfile(openid){
+  var data = {
+  action: "module",
+  module: "User",
+  tabId: "viewprofile",
+  openid: openid
+  };
+  loadImbaAdminTabContent(data);
+  } */
 ?>    

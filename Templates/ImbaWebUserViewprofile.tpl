@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    function backToUserProfiles(){
+    function backToUserOverview(){
         var data = {
             action: "module",
             module: "User",
@@ -31,4 +31,4 @@
     </tbody>
 </table>
 <br />
-<a href="javascript: backToUserProfile();">back</a>
+<a href="javascript: backToUserOverview();">back</a>

@@ -1,3 +1,15 @@
+<script type="text/javascript">
+    function backToUserProfiles(){
+        var data = {
+            action: "module",
+            module: "User",
+            tabId: "overview"
+        };
+        loadImbaAdminTabContent(data);
+    }
+   
+</script>
+
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>
 <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
@@ -18,3 +30,5 @@
         
     </tbody>
 </table>
+<br />
+<a href="javascript: backToUserProfile();">back</a>

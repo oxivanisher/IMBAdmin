@@ -3,6 +3,7 @@
  */
 // Single point of Ajax entry   
 var ajaxEntry = "ajax.php";
+var module = "User";
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
@@ -32,7 +33,8 @@ $(document).ready(function() {
 
     $.post(ajaxEntry, {
         action: "navigation",
-        request: "nav"
+        request: "nav",
+        module: module
     }, function (response){
         $.each($.parseJSON(response), function(key, value){            
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
@@ -148,11 +150,11 @@ function loadImbaAdminTabContent(data) {
     });
 }
 
-function loadImbaAdminModule(module){
-    alert(module);
+function loadImbaAdminModule(myModule){
+    module = myModule;
     var data = {
         action: "module",
-        module: module
+        module: myModule
     };
     loadImbaAdminTabContent(data);
     $("#imbaContentDialog").dialog("open");

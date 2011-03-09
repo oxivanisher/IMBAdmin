@@ -74,9 +74,6 @@ switch ($_GET["load"]) {
             echo "\";\ndocument.write(htmlContent);\n\n";
 
 
-
-
-
             /**
              * Generate HTML construct (divs)
              */

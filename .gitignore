@@ -1,3 +1,4 @@
 nbproject/
 .gitignore
 Tools/imbadmin.sql.zip
+*.log

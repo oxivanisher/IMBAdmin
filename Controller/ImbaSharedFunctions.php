@@ -184,7 +184,7 @@ class ImbaSharedFunctions {
 
     public static function newSmarty() {
         require_once('Libs/smarty/libs/Smarty.class.php');
-        
+
         $smarty = new Smarty();
 
         /**
@@ -194,13 +194,22 @@ class ImbaSharedFunctions {
         $smarty->setCompileDir('Libs/smarty/templates_c');
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
-        
+
         return $smarty;
     }
 
     public static function killCookies() {
         // unset smf cookie
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
+    }
+
+    public static function writeToLog($message) {
+        $myFile = "ImbaLog.log";
+        if ($fh = fopen($myFile, 'w')) {
+            $stringData = $message;
+            fwrite($fh, $stringData);
+            fclose($fh);
+        }
     }
 
     /* import from functions.inc.php ! BIG

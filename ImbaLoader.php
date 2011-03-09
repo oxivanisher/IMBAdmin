@@ -15,21 +15,18 @@ switch ($_GET["load"]) {
          * Load IMBAdmin index template
          */
         if (file_exists($IMBAdminIndexTemplate)) {
-            echo "\nhtmlContent = \" \\\n";
             /**
              * Generate TopNavigation
              */
             include 'Ajax/TopNavigation.php';
-            echo " \\\n";
-
             /**
              * Generate HTML construct (divs)
              */
+            echo "\nhtmlContent = \" \\\n";
             $file_array = file($IMBAdminIndexTemplate);
             foreach ($file_array as $line) {
                 echo trim($line) . " \\\n";
             }
-
             echo "\";\ndocument.write(htmlContent);\n\n";
         } else {
             echo 'alert("FATAL ERROR: File not found: ' . $IMBAdminIndexTemplate . '");';

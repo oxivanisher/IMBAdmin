@@ -33,7 +33,7 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
-        module: module
+        module: "User"
     }, function (response){
         $.each($.parseJSON(response), function(key, value){            
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);

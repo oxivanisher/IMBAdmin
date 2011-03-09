@@ -65,7 +65,8 @@ $(document).ready(function() {
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){
                 $.post(ajaxEntry, {
-                    action : "module", 
+                    action : "module",
+                    module: currentModule,
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);

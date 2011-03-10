@@ -154,7 +154,7 @@ function loadImbaAdminModule(moduleName){
     /**
      *If there is no modulName, get the default from ajax navigation
      */
-    if (moduleName == "") {
+    if (! moduleName) {
         $.post(ajaxEntry, {
             action: "navigation"
         }, function (response){

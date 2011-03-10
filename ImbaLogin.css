@@ -118,7 +118,7 @@ body {
     width: 600px;
     background: #222;
     font-size: 1.2em;
-    background: url(Images/topnav_bg.gif) repeat-x;
+    background: url('/IMBAdmin/Images/topnav_bg.gif') repeat-x;
 }
 
 #imbaMenu ul.topnav li {
@@ -140,7 +140,7 @@ body {
     width: 17px;
     height: 35px;
     float: left;
-    background: url(Images/subnav_btn.gif) no-repeat center top;
+    background: url('/IMBAdmin/Images/subnav_btn.gif') no-repeat center top;
 }
 
 #imbaMenu ul.topnav li span.subhover {
@@ -171,13 +171,13 @@ body {
 #imbaMenu html ul.topnav li ul.subnav li a {
     float: left;
     width: 145px;
-    background: #333 url(Images/dropdown_linkbg.gif) no-repeat 10px center;
+    background: #333 url('/IMBAdmin/Images/dropdown_linkbg.gif') no-repeat 10px center;
     padding-left: 20px;
 }
 
 #imbaMenu html ul.topnav li ul.subnav li a:hover { 
     /*--Hover effect for subnav links--*/
-    background: #222 url(Images/dropdown_linkbg.gif) no-repeat 10px center;
+    background: #222 url('/IMBAdmin/Images/dropdown_linkbg.gif') no-repeat 10px center;
 }
 
 /* IMBAdmin Content */

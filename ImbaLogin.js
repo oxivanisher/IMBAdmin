@@ -160,7 +160,7 @@ function loadImbaAdminModule(moduleName){
         request: "name",
         module: moduleName
     }, function (response){
-        $("#imbaContentDialog").dialog({title: "IMBAdmin: " + response});
+        $("#imbaContentDialog").dialog({title: "IMBAdmin " + response});
     });
 
     /**

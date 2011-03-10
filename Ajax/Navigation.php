@@ -26,7 +26,14 @@ if (file_exists($moduleFile)) {
             break;
     }
 } else {
-    array_push($nav, array("id" => "error", "name" => "Module not found (" . $moduleFile . ")!"));
-    echo json_encode($nav);
+    switch ($_POST["request"]) {
+        case "nav":
+            array_push($nav, array("id" => "error", "name" => "Module not found (" . $moduleFile . ")!"));
+            echo json_encode($nav);
+            break;
+        case "name":
+            echo "Module not found (" . $moduleFile . ")!";
+            break;
+    }
 }
 ?>

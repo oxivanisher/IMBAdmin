@@ -157,7 +157,6 @@ function loadImbaAdminModule(moduleName){
     //        $("#imbaContentNav").tabs() = null;
     $.each($("#imbaContentNav").tabs(), function(myId){
         //        $.each($("#imbaContentNav a"), function (k, v) {
-        alert(myId);
         $("#imbaContentNav").tabs("remove", v);
     });
     /**

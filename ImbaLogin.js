@@ -160,8 +160,8 @@ function loadImbaAdminModule(moduleName){
         module: moduleName
     }, function (response){
         //        $("#imbaContentNav").tabs() = null;
-        //        $.each($("#imbaContentNav").tabs(), function(myId){
-        $.each($("#imbaContentNav a"), function (k, v) {
+        $.each($("#imbaContentNav"), function(myId){
+            //        $.each($("#imbaContentNav a"), function (k, v) {
             alert(myId);
             $("#imbaContentNav").tabs("remove", v);
         });

@@ -42,9 +42,7 @@ switch ($_GET["load"]) {
              * FIXME: please add security to this file!
              * FIXME: load top navigation from database
              */
-            $topNav = new ImbaTopNavigation();
-            $topNav->addElement("blog", "Blog / News", "_top", "http://alptroeim.ch/blog/");
-            $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/");
+            include 'Imba.Navigation.php';
 
             echo "\nhtmlContent = \" \\\n";
             echo "<div id='imbaMenu'><ul class='topnav'>";
@@ -57,28 +55,24 @@ switch ($_GET["load"]) {
             echo "<a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>";
             echo "<ul class='subnav'>";
 
-//            if (ImbaUserContext::getLoggedIn()) {
-                $contentNav = new ImbaContentNavigation();
+            $contentNav = new ImbaContentNavigation();
 
-                if ($handle = opendir('Ajax/Content/')) {
-                    $identifiers = array();
-                    while (false !== ($file = readdir($handle))) {
-                        if (strrpos($file, ".Navigation.php") > 0) {
-                            include 'Ajax/Content/' . $file;
-                            if (count($Navigation->getElements())) {
+            if ($handle = opendir('Ajax/Content/')) {
+                $identifiers = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (strrpos($file, ".Navigation.php") > 0) {
+                        include 'Ajax/Content/' . $file;
+                        if (count($Navigation->getElements())) {
 
-                                $modIdentifier = str_replace(".Navigation.php", "", $file);
-                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
-                                array_push($identifiers, $modIdentifier);
-                                $Navigation = null;
-                            }
+                            $modIdentifier = str_replace(".Navigation.php", "", $file);
+                            echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
+                            array_push($identifiers, $modIdentifier);
+                            $Navigation = null;
                         }
                     }
-                    closedir($handle);
                 }
-/*            } else {
-                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"Register\\\");'>Registrieren</a></li>";
-            }*/
+                closedir($handle);
+            }
 
             echo "</ul>";
             echo "</li>";

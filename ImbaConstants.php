@@ -10,22 +10,20 @@ require_once 'ImbaConfig.php';
  *  - Database
  */
 class ImbaConstants extends ImbaConfig {
+
     /**
      * Site context settings
      */
     public static $CONTEXT_SITE_TITLE = "IMBAdmin";
     public static $CONTEXT_LOCALE = array(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
-    
     /**
      * Files and Folders
      */
     public static $WEB_SITE_PATH = "/IMBAdmin";
     public static $WEB_OPENID_AUTH_PATH = "ImbaAuth.php";
     public static $WEB_ENTRY_INDEX_FILE = "index.html";
-    /*
-     * mimimi
-      public static $WEB_AJAX_ENTRY_FILE = "ajax.php";
-     */
+    public static $WEB_AJAX_ENTRY_FILE = "ajax.php";
+    public static $WEB_BASE_TEMPLATE = "Templates/ImbaIndex.html.tpl";
     /**
      * Error Codes
      */

@@ -1,12 +1,6 @@
 /**
  * TODO: Beschreibung erstellen
  */
-// Single point of Ajax entry   
-var ajaxEntry = "ajax.php";
-
-// FIXME: dirty hack because tab nav didn't know the module. tab switching is buggy with this
-var currentModule = "User";
-
 // Storring if user is logged in
 var isUserLoggedIn = false;
 
@@ -151,18 +145,9 @@ function loadImbaAdminTabContent(data) {
 }
 
 /**
- * loads the ImbaAdmin module
+ * loads the ImbaAdmin module in the IMBAdmin window
  */
 function loadImbaAdminModule(moduleName){
-    /**
-     * get and render content
-     */
-    var data = {
-        action: "module",
-        module: moduleName
-    };
-    loadImbaAdminTabContent(data);
-
     /**
      * get and render tabs
      */
@@ -184,8 +169,16 @@ function loadImbaAdminModule(moduleName){
             }
         });
     });
-    // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
-    
+
+    /**
+     * get and render content
+     */
+    var data = {
+        action: "module",
+        module: moduleName
+    };
+    loadImbaAdminTabContent(data);
+
     /**
      * getting name for the window title
      * FIXME: this is not working
@@ -195,7 +188,7 @@ function loadImbaAdminModule(moduleName){
         request: "name",
         module: moduleName
     }, function (response){
-       $("#imbaContentDialog").title("IMBAdmin: " + response);
+        $("#imbaContentDialog").title("IMBAdmin: " + response);
     });
 
     // Setting up the content of the Dialog as tabs
@@ -209,7 +202,10 @@ function loadImbaAdminModule(moduleName){
             }
         });
         
-/*        $.post(ajaxEntry, {
+    /*
+ *       FIXME: what is this? 
+ *        
+         $.post(ajaxEntry, {
             action : "module",
             module: moduleName,
             tabId : tmpTabId

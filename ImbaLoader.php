@@ -1,14 +1,23 @@
 <?php
 
-$IMBAdminIndexTemplate = "Templates/ImbaIndex.html.tpl";
+require_once 'ImbaConstants.php';
+$IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
         session_start();
 
+        /**
+         * load jQuery libs
+         */
         echo file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
         echo file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
         echo file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
+        
+       /**
+        * load our js scripts
+        */ 
+        echo "var ajaxEntry = '".ImbaConstants::$WEB_AJAX_ENTRY_FILE."';\n";
         echo file_get_contents("ImbaLogin.js") . "\n";
 
         /**

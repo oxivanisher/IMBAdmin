@@ -159,10 +159,11 @@ function loadImbaAdminModule(moduleName){
         request: "nav",
         module: moduleName
     }, function (response){
-        $.each($("#imbaContentNav").tabs(), function(myId){
-            alert(myId);
-            $("#imbaContentNav").tabs("remove", myId);
-        });
+        $("#imbaContentNav").tabs() = null;
+//        $.each($("#imbaContentNav").tabs(), function(myId){
+//            alert(myId);
+//            $("#imbaContentNav").tabs("remove", myId);
+//        });
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){

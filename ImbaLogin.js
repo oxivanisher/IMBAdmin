@@ -10,6 +10,9 @@ function setLoggedIn(isLoggedIn){
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
+    //login to wordpress ^^
+    //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
+
     // Checking if user is online
     $.ajaxSetup({
         async:false
@@ -203,8 +206,8 @@ function loadImbaAdminModule(moduleName){
         });
         
     /*
- *       FIXME: what is this? 
- *        
+         *       FIXME: what is this?
+         *
          $.post(ajaxEntry, {
             action : "module",
             module: moduleName,

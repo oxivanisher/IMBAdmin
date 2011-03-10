@@ -152,15 +152,25 @@ function loadImbaAdminTabContent(data) {
  */
 function loadImbaAdminModule(moduleName){
     /**
+     * Set the window title
+     * FIXME: this is not working
+     */
+    $.post(ajaxEntry, {
+        action: "navigation",
+        request: "name",
+        module: moduleName
+    }, function (response){
+        $("#imbaContentDialog").dialog({title: "IMBAdmin: " + response});
+    });
+
+    /**
      * Remove all tabs
      */
-    //        $("#imbaContentNav").tabs() = null;
-/*    $.each($("#imbaContentNav").tabs(), function(myId){
-        
-        //        $.each($("#imbaContentNav a"), function (k, v) {
-        $("#imbaContentNav").tabs("remove", myId);
-    }); */
     $("#imbaContentNav").tabs("destroy");
+    
+    /**
+     *Create new tabs on element
+     */
     $("#imbaContentNav").tabs();
     
     /**
@@ -194,20 +204,7 @@ function loadImbaAdminModule(moduleName){
     };
     loadImbaAdminTabContent(data);
 
-    /**
-     * getting name for the window title
-     * FIXME: this is not working
-     */
-    $.post(ajaxEntry, {
-        action: "navigation",
-        request: "name",
-        module: moduleName
-    }, function (response){
-        $("#imbaContentDialog").title("IMBAdmin: " + response);
-    });
-
     // Setting up the content of the Dialog as tabs
-    // FIXME: clear tabs first
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
         var tmpTabId = "";
         $.each($("#imbaContentNav a"), function (k, v) {
@@ -216,19 +213,10 @@ function loadImbaAdminModule(moduleName){
                 tmpTabId = "#" + tmp[1];
             }
         });
-        
-    /*
-         *       FIXME: what is this?
-         *
-         $.post(ajaxEntry, {
-            action : "module",
-            module: moduleName,
-            tabId : tmpTabId
-        }, function(response){
-            $(tmpTabId).html(response);
-        });        */
     });
     
-
+    /**
+    * Show the dialog
+    */
     $("#imbaContentDialog").dialog("open");
 }

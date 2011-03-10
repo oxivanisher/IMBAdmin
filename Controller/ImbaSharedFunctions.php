@@ -205,7 +205,7 @@ class ImbaSharedFunctions {
 
     public static function writeToLog($message) {
         $myFile = "ImbaLog.log";
-        if ($fh = fopen($myFile, 'w')) {
+        if ($fh = fopen($myFile, 'w+')) {
             $stringData = $message . "\n";
             fwrite($fh, $stringData);
             fclose($fh);

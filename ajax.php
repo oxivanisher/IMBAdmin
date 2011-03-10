@@ -15,9 +15,6 @@ if (!isset($_POST["action"]))
 
 require_once 'Controller/ImbaSharedFunctions.php';
 
-$log = "action: " . $_POST["action"] . ", module: ". $_POST["module"] . ", " . $_POST["action"];
-ImbaSharedFunctions::writeToLog($log);
-
 switch ($_POST["action"]) {
     case "messenger":
         include 'Ajax/Messenger.php';
@@ -28,15 +25,20 @@ switch ($_POST["action"]) {
         break;
 
     case "navigation":
+        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", " . $_POST["action"];
+        ImbaSharedFunctions::writeToLog($log);
+
         include 'Ajax/Navigation.php';
         break;
 
     case "module":
+        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", " . $_POST["action"];
+        ImbaSharedFunctions::writeToLog($log);
+
         /**
          * This block will be the same for every module
          * $_POST["module"]
          */
-        
         /**
          * Load my module navigation
          */

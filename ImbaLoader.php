@@ -65,10 +65,13 @@ switch ($_GET["load"]) {
                     while (false !== ($file = readdir($handle))) {
                         if (strrpos($file, ".Navigation.php") > 0) {
                             include 'Ajax/Content/' . $file;
-                            $modIdentifier = str_replace(".Navigation.php", "", $file);
-                            echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
-                            array_push($identifiers, $modIdentifier);
-                            $Navigation = null;
+                            if (isset($Navigation)) {
+
+                                $modIdentifier = str_replace(".Navigation.php", "", $file);
+                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
+                                array_push($identifiers, $modIdentifier);
+                                $Navigation = null;
+                            }
                         }
                     }
                     closedir($handle);

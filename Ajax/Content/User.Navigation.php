@@ -3,19 +3,24 @@
 require_once 'Model/ImbaNavigation.php';
 
 /**
- * Define Navigation
+ * Show this navigation only if we are logged in
  */
-$Navigation = new ImbaContentNavigation();
+if (ImbaUserContext::getLoggedIn()) {
 
-/**
- * Set module name
- */
-$Navigation->setName("Benuterverwaltung");
+    /**
+     * Define Navigation
+     */
+    $Navigation = new ImbaContentNavigation();
 
-/**
- * Set tabs
- */
-$Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
-$Navigation->addElement("myprofile", "Mein Profil Editieren");
+    /**
+     * Set module name
+     */
+    $Navigation->setName("Benuterverwaltung");
 
+    /**
+     * Set tabs
+     */
+    $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
+    $Navigation->addElement("myprofile", "Mein Profil Editieren");
+}
 ?>

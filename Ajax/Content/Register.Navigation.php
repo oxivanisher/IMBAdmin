@@ -8,13 +8,18 @@ require_once 'Model/ImbaNavigation.php';
 $Navigation = new ImbaContentNavigation();
 
 /**
- * Set module name
+ * Set this navigation only, when we are logged out
  */
-$Navigation->setName("Registrieren");
+if (!ImbaUserContext::getLoggedIn()) {
 
-/**
- * Set tabs
- */
-$Navigation->addElement("reg", "Registration");
+    /**
+     * Set module name
+     */
+    $Navigation->setName("Registrieren");
 
+    /**
+     * Set tabs
+     */
+    $Navigation->addElement("reg", "Registration");
+}
 ?>

@@ -1,21 +1,25 @@
 <?php
 
 require_once 'Model/ImbaNavigation.php';
-
 /**
- * Define Navigation
+ * Show this navigation only if we are logged in
  */
-$Navigation = new ImbaContentNavigation();
+if (ImbaUserContext::getLoggedIn()) {
 
-/**
- * Set module name
- */
-$Navigation->setName("Administration");
+    /**
+     * Define Navigation
+     */
+    $Navigation = new ImbaContentNavigation();
 
-/**
- * Set tabs
- */
-$Navigation->addElement("baem", "B&auml;m!");
-$Navigation->addElement("hacktheplanet", "Take over the world");
+    /**
+     * Set module name
+     */
+    $Navigation->setName("Administration");
 
+    /**
+     * Set tabs
+     */
+    $Navigation->addElement("baem", "B&auml;m!");
+    $Navigation->addElement("hacktheplanet", "Take over the world");
+}
 ?>

@@ -155,10 +155,14 @@ function loadImbaAdminModule(moduleName){
      * Remove all tabs
      */
     //        $("#imbaContentNav").tabs() = null;
-    $.each($("#imbaContentNav").tabs(), function(myId){
+/*    $.each($("#imbaContentNav").tabs(), function(myId){
+        
         //        $.each($("#imbaContentNav a"), function (k, v) {
         $("#imbaContentNav").tabs("remove", myId);
-    });
+    }); */
+    $("#imbaContentNav").tabs("destroy");
+    $("#imbaContentNav").tabs();
+    
     /**
      * get and render tabs
      */

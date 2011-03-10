@@ -35,8 +35,8 @@ $(document).ready(function() {
     $("#imbaContentDialog").dialog({
         autoOpen: false
     })
-    .dialog("option", "width", 600)
-    .dialog( "option", "height", 480 );
+    .dialog("option", "width", 700)
+    .dialog( "option", "height", 520 );
 
     // Hiding the online users div, when not logged in
     if (!isUserLoggedIn){
@@ -185,8 +185,20 @@ function loadImbaAdminModule(moduleName){
         });
     });
     // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
+    
+    /**
+     * getting name for the window
+     */
+    $.post(ajaxEntry, {
+        action: "navigation",
+        request: "name",
+        module: moduleName
+    }, function (response){
+       $("#imbaContentDialog").title("IMBAdmin: " + response) ;
+    });
 
     // Setting up the content of the Dialog as tabs
+    // FIXME: clear tabs first
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
         var tmpTabId = "";
         $.each($("#imbaContentNav a"), function (k, v) {

@@ -35,13 +35,6 @@ switch ($_POST["action"]) {
         $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"];
         ImbaSharedFunctions::writeToLog($log);
 
-        session_start();
-
-        require_once 'Model/ImbaUser.php';
-        require_once 'ImbaConstants.php';
-        require_once 'Controller/ImbaManagerDatabase.php';
-        require_once 'Controller/ImbaUserContext.php';
-
         /**
          * This block will be the same for every module
          * $_POST["module"]

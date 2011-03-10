@@ -152,6 +152,15 @@ function loadImbaAdminTabContent(data) {
  */
 function loadImbaAdminModule(moduleName){
     /**
+     * Remove all tabs
+     */
+    //        $("#imbaContentNav").tabs() = null;
+    $.each($("#imbaContentNav"), function(myId){
+        //        $.each($("#imbaContentNav a"), function (k, v) {
+        alert(myId);
+        $("#imbaContentNav").tabs("remove", v);
+    });
+    /**
      * get and render tabs
      */
     $.post(ajaxEntry, {
@@ -159,12 +168,6 @@ function loadImbaAdminModule(moduleName){
         request: "nav",
         module: moduleName
     }, function (response){
-        //        $("#imbaContentNav").tabs() = null;
-        $.each($("#imbaContentNav"), function(myId){
-            //        $.each($("#imbaContentNav a"), function (k, v) {
-            alert(myId);
-            $("#imbaContentNav").tabs("remove", v);
-        });
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){

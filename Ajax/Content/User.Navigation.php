@@ -10,22 +10,20 @@ require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaNavigation.php';
 
 
+/**
+ * Define Navigation
+ */
+$Navigation = new ImbaContentNavigation();
+
+/**
+ * Set module name
+ */
+$Navigation->setName("Benuterverwaltung");
 
 /**
  * Show this navigation only if we are logged in
  */
 if (ImbaUserContext::getLoggedIn()) {
-
-    /**
-     * Define Navigation
-     */
-    $Navigation = new ImbaContentNavigation();
-
-    /**
-     * Set module name
-     */
-    $Navigation->setName("Benuterverwaltung");
-
     /**
      * Set tabs
      */

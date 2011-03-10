@@ -159,11 +159,12 @@ function loadImbaAdminModule(moduleName){
         request: "nav",
         module: moduleName
     }, function (response){
-        $("#imbaContentNav").tabs() = null;
-//        $.each($("#imbaContentNav").tabs(), function(myId){
-//            alert(myId);
-//            $("#imbaContentNav").tabs("remove", myId);
-//        });
+        //        $("#imbaContentNav").tabs() = null;
+        //        $.each($("#imbaContentNav").tabs(), function(myId){
+        $.each($("#imbaContentNav a"), function (k, v) {
+            alert(myId);
+            $("#imbaContentNav").tabs("remove", v);
+        });
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){

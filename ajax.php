@@ -13,6 +13,10 @@ if (!isset($_POST["action"]))
 //FIXME: I am just temporary here for testing purposes
 //$_POST["module"] = "User";
 
+require_once 'Controller/ImbaSharedFunctions.php';
+
+$log = "action: " . $_POST["action"] . ", module: ". $_POST["module"] . ", " . $_POST["action"];
+ImbaSharedFunctions::writeToLog($log);
 
 switch ($_POST["action"]) {
     case "messenger":

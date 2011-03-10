@@ -25,10 +25,8 @@ if (file_exists($moduleFile)) {
             echo $myName;
             break;
         default:
-            foreach ($Navigation->getElements() as $NavigationEntry) {
-                echo $NavigationEntry;
-                break;
-            }
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_MODULE;
+            break;
     }
 } else {
     switch ($_POST["request"]) {
@@ -40,10 +38,8 @@ if (file_exists($moduleFile)) {
             echo "Module not found (" . $moduleFile . ")!";
             break;
         default:
-            foreach ($Navigation->getElements() as $NavigationEntry) {
-                echo $NavigationEntry;
-                break;
-            }
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_MODULE;
+            break;
     }
 }
 ?>

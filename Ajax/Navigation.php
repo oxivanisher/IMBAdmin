@@ -22,7 +22,7 @@ if (file_exists($moduleFile)) {
             break;
         case "name":
             $myName = (string) $Navigation->getName();
-            echo "name" => $myName;
+            echo $myName;
             break;
     }
 } else {

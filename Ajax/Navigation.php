@@ -1,5 +1,7 @@
 <?php
 
+require_once 'ImbaConstants.php';
+
 /**
  * This file returns the available navigation options for the modules ($_POST["module"])
  */

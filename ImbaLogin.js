@@ -158,7 +158,7 @@ function loadImbaAdminModule(moduleName){
         $.post(ajaxEntry, {
             action: "navigation"
         }, function (response){
-            alert(respone);
+            alert(response);
             var moduleName = response;
         });
     }

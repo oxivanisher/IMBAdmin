@@ -187,14 +187,15 @@ function loadImbaAdminModule(moduleName){
     // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
     
     /**
-     * getting name for the window
+     * getting name for the window title
+     * FIXME: this is not working
      */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
         module: moduleName
     }, function (response){
-       $("#imbaContentDialog").title("IMBAdmin: " + response) ;
+       $("#imbaContentDialog").title("IMBAdmin: " + response);
     });
 
     // Setting up the content of the Dialog as tabs

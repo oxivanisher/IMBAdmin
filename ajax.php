@@ -25,14 +25,14 @@ switch ($_POST["action"]) {
         break;
 
     case "navigation":
-        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", " . $_POST["action"];
+        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"];
         ImbaSharedFunctions::writeToLog($log);
 
         include 'Ajax/Navigation.php';
         break;
 
     case "module":
-        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", " . $_POST["action"];
+        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"];
         ImbaSharedFunctions::writeToLog($log);
 
         /**

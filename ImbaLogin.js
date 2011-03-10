@@ -158,77 +158,78 @@ function loadImbaAdminModule(moduleName){
         $.post(ajaxEntry, {
             action: "navigation"
         }, function (response){
-                moduleName = response;
+            loadImbaAdminModule(moduleName);
         });
-    }
-    /**
+    } else {
+        /**
      * Set the window title
      * FIXME: this is not working
      */
-    $.post(ajaxEntry, {
-        action: "navigation",
-        request: "name",
-        module: moduleName
-    }, function (response){
-        $("#imbaContentDialog").dialog({
-            title: "IMBAdmin " + response
+        $.post(ajaxEntry, {
+            action: "navigation",
+            request: "name",
+            module: moduleName
+        }, function (response){
+            $("#imbaContentDialog").dialog({
+                title: "IMBAdmin " + response
             });
-    });
+        });
 
-    /**
+        /**
      * Remove all tabs
      */
-    $("#imbaContentNav").tabs("destroy");
+        $("#imbaContentNav").tabs("destroy");
     
-    /**
+        /**
      *Create new tabs on element
      */
-    $("#imbaContentNav").tabs();
+        $("#imbaContentNav").tabs();
     
-    /**
+        /**
      * get and render tabs
      */
-    $.post(ajaxEntry, {
-        action: "navigation",
-        request: "nav",
-        module: moduleName
-    }, function (response){
-        $.each($.parseJSON(response), function(key, value){
-            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            if (key == 0){
-                $.post(ajaxEntry, {
-                    action : "module",
-                    module: moduleName,
-                    tabId : "#" + value.id
-                }, function(response){
-                    $("#" + value.id).html(response);
-                });  
-            }
+        $.post(ajaxEntry, {
+            action: "navigation",
+            request: "nav",
+            module: moduleName
+        }, function (response){
+            $.each($.parseJSON(response), function(key, value){
+                $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+                if (key == 0){
+                    $.post(ajaxEntry, {
+                        action : "module",
+                        module: moduleName,
+                        tabId : "#" + value.id
+                    }, function(response){
+                        $("#" + value.id).html(response);
+                    });  
+                }
+            });
         });
-    });
 
-    /**
+        /**
      * get and render content
      */
-    var data = {
-        action: "module",
-        module: moduleName
-    };
-    loadImbaAdminTabContent(data);
+        var data = {
+            action: "module",
+            module: moduleName
+        };
+        loadImbaAdminTabContent(data);
 
-    // Setting up the content of the Dialog as tabs
-    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
-        var tmpTabId = "";
-        $.each($("#imbaContentNav a"), function (k, v) {
-            if (k == ui.index){
-                var tmp = v.toString().split("#");
-                tmpTabId = "#" + tmp[1];
-            }
+        // Setting up the content of the Dialog as tabs
+        $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
+            var tmpTabId = "";
+            $.each($("#imbaContentNav a"), function (k, v) {
+                if (k == ui.index){
+                    var tmp = v.toString().split("#");
+                    tmpTabId = "#" + tmp[1];
+                }
+            });
         });
-    });
     
-    /**
+        /**
     * Show the dialog
     */
-    $("#imbaContentDialog").dialog("open");
+        $("#imbaContentDialog").dialog("open");
+    }
 }

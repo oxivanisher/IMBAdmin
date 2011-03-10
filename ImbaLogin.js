@@ -154,7 +154,7 @@ function loadImbaAdminModule(moduleName){
     /**
      *If there is no modulName, get the default from ajax navigation
      */
-//    if (moduleName == "") {
+    if (moduleName == "") {
         $.post(ajaxEntry, {
             action: "navigation",
             request: "getDefault"
@@ -162,7 +162,7 @@ function loadImbaAdminModule(moduleName){
             alert(response);
             moduleName = response.toString();
         });
-  //  }
+  }
     /**
      * Set the window title
      * FIXME: this is not working

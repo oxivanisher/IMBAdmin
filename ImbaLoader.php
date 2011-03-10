@@ -13,11 +13,11 @@ switch ($_GET["load"]) {
         echo file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
         echo file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
         echo file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
-        
-       /**
-        * load our js scripts
-        */ 
-        echo "var ajaxEntry = '".ImbaConstants::$WEB_AJAX_ENTRY_FILE."';\n";
+
+        /**
+         * load our js scripts
+         */
+        echo "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
         echo file_get_contents("ImbaLogin.js") . "\n";
 
         /**
@@ -66,7 +66,7 @@ switch ($_GET["load"]) {
                         if (strrpos($file, ".Navigation.php") > 0) {
                             include 'Ajax/Content/' . $file;
                             $modIdentifier = str_replace(".Navigation.php", "", $file);
-                            echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"". $modIdentifier ."\\\");'>" . $Navigation->getName($nav) . "</a></li>";
+                            echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
                             array_push($identifiers, $modIdentifier);
                             $Navigation = null;
                         }
@@ -74,7 +74,7 @@ switch ($_GET["load"]) {
                     closedir($handle);
                 }
             } else {
-                echo "<li><a href=''>Registrieren</a></li>";
+                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"Register\\\");'>Registrieren</a></li>";
             }
 
             echo "</ul>";

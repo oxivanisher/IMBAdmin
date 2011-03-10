@@ -159,7 +159,8 @@ function loadImbaAdminModule(moduleName){
         request: "nav",
         module: moduleName
     }, function (response){
-        $.each($.parseJSON(response), function(key, value){            
+        $.each($.parseJSON(response), function(key, value){
+            $("#imbaContentNav").tabs("destroy");
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){
                 $.post(ajaxEntry, {

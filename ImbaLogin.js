@@ -160,7 +160,7 @@ function loadImbaAdminModule(moduleName){
             request: "getDefault"
         }, function (response){
             alert(response);
-            var moduleName = response;
+            moduleName = response;
         });
   //  }
     /**

@@ -18,14 +18,15 @@ if (file_exists($moduleFile)) {
             foreach ($Navigation->getElements() as $NavigationEntry) {
                 array_push($nav, array("id" => $NavigationEntry, "name" => $Navigation->getElementName($NavigationEntry)));
             }
+            echo json_encode($nav);
             break;
         case "name":
-                $myName = (string) $Navigation->getName();
-                array_push($nav, array("name" => $myName));
+            $myName = (string) $Navigation->getName();
+            echo "name" => $myName;
             break;
     }
 } else {
     array_push($nav, array("id" => "error", "name" => "Module not found (" . $moduleFile . ")!"));
+    echo json_encode($nav);
 }
-echo json_encode($nav);
 ?>

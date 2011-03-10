@@ -24,6 +24,11 @@ if (file_exists($moduleFile)) {
             $myName = (string) $Navigation->getName();
             echo $myName;
             break;
+        default:
+            foreach ($Navigation->getElements() as $NavigationEntry) {
+                echo $NavigationEntry;
+                break;
+            }
     }
 } else {
     switch ($_POST["request"]) {
@@ -34,6 +39,11 @@ if (file_exists($moduleFile)) {
         case "name":
             echo "Module not found (" . $moduleFile . ")!";
             break;
+        default:
+            foreach ($Navigation->getElements() as $NavigationEntry) {
+                echo $NavigationEntry;
+                break;
+            }
     }
 }
 ?>

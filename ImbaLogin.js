@@ -152,6 +152,16 @@ function loadImbaAdminTabContent(data) {
  */
 function loadImbaAdminModule(moduleName){
     /**
+     *If there is no modulName, get the default from ajax navigation
+     */
+    if (moduleName == "") {
+        $.post(ajaxEntry, {
+            action: "navigation"
+        }, function (response){
+                moduleName = response;
+        });
+    }
+    /**
      * Set the window title
      * FIXME: this is not working
      */
@@ -160,7 +170,9 @@ function loadImbaAdminModule(moduleName){
         request: "name",
         module: moduleName
     }, function (response){
-        $("#imbaContentDialog").dialog({title: "IMBAdmin " + response});
+        $("#imbaContentDialog").dialog({
+            title: "IMBAdmin " + response
+            });
     });
 
     /**

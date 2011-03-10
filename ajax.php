@@ -42,8 +42,6 @@ switch ($_POST["action"]) {
         require_once 'Controller/ImbaManagerDatabase.php';
         require_once 'Controller/ImbaUserContext.php';
 
-        require_once 'Model/ImbaNavigation.php';
-
         /**
          * This block will be the same for every module
          * $_POST["module"]

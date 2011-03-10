@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Model/ImbaNavigation.php';
+
+
 /**
  * Define Navigation
  */

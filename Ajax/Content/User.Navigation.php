@@ -1,5 +1,8 @@
 <?php
 
+require_once 'Model/ImbaNavigation.php';
+
+
 
 /**
  * Show this navigation only if we are logged in

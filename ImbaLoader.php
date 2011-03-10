@@ -57,7 +57,7 @@ switch ($_GET["load"]) {
             echo "<a id='imbaMenuImbAdmin' href='#'>Auf zum Atem</a>";
             echo "<ul class='subnav'>";
 
-            if (ImbaUserContext::getLoggedIn()) {
+//            if (ImbaUserContext::getLoggedIn()) {
                 $contentNav = new ImbaContentNavigation();
 
                 if ($handle = opendir('Ajax/Content/')) {
@@ -76,9 +76,9 @@ switch ($_GET["load"]) {
                     }
                     closedir($handle);
                 }
-            } else {
+/*            } else {
                 echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"Register\\\");'>Registrieren</a></li>";
-            }
+            }*/
 
             echo "</ul>";
             echo "</li>";

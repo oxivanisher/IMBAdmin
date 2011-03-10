@@ -38,44 +38,6 @@ $(document).ready(function() {
     .dialog("option", "width", 600)
     .dialog( "option", "height", 480 );
 
-    // Setting up the content of the Dialog as tabs
-    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
-        var tmpTabId = "";
-        $.each($("#imbaContentNav a"), function (k, v) {
-            if (k == ui.index){
-                var tmp = v.toString().split("#");
-                tmpTabId = "#" + tmp[1];
-            }
-        });
-        
-        $.post(ajaxEntry, {
-            action : "module", 
-            tabId : tmpTabId
-        }, function(response){
-            $(tmpTabId).html(response);
-        });        
-    });
-    
-    $.post(ajaxEntry, {
-        action: "navigation",
-        request: "nav",
-        module: currentModule
-    }, function (response){
-        $.each($.parseJSON(response), function(key, value){            
-            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            if (key == 0){
-                $.post(ajaxEntry, {
-                    action : "module",
-                    module: currentModule,
-                    tabId : "#" + value.id
-                }, function(response){
-                    $("#" + value.id).html(response);
-                });  
-            }
-        });
-    });
-    // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
-
     // Hiding the online users div, when not logged in
     if (!isUserLoggedIn){
         $("#imbaUsers").hide();
@@ -192,11 +154,57 @@ function loadImbaAdminTabContent(data) {
  * loads the ImbaAdmin module
  */
 function loadImbaAdminModule(moduleName){
-    currentModule = moduleName;
+    /**
+     * get and render content
+     */
     var data = {
         action: "module",
-        module: currentModule
+        module: moduleName
     };
     loadImbaAdminTabContent(data);
+
+    /**
+     * get and render tabs
+     */
+    $.post(ajaxEntry, {
+        action: "navigation",
+        request: "nav",
+        module: moduleName
+    }, function (response){
+        $.each($.parseJSON(response), function(key, value){            
+            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+            if (key == 0){
+                $.post(ajaxEntry, {
+                    action : "module",
+                    module: moduleName,
+                    tabId : "#" + value.id
+                }, function(response){
+                    $("#" + value.id).html(response);
+                });  
+            }
+        });
+    });
+    // Huhu aggra :) wenn man hier noch nen request mit "request = name" abschickt, kriegst du den titel fÃ¼r den dialog (IMBAdmin: XXXX oder sowas)
+
+    // Setting up the content of the Dialog as tabs
+    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
+        var tmpTabId = "";
+        $.each($("#imbaContentNav a"), function (k, v) {
+            if (k == ui.index){
+                var tmp = v.toString().split("#");
+                tmpTabId = "#" + tmp[1];
+            }
+        });
+        
+/*        $.post(ajaxEntry, {
+            action : "module",
+            module: moduleName,
+            tabId : tmpTabId
+        }, function(response){
+            $(tmpTabId).html(response);
+        });        */
+    });
+    
+
     $("#imbaContentDialog").dialog("open");
 }

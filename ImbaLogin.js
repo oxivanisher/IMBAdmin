@@ -159,7 +159,7 @@ function loadImbaAdminModule(moduleName){
         request: "nav",
         module: moduleName
     }, function (response){
-            //$("#imbaContentNav").tabs("destroy");
+        $("#imbaContentNav").tabs({ spinner: 'Retrieving data...' });
         $.each($("#imbaContentNav").tabs(), function(myId){
             $("#imbaContentNav").tabs("remove", myId);
         });

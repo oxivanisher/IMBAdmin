@@ -3,6 +3,7 @@
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Controller/ImbaUserContext.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  *  Controller / Manager for User
@@ -155,6 +156,9 @@ class ImbaManagerUser {
     }
 
     public static function setMeOnline() {
+                $log = "setMeOnline: " . ImbaUserContext::getOpenIdUrl();
+        ImbaSharedFunctions::writeToLog($log);
+
 //        if ((ImbaUserContext::getLoggedIn() == true) && (!empty(ImbaUserContext::getOpenIdUrl()))) {
         if (ImbaUserContext::getOpenIdUrl()) {
             $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";

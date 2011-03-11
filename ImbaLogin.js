@@ -210,7 +210,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 });  */
                 var data = {
                     action: "module",
-                    module: moduleName,
+                    module: value.id,
                     moduleDo: moduleDo
                 };
                 loadImbaAdminTabContent(data);

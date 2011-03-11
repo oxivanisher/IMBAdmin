@@ -17,6 +17,8 @@ class ImbaManagerUserRole {
      * ImbaManagerDatabase
      */
     protected $database = null;
+    protected $rolesCached = null;
+    protected $rolesCachedTimestamp = null;
 
     /**
      * Ctor
@@ -59,23 +61,33 @@ class ImbaManagerUserRole {
      * Select one Role by Id
      */
     public function selectById($id) {
-        $query = "SELECT * FROM  %s Where role = '%s';";
+        if ($this->usersCached == null) {
+            // Only fetch Users with role <> banned
+            $result = array();
 
-        $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,
-            $id
-        ));
-        $result = $this->database->fetchRow();
+            $query = "SELECT * FROM %s;";
 
-        // FIXME: muss hier auch eines hin für id?
-        $role = new ImbaUserRole();
-        $role->setHandle($result["handle"]);
-        $role->setRole($result["role"]);
-        $role->setName($result["name"]);
-        $role->setSmf($result["smf"]);
-        $role->setWordpress($result["wordpress"]);
-        $role->setIcon($result["icon"]);
-        return $role;
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PROFILES));
+            while ($row = $this->database->fetchRow()) {
+                // FIXME: muss hier auch eines hin für id?
+                $role = new ImbaUserRole();
+                $role->setHandle($row["handle"]);
+                $role->setRole($row["role"]);
+                $role->setName($row["name"]);
+                $role->setSmf($row["smf"]);
+                $role->setWordpress($row["wordpress"]);
+                $role->setIcon($row["icon"]);
+
+                array_push($result, $role);
+            }
+
+            $this->rolesCachedTimestamp = time();
+            $this->rolesCached = $result;
+        }
+        foreach ($this->rolesCached as $role) {
+            if ($role->getRole() == $id)
+                return $role;
+        } return null;
     }
 
 }

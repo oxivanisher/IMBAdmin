@@ -106,6 +106,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 } else {
     /**
      * we are logged in! everithing is ok and we have a party here
+     * - set cookie with logged in openid for autofill login box
+     * - redirect back to page
      */
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"]);
     header("location: index.html");

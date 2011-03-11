@@ -20,14 +20,21 @@ $Navigation = new ImbaContentNavigation();
  */
 $Navigation->setName("Benuterverwaltung");
 
+
 /**
- * Show this navigation only if we are logged in
+ * Set when the module should be displayed (logged in 1/0)
  */
-if (ImbaUserContext::getLoggedIn()) {
-    /**
-     * Set tabs
-     */
-    $Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
-    $Navigation->addElement("myprofile", "Mein Profil Editieren");
-}
+$Navigation->setShowLoggedIn(true);
+$Navigation->setShowLoggedOff(false);
+
+/**
+ * Set the minimal user role needed to display the module
+ */
+$Navigation->setMinUserRole(99);
+
+/**
+ * Set tabs
+ */
+$Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
+$Navigation->addElement("myprofile", "Mein Profil Editieren");
 ?>

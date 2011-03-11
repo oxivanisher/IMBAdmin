@@ -21,13 +21,18 @@ $Navigation = new ImbaContentNavigation();
 $Navigation->setName("Registrieren");
 
 /**
- * Set this navigation only, when we are logged out
+ * Set when the module should be displayed (logged in 1/0)
  */
-if (!ImbaUserContext::getLoggedIn()) {
+$Navigation->setShowLoggedIn(false);
+$Navigation->setShowLoggedOff(true);
 
-    /**
-     * Set tabs
-     */
-    $Navigation->addElement("reg", "Registration");
-}
+/**
+ * Set the minimal user role needed to display the module
+ */
+$Navigation->setMinUserRole(99);
+
+/**
+ * Set tabs
+ */
+$Navigation->addElement("reg", "Registration");
 ?>

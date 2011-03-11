@@ -11,6 +11,9 @@ class ImbaContentNavigation {
 
     private $Name = null;
     private $Options = array();
+    private $ShowLoggedIn = false;
+    private $ShowLoggedOff = false;
+    private $MinUserRole = 99;
 
     public function getName() {
         return $this->Name;
@@ -18,6 +21,30 @@ class ImbaContentNavigation {
 
     public function setName($Name) {
         $this->Name = $Name;
+    }
+
+    public function getShowLoggedIn() {
+        return $this->ShowLoggedIn;
+    }
+
+    public function setShowLoggedIn($ShowLoggedIn) {
+        $this->ShowLoggedIn = $ShowLoggedIn;
+    }
+
+    public function getShowLoggedOff() {
+        return $this->ShowLoggedOff;
+    }
+
+    public function setShowLoggedOff($ShowLoggedOff) {
+        $this->ShowLoggedOff = $ShowLoggedOff;
+    }
+
+    public function getMinUserRole() {
+        return $this->MinUserRole;
+    }
+
+    public function setMinUserRole($MinUserRole) {
+        $this->MinUserRole = $MinUserRole;
     }
 
     public function getElements() {

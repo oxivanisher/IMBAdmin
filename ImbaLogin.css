@@ -10,9 +10,8 @@
 }
 
 .imbaFont {
-    font-family: Arial, sans-serif !important;
-    font-size: 12px !important;
     line-height: normal !important;
+    font-size: 1em;
 }
 
 /* IMBAdmin login window */

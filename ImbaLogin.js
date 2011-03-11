@@ -7,8 +7,10 @@ var isUserLoggedIn = false;
 function setLoggedIn(isLoggedIn){
     if (isLoggedIn){
         $("#imbaSsoOpenIdSubmit").val("Logout");
+        $("#imbaOpenMessaging").show();
     } else {
         $("#imbaSsoOpenIdSubmit").val("Login");
+        $("#imbaOpenMessaging").hide();
     }
 
     isUserLoggedIn = isLoggedIn;

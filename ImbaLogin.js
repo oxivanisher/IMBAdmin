@@ -212,15 +212,6 @@ function loadImbaAdminModule(moduleName){
         });
     });
 
-    /**
-     * get and render content
-     */
-    var data = {
-        action: "module",
-        module: moduleName
-    };
-    loadImbaAdminTabContent(data);
-
     // Setting up the content of the Dialog as tabs
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
         var tmpTabId = "";
@@ -232,6 +223,15 @@ function loadImbaAdminModule(moduleName){
         });
     });
     
+    /**
+     * get and render content
+     */
+    var data = {
+        action: "module",
+        module: moduleName
+    };
+    loadImbaAdminTabContent(data);
+
     /**
  * Show the dialog
  */

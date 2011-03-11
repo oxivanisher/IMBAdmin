@@ -66,7 +66,7 @@ switch ($_GET["load"]) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
                                 $showMe = true;
-                            } elseif ($Navigation->getShowLoggedOff()) {
+                            } elseif ((! ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
                                 $showMe = true;
                             }
 

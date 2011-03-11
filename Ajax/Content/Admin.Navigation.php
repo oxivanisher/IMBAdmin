@@ -30,7 +30,7 @@ $Navigation->setShowLoggedOff(false);
 /**
  * Set the minimal user role needed to display the module
  */
-$Navigation->setMinUserRole(99);
+$Navigation->setMinUserRole(9);
 
 /**
  * Set tabs

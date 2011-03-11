@@ -12,11 +12,6 @@ require_once 'Controller/ImbaUserContext.php';
 /**
  * are we logged in?
  */
-//DEBUG ONLY!!!!!!
-//ImbaUserContext::setLoggedIn(true);
-//ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-//if (true) {
-
 if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerMessage = new ImbaManagerMessage($managerDatabase);

@@ -1,4 +1,4 @@
-<div id='imbaMenu'> \
+<div id='imbaMenu' class='imbaFont'> \
     <ul class='topnav'> \
         <li><a href='http://alptroeim.ch/site/viewnews.php'>News/Blog</a></li> \
         <li><a href='http://alptroeim.ch/site/wrapper.php?id=board'>Forum</a></li> \

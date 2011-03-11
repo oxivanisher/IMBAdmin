@@ -5,6 +5,12 @@
 var isUserLoggedIn = false;
 
 function setLoggedIn(isLoggedIn){
+    if (isLoggedIn){
+        $("#imbaSsoOpenIdSubmit").val("Logout");
+    } else {
+        $("#imbaSsoOpenIdSubmit").val("Login");
+    }
+
     isUserLoggedIn = isLoggedIn;
 }
 
@@ -34,11 +40,6 @@ $(document).ready(function() {
     })
     .dialog("option", "width", 700)
     .dialog( "option", "height", 520 );
-
-    // Hiding the online users div, when not logged in
-    if (!isUserLoggedIn){
-        $("#imbaUsers").hide();
-    }
     
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
@@ -91,12 +92,10 @@ function showMenu() {
     $("#imbaMenu").show("slide", {
         direction: "right"
     });
-
-    if(isUserLoggedIn){
-        $("#imbaUsers").show("slide", {
-            direction: "up"
-        });
-    }
+    
+    $("#imbaSsoLoginInner").show("slide", {
+        direction: "right"
+    });
 }
 
 /**
@@ -108,11 +107,9 @@ function hideMenu() {
         direction: "right"
     });
 
-    if(isUserLoggedIn){
-        $("#imbaUsers").hide("slide", {
-            direction: "up"
-        });
-    }
+    $("#imbaSsoLoginInner").hide("slide", {
+        direction: "right"
+    });
 }
 
 /**

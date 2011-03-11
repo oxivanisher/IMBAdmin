@@ -4,42 +4,27 @@
 /* jQuery dataTabled css include */
 @import url('Libs/DataTables/media/css/demo_table.css') all;
 
-
-/* test page content 
-    TODO: remove me
-*/
-
-body {
-    font: 60% "Trebuchet MS", sans-serif;
-}
-
 /* IMBAdmin error message */
-
 #ImbaErrorMsg {
     color: red;
 }
 
+.imbaFont {
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    line-height: normal !important;
+}
+
 /* IMBAdmin login window */
-
-#imbaSsoLogin {
-}
-
-#imbaSsoLogin input {
-    background-color: white;
-}
-
-.imbaSsoLoginBorder {
+#imbaSsoLoginBorder {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 2px;
+    top: 2px;
     z-index: 9999;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
-}
-
-#imbaSsoLoginInner {
 }
 
 #imbaSsoLogo {
@@ -49,26 +34,38 @@ body {
     cursor: pointer;
 }
 
-#imbaSsoOpenIdSubmit {
-    background: transparent;
-    border: 1px solid black;
+.imbaInput {
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    background-color: white !important;
+    border: 0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-bottom: 2px !important;
+    color: black !important;
+    height: 20px !important;
 }
 
-/* IMBAdmin chat window */
+#imbaSsoLoginInner {
+    float: left;
+}
+
+#imbaUsersOnline {
+    float: left;
+}
+
+/* IMBAdmin Messeging */
 
 #imbaMessages {
 }
 
 #imbaGotMessage{
-    position: absolute;
-    right: 10px;
-    top: 12px;
+    float: right;
     cursor: pointer;
 }
 
 #imbaMessages li .ui-icon-close { 
     float: left;
-    margin: 0.4em 0.2em 0 0;
     cursor: pointer;
 }
 
@@ -95,7 +92,6 @@ body {
 
 #imbaContent li .ui-icon-close { 
     float: left;
-    margin: 0.4em 0.2em 0 0;
     cursor: pointer;
 }
 
@@ -116,9 +112,7 @@ body {
     margin: 0;
     float: left;
     width: 600px;
-    background: #222;
-    font-size: 1.2em;
-    background: url('/IMBAdmin/Images/topnav_bg.gif') repeat-x;
+    background: rgba(0, 0, 0, 0.7);
 }
 
 #imbaMenu ul.topnav li {
@@ -140,30 +134,29 @@ body {
     width: 17px;
     height: 35px;
     float: left;
-    background: url('/IMBAdmin/Images/subnav_btn.gif') no-repeat center top;
+    cursor: pointer;
+    background: url('/IMBAdmin/Images/subnav_btn.gif') no-repeat;
 }
 
 #imbaMenu ul.topnav li span.subhover {
-    background-position: center bottom;
     cursor: pointer;
 }
 
 #imbaMenu ul.topnav li ul.subnav {
     list-style: none;
     position: absolute;
-    left: 0; top: 35px;
-    background: #333;
-    margin: 0; padding: 0;
+    left: 0;
+    top: 39px;
+    background: rgba(0, 0, 0, 0.7);
+    margin: 0;
+    padding: 0;
     display: none;
     float: left;
     width: 170px;
-    border: 1px solid #111;
 }
 
 #imbaMenu ul.topnav li ul.subnav li {
     margin: 0; padding: 0;
-    border-top: 1px solid #252525;
-    border-bottom: 1px solid #444;
     clear: both;
     width: 170px;
 }
@@ -171,13 +164,13 @@ body {
 #imbaMenu html ul.topnav li ul.subnav li a {
     float: left;
     width: 145px;
-    background: #333 url('/IMBAdmin/Images/dropdown_linkbg.gif') no-repeat 10px center;
+    background: #333;
     padding-left: 20px;
 }
 
 #imbaMenu html ul.topnav li ul.subnav li a:hover { 
     /*--Hover effect for subnav links--*/
-    background: #222 url('/IMBAdmin/Images/dropdown_linkbg.gif') no-repeat 10px center;
+    background: #222;
 }
 
 /* IMBAdmin Content */

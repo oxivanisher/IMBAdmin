@@ -3,7 +3,15 @@
 chdir("../");
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaUser.php';
+
+/**
+ * Test login
+ */
+session_start();
+ImbaUserContext::setLoggedIn(true);
+ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 
 /**
  * Prepare Variables

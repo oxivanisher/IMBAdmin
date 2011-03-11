@@ -1,22 +1,23 @@
-<div id='test'></div>
+<div id='test' style='position: absolute; left: 0; top: 0;'></div>
 
-<div class='imbaSsoLoginBorder ui-widget ui-widget-content ui-corner-all'>
-    <div id='imbaSsoLogin'>
+<div id='imbaSsoLoginBorder' class='ui-widget ui-widget-content ui-corner-all'>
+    <div id='imbaSsoLogin' class='imbaFont'>
+        <img id='imbaSsoLogo' src='/IMBAdmin/Images/guild_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
-            <img id='imbaSsoLogo' src='Images/guild_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
             <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='get'>
-                <input name='openid' type='text' style='width: 120px; margin-right: 6px;' />
-                <input id='imbaSsoOpenIdSubmit' type='submit' />
+                <input id='imbaSsoOpenId' name='openid' type='text' class='imbaInput' />
+                <br />
+                <input id='imbaSsoOpenIdSubmit' type='submit' value='Login' class='imbaInput' />
             </form>
-            <img id='imbaGotMessage' src='Images/message.png' alt='M' title='Open Messaging' />
+            <div id='imbaUsersOnline' class='imbaFont'>1 On 3 AFK von 74</div>
         </div>
-        <span id='imbaOpenMessaging' class='ui-icon ui-icon-comment'>Open Messaging</span>
-        <div id='imbaUsersOnline'>1 On 3 AFK von 74</div>
-        <select id='imbaUsers' size='5' ></select>        
+        <br />
+        <div id='imbaOpenMessaging' class='ui-icon ui-icon-comment'>Open Messaging</div>
+        <div id='imbaGotMessage' class='ui-icon ui-icon-mail-closed' title='Open Messaging' >M</div>        
     </div>
 </div>
 
-<div id='imbaMessagesDialog' title='IMBA Messaging'>
+<div id='imbaMessagesDialog' title='IMBA Messaging'  class='imbaFont'>
     <div id='imbaMessages'>
         <ul></ul>
         <div id='imbaMessageTextDiv'>

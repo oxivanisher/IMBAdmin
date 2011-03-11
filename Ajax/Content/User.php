@@ -22,6 +22,7 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerUser = new ImbaManagerUser($managerDatabase);
+    $managerUser->setMeOnline();
 
     /**
      * create a new smarty object
@@ -29,7 +30,6 @@ if (ImbaUserContext::getLoggedIn()) {
     $smarty = ImbaSharedFunctions::newSmarty();
 
     switch ($_POST["tabId"]) {
-        $managerUser->setMeOnline();
 
         case "myprofile":
             $smarty->assign('name', 'Ned');

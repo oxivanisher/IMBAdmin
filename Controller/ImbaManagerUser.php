@@ -2,6 +2,7 @@
 
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaUser.php';
+require_once 'Controller/ImbaUserContext.php';
 
 /**
  *  Controller / Manager for User
@@ -152,6 +153,7 @@ class ImbaManagerUser {
 
         return $result;
     }
+
 
 }
 

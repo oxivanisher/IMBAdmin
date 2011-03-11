@@ -218,6 +218,7 @@ class ImbaManagerOpenID {
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
                 ImbaUserContext::setUserRole($currentUser->getRole());
+                $userManager->setLastonline();
             } else {
                 throw new Exception("Registrierung noch nicht implementiert");
                 // TODO: Registriereung wieder einbauen

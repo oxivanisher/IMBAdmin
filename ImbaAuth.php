@@ -18,6 +18,7 @@ session_start();
 require_once "ImbaConstants.php";
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerOpenID.php';
+require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -109,8 +110,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
-    
-    ImbaSharedFunctions::setMeOnline();
+    $userManager = new ImbaManagerUser();
+    $userManager->setMeOnline();
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"]);
     header("location: index.html");
 }

@@ -152,7 +152,6 @@ function loadImbaAdminDefaultModule(moduleName){
         action: "navigation",
         request: "getDefault"
     }, function (response){
-        alert(response);
         loadImbaAdminModule(response.toString());
     });
 }

@@ -160,7 +160,7 @@ class ImbaManagerUser {
         ImbaSharedFunctions::writeToLog($log);
 
 //        if ((ImbaUserContext::getLoggedIn() == true) && (!empty(ImbaUserContext::getOpenIdUrl()))) {
-        if (ImbaUserContext::getLoggedIn()) {
+        if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getOpenIdUrl()) {
             $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";
             //    $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
         }

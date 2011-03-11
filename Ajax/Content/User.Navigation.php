@@ -18,7 +18,7 @@ $Navigation = new ImbaContentNavigation();
 /**
  * Set module name
  */
-$Navigation->setName("Benuterverwaltung");
+$Navigation->setName("Mitglieder");
 
 
 /**

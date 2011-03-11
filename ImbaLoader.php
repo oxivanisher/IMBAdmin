@@ -63,11 +63,19 @@ switch ($_GET["load"]) {
                     if (strrpos($file, ".Navigation.php") > 0) {
                         include 'Ajax/Content/' . $file;
                         if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
+                            $showMe = false;
+                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
+                                $showMe = true;
+                            } elseif ($Navigation->getShowLoggedOff()) {
+                                $showMe = true;
+                            }
 
-                            $modIdentifier = str_replace(".Navigation.php", "", $file);
-                            echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
-                            array_push($identifiers, $modIdentifier);
-                            $Navigation = null;
+                            if ($showMe) {
+                                $modIdentifier = str_replace(".Navigation.php", "", $file);
+                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
+                                array_push($identifiers, $modIdentifier);
+                                $Navigation = null;
+                            }
                         }
                     }
                 }

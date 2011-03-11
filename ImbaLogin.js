@@ -147,27 +147,19 @@ function loadImbaAdminTabContent(data) {
     });
 }
 
-/**
- * loads the ImbaAdmin module in the IMBAdmin window
- */
-function loadImbaAdminModule(moduleName){
-    /**
-     *If there is no modulName, get the default from ajax navigation
-     */
-    var tmpModuleName = "";
+function loadImbaAdminDefaultModule(moduleName){
     $.post(ajaxEntry, {
         action: "navigation",
         request: "getDefault"
     }, function (response){
         alert(response);
-        tmpModuleName = response.toString();
+        loadImbaAdminModule(response.toString());
     });
-    
-    if (moduleName != "") {
-        tmpModuleName = tmpModuleName;
-    } else {
-        tmpModuleName = tmpModuleName;
-    }
+}
+/**
+ * loads the ImbaAdmin module in the IMBAdmin window
+ */
+function loadImbaAdminModule(moduleName){
     /**
      * Set the window title
      * FIXME: this is not working
@@ -175,7 +167,7 @@ function loadImbaAdminModule(moduleName){
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
-        module: tmpModuleName
+        module: moduleName
     }, function (response){
         $("#imbaContentDialog").dialog({
             title: "IMBAdmin " + response
@@ -198,14 +190,14 @@ function loadImbaAdminModule(moduleName){
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
-        module: tmpModuleName
+        module: moduleName
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){
                 $.post(ajaxEntry, {
                     action : "module",
-                    module: tmpModuleName,
+                    module: moduleName,
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);
@@ -219,7 +211,7 @@ function loadImbaAdminModule(moduleName){
      */
     var data = {
         action: "module",
-        module: tmpModuleName
+        module: moduleName
     };
     loadImbaAdminTabContent(data);
 

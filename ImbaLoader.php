@@ -52,7 +52,7 @@ switch ($_GET["load"]) {
             }
 
             echo "<li>";
-            echo "<a id='imbaMenuImbAdmin' href='#' onclick='javascript: loadImbaAdminModule();'>Auf zum Atem</a>";
+            echo "<a id='imbaMenuImbAdmin' href='#' onclick='javascript: loadImbaAdminDefaultModule();'>Auf zum Atem</a>";
             echo "<ul class='subnav'>";
 
             $contentNav = new ImbaContentNavigation();

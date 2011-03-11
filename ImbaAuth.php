@@ -107,7 +107,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are logged in! everithing is ok and we have a party here
      */
-    setcookie("IUC_openIdUrl", $value);
+    setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"]);
     header("location: index.html");
 }
 

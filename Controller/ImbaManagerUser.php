@@ -155,9 +155,10 @@ class ImbaManagerUser {
     }
 
     public static function setMeOnline() {
-        if ((ImbaUserContext::getLoggedIn() == true) && (!empty(ImbaUserContext::getOpenIdUrl()))) {
+//        if ((ImbaUserContext::getLoggedIn() == true) && (!empty(ImbaUserContext::getOpenIdUrl()))) {
+        if (ImbaUserContext::getOpenIdUrl()) {
             $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
+        //    $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
         }
     }
 

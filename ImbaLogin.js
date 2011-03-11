@@ -148,10 +148,16 @@ function loadImbaAdminTabContent(data) {
 }
 
 function loadImbaAdminDefaultModule(moduleName){
+    /**
+     * Get the default module
+     */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "getDefault"
     }, function (response){
+        /**
+         * Call the loadImbaAdminModule to open the dialog
+         */
         loadImbaAdminModule(response.toString());
     });
 }
@@ -161,7 +167,6 @@ function loadImbaAdminDefaultModule(moduleName){
 function loadImbaAdminModule(moduleName){
     /**
      * Set the window title
-     * FIXME: this is not working
      */
     $.post(ajaxEntry, {
         action: "navigation",

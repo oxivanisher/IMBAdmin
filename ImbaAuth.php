@@ -110,8 +110,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
-    $userManager = new ImbaManagerUser($managerDatabase);
-    $userManager->setMeOnline();
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"]);
     header("location: index.html");
 }

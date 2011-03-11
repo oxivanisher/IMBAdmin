@@ -9,6 +9,17 @@ $nav = array();
 
 $moduleFile = "Ajax/Content/" . $_POST["module"] . ".Navigation.php";
 
+function returnDefaultModule() {
+    session_start();
+    require_once 'Controller/ImbaUserContext.php';
+
+    if (ImbaUserContext::getLoggedIn()) {
+        echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_MODULE;
+    } else {
+        echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_MODULE;
+    }
+}
+
 if (file_exists($moduleFile)) {
     /**
      * load the module file
@@ -27,7 +38,7 @@ if (file_exists($moduleFile)) {
             echo $myName;
             break;
         default:
-            echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_MODULE;
+            echo returnDefaultModule();
             break;
     }
 } else {
@@ -40,7 +51,7 @@ if (file_exists($moduleFile)) {
             echo "Module not found (" . $moduleFile . ")!";
             break;
         default:
-            echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_MODULE;
+            echo returnDefaultModule();
             break;
     }
 }

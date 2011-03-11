@@ -200,14 +200,14 @@ function loadImbaAdminModule(moduleName){
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            if (key == 0){
+            /*if (key == 0){
                 $.post(ajaxEntry, {
                     action : "module",
                     module: moduleName,
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);
-                });  
+                });  */
             }
         });
     });

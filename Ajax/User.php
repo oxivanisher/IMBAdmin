@@ -20,7 +20,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * Gets a list of users as JSON
      */
     if (isset($_POST['loaduserlist'])) {
-        $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
+        $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
         $result = array();
         foreach ($users as $user) {
             array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));

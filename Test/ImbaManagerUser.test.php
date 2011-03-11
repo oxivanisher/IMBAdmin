@@ -9,6 +9,9 @@ require_once 'Model/ImbaUser.php';
 /**
  * Test login
  */
+/**
+ * Fucking hell, am I dirty!
+ */
 session_start();
 ImbaUserContext::setLoggedIn(true);
 ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
@@ -25,9 +28,9 @@ $output = "";
  * Select User
  */
 $user = new ImbaUser();
-$user = $managerUser->selectByOpenId("https://oom.ch/openid/identity/test");
+$user = $managerUser->selectByOpenId("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 
-if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
+if ($user->getFirstname() == "Steffen" && $user->getLastname() == "Sommer") {
     $output.= "selectByOpenId working.\n";
 } else {
     $output.= "Error at selectByOpenId.\n";
@@ -36,7 +39,7 @@ if ($user->getFirstname() == "hans" && $user->getLastname() == "ruedi") {
 /**
  * Select Users
  */
-$users = $managerUser->selectAllUser("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+$users = $managerUser->selectAllUserButme("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 if (count($users) > 0) {
     $output.= "selectAllUser working.\n";
 } else {

@@ -30,6 +30,7 @@ class ImbaUser extends ImbaBase {
     protected $motto = null;
     protected $accurate = null;
     protected $role = null;
+    protected $lastonline = null;
     // deleted protected $armorychars; oxi, 25.02.2011
 
     /**
@@ -186,6 +187,15 @@ class ImbaUser extends ImbaBase {
     public function setRole($role) {
         $this->role = $role;
     }
+
+    public function getLastonline() {
+        return $this->lastonline;
+    }
+
+    public function setLastonline($lastonline) {
+        $this->lastonline = $lastonline;
+    }
+
 }
 
 ?>

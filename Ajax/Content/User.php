@@ -66,7 +66,7 @@ if (ImbaUserContext::getLoggedIn()) {
         default:
             $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
 
-            $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
+            $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();
             foreach ($users as $user) {

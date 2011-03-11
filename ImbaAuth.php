@@ -107,6 +107,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are logged in! everithing is ok and we have a party here
      */
+    print_r($_SESSION);
+    exit;
+    setcookie("ImbaSsoLastname", $value);
     header("location: index.html");
 }
 

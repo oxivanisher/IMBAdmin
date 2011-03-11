@@ -207,8 +207,8 @@ function loadImbaAdminModule(moduleName){
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);
-                });  */
-            }
+                });  
+            } */
         });
     });
 

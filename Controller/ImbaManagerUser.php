@@ -155,7 +155,7 @@ class ImbaManagerUser {
         return $result;
     }
 
-    public static function setMeOnline() {
+    public  function setMeOnline() {
         $log = "setMeOnline: " . ImbaUserContext::getOpenIdUrl();
         ImbaSharedFunctions::writeToLog($log);
 

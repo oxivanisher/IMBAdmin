@@ -154,7 +154,6 @@ class ImbaManagerUser {
         return $result;
     }
 
-
 }
 
 ?>

@@ -43,12 +43,7 @@ $(document).ready(function() {
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
     $("ul.topnav li span").click(function() {
-        var subNav = $(this).parent().find("ul.subnav");
-        if (subNav.is(":hidden")){
-            subNav.slideDown('fast').show();
-        }else {
-            subNav.slideUp('fast').show();
-        }
+        showImbadminModuleNav();
     }); 
     var menuIsThere = true;
     $("#imbaSsoLogo").click(function() {
@@ -72,8 +67,20 @@ $(document).ready(function() {
 });
 
 /**
- * String formatting (not working in IE!!!)
+ * Function that opens the imbadmin module menu
  */
+function showImbadminModuleNav() {
+    var subNav = $(this).parent().find("ul.subnav");
+    if (subNav.is(":hidden")){
+        subNav.slideDown('fast').show();
+    }else {
+        subNav.slideUp('fast').show();
+    }
+}
+
+/**
+* String formatting (not working in IE!!!)
+*/
 String.prototype.format = function() {
     var formatted = this;
     for(arg in arguments) {
@@ -83,8 +90,8 @@ String.prototype.format = function() {
 };
 
 /**
- * Shows the Menu and stuff around
- */
+* Shows the Menu and stuff around
+*/
 function showMenu() {
     // run the effect
     $("#imbaMenu").show("slide", {
@@ -99,8 +106,8 @@ function showMenu() {
 }
 
 /**
- * Hids the Menu and stuff around
- */
+* Hids the Menu and stuff around
+*/
 function hideMenu() {
     // run the effect
     $("#imbaMenu").hide("slide", {
@@ -115,15 +122,15 @@ function hideMenu() {
 }
 
 /**
- * Returns the current selected tab index
- */
+* Returns the current selected tab index
+*/
 function getSelectedImbaAdminTabIndex(){
     return $('#imbaContentNav').tabs('option', 'selected');
 }
 
 /**
- * Return the Id of a tab from a tabIndex
- */
+* Return the Id of a tab from a tabIndex
+*/
 function getImbaAdminTabIdFromTabIndex(tabIndex){
     var result = "";
     $.each($("#imbaContentNav a"), function (k, v) {
@@ -137,8 +144,8 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 }
 
 /**
- * loads the ImbaAdminTab content, depending on the data for the post request
- */
+* loads the ImbaAdminTab content, depending on the data for the post request
+*/
 function loadImbaAdminTabContent(data) {
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
@@ -149,25 +156,25 @@ function loadImbaAdminTabContent(data) {
 
 function loadImbaAdminDefaultModule(moduleName){
     /**
-     * Get the default module
-     */
+ * Get the default module
+ */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "getDefault"
     }, function (response){
         /**
-         * Call the loadImbaAdminModule to open the dialog
-         */
+     * Call the loadImbaAdminModule to open the dialog
+     */
         loadImbaAdminModule(response.toString());
     });
 }
 /**
- * loads the ImbaAdmin module in the IMBAdmin window
- */
+* loads the ImbaAdmin module in the IMBAdmin window
+*/
 function loadImbaAdminModule(moduleName){
     /**
-     * Set the window title
-     */
+ * Set the window title
+ */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
@@ -179,18 +186,18 @@ function loadImbaAdminModule(moduleName){
     });
 
     /**
-     * Remove all tabs
-     */
+ * Remove all tabs
+ */
     $("#imbaContentNav").tabs("destroy");
     
     /**
-     *Create new tabs on element
-     */
+ *Create new tabs on element
+ */
     $("#imbaContentNav").tabs();
     
     /**
-     * get and render tabs
-     */
+ * get and render tabs
+ */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
@@ -211,8 +218,8 @@ function loadImbaAdminModule(moduleName){
     });
 
     /**
-     * get and render content
-     */
+ * get and render content
+ */
     var data = {
         action: "module",
         module: moduleName
@@ -231,8 +238,9 @@ function loadImbaAdminModule(moduleName){
     });
     
     /**
-    * Show the dialog
-    */
+ * Show the dialog
+ */
     $("#imbaContentDialog").dialog("open");
+    showImbadminModuleNav();
 
 }

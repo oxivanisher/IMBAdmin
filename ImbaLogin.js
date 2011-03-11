@@ -4,18 +4,6 @@
 // Storring if user is logged in
 var isUserLoggedIn = false;
 
-function setLoggedIn(isLoggedIn){
-    if (isLoggedIn){
-        $("#imbaSsoOpenIdSubmit").val("Logout");
-        $("#imbaOpenMessaging").show();
-    } else {
-        $("#imbaSsoOpenIdSubmit").val("Login");
-        $("#imbaOpenMessaging").hide();
-    }
-
-    isUserLoggedIn = isLoggedIn;
-}
-
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
     //login to wordpress ^^
@@ -74,6 +62,20 @@ $(document).ready(function() {
     
 });
 
+/**
+ * Sets the user loggedin
+ */
+function setLoggedIn(isLoggedIn){
+    if (isLoggedIn){
+        $("#imbaSsoOpenIdSubmit").val("Logout");
+        $("#imbaOpenMessaging").show();
+    } else {
+        $("#imbaSsoOpenIdSubmit").val("Login");
+        $("#imbaOpenMessaging").hide();
+    }
+
+    isUserLoggedIn = isLoggedIn;
+}
 
 /**
 * String formatting (not working in IE!!!)
@@ -166,8 +168,8 @@ function loadImbaAdminDefaultModule(moduleName){
 */
 function loadImbaAdminModule(moduleName){
     /**
- * Set the window title
- */
+     * Set the window title
+     */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
@@ -179,18 +181,18 @@ function loadImbaAdminModule(moduleName){
     });
 
     /**
- * Remove all tabs
- */
+     * Remove all tabs
+     */
     $("#imbaContentNav").tabs("destroy");
     
     /**
- *Create new tabs on element
- */
+     * Create new tabs on element
+     */
     $("#imbaContentNav").tabs();
     
     /**
- * get and render tabs
- */
+     * get and render tabs
+     */
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
@@ -211,8 +213,8 @@ function loadImbaAdminModule(moduleName){
     });
 
     /**
- * get and render content
- */
+     * get and render content
+     */
     var data = {
         action: "module",
         module: moduleName

@@ -12,6 +12,7 @@ require_once 'Model/ImbaUser.php';
 session_start();
 ImbaUserContext::setLoggedIn(true);
 ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+ImbaUserContext::setUserRole(9);
 
 /**
  * Prepare Variables

@@ -164,9 +164,9 @@ function loadImbaAdminModule(moduleName){
     });
     
     if (moduleName != "") {
-        moduleName = moduleName;
+        tmpModuleName = moduleName;
     } else {
-        moduleName = tmpModuleName;
+        tmpModuleName = tmpModuleName;
     }
     /**
      * Set the window title
@@ -175,7 +175,7 @@ function loadImbaAdminModule(moduleName){
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
-        module: moduleName
+        module: tmpModuleName
     }, function (response){
         $("#imbaContentDialog").dialog({
             title: "IMBAdmin " + response
@@ -198,14 +198,14 @@ function loadImbaAdminModule(moduleName){
     $.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
-        module: moduleName
+        module: tmpModuleName
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if (key == 0){
                 $.post(ajaxEntry, {
                     action : "module",
-                    module: moduleName,
+                    module: tmpModuleName,
                     tabId : "#" + value.id
                 }, function(response){
                     $("#" + value.id).html(response);
@@ -219,7 +219,7 @@ function loadImbaAdminModule(moduleName){
      */
     var data = {
         action: "module",
-        module: moduleName
+        module: tmpModuleName
     };
     loadImbaAdminTabContent(data);
 

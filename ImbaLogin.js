@@ -166,7 +166,7 @@ function loadImbaAdminDefaultModule(moduleName){
 /**
 * loads the ImbaAdmin module in the IMBAdmin window
 */
-function loadImbaAdminModule(moduleName){
+function loadImbaAdminModule(moduleName, moduleDo){
     /**
      * Set the window title
      */
@@ -228,7 +228,8 @@ function loadImbaAdminModule(moduleName){
      */
     var data = {
         action: "module",
-        module: moduleName
+        module: moduleName,
+        moduleDo: moduleDo
     };
     loadImbaAdminTabContent(data);
 

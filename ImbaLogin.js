@@ -43,7 +43,12 @@ $(document).ready(function() {
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
     $("ul.topnav li span").click(function() {
-        showImbadminModuleNav();
+        var subNav = $(this).parent().find("ul.subnav");
+        if (subNav.is(":hidden")){
+            subNav.slideDown('fast').show();
+        }else {
+            subNav.slideUp('fast').show();
+        }
     }); 
     var menuIsThere = true;
     $("#imbaSsoLogo").click(function() {
@@ -66,17 +71,6 @@ $(document).ready(function() {
     
 });
 
-/**
- * Function that opens the imbadmin module menu
- */
-function showImbadminModuleNav() {
-    var subNav = $(this).parent().find("ul.subnav");
-    if (subNav.is(":hidden")){
-        subNav.slideDown('fast').show();
-    }else {
-        subNav.slideUp('fast').show();
-    }
-}
 
 /**
 * String formatting (not working in IE!!!)

@@ -29,6 +29,7 @@ if (ImbaUserContext::getLoggedIn()) {
     $smarty = ImbaSharedFunctions::newSmarty();
 
     switch ($_POST["tabId"]) {
+        $managerUser->setMeOnline();
 
         case "myprofile":
             $smarty->assign('name', 'Ned');

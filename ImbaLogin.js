@@ -164,7 +164,7 @@ function loadImbaAdminModule(moduleName){
     });
     
     if (moduleName != "") {
-        tmpModuleName = moduleName;
+        tmpModuleName = tmpModuleName;
     } else {
         tmpModuleName = tmpModuleName;
     }

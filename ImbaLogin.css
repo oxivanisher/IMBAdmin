@@ -111,7 +111,7 @@
     margin: 0;
     float: left;
     width: 600px;
-    background: rgba(0, 0, 0, 0.7);
+    background: #505050;
 }
 
 #imbaMenu ul.topnav li {
@@ -146,7 +146,7 @@
     position: absolute;
     left: 0;
     top: 39px;
-    background: rgba(0, 0, 0, 0.7);
+    background: #505050;
     margin: 0;
     padding: 0;
     display: none;

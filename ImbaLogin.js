@@ -174,7 +174,6 @@ function loadImbaAdminDefaultModule(moduleName){
 * loads the ImbaAdmin module in the IMBAdmin window
 */
 function loadImbaAdminModule(moduleName, moduleDo){
-    alert("schrei!");
     /**
      * Set the window title
      */
@@ -191,6 +190,10 @@ function loadImbaAdminModule(moduleName, moduleDo){
     /**
      * Remove all tabs
      */
+    $.each($("#imbaContentNav a"), function (k, v) {
+        var tmp = v.toString().split("#");
+        $("#" + tmp[1]).html("");
+    });    
     $("#imbaContentNav").tabs("destroy");
     
     /**

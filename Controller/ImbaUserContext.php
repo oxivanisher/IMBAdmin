@@ -6,12 +6,7 @@
  */
 class ImbaUserContext {
 
-    //user session basics
-    
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
-    }
-    
+    //user session basics    
     public static function getLoggedIn() {
         return $_SESSION["IUC_loggedIn"];
     }

@@ -13,7 +13,9 @@ if (!isset($_POST["action"]))
 //FIXME: I am just temporary here for testing purposes
 //$_POST["module"] = "User";
 
-require_once 'Controller/ImbaSharedFunctions.php';
+require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUser.php';
 
 

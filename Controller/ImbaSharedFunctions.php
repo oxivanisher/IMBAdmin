@@ -206,7 +206,7 @@ class ImbaSharedFunctions {
     public static function writeToLog($message) {
         $myFile = "ImbaLog.log";
         if ($fh = fopen($myFile, 'a+')) {
-            $stringData = date("y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
+            $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
             fwrite($fh, $stringData);
             fclose($fh);
         }

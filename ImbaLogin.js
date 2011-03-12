@@ -225,7 +225,16 @@ function loadImbaAdminModule(moduleName, moduleDo){
         $.each($("#imbaContentNav a"), function (k, v) {
             if (k == ui.index){
                 var tmp = v.toString().split("#");
+                
                 tmpTabId = "#" + tmp[1];
+                
+                var data = {
+                    action: "module",
+                    module: moduleName,
+                    moduleDo: moduleDo,
+                    tabId: tmpTabId
+                };
+                loadImbaAdminTabContent(data); 
             }
         });
     });
@@ -244,6 +253,6 @@ function loadImbaAdminModule(moduleName, moduleDo){
  * Show the dialog
  */
     $("#imbaContentDialog").dialog("open");
-    showImbadminModuleNav();
+//    showImbadminModuleNav();
 
 }

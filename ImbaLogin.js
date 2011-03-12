@@ -157,7 +157,6 @@ function loadImbaAdminTabContent(data, myTabId) {
 }
 
 function loadImbaAdminDefaultModule(moduleName){
-    alert("schrei!");
     /**
  * Get the default module
  */
@@ -175,6 +174,7 @@ function loadImbaAdminDefaultModule(moduleName){
 * loads the ImbaAdmin module in the IMBAdmin window
 */
 function loadImbaAdminModule(moduleName, moduleDo){
+    alert("schrei!");
     /**
      * Set the window title
      */

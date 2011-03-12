@@ -192,11 +192,10 @@ function loadImbaAdminModule(moduleName, moduleDo){
      */
     $.each($("#imbaContentNav a"), function (k, v) {
         var tmp = v.toString().split("#");
-        $("#" + tmp[1]).html("");
+        $("#imbaContentNav").tabs("remove", k);
+        //$("#" + tmp[1]).html("");
     });    
-    $("#imbaContentNav").tabs("destroy");    
-    $("#imbaContentDialog").dialog("destroy");
-    
+    //$("#imbaContentNav").tabs("destroy");  
     
     /**
      * Create new tabs on element

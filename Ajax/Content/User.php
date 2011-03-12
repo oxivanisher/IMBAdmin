@@ -29,6 +29,9 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $smarty = ImbaSharedFunctions::newSmarty();
 
+    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+    $managerUser = new ImbaManagerUser($managerDatabase);
+
     switch ($_POST["request"]) {
 
         case "myprofile":
@@ -51,16 +54,16 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('msn', $user->getMsn());
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
-            
+
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());
-            
+
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
 //            $smarty->assign('games', $user->getGames());
 //            $smarty->assign('lastLogin', $user->getLastLogin());
-            
-           
+
+
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;
 

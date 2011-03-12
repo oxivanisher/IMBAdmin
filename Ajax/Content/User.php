@@ -29,7 +29,7 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $smarty = ImbaSharedFunctions::newSmarty();
 
-    switch ($_POST["tabId"]) {
+    switch ($_POST["request"]) {
 
         case "myprofile":
             $smarty->assign('name', 'Ned');

@@ -55,10 +55,10 @@ $(document).ready(function() {
         return false;
     });
 
-    // show ImbAdmin
-    $("#imbaMenuImbAdmin").click(function(){
+// show ImbAdmin
+/*$("#imbaMenuImbAdmin").click(function(){
         $("#imbaContentDialog").dialog("open");
-    });
+    });*/
     
 });
 
@@ -178,6 +178,8 @@ function loadImbaAdminModule(moduleName, moduleDo){
     /**
  * Show the dialog
  */
+    $("#imbaContentDialog").dialog("destroy");
+    $("#imbaContentDialog").dialog("open");
 
     /**
      * Remove all tabs

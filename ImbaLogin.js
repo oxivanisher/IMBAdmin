@@ -10,10 +10,10 @@ $(document).ready(function() {
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
     // Checking if user is online
-    $.ajaxSetup({
+    /*$.ajaxSetup({
         async:false
     });
-    
+*/    
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){

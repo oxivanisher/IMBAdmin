@@ -24,13 +24,6 @@ $(document).ready(function() {
         }
     });
 
-    // Setting up the Dialog for the ImbaAdmin
-    $("#imbaContentDialog").dialog({
-        autoOpen: false
-    })
-    .dialog("option", "width", 700)
-    .dialog( "option", "height", 520 );
-    
     // Menu jQuery
     $("ul.subnav").parent().append("<span></span>"); 
     $("ul.topnav li span").click(function() {
@@ -176,10 +169,12 @@ function loadImbaAdminDefaultModule(moduleName){
 */
 function loadImbaAdminModule(moduleName, moduleDo){
     /**
- * Show the dialog
+ * Setting up the Dialog for the ImbaAdmin
  */
     $("#imbaContentDialog").dialog("destroy");
-    $("#imbaContentDialog").dialog("open");
+    $("#imbaContentDialog").dialog()
+    .dialog("option", "width", 700)
+    .dialog("option", "height", 520);
 
     /**
      * Remove all tabs
@@ -199,10 +194,10 @@ function loadImbaAdminModule(moduleName, moduleDo){
         request: "name",
         module: moduleName
     }, function (response){
-        $("#imbaContentDialog").dialog({
+        /*$("#imbaContentDialog").dialog({
             title: "IMBAdmin " + response
+        });*/
         });
-    });
 
 
     /**

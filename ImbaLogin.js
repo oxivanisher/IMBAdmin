@@ -10,10 +10,10 @@ $(document).ready(function() {
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
     // Checking if user is online
-    /*$.ajaxSetup({
+    $.ajaxSetup({
         async:false
     });
-*/    
+    
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
@@ -142,6 +142,7 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 * loads the ImbaAdminTab content, depending on the data for the post request
 */
 function loadImbaAdminTabContent(data, myTabId) {
+    alert("laed groad: " + myTabId);
     var targetIabId = null;
     if (myTabId == null) {
         targetIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());

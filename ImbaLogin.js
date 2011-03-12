@@ -141,10 +141,17 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 /**
 * loads the ImbaAdminTab content, depending on the data for the post request
 */
-function loadImbaAdminTabContent(data) {
+function loadImbaAdminTabContent(data, myTabId) {
+    var targetIabId = null;
+    if (myTabId == null) {
+        targetIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());
+    } else {
+        targetIabId = myTabId;
+    }
+    
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
-            $(getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex())).html(response);
+            $(targetIabId).html(response);
         }
     });
 }
@@ -236,7 +243,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                     request: tmpTabId,
                     tabId: tmpTabId
                 };
-                loadImbaAdminTabContent(data); 
+                loadImbaAdminTabContent(data, tmpTabId); 
             }
         });
     });

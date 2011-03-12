@@ -47,6 +47,14 @@ class ImbaUserContext {
         $_SESSION["IUC_UserRole"] = $UserRole;
     }
 
+    public static function getUserLastOnline() {
+        return $_SESSION["IUC_LastOnline"];
+    }
+
+    public static function setUserLastOnline() {
+        $_SESSION["IUC_LastOnline"] = time();
+    }
+
 }
 
 ?>

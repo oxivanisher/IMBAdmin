@@ -155,8 +155,14 @@ class ImbaManagerUser {
         return $result;
     }
 
+    /**
+     * Setting the timestamp for Current User 
+     */
     public function setMeOnline() {
-        if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getOpenIdUrl()) {
+        if (ImbaUserContext::getLoggedIn() &&
+                ImbaUserContext::getOpenIdUrl() &&
+                ImbaUserContext::getUserLastOnline() < (time() - 10)) {
+            ImbaUserContext::setUserLastOnline();
             $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
 

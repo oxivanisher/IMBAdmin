@@ -33,16 +33,16 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
-        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"] . ", tabId: " . $_POST["request"];
-        ImbaSharedFunctions::writeToLog($log);
-
-//        if (ImbaUserContext::getLoggedIn()) {
+        //$log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"] . ", tabId: " . $_POST["request"];
+        //ImbaSharedFunctions::writeToLog($log);
+        session_start();
+        if (ImbaUserContext::getLoggedIn()) {
             $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
             $managerUser = new ImbaManagerUser($managerDatabase);
             $managerUser->setMeOnline();
             unset($managerUser);
-//        }
-        
+        }
+
         /**
          * This block will be the same for every module
          * $_POST["module"]

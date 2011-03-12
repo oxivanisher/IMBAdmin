@@ -3,6 +3,8 @@
  */
 // Storring if user is logged in
 var isUserLoggedIn = false;
+var currentModule = null;
+var currentModuleDo = null;
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
@@ -24,7 +26,9 @@ $(document).ready(function() {
         }
     });
 
-    // Menu jQuery
+    /**
+     * Menu
+     */
     $("ul.subnav").parent().append("<span></span>"); 
     $("ul.topnav li span").click(function() {
         var subNav = $(this).parent().find("ul.subnav");
@@ -47,12 +51,38 @@ $(document).ready(function() {
         
         return false;
     });
-
-// show ImbAdmin
-/*$("#imbaMenuImbAdmin").click(function(){
-        $("#imbaContentDialog").dialog("open");
-    });*/
     
+    /*
+     * Module
+     */
+    // Setting up the content of the Dialog as tabs
+    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
+        var tmpTabId = "";
+        $.each($("#imbaContentNav a"), function (k, v) {
+            if (k == ui.index){
+                var tmp = v.toString().split("#");
+                
+                tmpTabId = "#" + tmp[1];
+                
+                var data = {
+                    action: "module",
+                    module: currentModule,
+                    moduleDo: currentModuleDo,
+                    request: tmp[1]
+                };
+                loadImbaAdminTabContent(data, tmpTabId); 
+            }
+        });
+    });
+    
+    /**
+     * Setting up the Dialog for the ImbaAdmin
+     */
+    $("#imbaContentDialog").dialog({
+        autoOpen: false
+    })
+    .dialog("option", "width", 700)
+    .dialog("option", "height", 520);   
 });
 
 /**
@@ -69,17 +99,6 @@ function setLoggedIn(isLoggedIn){
 
     isUserLoggedIn = isLoggedIn;
 }
-
-/**
-* String formatting (not working in IE!!!)
-*/
-String.prototype.format = function() {
-    var formatted = this;
-    for(arg in arguments) {
-        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
-    }
-    return formatted;
-};
 
 /**
 * Shows the Menu and stuff around
@@ -135,7 +154,6 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 * loads the ImbaAdminTab content, depending on the data for the post request
 */
 function loadImbaAdminTabContent(data, myTabId) {
-    alert("laed groad: " + myTabId);
     var targetIabId = null;
     if (myTabId == null) {
         targetIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());
@@ -150,32 +168,27 @@ function loadImbaAdminTabContent(data, myTabId) {
     });
 }
 
-function loadImbaAdminDefaultModule(moduleName){
-    /**
- * Get the default module
+/**
+ * Loads the default ImbaAdminTab
  */
+function loadImbaAdminDefaultModule(){
+    // Get the default module
     $.post(ajaxEntry, {
         action: "navigation",
         request: "getDefault"
     }, function (response){
-        /**
-     * Call the loadImbaAdminModule to open the dialog
-     */
+        // Call the loadImbaAdminModule to open the dialog         
         loadImbaAdminModule(response.toString());
     });
 }
+
 /**
 * loads the ImbaAdmin module in the IMBAdmin window
 */
 function loadImbaAdminModule(moduleName, moduleDo){
-    /**
- * Setting up the Dialog for the ImbaAdmin
- */
-    $("#imbaContentDialog").dialog("destroy");
-    $("#imbaContentDialog").dialog()
-    .dialog("option", "width", 700)
-    .dialog("option", "height", 520);
-
+    currentModule = moduleName;
+    currentModuleDo = moduleDo;
+    
     /**
      * Remove all tabs
      */   
@@ -194,11 +207,10 @@ function loadImbaAdminModule(moduleName, moduleDo){
         request: "name",
         module: moduleName
     }, function (response){
-        /*$("#imbaContentDialog").dialog({
+        $("#imbaContentDialog").dialog({
             title: "IMBAdmin " + response
-        });*/
         });
-
+    });
 
     /**
      * get and render tabs
@@ -210,56 +222,17 @@ function loadImbaAdminModule(moduleName, moduleDo){
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            alert("zomfg");
-        /*if (key == 0){
-                /*                $.post(ajaxEntry, {
-                    action : "module",
-                    module: moduleName,
-                    tabId : "#" + value.id
-                }, function(response){
-                    $("#" + value.id).html(response);
-                });  */
-        /* var data = {
+            if (key == 0){
+                var data = {
                     action: "module",
                     module: moduleName,
                     request: value.id,
                     moduleDo: moduleDo
                 };
                 loadImbaAdminTabContent(data);
-            }*/
-        });
-    });
-
-    // Setting up the content of the Dialog as tabs
-    $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
-        var tmpTabId = "";
-        $.each($("#imbaContentNav a"), function (k, v) {
-            if (k == ui.index){
-                var tmp = v.toString().split("#");
-                
-                tmpTabId = "#" + tmp[1];
-                
-                var data = {
-                    action: "module",
-                    module: moduleName,
-                    moduleDo: moduleDo,
-                    request: tmp[1]
-                };
-                loadImbaAdminTabContent(data, tmpTabId); 
             }
         });
     });
     
-/**
-     * get and render content
-     */
-/*    var data = {
-        action: "module",
-        module: moduleName,
-        moduleDo: moduleDo
-    };
-    loadImbaAdminTabContent(data); */
-
-//    showImbadminModuleNav();
-
+    $("#imbaContentDialog").dialog("open");
 }

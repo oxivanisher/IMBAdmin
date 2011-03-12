@@ -11,7 +11,7 @@
         var data = {
             action: "module",
             module: "User",
-            tabId: "viewprofile",
+            request: "viewprofile",
             openid: openid
         };
         loadImbaAdminTabContent(data);

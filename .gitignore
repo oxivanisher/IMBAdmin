@@ -2,3 +2,4 @@ nbproject/
 .gitignore
 Tools/imbadmin.sql.zip
 *.log
+Libs/smarty/templates_c

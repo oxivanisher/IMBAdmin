@@ -3,7 +3,7 @@
         var data = {
             action: "module",
             module: "User",
-            tabId: "overview"
+            request: "overview"
         };
         loadImbaAdminTabContent(data);
     }

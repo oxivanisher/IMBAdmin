@@ -164,8 +164,8 @@ function createChatWindow(name, openid) {
 /**
  * Refreshs a special chatwindow
  */
-function loadChatWindowContent(tabIndex) {
-    if (getOpenIdFromTabIndex(tabIndex) != ""){
+function loadChatWindowContent(tabIndex) {    
+    if (getOpenIdFromTabIndex(tabIndex) != "" && !$("#imbaMessagesDialog").is(':hidden')){
         var tabReciever = getOpenIdFromTabIndex(tabIndex)
         // load chat
         $.post(ajaxEntry, {

@@ -189,13 +189,8 @@ function loadImbaAdminModule(moduleName, moduleDo){
 
     /**
      * Remove all tabs
-     */
-    $.each($("#imbaContentNav a"), function (k, v) {
-        var tmp = v.toString().split("#");
-        $("#imbaContentNav").tabs("remove", k);
-        //$("#" + tmp[1]).html("");
-    });    
-    //$("#imbaContentNav").tabs("destroy");  
+     */   
+    $("#imbaContentNav").tabs("destroy");  
     
     /**
      * Create new tabs on element
@@ -205,7 +200,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
     /**
      * get and render tabs
      */
-    $.post(ajaxEntry, {
+    /*$.post(ajaxEntry, {
         action: "navigation",
         request: "nav",
         module: moduleName
@@ -220,7 +215,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 }, function(response){
                     $("#" + value.id).html(response);
                 });  */
-                var data = {
+               /* var data = {
                     action: "module",
                     module: moduleName,
                     request: value.id,
@@ -229,7 +224,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 loadImbaAdminTabContent(data);
             }
         });
-    });
+    });*/
 
     // Setting up the content of the Dialog as tabs
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {

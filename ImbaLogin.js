@@ -176,6 +176,12 @@ function loadImbaAdminDefaultModule(moduleName){
 */
 function loadImbaAdminModule(moduleName, moduleDo){
     /**
+ * Show the dialog
+ */
+    $("#imbaContentDialog").dialog("destroy");
+    $("#imbaContentDialog").dialog("open");
+    
+    /**
      * Remove all tabs
      */   
     $("#imbaContentNav").tabs("destroy");  
@@ -208,7 +214,6 @@ function loadImbaAdminModule(moduleName, moduleDo){
         module: moduleName
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
-            alert("buuh!");
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
         /*if (key == 0){
                 /*                $.post(ajaxEntry, {
@@ -249,20 +254,16 @@ function loadImbaAdminModule(moduleName, moduleDo){
         });
     });
     
-    /**
+/**
      * get and render content
      */
-    /*    var data = {
+/*    var data = {
         action: "module",
         module: moduleName,
         moduleDo: moduleDo
     };
     loadImbaAdminTabContent(data); */
 
-    /**
- * Show the dialog
- */
-    $("#imbaContentDialog").dialog("open");
 //    showImbadminModuleNav();
 
 }

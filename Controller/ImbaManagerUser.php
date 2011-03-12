@@ -160,7 +160,7 @@ class ImbaManagerUser {
             $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
 
-            $log = ImbaSharedFunctions::getIP() .  ": set me online (" . ImbaUserContext::getOpenIdUrl() . ")";
+            $log = "set me online (" . ImbaUserContext::getOpenIdUrl() . ")";
             ImbaSharedFunctions::writeToLog($log);
         }
     }

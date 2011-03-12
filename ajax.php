@@ -14,6 +14,8 @@ if (!isset($_POST["action"]))
 //$_POST["module"] = "User";
 
 require_once 'Controller/ImbaSharedFunctions.php';
+require_once 'Controller/ImbaManagerUser.php';
+
 
 switch ($_POST["action"]) {
     case "messenger":
@@ -25,9 +27,6 @@ switch ($_POST["action"]) {
         break;
 
     case "navigation":
-        $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"] . ", tabId: " . $_POST["request"];
-        ImbaSharedFunctions::writeToLog($log);
-
         include 'Ajax/Navigation.php';
         break;
 
@@ -35,6 +34,13 @@ switch ($_POST["action"]) {
         $log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"] . ", tabId: " . $_POST["request"];
         ImbaSharedFunctions::writeToLog($log);
 
+        if (ImbaUserContext::getLoggedIn()) {
+            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+            $managerUser = new ImbaManagerUser($managerDatabase);
+            $managerUser->setMeOnline();
+            unset($managerUser);
+        }
+        
         /**
          * This block will be the same for every module
          * $_POST["module"]

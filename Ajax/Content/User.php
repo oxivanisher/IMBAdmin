@@ -20,9 +20,9 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-    $managerUser = new ImbaManagerUser($managerDatabase);
-    $managerUser->setMeOnline();
+//    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+//    $managerUser = new ImbaManagerUser($managerDatabase);
+//    $managerUser->setMeOnline();
 
     /**
      * create a new smarty object

@@ -194,7 +194,9 @@ function loadImbaAdminModule(moduleName, moduleDo){
         var tmp = v.toString().split("#");
         $("#" + tmp[1]).html("");
     });    
-    $("#imbaContentNav").tabs("destroy");
+    $("#imbaContentNav").tabs("destroy");    
+    $("#imbaContentDialog").dialog("destroy");
+    
     
     /**
      * Create new tabs on element

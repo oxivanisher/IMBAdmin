@@ -157,6 +157,7 @@ function loadImbaAdminTabContent(data, myTabId) {
 }
 
 function loadImbaAdminDefaultModule(moduleName){
+    alert("schrei!");
     /**
  * Get the default module
  */

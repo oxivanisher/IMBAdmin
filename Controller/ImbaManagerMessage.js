@@ -23,8 +23,8 @@ function refreshChat() {
             // look in Chats if there is an open window with val            
             var foundTab = false;
             $.each($("#imbaMessages a"), function (tabIndex, tabString) {
-                if (tabIndex == selectedTab) {
-                    loadChatWindowContent(tabIndex);                    
+                if (tabIndex == selectedTab && ($("#imbaMessagesDialog").is(':hidden')) == false) {                    
+                    loadChatWindowContent(tabIndex);                                        
                 } else {
                     var tmp = tabString.toString().split("#");
                     tmp = "#" + tmp[1];
@@ -165,7 +165,7 @@ function createChatWindow(name, openid) {
  * Refreshs a special chatwindow
  */
 function loadChatWindowContent(tabIndex) {    
-    if (getOpenIdFromTabIndex(tabIndex) != "" && !$("#imbaMessagesDialog").is(':hidden')){
+    if (getOpenIdFromTabIndex(tabIndex) != "") {
         var tabReciever = getOpenIdFromTabIndex(tabIndex)
         // load chat
         $.post(ajaxEntry, {

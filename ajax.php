@@ -16,7 +16,7 @@ if (!isset($_POST["action"]))
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
-require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaUserContext.php';
 
 
 switch ($_POST["action"]) {

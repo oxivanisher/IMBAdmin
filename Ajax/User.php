@@ -17,13 +17,33 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = new ImbaManagerUser($managerDatabase);
 
     /**
+     * Gets a list of online users as JSON
+     */
+    if (isset($_POST['loadusersonlinelist'])) {
+        $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
+        $result = array();
+        foreach ($users as $user) {
+            // TODO: Wann werden der User als online in der Liste angezeigt
+            // wie groß wird er angezeigt und
+            // in welcher Farbe wird er angezeigt
+            if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
+                $fontsize = rand(6, 20);
+                $color = sprintf("#%x%x%x", rand(0,15), rand(0,15), rand(0,15));
+                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "fontsize" => $fontsize, "color" => $color));
+            }
+        }
+
+        echo json_encode($result);
+    }
+
+    /**
      * Gets a list of users as JSON
      */
     if (isset($_POST['loaduserlist'])) {
         $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
         $result = array();
         foreach ($users as $user) {
-            array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
+            array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "lastonline" => $user->getLastonline()));
         }
 
         echo json_encode($result);

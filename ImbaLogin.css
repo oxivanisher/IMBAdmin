@@ -50,8 +50,25 @@
 }
 
 #imbaUsersOnline {
+    width: 150px;
     float: left;
+    margin: 0px; 
+    padding: 0px;
 }
+
+#imbaUsersOnline ul {  
+    margin: 0px; 
+    padding: 0px;
+}  
+
+#imbaUsersOnline li {  
+    list-style-type:none;
+    float:left; 
+    margin-right: 2px; 
+    padding: 0px;
+    cursor: pointer;
+}  
+
 
 /* IMBAdmin Messeging */
 

@@ -9,10 +9,9 @@
                 <br />
                 <input id='imbaSsoOpenIdSubmit' type='submit' value='Login' class='imbaInput' />
             </form>
-            <div id='imbaUsersOnline' class='imbaFont'>1 On 3 Afk von 74</div>
         </div>
-
         <div style='clear: both;' ></div>
+        <div id='imbaUsersOnline' ></div>
         <div id='imbaOpenMessaging' class='ui-icon ui-icon-comment'>Open Messaging</div>
         <div id='imbaGotMessage' class='ui-icon ui-icon-mail-closed' title='Open Messaging' >M</div>        
     </div>

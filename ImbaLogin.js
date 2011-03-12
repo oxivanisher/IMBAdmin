@@ -6,6 +6,10 @@ var isUserLoggedIn = false;
 var currentModule = null;
 var currentModuleDo = null;
 
+// Reload Online Users every 10000 ms
+// TODO Set to 10 Sekunden
+//setInterval('refreshUsersOnline()', 10000);
+
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {
     //login to wordpress ^^
@@ -83,7 +87,41 @@ $(document).ready(function() {
     })
     .dialog("option", "width", 700)
     .dialog("option", "height", 520);   
+    
+    // Firsttime show users online
+    refreshUsersOnline();
 });
+   
+/**
+ * refreshing the users online tag cloud
+ */ 
+function refreshUsersOnline(){
+    $.post(ajaxEntry, {
+        action: "user",
+        loadusersonlinelist : "true"
+    }, function (response){
+        //create list for tag links
+        $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
+        
+        //create tags
+        $.each($.parseJSON(response), function(key, value){            
+
+            //create item
+            var li = $("<li>");            
+            li.text(value.name);
+            li.appendTo("#imbaUsersOnlineTagList");
+            li.css("fontSize", value.fontsize);
+            li.css("color", value.color);
+            
+            li.click(function (){
+               createChatWindow(value.name, value.openid);
+            });            
+
+        });        
+    });    
+    
+        
+}
 
 /**
  * Sets the user loggedin
@@ -111,7 +149,12 @@ function showMenu() {
     
     $("#imbaSsoLoginInner").show("slide", {
         direction: "right"
-    });
+    });    
+    
+    $("#imbaUsersOnline").show("slide", {
+        direction: "up"
+    });   
+    
 }
 
 /**
@@ -125,6 +168,10 @@ function hideMenu() {
 
     $("#imbaSsoLoginInner").hide("slide", {
         direction: "right"
+    });
+
+    $("#imbaUsersOnline").hide("slide", {
+        direction: "up"
     });
 }
 

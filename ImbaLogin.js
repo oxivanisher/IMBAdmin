@@ -233,6 +233,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                     action: "module",
                     module: moduleName,
                     moduleDo: moduleDo,
+                    request: tmpTabId,
                     tabId: tmpTabId
                 };
                 loadImbaAdminTabContent(data); 

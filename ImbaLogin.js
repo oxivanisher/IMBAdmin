@@ -234,7 +234,6 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 var tmp = v.toString().split("#");
                 
                 tmpTabId = "#" + tmp[1];
-                alert("m:" + moduleName + "; t: " + tmpTabId);
                 
                 var data = {
                     action: "module",

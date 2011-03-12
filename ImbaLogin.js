@@ -178,9 +178,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
     /**
  * Show the dialog
  */
-    $("#imbaContentDialog").dialog("destroy");
-    $("#imbaContentDialog").dialog("open");
-    
+
     /**
      * Remove all tabs
      */   

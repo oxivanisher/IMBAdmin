@@ -176,6 +176,16 @@ function loadImbaAdminDefaultModule(moduleName){
 */
 function loadImbaAdminModule(moduleName, moduleDo){
     /**
+     * Remove all tabs
+     */   
+    $("#imbaContentNav").tabs("destroy");  
+    
+    /**
+     * Create new tabs on element
+     */
+    $("#imbaContentNav").tabs();
+    
+    /**
      * Set the window title
      */
     $.post(ajaxEntry, {
@@ -188,16 +198,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
         });
     });
 
-    /**
-     * Remove all tabs
-     */   
-    $("#imbaContentNav").tabs("destroy");  
-    
-    /**
-     * Create new tabs on element
-     */
-    $("#imbaContentNav").tabs();
-    
+
     /**
      * get and render tabs
      */
@@ -208,7 +209,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            /*if (key == 0){
+        /*if (key == 0){
                 /*                $.post(ajaxEntry, {
                     action : "module",
                     module: moduleName,
@@ -216,7 +217,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 }, function(response){
                     $("#" + value.id).html(response);
                 });  */
-               /* var data = {
+        /* var data = {
                     action: "module",
                     module: moduleName,
                     request: value.id,

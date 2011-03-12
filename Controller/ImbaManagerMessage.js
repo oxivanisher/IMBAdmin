@@ -23,7 +23,9 @@ function refreshChat() {
             // look in Chats if there is an open window with val            
             var foundTab = false;
             $.each($("#imbaMessages a"), function (tabIndex, tabString) {
-                if (tabIndex == selectedTab && ($("#imbaMessagesDialog").is(':hidden')) == false) {                    
+                // FIXME: das problem ist wenn ein tab offen ist, der dialog zugemacht wird, dann eine nachricht kommt blinkt
+                // der message dings nur einmal :/
+                if (tabIndex == selectedTab && ($("#imbaMessagesDialog").is(':hidden')) == false) {
                     loadChatWindowContent(tabIndex);                                        
                 } else {
                     var tmp = tabString.toString().split("#");

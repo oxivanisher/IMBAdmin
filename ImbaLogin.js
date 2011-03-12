@@ -218,7 +218,7 @@ function loadImbaAdminModule(moduleName, moduleDo){
                 var data = {
                     action: "module",
                     module: moduleName,
-                    tabId: "#" + value.id,
+                    tabId: value.id,
                     moduleDo: moduleDo
                 };
                 loadImbaAdminTabContent(data);
@@ -240,8 +240,8 @@ function loadImbaAdminModule(moduleName, moduleDo){
                     action: "module",
                     module: moduleName,
                     moduleDo: moduleDo,
-                    request: tmpTabId,
-                    tabId: tmpTabId
+                    request: tmp[1],
+                    tabId: tmp[1]
                 };
                 loadImbaAdminTabContent(data, tmpTabId); 
             }

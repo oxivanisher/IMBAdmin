@@ -16,7 +16,7 @@
         <div id='imbaGotMessage' class='ui-icon ui-icon-mail-closed' title='Open Messaging' >M</div>        
     </div>
 </div>
-<div id='imbaMessagesDialog' title='IMBA Messaging' class='imbaFont' style='padding: 3px; background-attachment: fixed;'>
+<div id='imbaMessagesDialog' title='IMBA Messaging' class='imbaFont' style='padding: 3px; position: fixed;'>
     <div id='imbaMessages' style='height: 97%; overflow: auto;'>
         <ul></ul>
         <div id='imbaMessageTextDiv'>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 3px; background-attachment:fixed;'>
+<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 3px; position: fixed;'>
     <div id='imbaContentNav' style='height: 98%; overflow: auto;'>
         <ul></ul>
     </div>

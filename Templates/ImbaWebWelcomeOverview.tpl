@@ -10,7 +10,7 @@
         padding: 3px;
         /*        clear: both; */
     }
-    #ImbaContentClickable .hover {
+    #ImbaContentClickable:hover {
         border: 2px white solid;
     }
 </style>

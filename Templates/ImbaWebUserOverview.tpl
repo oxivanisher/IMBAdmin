@@ -426,7 +426,7 @@ tr.odd td.sorting_3 {
 }
 
 tr.even td.sorting_1 {
-	background-color: #EAEBFF;
+	background-color: black;
 }
 
 tr.even td.sorting_2 {

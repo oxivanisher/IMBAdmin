@@ -50,13 +50,13 @@ if (ImbaUserContext::getLoggedIn()) {
 
                                 $modNavs = array();
                                 foreach ($Navigation->getElements() as $element) {
-                                    print_r($element);
-                                    /*array_push($modNavs, array(
+                                    //print_r($element);
+                                    array_push($modNavs, array(
                                         "module" => $modIdentifier,
-                                        "identifier" => $element->getIdentifier($nav),
-                                        "name" => $element->getName($nav),
-                                        "comment" => $element->getComment($nav),
-                                    ));*/
+                                        "identifier" => $element->getElementIdentifier($element),
+                                        "name" => $element->getElementName($element),
+                                        "comment" => $element->getElementComment($element),
+                                    ));
                                 }
 
                                 array_push($navOptions, array(

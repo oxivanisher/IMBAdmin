@@ -80,10 +80,10 @@ class ImbaContentNavigation {
         }
     }
 
-    public function getElementIdentifier($Identifier) {
+    public function getElementComment($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
-                return $Option->getIdentifier();
+                return $Option->getComment();
             }
         }
     }
@@ -209,6 +209,9 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
         array_push($this->Options, $newElement);
     }
 
+    /*
+     * this is probably not needed ... lol
+     *
     public function getElementIdentifier($Identifier) {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
@@ -216,6 +219,8 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
             }
         }
     }
+     * 
+     */
 
     public function getElementName($Identifier) {
         foreach ($this->Options as $Option) {

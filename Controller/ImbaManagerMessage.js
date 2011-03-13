@@ -5,7 +5,7 @@
 var chatsCount = 0;
 
 // Reload Chats every 2000 ms
-//setInterval('refreshChat()', 2000);
+setInterval('refreshChat()', 2000);
 
 /**
  * Refreshs the current chatwindow

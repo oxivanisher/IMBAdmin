@@ -222,7 +222,7 @@ table.display tr.heading2 td {
 table.display td {
 	cursor: pointer;
 	padding: 3px 10px;
-        color: white;
+        color: lightgray;
 }
 
 table.display td.center {

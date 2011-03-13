@@ -29,7 +29,7 @@
 </div>
 
 <div id='imbaContentDialog' title='IMBAdmin' class='imbaFont'>
-    <div id='imbaContentNav' style='height: 460px;'>
+    <div id='imbaContentNav' style='height: 100%; overflow: auto;'>
         <ul></ul>
     </div>
 </div>

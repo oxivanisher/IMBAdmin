@@ -9,7 +9,6 @@
     }
    
 </script>
-
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>
 <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->

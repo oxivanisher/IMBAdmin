@@ -18,6 +18,11 @@
     }
    
 </script>
+<style type="text/css">
+.ui-button {
+    margin-right: 0em;
+}
+</style>
 <table id="ImbaWebUsersOverviewTable" class="display">
     <thead>
         <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr>

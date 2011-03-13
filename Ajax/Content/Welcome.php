@@ -53,7 +53,7 @@ if (ImbaUserContext::getLoggedIn()) {
                                     //print_r($element);
                                     array_push($modNavs, array(
                                         "module" => $modIdentifier,
-                                        "identifier" => $element->getElementIdentifier($element),
+                                        "identifier" => $element,
                                         "name" => $element->getElementName($element),
                                         "comment" => $element->getElementComment($element),
                                     ));

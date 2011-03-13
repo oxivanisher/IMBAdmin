@@ -18,7 +18,7 @@ $Navigation = new ImbaContentNavigation();
 /**
  * Set module name
  */
-$Navigation->setName("&Uuml;bersicht");
+$Navigation->setName("");
 $Navigation->setComment("Dies ist die Willkommens Site.");
 
 /**
@@ -35,5 +35,5 @@ $Navigation->setMinUserRole(1);
 /**
  * Set tabs
  */
-$Navigation->addElement("welcome", "Willkommen");
+$Navigation->addElement("welcome", "&Uuml;bersicht", "Dies ist die Willkommens Seite.");
 ?>

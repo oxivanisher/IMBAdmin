@@ -35,6 +35,6 @@ $Navigation->setMinUserRole(1);
 /**
  * Set tabs
  */
-$Navigation->addElement("overview", "Benutzer &Uuml;bersicht");
-$Navigation->addElement("myprofile", "Mein Profil Editieren");
+$Navigation->addElement("overview", "Benutzer &Uuml;bersicht", "Hier kannst du alles &uuml;ber unsere anderen Benutzer erfahren.");
+$Navigation->addElement("myprofile", "Mein Profil Editieren", "Hier kannst du dein Profil editieren.");
 ?>

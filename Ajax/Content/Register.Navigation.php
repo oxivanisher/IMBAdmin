@@ -35,5 +35,5 @@ $Navigation->setMinUserRole(0);
 /**
  * Set tabs
  */
-$Navigation->addElement("reg", "Registration");
+$Navigation->addElement("reg", "Registration", "Hier kannst du dich registrieren.");
 ?>

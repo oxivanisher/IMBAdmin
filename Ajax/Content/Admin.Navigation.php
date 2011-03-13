@@ -36,6 +36,6 @@ $Navigation->setMinUserRole(9);
 /**
  * Set tabs
  */
-$Navigation->addElement("baem", "B&auml;m!");
-$Navigation->addElement("hacktheplanet", "Take over the world");
+$Navigation->addElement("baem", "B&auml;m!", "Wir sind so die ober coolz0rsten!");
+$Navigation->addElement("hacktheplanet", "Take over the world", "Pinky und Brain w&auml;ren stolz auf uns!");
 ?>

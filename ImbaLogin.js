@@ -100,8 +100,6 @@ function refreshUsersOnline(){
         action: "user",
         loadusersonlinelist : "true"
     }, function (response){
-        alert(response);
-        
         //create list for tag links
         $("#imbaUsersOnline").html("");
         $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");

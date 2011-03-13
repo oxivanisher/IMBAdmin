@@ -19,6 +19,7 @@ $Navigation = new ImbaContentNavigation();
  * Set module name
  */
 $Navigation->setName("Registrieren");
+$Navigation->setComment("In diesem Module registrieren sich neue Benutzer.");
 
 /**
  * Set when the module should be displayed (logged in 1/0)

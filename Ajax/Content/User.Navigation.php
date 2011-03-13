@@ -19,7 +19,7 @@ $Navigation = new ImbaContentNavigation();
  * Set module name
  */
 $Navigation->setName("Mitglieder");
-
+$Navigation->setComment("Hier k&ouml;nnen Benutzer angeschaut sowie das eigene Profil editiert werden.");
 
 /**
  * Set when the module should be displayed (logged in 1/0)

@@ -19,6 +19,7 @@ $Navigation = new ImbaContentNavigation();
  * Set module name
  */
 $Navigation->setName("&Uuml;bersicht");
+$Navigation->setComment("Dies ist die Willkommens Site.");
 
 /**
  * Set when the module should be displayed (logged in 1/0)

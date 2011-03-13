@@ -19,6 +19,7 @@ $Navigation = new ImbaContentNavigation();
  * Set module name
  */
 $Navigation->setName("Administration");
+$Navigation->setComment("Hier kann der IMBAdmin konfiguriert werden.");
 
 
 /**

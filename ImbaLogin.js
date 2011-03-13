@@ -8,7 +8,7 @@ var currentModuleDo = null;
 
 // Reload Online Users every 10000 ms
 // TODO Set to 10 Sekunden
-//setInterval('refreshUsersOnline()', 10000);
+setInterval('refreshUsersOnline()', 10000);
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {

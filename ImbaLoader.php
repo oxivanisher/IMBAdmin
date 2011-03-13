@@ -48,11 +48,11 @@ switch ($_GET["load"]) {
             echo "<div id='imbaMenu'><ul class='topnav'>";
 
             foreach ($topNav->getElements() as $nav) {
-                echo "<li><a href='" . $topNav->getElementUrl($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
+                echo "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementUrl($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
             }
 
             echo "<li>";
-            echo "<a id='imbaMenuImbAdmin' href='#' onclick='javascript: loadImbaAdminDefaultModule();'>Auf zum Atem</a>";
+            echo "<a id='imbaMenuImbAdmin' href='#' onclick='javascript: loadImbaAdminDefaultModule();' title='IMBAdmin &ouml;ffnen'>Auf zum Atem</a>";
             echo "<ul class='subnav'>";
 
             $contentNav = new ImbaContentNavigation();

@@ -30,17 +30,22 @@ if (ImbaUserContext::getLoggedIn()) {
         foreach ($users as $user) {
             if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
                 // Setting the color, depending on time
-                // < 5 min => orange
-                // < 10min => yellow
+                // < 5 min => lime
+                // < 10min => orange
+                // < 30min => yellow
                 // default => white
                 $timediff = date("U") - $user->getLastonline();
 
                 if ($timediff <= (5 * 60)) {
-                    $color = "orange";
+                    $color = "lime";
                 } else if ($timediff <= (10 * 60)) {
+                    $color = "orange";
+                } else if ($timediff <= (20 * 60)) {
                     $color = "yellow";
-                } else {
+                } else if ($timediff <= (30 * 60)) {
                     $color = "white";
+                } else {
+                    $color = "gray";
                 }
 
                 $msgCount = $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());

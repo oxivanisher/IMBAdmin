@@ -15,6 +15,7 @@ require_once 'Controller/ImbaUserContext.php';
 if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerMessage = new ImbaManagerMessage($managerDatabase);
+    $managerUser = new ImbaManagerUser($managerDatabase);
 
     /**
      * Recieve Statup Data
@@ -46,6 +47,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
         try {
             $managerMessage->insert($message);
+            $managerUser->setMeOnline();
 
             echo "Message sent";
         } catch (Exception $ex) {

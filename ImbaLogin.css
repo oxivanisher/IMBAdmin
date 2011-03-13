@@ -115,6 +115,7 @@
     height: 100px;
     width: 200px;
     float: left;
+    clear:left;
 }
 
 /*#imbaContentDialog {

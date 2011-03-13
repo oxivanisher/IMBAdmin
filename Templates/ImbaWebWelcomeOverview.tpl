@@ -5,7 +5,7 @@
         border: 2px grey solid;
         cursor: pointer;
         height: 120px; 
-        width: 300px;
+        width: 310px;
         float: left;
         padding: 3px;
         text-align: center;

@@ -44,7 +44,10 @@ if (ImbaUserContext::getLoggedIn()) {
 
                     if ($showMe) {
                         $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                        array_push($navOptions, array("identifier" => $modIdentifier, "name" => $Navigation->getName($nav)));
+                        array_push($navOptions, array("identifier" => $modIdentifier,
+                            "name" => $Navigation->getName($nav),
+                            "comment" => $Navigation->getComment($nav)
+                        ));
                         $Navigation = null;
                     }
                 }

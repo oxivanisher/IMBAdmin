@@ -8,6 +8,7 @@
         width: 250px;
         float: left;
         padding: 3px;
+        text-align: center;
         /*        clear: both; */
     }
     #ImbaContentClickable:hover {
@@ -15,6 +16,8 @@
         background-color: #333333;
     }
 </style>
+<div style="align:center;">
 {foreach $navs as $nav}
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
 {/foreach}
+</div>

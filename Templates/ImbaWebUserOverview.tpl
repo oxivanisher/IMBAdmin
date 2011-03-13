@@ -52,7 +52,7 @@
     font-size: 1.3em;
     font-weight: bold;
     line-height: 1.6em;
-    color: #4E6CA3;
+    color: white;
 }
 
 #dt_example .spacer {

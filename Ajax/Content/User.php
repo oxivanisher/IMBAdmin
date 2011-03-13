@@ -42,6 +42,9 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewprofile":
+            if (isset($_POST["payLoad"]))
+                $_POST["openid"] = $_POST["payLoad"];
+            
             $user = $managerUser->selectByOpenId($_POST["openid"]);
 
             $smarty->assign('nickname', $user->getNickname());

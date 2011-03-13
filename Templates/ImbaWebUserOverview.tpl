@@ -29,12 +29,12 @@
 /*    font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; */
     margin: 0;
     padding: 0;
-    color: #333;
-    background-color: #fff;
+/*    color: #333; */
+/*  background-color: #fff; */
 }
 
 #dt_example #container {
-    width: 800px;
+    width: 100%;
     margin: 30px auto;
     padding: 0;
 }

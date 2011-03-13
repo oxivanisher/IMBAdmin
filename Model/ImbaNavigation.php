@@ -138,6 +138,7 @@ class ImbaTopNavigationOption Extends ImbaContentNavigationOption {
     protected $Target = null;
     protected $URL = null;
     protected $Name = null;
+    protected $Comment = null;
 
     public function getTarget() {
         return $this->Target;
@@ -163,6 +164,14 @@ class ImbaTopNavigationOption Extends ImbaContentNavigationOption {
         $this->Name = $Name;
     }
 
+    public function getComment() {
+        return $this->Comment;
+    }
+
+    public function setComment($Comment) {
+        $this->Comment = $Comment;
+    }
+
 }
 
 /**
@@ -180,12 +189,13 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
         return $elements;
     }
 
-    public function addElement($Identifier, $Name, $Target, $Url) {
+    public function addElement($Identifier, $Name, $Target, $Url, $Comment) {
         $newElement = new ImbaTopNavigationOption();
         $newElement->setName($Name);
         $newElement->setIdentifier($Identifier);
         $newElement->setTarget($Target);
         $newElement->setUrl($Url);
+        $newElement->setComment($Comment);
         array_push($this->Options, $newElement);
     }
 
@@ -217,6 +227,14 @@ class ImbaTopNavigation Extends ImbaContentNavigation {
         foreach ($this->Options as $Option) {
             if ($Option->getIdentifier() == $Identifier) {
                 return $Option->getUrl();
+            }
+        }
+    }
+
+    public function getElementComment($Identifier) {
+        foreach ($this->Options as $Option) {
+            if ($Option->getIdentifier() == $Identifier) {
+                return $Option->getComment();
             }
         }
     }

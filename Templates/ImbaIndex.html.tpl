@@ -16,7 +16,7 @@
         <div id='imbaGotMessage' class='ui-icon ui-icon-mail-closed' title='Open Messaging' >M</div>        
     </div>
 </div>
-<div id='imbaMessagesDialog' title='IMBA Messaging'  class='imbaFont'>
+<div id='imbaMessagesDialog' title='IMBA Messaging' class='imbaFont'>
     <div id='imbaMessages'>
         <ul></ul>
         <div id='imbaMessageTextDiv'>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div id='imbaContentDialog' title='IMBAdmin'>
+<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont'>
     <div id='imbaContentNav'>
         <ul></ul>
     </div>

@@ -16,7 +16,7 @@
 
 /* IMBAdmin login window */
 #imbaSsoLoginBorder {
-    position: absolute;
+    position: fixed;
     right: 2px;
     top: 2px;
     z-index: 9999;

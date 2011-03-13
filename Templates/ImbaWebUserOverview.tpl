@@ -128,4 +128,7 @@
         {/foreach}
 
     </tbody>
+    <tfoot>
+        
+    </tfoot>
 </table>

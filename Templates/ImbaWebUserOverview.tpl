@@ -25,12 +25,13 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * General page setup
 */
+/*
 #dt_example {
-/*    font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif; */
+    font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-/*    color: #333; */
-/*  background-color: #fff; */
+    color: #333; 
+  background-color: #fff; 
 }
 
 #dt_example #container {
@@ -120,7 +121,7 @@
 </style>
 <table id="ImbaWebUsersOverviewTable" class="display">
     <thead>
-        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr>
+        <tr><th>Nickname</th><th>Zuletzt Online</th><th>Jabber</th><th>Games</th></tr>
     </thead>
     <tbody>
 

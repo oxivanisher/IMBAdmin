@@ -5,7 +5,7 @@
         border: 2px grey solid;
         cursor: pointer;
         height: 120px; 
-        width: 250px;
+        width: 300px;
         float: left;
         padding: 3px;
         text-align: center;
@@ -16,8 +16,6 @@
         background-color: #333333;
     }
 </style>
-<div style="text-align:center;">
 {foreach $navs as $nav}
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
 {/foreach}
-</div>

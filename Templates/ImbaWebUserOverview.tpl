@@ -150,7 +150,7 @@
 
 .dataTables_paginate {
 	width: 44px;
-	* width: 50px;
+	/* width: 50px; */
 	float: right;
 	text-align: right;
 }
@@ -222,6 +222,7 @@ table.display tr.heading2 td {
 table.display td {
 	cursor: pointer;
 	padding: 3px 10px;
+        color: white;
 }
 
 table.display td.center {

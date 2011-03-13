@@ -16,7 +16,7 @@
         background-color: #333333;
     }
 </style>
-<div style="align:center;">
+<div style="text-align:center;">
 {foreach $navs as $nav}
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
 {/foreach}

@@ -112,6 +112,7 @@
 
 .ImbaContentClickable {
     cursor: pointer;
+    height: auto;
 }
 
 /*#imbaContentDialog {
@@ -170,7 +171,6 @@
 
 #imbaMenu ul.topnav li span.subhover {
     cursor: pointer;
-    height: auto;
 }
 
 #imbaMenu ul.topnav li ul.subnav {

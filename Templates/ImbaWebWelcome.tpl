@@ -4,6 +4,6 @@ Folgende Module stehen dir zur verf&uuml;gung:
     
     {foreach $navs as $nav}
     <li><a href="#" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.name}</a></li>
-    {foreach}
+    {/foreach}
 
 </ul>

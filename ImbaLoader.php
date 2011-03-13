@@ -72,7 +72,7 @@ switch ($_GET["load"]) {
 
                             if ($showMe) {
                                 $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
+                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='".$Navigation->getComment($nav)."'>" . $Navigation->getName($nav) . "</a></li>";
                                 array_push($identifiers, $modIdentifier);
                                 $Navigation = null;
                             }

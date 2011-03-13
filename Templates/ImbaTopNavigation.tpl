@@ -8,7 +8,7 @@
             <ul class='subnav'> \
                 <!-- FIXME: add imbaadmin open function  --> \
                 {foreach $navs as $nav} \
-                <li><a href='{$nav.url}'>{$nav.name}</a></li> \
+                <li><a href='{$nav.url}' title='{$nav.comment}'>{$nav.name}</a></li> \
                 {/foreach} \
             </ul> \
         </li> \

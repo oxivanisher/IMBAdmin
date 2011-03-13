@@ -28,14 +28,14 @@ class ImbaManagerMessage {
      * Inserts a message into the Database if successfully.
      */
     public function insert(ImbaMessage $message) {
-        if ($message->getMessage() == null || $message->getMessage() == "") {
+        if ($message->getMessage() == null || trim($message->getMessage()) == "") {
             throw new Exception("No Message!");
         }
-        if ($message->getSender() == null || $message->getSender() == "") {
+        if ($message->getSender() == null || trim($message->getSender()) == "") {
             throw new Exception("No Sender!");
         }
 
-        if ($message->getReceiver() == null || $message->getReceiver() == "") {
+        if ($message->getReceiver() == null || trim($message->getReceiver() == "") {
             throw new Exception("No Reciever!");
         }
 

@@ -108,6 +108,7 @@ class ImbaContentNavigationOption {
      */
     protected $Identifier = null;
     protected $Name = null;
+    protected $Comment = null;
 
     public function getIdentifier() {
         return $this->Identifier;
@@ -123,6 +124,14 @@ class ImbaContentNavigationOption {
 
     public function setName($Name) {
         $this->Name = $Name;
+    }
+
+    public function getComment() {
+        return $this->Comment;
+    }
+
+    public function setComment($Comment) {
+        $this->Comment = $Comment;
     }
 
     public function get() {

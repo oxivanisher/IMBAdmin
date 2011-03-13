@@ -2,13 +2,16 @@
     #ImbaContentClickable {
         padding: 3px;
         margin: 3px;
-        border: 1px grey solid;
+        border: 2px grey solid;
         cursor: pointer;
         height: 120px; 
         width: 250px;
         float: left;
         padding: 3px;
-/*        clear: both; */
+        /*        clear: both; */
+    }
+    #ImbaContentClickable .hover {
+        border: 2px white solid;
     }
 </style>
 {foreach $navs as $nav}

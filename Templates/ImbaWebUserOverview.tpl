@@ -3,7 +3,8 @@
         $('#ImbaWebUsersOverviewTable').dataTable( {
             "bFilter": true,
             "sPaginationType": "full_numbers",
-            "bJQueryUI": true
+            "bJQueryUI": true,
+            "bLengthChange": false
         } );
     } );   
     
@@ -128,7 +129,4 @@
         {/foreach}
 
     </tbody>
-    <tfoot>
-        
-    </tfoot>
 </table>

@@ -47,9 +47,22 @@ if (ImbaUserContext::getLoggedIn()) {
 
                             if ($showMe) {
                                 $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                array_push($navOptions, array("identifier" => $modIdentifier,
+
+                                $modNavs = array();
+                                foreach ($Navigation->getElements() as $element) {
+                                    array_push($modNavs, array(
+                                        "module" => $modIdentifier,
+                                        "identifier" => $element->getIdentifier($nav),
+                                        "name" => $element->getName($nav),
+                                        "comment" => $element->getComment($nav),
+                                    ));
+                                }
+
+                                array_push($navOptions, array(
+                                    "identifier" => $modIdentifier,
                                     "name" => $Navigation->getName($nav),
-                                    "comment" => $Navigation->getComment($nav)
+                                    "comment" => $Navigation->getComment($nav),
+                                    "options" => $modNavs
                                 ));
                                 $Navigation = null;
                             }
@@ -58,7 +71,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
                 closedir($handle);
             }
-            $smarty->assign('navs', $navOptions);
+            $smarty->assign('topnavs', $navOptions);
             $smarty->display('ImbaWebWelcomeIndex.tpl');
             break;
 

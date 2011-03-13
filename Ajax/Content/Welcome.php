@@ -24,10 +24,11 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerUser = new ImbaManagerUser($managerDatabase);
+    $myself = $managerUser->selectMyself();
 
     $contentNav = new ImbaContentNavigation();
     $navOptions = array();
-    $smarty->assign('nickname', 'asd');
+    $smarty->assign('nickname', $myself->getNickname());
     if ($handle = opendir('Ajax/Content/')) {
         $identifiers = array();
         while (false !== ($file = readdir($handle))) {

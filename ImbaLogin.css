@@ -2,7 +2,7 @@
 @import url('Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css') all;
 
 /* jQuery dataTabled css include */
-@import url('Libs/DataTables/media/css/demo_table.css') all;
+/* @import url('Libs/DataTables/media/css/demo_table.css') all; */
 
 /* IMBAdmin error message */
 #ImbaErrorMsg {

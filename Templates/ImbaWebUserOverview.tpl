@@ -52,7 +52,7 @@
     font-size: 1.3em;
     font-weight: bold;
     line-height: 1.6em;
-    color: white;
+    color: #4E6CA3;
 }
 
 #dt_example .spacer {
@@ -101,16 +101,6 @@
     color: #4E6CA3;
 }
 
-.css_right {
-    float: right;
-}
-
-.css_left {
-    float: left;
-}
-.ui-button {
-    margin-right: 0em;
-}
 
 /* datatable css */
 

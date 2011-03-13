@@ -101,9 +101,17 @@
     cursor: pointer;
 }
 
+#imbaMessagesDialog {
+    position: fixed;
+}
+
 /* IMBAdmin main content window */
 
 #imbaContent {
+}
+
+#imbaContentDialog {
+    position: fixed;
 }
 
 #imbaContent li .ui-icon-close { 
@@ -121,7 +129,9 @@
 #ImbaWebUsersViewprofileTable {
     color: #999999;
 }
+
 /* IMAdmin Menu */
+
 #imbaMenu ul.topnav {
     list-style: none;
     padding: 0 20px;

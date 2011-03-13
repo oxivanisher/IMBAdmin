@@ -21,17 +21,12 @@
 </script>
 <style type="text/css">
 /* jQuery dataTables */
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * General page setup
-*/
-
 #dt_example {
     font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
-    color: #333; 
-  background-color: #fff; 
+    color: white; 
+  background-color: black; 
 }
 
 #dt_example #container {

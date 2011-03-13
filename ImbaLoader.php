@@ -48,7 +48,7 @@ switch ($_GET["load"]) {
             echo "<div id='imbaMenu'><ul class='topnav'>";
 
             foreach ($topNav->getElements() as $nav) {
-                echo "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementUrl($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
+                echo "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
             }
 
             echo "<li>";

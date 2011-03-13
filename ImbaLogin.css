@@ -110,16 +110,6 @@
 #imbaContent {
 }
 
-#ImbaContentClickable {
-    padding: 1px;
-    border: 1px grey;        
-    cursor: pointer;
-    height: 100px;
-    width: 250px;
-    float: left;
-    clear:left;
-}
-
 /*#imbaContentDialog {
     position: fixed;
 }*/
@@ -211,7 +201,8 @@
 
 /* IMBAdmin Content */
 #imbaContentNav div {
-    /*height: 80%;*/
+    /* aggravate, ich mach die darstellungsprobleme mit der datatable */
+    height: 80%;
 }
 
 

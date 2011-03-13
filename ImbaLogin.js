@@ -277,18 +277,26 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            if (key == 0){
+            if ((key == 0) && (moduleDo == null || moduleDo == "")) {
                 var data = {
                     action: "module",
                     module: moduleName,
                     request: value.id,
-                    moduleDo: moduleDo,
+                    payLoad: payLoad
+                };
+                loadImbaAdminTabContent(data);
+            } else if ((moduleDo != null) && (moduleDo != "")) {
+                var data = {
+                    action: "module",
+                    module: moduleName,
+                    request: moduleDo,
                     payLoad: payLoad
                 };
                 loadImbaAdminTabContent(data);
             }
         });
     });
+    
     
     $("#imbaContentDialog").dialog("open");
 }

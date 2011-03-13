@@ -21,7 +21,7 @@ if (ImbaUserContext::getLoggedIn()) {
      *  - Who was I am talking to
      */
     if (isset($_POST['chatinit'])) {
-        echo $managerMessage->seletLastConversation(ImbaUserContext::getOpenIdUrl());
+        echo $managerMessage->selectLastConversation(ImbaUserContext::getOpenIdUrl());
     }
 
     /**

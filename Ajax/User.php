@@ -7,6 +7,7 @@ require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaUserContext.php';
 
 /**
@@ -15,6 +16,7 @@ require_once 'Controller/ImbaUserContext.php';
 if (ImbaUserContext::getLoggedIn()) {
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerUser = new ImbaManagerUser($managerDatabase);
+    $managerMessage = new ImbaManagerMessage($managerDatabase);
 
     /**
      * Gets a list of online users as JSON
@@ -24,15 +26,29 @@ if (ImbaUserContext::getLoggedIn()) {
         $result = array();
         foreach ($users as $user) {
             // TODO: Wann werden der User als online in der Liste angezeigt
-            // wie groß wird er angezeigt und
-            // in welcher Farbe wird er angezeigt
+            // wie groß wird er angezeigt und (zwischen 6 und 20)
             if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
+                // Setting the color, depending on time
+                // < 5 min => orange
+                // < 10min => yellow
+                // default => white
+                $timediff = date("U") - $user->getLastonline();
+
+                if ($timediff <= (5 * 60)) {
+                    $color = "orange";
+                } else if ($timediff <= (10 * 60)) {
+                    $color = "yellow";
+                } else {
+                    $color = "white";
+                }
+                
                 $fontsize = rand(6, 20);
-                $color = sprintf("#%x%x%x", rand(0,15), rand(0,15), rand(0,15));
-                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "fontsize" => $fontsize, "color" => $color));
+                $msgCount = $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
+                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "fontsize" => $fontsize, "color" => $color, "msgCount" => $msgCount));
             }
         }
-
+        
+        // now comes the magic with the font size        
         echo json_encode($result);
     }
 

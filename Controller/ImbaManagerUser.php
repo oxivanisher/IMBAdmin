@@ -37,7 +37,7 @@ class ImbaManagerUser {
         }
         return $result;
     }
-
+    
     /**
      * Selects a list of Users into an array w/o yourself
      */

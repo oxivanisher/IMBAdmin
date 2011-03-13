@@ -14,7 +14,7 @@ $output = "";
 /**
  * Chat init
  */
-$chatinit = $managerMessage->seletLastConversation("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
+$chatinit = $managerMessage->selectLastConversation("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
 $output .= "Chatinit output: " . $chatinit . "\n";
 
 /**

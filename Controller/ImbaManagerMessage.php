@@ -122,9 +122,26 @@ class ImbaManagerMessage {
     }
 
     /**
+     * Selects the count of lines Conversation between two OpenIds
+     */
+    public function selectMessagesCount($openidMe, $openidOpponent) {
+        $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s');";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            $openidMe,
+            $openidOpponent,
+            $openidOpponent,
+            $openidMe
+        ));
+
+        $row = $this->database->fetchRow();
+        return $row["MsgCount"];
+    }
+
+    /**
      * Selects the last Conversations of an User with OpenId
      */
-    public function seletLastConversation($openid) {
+    public function selectLastConversation($openid) {
         $databaseresult = array();
 
         $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` DESC  LIMIT 0,3;";

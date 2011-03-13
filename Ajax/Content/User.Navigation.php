@@ -19,7 +19,7 @@ $Navigation = new ImbaContentNavigation();
  * Set module name
  */
 $Navigation->setName("Mitglieder");
-$Navigation->setComment("Hier k&ouml;nnen Benutzer angeschaut sowie das eigene Profil editiert werden.");
+$Navigation->setComment("Hier kannst du dich &uuml;ber Mitglieder informieren sowie das eigene Profil editiert werden.");
 
 /**
  * Set when the module should be displayed (logged in 1/0)
@@ -35,6 +35,6 @@ $Navigation->setMinUserRole(1);
 /**
  * Set tabs
  */
-$Navigation->addElement("overview", "Benutzer &Uuml;bersicht", "Hier kannst du alles &uuml;ber unsere anderen Benutzer erfahren.");
+$Navigation->addElement("overview", "Mitglieder &Uuml;bersicht", "Hier kannst du alles &uuml;ber unsere anderen Mitglieder erfahren.");
 $Navigation->addElement("myprofile", "Mein Profil Editieren", "Hier kannst du dein Profil editieren.");
 ?>

@@ -56,7 +56,9 @@ if (ImbaUserContext::getLoggedIn()) {
             }
         }
 
-        $hundredPercent = $msgCountMax - $msgCountMin;
+        $hundredPercent = $msgCountMax - $msgCountMin;        
+        if ($hundredPercent == 0) $hundredPercent = 1;
+            
         foreach ($result as $key => $user) {
             $tmpMsgCount = $user["msgCount"];
             $tmpPercent = round(100 / $hundredPercent * $tmpMsgCount, 0);

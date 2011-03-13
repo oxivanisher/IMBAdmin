@@ -150,7 +150,7 @@
 
 .dataTables_paginate {
 	width: 44px;
-	/*width: 50px;*/
+	* width: 50px;
 	float: right;
 	text-align: right;
 }

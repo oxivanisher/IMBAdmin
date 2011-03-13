@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 0px;'>
+<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 2px;'>
     <div id='imbaContentNav' style='height: 97%; overflow: auto;'>
         <ul></ul>
     </div>

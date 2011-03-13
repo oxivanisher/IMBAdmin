@@ -282,7 +282,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
                     action: "module",
                     module: moduleName,
                     request: value.id,
-                    moduleDo: value.id,
+                    moduleDo: moduleDo,
                     payLoad: payLoad
                 };
                 loadImbaAdminTabContent(data);

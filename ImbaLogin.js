@@ -264,7 +264,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName
     }, function (response){
         $("#imbaContentDialog").dialog({
-            title: "IMBAdmin " + response
+            title: "<img src='Images/user-home.png' style='cursor: pointer; width: 30px; height: 30px;' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
         });
     });
 

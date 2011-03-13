@@ -12,8 +12,8 @@
         /*        clear: both; */
     }
     #ImbaContentClickable:hover {
-        border: 2px white solid;
-        background-color: #333333;
+        border: 2px lightgrey solid;
+        background-color: #222222;
     }
 </style>
 {foreach $navs as $nav}

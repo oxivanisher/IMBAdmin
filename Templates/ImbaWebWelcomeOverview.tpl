@@ -6,7 +6,7 @@
         height: 120px; 
         width: 250px;
         float: left;
-        clear: both;
+/*        clear: both; */
     }
 </style>
 <h2>Hallo {$nickname}</h2>

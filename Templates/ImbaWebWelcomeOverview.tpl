@@ -1,6 +1,7 @@
 <style type="text/css">
     #ImbaContentClickable {
         padding: 3px;
+        margin: 3px;
         border: 1px grey solid;
         cursor: pointer;
         height: 120px; 

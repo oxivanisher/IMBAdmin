@@ -125,7 +125,8 @@ class ImbaManagerMessage {
      * Selects the count of lines Conversation between two OpenIds
      */
     public function selectMessagesCount($openidMe, $openidOpponent) {
-        $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s');";
+        // TODO: Nur die zählen, die in den letzten monaten geschlumpft wurden
+        $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') AND timestamp > (" . (time() - 4838400) .");";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openidMe,

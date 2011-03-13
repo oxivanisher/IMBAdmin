@@ -102,7 +102,7 @@ function refreshUsersOnline(){
     }, function (response){
         //create list for tag links
         $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
-        
+                
         //create tags
         $.each($.parseJSON(response), function(key, value){            
 

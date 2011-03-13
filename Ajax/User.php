@@ -24,6 +24,9 @@ if (ImbaUserContext::getLoggedIn()) {
     if (isset($_POST['loadusersonlinelist'])) {
         $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
         $result = array();
+        $msgCountMin = -1;
+        $msgCountMax = -1;
+
         foreach ($users as $user) {
             // TODO: Wann werden der User als online in der Liste angezeigt
             // wie groß wird er angezeigt und (zwischen 6 und 20)
@@ -41,11 +44,23 @@ if (ImbaUserContext::getLoggedIn()) {
                 } else {
                     $color = "white";
                 }
-                
-                $fontsize = rand(6, 20);
+
                 $msgCount = $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
-                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "fontsize" => $fontsize, "color" => $color, "msgCount" => $msgCount));
+
+                if ($msgCount > $msgCountMax || $msgCountMax == -1)
+                    $msgCountMax = $msgCount;
+                if ($msgCount < $msgCountMin || $msgCountMin == -1)
+                    $msgCountMin = $msgCount;
+
+                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId(), "fontsize" => "8", "color" => $color, "msgCount" => $msgCount));
             }
+        }
+
+        $hundredPercent = $msgCountMax - $msgCountMin;
+        foreach ($result as $key => $user) {
+            $tmpMsgCount = $user["msgCount"];
+            $tmpPercent = round(100 / $hundredPercent * $tmpMsgCount, 0);
+            $result[$key]["fontsize"] = $tmpPercent / 100 * 12 + 8;
         }
         
         // now comes the magic with the font size        

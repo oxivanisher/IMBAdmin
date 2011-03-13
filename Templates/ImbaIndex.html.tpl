@@ -29,7 +29,7 @@
 </div>
 
 <div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 3px;'>
-    <div id='imbaContentNav' style='height: 98%; overflow: auto; background-image: url(IMBAdmin/Images/guild_logo.png); background-repeat: no-repeat; background-position: center center;'>
+    <div id='imbaContentNav' style='height: 98%; overflow: auto; background-image: url(IMBAdmin/Images/guild_logo.png);'>
         <ul></ul>
     </div>
 </div>

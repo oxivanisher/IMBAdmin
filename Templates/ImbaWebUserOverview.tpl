@@ -620,13 +620,7 @@ table.display tr.gradeU {
 	background-color: #ddd;
 }
 
-div.box {
-	height: 100px;
-	padding: 10px;
-	overflow: auto;
-	border: 1px solid #8080FF;
-	background-color: #E5E5FF;
-}
+
 
 </style>
 <table id="ImbaWebUsersOverviewTable" class="display">

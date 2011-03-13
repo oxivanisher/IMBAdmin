@@ -111,6 +111,8 @@
 }
 
 #ImbaContentClickable {
+    padding: 1px;
+    border: 1px grey;        
     cursor: pointer;
     height: 100px;
     width: 200px;

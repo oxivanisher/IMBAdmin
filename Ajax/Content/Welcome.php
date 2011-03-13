@@ -24,39 +24,78 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
     $managerUser = new ImbaManagerUser($managerDatabase);
-    $myself = $managerUser->selectMyself();
+
 
     $contentNav = new ImbaContentNavigation();
-    $navOptions = array();
-    $smarty->assign('nickname', $myself->getNickname());
-    if ($handle = opendir('Ajax/Content/')) {
-        $identifiers = array();
-        while (false !== ($file = readdir($handle))) {
-            if (strrpos($file, ".Navigation.php") > 0) {
-                include 'Ajax/Content/' . $file;
-                if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
-                    $showMe = false;
-                    if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
-                        $showMe = true;
-                    } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
-                        $showMe = true;
-                    }
 
-                    if ($showMe) {
-                        $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                        array_push($navOptions, array("identifier" => $modIdentifier,
-                            "name" => $Navigation->getName($nav),
-                            "comment" => $Navigation->getComment($nav)
-                        ));
-                        $Navigation = null;
+    switch ($_POST["request"]) {
+
+        case "index":
+            $navOptions = array();
+            if ($handle = opendir('Ajax/Content/')) {
+                $identifiers = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (strrpos($file, ".Navigation.php") > 0) {
+                        include 'Ajax/Content/' . $file;
+                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
+                            $showMe = false;
+                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
+                                $showMe = true;
+                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
+                                $showMe = true;
+                            }
+
+                            if ($showMe) {
+                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
+                                array_push($navOptions, array("identifier" => $modIdentifier,
+                                    "name" => $Navigation->getName($nav),
+                                    "comment" => $Navigation->getComment($nav)
+                                ));
+                                $Navigation = null;
+                            }
+                        }
                     }
                 }
+                closedir($handle);
             }
-        }
-        closedir($handle);
+            $smarty->assign('navs', $navOptions);
+            $smarty->display('ImbaWebWelcomeIndex.tpl');
+            break;
+
+        default:
+            $myself = $managerUser->selectMyself();
+            $smarty->assign('nickname', $myself->getNickname());
+            $navOptions = array();
+            if ($handle = opendir('Ajax/Content/')) {
+                $identifiers = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (strrpos($file, ".Navigation.php") > 0) {
+                        include 'Ajax/Content/' . $file;
+                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
+                            $showMe = false;
+                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
+                                $showMe = true;
+                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
+                                $showMe = true;
+                            }
+
+                            if ($showMe) {
+                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
+                                array_push($navOptions, array("identifier" => $modIdentifier,
+                                    "name" => $Navigation->getName($nav),
+                                    "comment" => $Navigation->getComment($nav)
+                                ));
+                                $Navigation = null;
+                            }
+                        }
+                    }
+                }
+                closedir($handle);
+            }
+            $smarty->assign('navs', $navOptions);
+            $smarty->display('ImbaWebWelcomeOverview.tpl');
+            break;
     }
-    $smarty->assign('navs', $navOptions);
-    $smarty->display('ImbaWebWelcome.tpl');
 } else {
     echo "Not logged in";
 }

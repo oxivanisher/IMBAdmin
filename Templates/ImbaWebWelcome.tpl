@@ -1,7 +1,9 @@
 <h2>Hallo {$nickname}</h2>
 Folgende Module stehen dir zur verf&uuml;gung:
 <ul>
-
-<li><a href="#" onclick="javascript: loadImbaAdminModule(\'' . $modIdentifier . '\');">' . $Navigation->getName($nav) . '</a></li>
+    
+    {foreach $navs as $nav}
+    <li><a href="#" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.name}</a></li>
+    {foreach}
 
 </ul>

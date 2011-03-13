@@ -4,7 +4,7 @@
         margin: 3px;
         border: 2px grey solid;
         cursor: pointer;
-        height: 100px; 
+        height: 105px; 
         width: 310px;
         float: left;
         padding: 3px;

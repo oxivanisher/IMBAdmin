@@ -81,10 +81,9 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->assign('susers', $smarty_users);
 
-            //$smarty->display('ImbaWebUserOverview.tpl');
+            $smarty->display('ImbaWebUserOverview.tpl');
             break;
     }
-    print_r($_POST);
 } else {
     echo "Not logged in";
 }

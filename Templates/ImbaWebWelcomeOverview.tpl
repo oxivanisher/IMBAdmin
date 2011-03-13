@@ -13,7 +13,7 @@
 Folgende Module stehen dir zur verf&uuml;gung:
 <br />    
 {foreach $navs as $nav}
-<div style="padding: 1px; border: 1px grey solid; cursor: pointer; height: 120px; width: 250px; float: right; clear:left;" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h4>{$nav.name}</h4>{$nav.comment}</div>
+<div style="padding: 1px; border: 1px grey solid; cursor: pointer; height: 120px; width: 250px; float: left; clear: right;" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h4>{$nav.name}</h4>{$nav.comment}</div>
 <br />
 <br />
 {/foreach}

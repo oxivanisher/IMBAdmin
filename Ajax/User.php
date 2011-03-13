@@ -65,7 +65,7 @@ if (ImbaUserContext::getLoggedIn()) {
         foreach ($result as $key => $user) {
             $tmpMsgCount = $user["msgCount"];
             $tmpPercent = round(100 / $hundredPercent * $tmpMsgCount, 0);
-            $result[$key]["fontsize"] = $tmpPercent / 100 * 10 + 8;
+            $result[$key]["fontsize"] = $tmpPercent / 100 * 11 + 8;
         }
         
         // now comes the magic with the font size        

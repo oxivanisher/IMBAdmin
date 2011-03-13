@@ -35,7 +35,7 @@ class ImbaManagerMessage {
             throw new Exception("No Sender!");
         }
 
-        if ($message->getReceiver() == null || trim($message->getReceiver() == "") {
+        if ($message->getReceiver() == null || trim($message->getReceiver()) == "") {
             throw new Exception("No Reciever!");
         }
 

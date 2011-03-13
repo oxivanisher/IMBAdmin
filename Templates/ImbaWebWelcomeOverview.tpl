@@ -2,5 +2,7 @@
 Folgende Module stehen dir zur verf&uuml;gung:
 <br />    
 {foreach $navs as $nav}
-<div onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h4>{$nav.name}</h4>{$nav.comment}</div>
+<span class="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h4>{$nav.name}</h4>{$nav.comment}</span>
+<br />
+<br />
 {/foreach}

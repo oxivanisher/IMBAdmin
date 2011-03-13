@@ -110,6 +110,10 @@
 #imbaContent {
 }
 
+#ImbaContentClickable {
+    cursor: pointer;
+}
+
 /*#imbaContentDialog {
     position: fixed;
 }*/

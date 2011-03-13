@@ -203,4 +203,7 @@
 #imbaContentNav div {
     /* aggravate, ich mach die darstellungsprobleme mit der datatable */
 /*    height: 80%; */
+background-image: url('/IMBAdmin/Images/guild_logo.png');
+background-repeat: no-repeat;
+background-position: center center;
 }

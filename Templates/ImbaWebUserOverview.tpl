@@ -309,11 +309,11 @@ table.display tr.even.gradeU {
 
 
 tr.odd {
-	background-color: #E2E4FF;
+	background-color: #222222;
 }
 
 tr.even {
-	background-color: white;
+	background-color: black;
 }
 
 

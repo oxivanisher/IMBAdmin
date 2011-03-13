@@ -216,6 +216,14 @@ function loadImbaAdminTabContent(data, myTabId) {
 }
 
 /**
+ * Show the User Profile in IMBAdmin window
+ */
+function showUserProfile(openid) {
+    loadImbaAdminModule("User", "viewprofile", $openid);
+}
+
+
+/**
  * Loads the default ImbaAdminTab
  */
 function loadImbaAdminDefaultModule(){
@@ -232,7 +240,7 @@ function loadImbaAdminDefaultModule(){
 /**
 * loads the ImbaAdmin module in the IMBAdmin window
 */
-function loadImbaAdminModule(moduleName, moduleDo){
+function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     currentModule = moduleName;
     currentModuleDo = moduleDo;
     
@@ -274,7 +282,8 @@ function loadImbaAdminModule(moduleName, moduleDo){
                     action: "module",
                     module: moduleName,
                     request: value.id,
-                    moduleDo: moduleDo
+                    moduleDo: moduleDo,
+                    payLoad: payLoad
                 };
                 loadImbaAdminTabContent(data);
             }

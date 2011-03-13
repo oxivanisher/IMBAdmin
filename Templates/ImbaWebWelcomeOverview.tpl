@@ -6,6 +6,7 @@
         height: 120px; 
         width: 250px;
         float: left;
+        padding: 3px;
 /*        clear: both; */
     }
 </style>

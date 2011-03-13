@@ -112,7 +112,9 @@
 
 #ImbaContentClickable {
     cursor: pointer;
-    height: auto;
+    height: 50px;
+    width: 140px;
+    float: left;
 }
 
 /*#imbaContentDialog {

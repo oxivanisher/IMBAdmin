@@ -219,7 +219,7 @@ function loadImbaAdminTabContent(data, myTabId) {
  * Show the User Profile in IMBAdmin window
  */
 function showUserProfile(openid) {
-    loadImbaAdminModule("User", "viewprofile", $openid);
+    loadImbaAdminModule("User", "viewprofile", openid);
 }
 
 

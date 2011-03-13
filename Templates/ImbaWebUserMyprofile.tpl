@@ -9,7 +9,7 @@
         <tr><td>Nachname:</td><td>{$lastname}</td></tr>
         <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
-        {if $msn neq ""}
+        {if $msn != ""}
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         {/if}
         <tr><td>Skype:</td><td>{$skype}</td></tr>

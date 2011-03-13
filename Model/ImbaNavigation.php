@@ -64,9 +64,10 @@ class ImbaContentNavigation {
         return $elements;
     }
 
-    public function addElement($Identifier, $Name) {
+    public function addElement($Identifier, $Name, $Comment) {
         $newElement = new ImbaContentNavigationOption();
         $newElement->setName($Name);
+        $newElement->setComment($Comment);
         $newElement->setIdentifier($Identifier);
         array_push($this->Options, $newElement);
     }

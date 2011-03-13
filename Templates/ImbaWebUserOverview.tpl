@@ -25,7 +25,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * General page setup
 */
-/*
+
 #dt_example {
     font: 80%/1.45em "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
     margin: 0;

@@ -101,6 +101,7 @@ function refreshUsersOnline(){
         loadusersonlinelist : "true"
     }, function (response){
         //create list for tag links
+        $("#imbaUsersOnline").html("");
         $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
                 
         //create tags
@@ -114,7 +115,7 @@ function refreshUsersOnline(){
             li.css("color", value.color);
             
             li.click(function (){
-               createChatWindow(value.name, value.openid);
+                createChatWindow(value.name, value.openid);
             });            
 
         });        
@@ -278,21 +279,19 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
             if ((key == 0) && (moduleDo == null || moduleDo == "")) {
-                var data = {
+                loadImbaAdminTabContent({
                     action: "module",
                     module: moduleName,
                     request: value.id,
                     payLoad: payLoad
-                };
-                loadImbaAdminTabContent(data);
+                });
             } else if ((moduleDo != null) && (moduleDo != "")) {
-                var data = {
+                loadImbaAdminTabContent({
                     action: "module",
                     module: moduleName,
                     request: moduleDo,
                     payLoad: payLoad
-                };
-                loadImbaAdminTabContent(data);
+                });
             }
         });
     });

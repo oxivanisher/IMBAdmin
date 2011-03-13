@@ -104,7 +104,7 @@
 #dt_example ul {
     color: #4E6CA3;
 }
-
+/*
 .css_right {
     float: right;
 }
@@ -115,7 +115,7 @@
 .ui-button {
     margin-right: 0em;
 }
-
+*/
 
 </style>
 <table id="ImbaWebUsersOverviewTable" class="display">

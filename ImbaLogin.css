@@ -110,7 +110,7 @@
 #imbaContent {
 }
 
-#ImbaContentClickable {
+.ImbaContentClickable {
     cursor: pointer;
 }
 

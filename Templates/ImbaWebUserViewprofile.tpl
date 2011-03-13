@@ -31,4 +31,4 @@
     </tbody>
 </table>
 <br />
-<a href="javascript: backToUserOverview();">back</a>
+<a href="javascript:void(0)" onclick="javascript: backToUserOverview();">back</a>

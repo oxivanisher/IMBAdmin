@@ -25,7 +25,7 @@
     <tbody>
 
         {foreach $susers as $user}
-        <tr onclick="javascript: loadUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr onclick="javascript:void(0)" onclick="javascript: loadUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         {/foreach}
 
     </tbody>

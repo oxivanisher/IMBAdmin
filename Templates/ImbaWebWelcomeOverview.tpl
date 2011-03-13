@@ -1,5 +1,5 @@
 <style type="text/css">
-#ImbaContentClickable div {
+.ImbaContentClickable {
     padding: 1px;
     border: 1px grey;        
     cursor: pointer;

@@ -37,6 +37,10 @@ if (file_exists($moduleFile)) {
             $myName = (string) $Navigation->getName();
             echo $myName;
             break;
+        case "comment":
+            $myComment = (string) $Navigation->getComment();
+            echo $myComment;
+            break;
         default:
             echo returnDefaultModule();
             break;
@@ -48,6 +52,9 @@ if (file_exists($moduleFile)) {
             echo json_encode($nav);
             break;
         case "name":
+            echo "Module not found (" . $moduleFile . ")!";
+            break;
+        case "comment":
             echo "Module not found (" . $moduleFile . ")!";
             break;
         default:

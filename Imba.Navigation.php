@@ -7,6 +7,6 @@ $topNav = new ImbaTopNavigation();
 /**
  * Set up the top navigation
  */
-$topNav->addElement("blog", "Blog / News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
+$topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
 $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
 ?>

@@ -221,7 +221,7 @@ table.display thead th {
 	border-bottom: 1px solid black;
 	font-weight: bold;
 	cursor: pointer;
-	* cursor: hand;
+	cursor: hand;
 }
 
 table.display tfoot th {

@@ -39,7 +39,7 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewprofile":
             if (isset($_POST["payLoad"]))
                 $_POST["openid"] = $_POST["payLoad"];
-            
+
             $user = $managerUser->selectByOpenId($_POST["openid"]);
 
             $smarty->assign('nickname', $user->getNickname());
@@ -72,7 +72,13 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty_users = array();
             foreach ($users as $user) {
-                array_push($smarty_users, array('nickname' => $user->getNickname(), 'openid' => $user->getOpenID()));
+                array_push($smarty_users, array(
+                    'nickname' => $user->getNickname(),
+                    'openid' => $user->getOpenID(),
+                    'lastonline' => ImbaSharedFunctions::getNiceAge($user->getLastonline()),
+                    'jabber' => "",
+                    'games' => "W E R"
+                ));
             }
             $smarty->assign('susers', $smarty_users);
 

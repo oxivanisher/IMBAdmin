@@ -17,7 +17,7 @@
     </div>
 </div>
 <div id='imbaMessagesDialog' title='IMBA Messaging' class='imbaFont'>
-    <div id='imbaMessages'>
+    <div id='imbaMessages' style='height: 98%; overflow: auto;'>
         <ul></ul>
         <div id='imbaMessageTextDiv'>
             <form action='' method='post'>

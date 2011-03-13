@@ -111,6 +111,11 @@
 .css_left {
     float: left;
 }
+.ui-button {
+    margin-right: 0em;
+}
+
+
 </style>
 <table id="ImbaWebUsersOverviewTable" class="display">
     <thead>

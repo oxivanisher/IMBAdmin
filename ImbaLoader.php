@@ -71,7 +71,7 @@ switch ($_GET["load"]) {
                             }
 
                             if ($showMe) {
-                                $modIdentifier = str_replace(".Navigation.php", "", $file);
+                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
                                 echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");'>" . $Navigation->getName($nav) . "</a></li>";
                                 array_push($identifiers, $modIdentifier);
                                 $Navigation = null;

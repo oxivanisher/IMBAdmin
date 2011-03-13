@@ -35,6 +35,6 @@ if (ImbaUserContext::getLoggedIn()) {
 //            $smarty->assign('lastLogin', $user->getLastLogin());
 
 
-    $smarty->display('ImbaWebUserRegister.tpl');
+    $smarty->display('ImbaWebRegisterRegister.tpl');
 }
 ?>

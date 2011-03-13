@@ -353,14 +353,18 @@ $(document).ready(function() {
 
     // Setting a Template for the tabs, making them closeable
     $msgTabs.tabs({
-        tabTemplate: "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>"
+        tabTemplate: "<li><a href='#{href}'>#{label}</a><div class='ui-icon ui-icon-info' style='cursor: pointer; float: left;'>Userinfo</div><div class='ui-icon ui-icon-close'>Remove Tab</div></li>"
     });
 
     // close icon: removing the tab on click
-    // note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
-    $("#imbaMessages span.ui-icon-close").live("click", function() {
+    $("#imbaMessages div.ui-icon-close").live("click", function() {
         var index = $("li", $msgTabs).index($(this).parent());
         $msgTabs.tabs("remove", index);
+    });
+    // info icon: showing the ImbAdmin module
+    $("#imbaMessages div.ui-icon-info").live("click", function() {
+        var index = $("li", $msgTabs).index($(this).parent());
+        showUserProfile(getOpenIdFromTabIndex(index));
     });
         
 });

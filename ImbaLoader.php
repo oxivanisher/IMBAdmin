@@ -52,7 +52,7 @@ switch ($_GET["load"]) {
             }
 
             echo "<li>";
-            echo "<a id='imbaMenuImbAdmin' href='#' onclick='javascript: loadImbaAdminDefaultModule();' title='IMBAdmin &ouml;ffnen'>Auf zum Atem</a>";
+            echo "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaAdminDefaultModule();' title='IMBAdmin &ouml;ffnen'>Auf zum Atem</a>";
             echo "<ul class='subnav'>";
 
             $contentNav = new ImbaContentNavigation();
@@ -72,7 +72,7 @@ switch ($_GET["load"]) {
 
                             if ($showMe) {
                                 $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                echo "<li><a href='#' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='".$Navigation->getComment($nav)."'>" . $Navigation->getName($nav) . "</a></li>";
+                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='".$Navigation->getComment($nav)."'>" . $Navigation->getName($nav) . "</a></li>";
                                 array_push($identifiers, $modIdentifier);
                                 $Navigation = null;
                             }

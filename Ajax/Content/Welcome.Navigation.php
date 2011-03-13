@@ -35,5 +35,6 @@ $Navigation->setMinUserRole(1);
 /**
  * Set tabs
  */
-$Navigation->addElement("welcome", "&Uuml;bersicht", "Dies ist die Willkommens Seite.");
+$Navigation->addElement("welcome", "&Uuml;bersicht der Module", "Hier siehst du eine einfache &Uml;bersicht der Module.");
+$Navigation->addElement("index", "Indexierte &Uuml;bersicht", "Hier siehst du eine komplette &Uml;bersicht der Module.");
 ?>

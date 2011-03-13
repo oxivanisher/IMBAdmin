@@ -28,8 +28,6 @@ if (ImbaUserContext::getLoggedIn()) {
         $msgCountMax = -1;
 
         foreach ($users as $user) {
-            // TODO: Wann werden der User als online in der Liste angezeigt
-            // wie groß wird er angezeigt und (zwischen 6 und 20)
             if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
                 // Setting the color, depending on time
                 // < 5 min => orange

@@ -101,18 +101,18 @@
     cursor: pointer;
 }
 
-#imbaMessagesDialog {
+/*#imbaMessagesDialog {
     position: fixed;
-}
+}*/
 
 /* IMBAdmin main content window */
 
 #imbaContent {
 }
 
-#imbaContentDialog {
+/*#imbaContentDialog {
     position: fixed;
-}
+}*/
 
 #imbaContent li .ui-icon-close { 
     float: left;

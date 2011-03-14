@@ -22,6 +22,7 @@
                     <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
                 </ul>                
             </td></tr>
+        <tr><td>Nickname:</td><td><input type="text" name="nickname" value="{$nickname}" /></td></tr>
         <tr><td>Titel:</td><td><input type="text" name="usertitle" value="{$usertitle}" /></td></tr>
         <tr><td>Avatar URL:</td><td><input type="text" name="avatar" value="{$avatar}" /></td></tr>
         <tr><td>Webseite:</td><td><input type="text" name="website" value="{$website}" /></td></tr>

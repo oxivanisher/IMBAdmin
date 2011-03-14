@@ -72,7 +72,7 @@ if (ImbaUserContext::getLoggedIn()) {
             class My_Security_Policy extends Smarty_Security {
                 public $if_functs = true;
                 // disable all PHP functions
-                public $php_functions = null;
+                public $php_functions = true;
                 // remove PHP tags
                 public $php_handling = Smarty::PHP_REMOVE;
                 // allow everthing as modifier

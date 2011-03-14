@@ -70,7 +70,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
 
             class My_Security_Policy extends Smarty_Security {
-
+                public $if_functs = true;
                 // disable all PHP functions
                 public $php_functions = null;
                 // remove PHP tags

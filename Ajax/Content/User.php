@@ -28,7 +28,6 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = new ImbaManagerUser($managerDatabase);
 
     switch ($_POST["request"]) {
-
         case "myprofile":
             $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
 
@@ -67,6 +66,28 @@ if (ImbaUserContext::getLoggedIn()) {
 
 
             $smarty->display('ImbaWebUserMyprofile.tpl');
+            break;
+
+        case "updatemyprofile":
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId($_POST["myProfileOpenId"]);
+            $user->setOpenId($_POST["myProfileOpenId"]);
+            $user->setMotto($_POST["myProfileMotto"]);
+            $user->setUsertitle($_POST["myProfileUsertitle"]);
+            $user->setAvatar($_POST["myProfileAvatar"]);
+            $user->setWebsite($_POST["myProfileWebsite"]);
+            $user->setNickname($_POST["myProfileNickname"]);
+            $user->setEmail($_POST["myProfileEmail"]);
+            $user->setSkype($_POST["myProfileSkype"]);
+            $user->setIcq($_POST["myProfileIcq"]);
+            $user->setMsn($_POST["myProfileMsn"]);
+            $user->setSignature($_POST["myProfileSignature"]);
+            try {
+                $managerUser->update($user);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
             break;
 
         case "viewprofile":

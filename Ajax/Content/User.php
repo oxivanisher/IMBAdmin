@@ -93,7 +93,7 @@ if (ImbaUserContext::getLoggedIn()) {
             } else {
                 $smarty->assign('sex', '');
             }
-
+$smarty->assign('sex', $user->getSex());
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());
 

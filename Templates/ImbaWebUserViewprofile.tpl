@@ -17,7 +17,7 @@
     <img src="{$avatar}" style="float: right;" />
     {/if}
 </h2></td></tr>
-({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Letzter Login {$lastLogin})<br />
+({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline})<br />
 {if $signature != ""}
 <h3>Signatur:</h3>
 <code>
@@ -26,7 +26,7 @@
 <br />
 <br />
 {/if}
-<table id="ImbaWebUsersViewprofileTable" cellpadding="5" cellspacing="0" border="0">
+<table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>

@@ -52,7 +52,7 @@ if (ImbaUserContext::getLoggedIn()) {
             } else if ($user->getSex() == "F") {
                 $smarty->assign('sex', 'Images/female.png');
             } else {
-                $smarty->assign('sex', '');
+                $smarty->assign('sex', 'a');
             }
             
             $roleManager = new ImbaManagerUserRole($managerDatabase);

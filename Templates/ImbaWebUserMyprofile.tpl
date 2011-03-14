@@ -29,6 +29,6 @@
         <tr><td>Skype:</td><td><input type="text" name="skype" value="{$skype}" /></td></tr>
         <tr><td>ICQ:</td><td><input type="text" name="icq" value="{$icq}" /></td></tr>
         <tr><td>MSN:</td><td><input type="text" name="msn" value="{$msn}" /></td></tr>
+        <tr><td>Signatur:</td><td><textarea name="signature" rows="50" cols="4">{$signature}</textarea></td></tr>
     </tbody>
 </table>
-{$signature}

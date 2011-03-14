@@ -13,8 +13,10 @@
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}<br />
 <i>(Deine OpenID ist {$openid})</i><br />
 <br />
-<i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i>
-
+<ul>
+    <i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br />
+    <i>Felder mit einem * siehst nur du.</i>
+</ul>
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>
         <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->

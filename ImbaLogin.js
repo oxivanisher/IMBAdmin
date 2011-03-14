@@ -15,6 +15,9 @@ $(document).ready(function() {
     //login to wordpress ^^
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
+    var a = document.cookie;   
+    alert(a);
+
     // Checking if user is online
     $.ajaxSetup({
         async:false
@@ -105,14 +108,14 @@ function refreshUsersOnline(){
         $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
                 
         //create tags
-        $.each($.parseJSON(response), function(key, value){            
-
+        $.each($.parseJSON(response), function(key, value){
             //create item
             var li = $("<li>");            
             li.text(value.name);
             li.appendTo("#imbaUsersOnlineTagList");
             li.css("fontSize", value.fontsize);
             li.css("color", value.color);
+            li.attr("title", "Start Chat with " + value.name);
             
             li.click(function (){
                 createChatWindow(value.name, value.openid);
@@ -131,6 +134,7 @@ function setLoggedIn(isLoggedIn){
     if (isLoggedIn){
         $("#imbaSsoOpenIdSubmit").val("Logout");
         $("#imbaOpenMessaging").show();
+        $("#imbaSsoOpenId").attr("readonly", "true");
     } else {
         $("#imbaSsoOpenIdSubmit").val("Login");
         $("#imbaOpenMessaging").hide();

@@ -66,6 +66,18 @@ try {
     $output.= "Error at insert.\n";
 }
 
+
+/**
+ * Update User
+ */
+try {
+    $user->setFirstname("TestFirstname");
+    $managerUser->update($user);
+    $output.= "update working.\n";
+} catch (Exception $e) {
+    $output.= "Error at insert.\n";
+}
+
 /**
  * Delete user
  */

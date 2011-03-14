@@ -37,7 +37,7 @@ class ImbaManagerUser {
         }
         return $result;
     }
-    
+
     /**
      * Selects a list of Users into an array w/o yourself
      */
@@ -88,10 +88,63 @@ class ImbaManagerUser {
      * Inserts a user into the Database
      */
     public function insert(ImbaUser $user) {
-        $query = "INSERT INTO " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " ";
+        $query = "INSERT INTO %s ";
         $query .= "(openid, nickname, email, surname, forename, dob, mob, yob, sex, icq, msn, skype, usertitle, avatar, signature, website, motto, accurate, role) VALUES ";
-        $query .= "('" . $user->getOpenId() . "', '" . $user->getNickname() . "', '" . $user->getEmail() . "', '" . $user->getLastname() . "', '" . $user->getFirstname() . "', '" . $user->getBirthday() . "', '" . $user->getBirthmonth() . "', '" . $user->getBirthyear() . "', '" . $user->getSex() . "', '" . $user->getIcq() . "', '" . $user->getMsn() . "', '" . $user->getSkype() . "', '" . $user->getUsertitle() . "', '" . $user->getAvatar() . "', '" . $user->getSignature() . "', '" . $user->getWebsite() . "', '" . $user->getMotto() . "', '" . $user->getAccurate() . "', '" . $user->getRole() . "')";
-        $this->database->query($query);
+        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,
+            $user->getOpenId(),
+            $user->getNickname(),
+            $user->getEmail(),
+            $user->getLastname(),
+            $user->getFirstname(),
+            $user->getBirthday(),
+            $user->getBirthmonth(),
+            $user->getBirthyear(),
+            $user->getSex(),
+            $user->getIcq(),
+            $user->getMsn(),
+            $user->getSkype(),
+            $user->getUsertitle(),
+            $user->getAvatar(),
+            $user->getSignature(),
+            $user->getWebsite(),
+            $user->getMotto(),
+            $user->getAccurate(),
+            $user->getRole()
+        ));
+    }
+
+    /**
+     * Updates a user in the Database
+     */
+    public function update(ImbaUser $user) {
+        $query = "UPDATE %s SET ";
+        $query .= "nickname = '%s', email = '%s', surname = '%s', forename = '%s', dob = '%s', mob = '%s', yob = '%s', sex = '%s', icq = '%s', msn = '%s', skype = '%s', usertitle = '%s', avatar = '%s', signature = '%s', website = '%s', motto = '%s', accurate = '%s', role = '%s' ";
+        $query .= "WHERE openid = '%s'";
+
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,
+            $user->getNickname(),
+            $user->getEmail(),
+            $user->getLastname(),
+            $user->getFirstname(),
+            $user->getBirthday(),
+            $user->getBirthmonth(),
+            $user->getBirthyear(),
+            $user->getSex(),
+            $user->getIcq(),
+            $user->getMsn(),
+            $user->getSkype(),
+            $user->getUsertitle(),
+            $user->getAvatar(),
+            $user->getSignature(),
+            $user->getWebsite(),
+            $user->getMotto(),
+            $user->getAccurate(),
+            $user->getRole(),
+            $user->getOpenId()
+        ));
     }
 
     /**

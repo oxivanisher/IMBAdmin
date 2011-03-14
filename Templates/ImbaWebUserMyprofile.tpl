@@ -20,7 +20,7 @@
         <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
     </thead>
     <tbody>
-        <tr><td>Nickname:</td><td>{$email}</td></tr>
+        <tr><td>Email:</td><td>{$email}</td></tr>
         <tr><td>Vorname:</td><td>{$firstname}</td></tr>
         <tr><td>Nachname:</td><td>{$lastname}</td></tr>
         <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
@@ -29,7 +29,7 @@
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         <tr><td>Webseite:</td><td>{$website}</td></tr>
         <tr><td>Titel:</td><td>{$usertitle}</tr>
-        <tr><td>Avatar:</td><td>{$avatar}</tr>
+        <tr><td>Avatar URL:</td><td>{$avatar}</tr>
     </tbody>
 </table>
 {$signature}

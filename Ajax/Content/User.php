@@ -82,6 +82,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('msn', $user->getMsn());
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
+            $smarty->assign('email', $user->getEmail());
             $smarty->assign('motto', $user->getMotto());
             $smarty->assign('avatar', $user->getAvatar());
             $smarty->assign('openid', $user->getOpenid());

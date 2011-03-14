@@ -17,17 +17,14 @@
     <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br /></li>
     <li><i>Felder mit einem * siehst nur du.</i></li>
 </ul>
-<table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
-    <thead>
-        <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
-    </thead>
+<table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
     <tbody>
         <tr><td>Email:</td><td>{$email}</td></tr>
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         <tr><td>Webseite:</td><td>{$website}</td></tr>
-        <tr><td>Titel:</td><td>{$usertitle}</tr>
+        <tr><td>Benutzerdefinierter Titel:</td><td>{$usertitle}</tr>
         <tr><td>Aktuelles Motto:</td><td>{$motto}</tr>
         <tr><td>Avatar URL:</td><td>{$avatar}</tr>
     </tbody>

@@ -67,8 +67,20 @@ if (ImbaUserContext::getLoggedIn()) {
 
         default:
             $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
-
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
+
+            class My_Security_Policy extends Smarty_Security {
+
+                // disable all PHP functions
+                public $php_functions = null;
+                // remove PHP tags
+                public $php_handling = Smarty::PHP_REMOVE;
+                // allow everthing as modifier
+                public $modifiers = array();
+            }
+
+            $smarty->enableSecurity('My_Security_Policy');
+
 
             $smarty_users = array();
             foreach ($users as $user) {

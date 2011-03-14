@@ -45,6 +45,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('motto', $user->getMotto());
             $smarty->assign('avatar', $user->getAvatar());
             $smarty->assign('signature', $user->getSignature());
+            $smarty->assign('openid', $user->getOpenid());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
             if (strtolower($user->getSex()) == "m") {
@@ -83,6 +84,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('website', $user->getWebsite());
             $smarty->assign('motto', $user->getMotto());
             $smarty->assign('avatar', $user->getAvatar());
+            $smarty->assign('openid', $user->getOpenid());
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 

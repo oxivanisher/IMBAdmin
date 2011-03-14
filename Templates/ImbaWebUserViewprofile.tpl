@@ -17,7 +17,7 @@
     <img src="{$avatar}" style="float: right;" />
     {/if}
 </h2></td></tr>
-({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline})<br />
+{$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $signature != ""}
 <h3>Signatur:</h3>
 <code>

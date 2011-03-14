@@ -9,16 +9,25 @@
     }
    
 </script>
+<h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
+    {if $motto != ""}
+    <i>"{$motto}"</i>
+    {/fi}
+    {if $avatar != ""}
+    <img src="{$avatar}" style="float: right;" />
+    {/fi}
+</h2></td></tr>
+({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear})<br />
+<i>Letzter Login {$lastLogin}</i>
+<br />
+<br />
+{if $signature != ""}
+{$signature}
+<br />
+<br />
+{/if}
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
-    <thead>
-        <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
-    </thead>
     <tbody>
-
-        <tr><td colspan="2"><h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}</h2></td></tr>
-        <tr><td colspan="2">({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear})</td></tr>
-        <tr><td><i>Letzter Login {$lastLogin}</i></td></tr>
-        <tr><td><br /><br /></td><td>&nbsp;</td></tr>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         {/if}

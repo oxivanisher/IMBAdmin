@@ -3,7 +3,6 @@
 <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
     </thead>
     <tbody>
-
         <tr><td>Nickname:</td><td>{$nickname}</td></tr>
         <tr><td>Vorname:</td><td>{$firstname}</td></tr>
         <tr><td>Nachname:</td><td>{$lastname}</td></tr>

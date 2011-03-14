@@ -19,7 +19,7 @@
 </ul>
 <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
     <tbody>
-        <tr><td>Aktuelles Motto:</td><td>{$motto}</tr>
+        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></tr>
         <tr><td>Benutzerdefinierter Titel:</td><td>{$usertitle}</tr>
         <tr><td>Avatar URL:</td><td>{$avatar}</tr>
         <tr><td>Webseite:</td><td>{$website}</td></tr>

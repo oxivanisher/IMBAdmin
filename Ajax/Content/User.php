@@ -54,7 +54,7 @@ if (ImbaUserContext::getLoggedIn()) {
             } else {
                 $smarty->assign('sex', 'a');
             }
-            
+
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());
 
@@ -86,6 +86,14 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
+            if ($user->getSex() == "M") {
+                $smarty->assign('sex', 'Images/male.png');
+            } else if ($user->getSex() == "F") {
+                $smarty->assign('sex', 'Images/female.png');
+            } else {
+                $smarty->assign('sex', 'a');
+            }
+
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());
 
@@ -101,19 +109,19 @@ if (ImbaUserContext::getLoggedIn()) {
         default:
             $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
-/*
-            class My_Security_Policy extends Smarty_Security {
-                public $if_functs = true;
-                // disable all PHP functions
-                public $php_functions = true;
-                // remove PHP tags
-                public $php_handling = Smarty::PHP_REMOVE;
-                // allow everthing as modifier
-                public $modifiers = array();
-            }
+            /*
+              class My_Security_Policy extends Smarty_Security {
+              public $if_functs = true;
+              // disable all PHP functions
+              public $php_functions = true;
+              // remove PHP tags
+              public $php_handling = Smarty::PHP_REMOVE;
+              // allow everthing as modifier
+              public $modifiers = array();
+              }
 
-            $smarty->enableSecurity('My_Security_Policy');
-*/
+              $smarty->enableSecurity('My_Security_Policy');
+             */
 
             $smarty_users = array();
             foreach ($users as $user) {

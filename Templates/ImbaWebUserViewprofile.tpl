@@ -26,7 +26,7 @@
 <br />
 <br />
 {/if}
-<table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
+<table id="ImbaWebUsersViewprofileTable" cellpadding="5" cellspacing="0" border="0">
     <tbody>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>

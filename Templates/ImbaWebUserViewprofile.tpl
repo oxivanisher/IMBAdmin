@@ -22,7 +22,9 @@
 <br />
 <br />
 {if $signature != ""}
+<code>
 {$signature}
+</code>
 <br />
 <br />
 {/if}

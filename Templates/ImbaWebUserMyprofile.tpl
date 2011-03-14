@@ -1,12 +1,6 @@
-  {$openId}
+  
   {$nickname}
   {$email}
-  {$firstname}
-  {$lastname}
-  {$birthday}
-  {$birthmonth}
-  {$birthyear}
-  {$sex}
   {$icq}
   {$msn}
   {$skype}
@@ -15,9 +9,7 @@
   {$signature}
   {$website}
   {$motto}
-  {$accurate}
-  {$role}
-  {$lastonline}
+
     
   <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $sex != ""}
@@ -30,8 +22,10 @@
     <img src="{$avatar}" style="float: right;" />
     {/if}
 </h2>
-  
-  
+  {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}<br />
+  <i>(Deine OpenID ist {$openId})</i><br />
+  <br />
+  <i>Um deinen Namen das Geschlecht oder dein Geburtsdatum zu &auml;ndern, kontaktiere bitte einen Administrator</i>
     
     <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>

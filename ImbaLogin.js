@@ -15,9 +15,9 @@ $(document).ready(function() {
     //login to wordpress ^^
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
-    var a = document.cookie;
-    alert(readCookie("ImbaSsoLastLoginName"));
-
+    // setting old openid
+    $("#imbaSsoOpenId").val(unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName"))));
+    
     // Checking if user is online
     $.ajaxSetup({
         async:false
@@ -307,32 +307,32 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
  * Creats a cookie, with name, value und days of expire
  */
 function createCookie(name,value,days) {
-	var expires = "";
-        if (days) {
-		var date = new Date();
-		date.setTime(date.getTime()+(days*24*60*60*1000));
-		expires = "; expires="+date.toGMTString();
-	}
-	document.cookie = name+"="+value+expires+"; path=/";
+    var expires = "";
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        expires = "; expires="+date.toGMTString();
+    }
+    document.cookie = name+"="+value+expires+"; path=/";
 }
 
 /**
  * Reads a cookie by name
  */
 function readCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1,c.length);
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
 
 /**
  * Erases a cookie by nane
  */
 function eraseCookie(name) {
-	createCookie(name,"",-1);
+    createCookie(name,"",-1);
 }

@@ -30,7 +30,34 @@ if (ImbaUserContext::getLoggedIn()) {
     switch ($_POST["request"]) {
 
         case "myprofile":
-            $smarty->assign('name', 'Ned');
+            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+
+            $smarty->assign('nickname', $user->getNickname());
+            $smarty->assign('lastname', substr($user->getLastname(), 0, 1) . ".");
+            $smarty->assign('firstname', $user->getFirstname());
+            $smarty->assign('birthday', $user->getBirthday());
+            $smarty->assign('birthmonth', $user->getBirthmonth());
+            $smarty->assign('birthyear', $user->getBirthyear());
+            $smarty->assign('icq', $user->getIcq());
+            $smarty->assign('msn', $user->getMsn());
+            $smarty->assign('skype', $user->getSkype());
+            $smarty->assign('website', $user->getWebsite());
+            $smarty->assign('motto', $user->getMotto());
+            $smarty->assign('avatar', $user->getAvatar());
+            $smarty->assign('signature', $user->getSignature());
+            $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
+
+            if ($user->getSex() == "M") {
+                $smarty->assign('sex', '');
+            } else {
+                
+            }
+            
+            $roleManager = new ImbaManagerUserRole($managerDatabase);
+            $role = $roleManager->selectById($user->getRole());
+
+            $smarty->assign('role', $role->getName());
+            $smarty->assign('roleIcon', $role->getIcon());
 
 
             $smarty->display('ImbaWebUserMyprofile.tpl');

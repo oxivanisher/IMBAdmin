@@ -1,4 +1,26 @@
-<table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
+  {$openId}
+  {$nickname}
+  {$email}
+  {$firstname}
+  {$lastname}
+  {$birthday}
+  {$birthmonth}
+  {$birthyear}
+  {$sex}
+  {$icq}
+  {$msn}
+  {$skype}
+  {$usertitle}
+  {$avatar}
+  {$signature}
+  {$website}
+  {$motto}
+  {$accurate}
+  {$role}
+  {$lastonline}
+    
+    
+    <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>
 <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
     </thead>

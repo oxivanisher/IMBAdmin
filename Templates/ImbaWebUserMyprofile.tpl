@@ -15,7 +15,7 @@
 
 <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 1px;">
     <tbody>
-        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></td><td rowspan="8">
+        <tr><td><nobr>Aktuelles Motto:</nobr></td><td><input type="text" name="motto" value="{$motto}" /></td><td rowspan="8">
                 <ul>
                     <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
                     <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>

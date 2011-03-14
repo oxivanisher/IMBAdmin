@@ -4,10 +4,16 @@
     <div id='imbaSsoLogin' class='imbaFont'>
         <img id='imbaSsoLogo' src='/IMBAdmin/Images/guild_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
-            <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='get'>
+            <form id='imbaSsoLoginForm' action='/IMBAdmin/ImbaAuth.php' method='get'>
                 <input id='imbaSsoOpenId' name='openid' type='text' class='imbaInput' />
                 <br />
                 <input id='imbaSsoOpenIdSubmit' type='submit' value='Login' class='imbaInput' />
+            </form>
+            <form id='imbaSsoLogoutForm' action='/IMBAdmin/ImbaAuth.php' method='get'>
+                <input id='imbaSsoShowOpenId' name='openid' type='hidden' class='imbaInput' readonly='true' style='background: gray;' />
+                <input name='logout' value='true' type='hidden' />
+                <br />
+                <input type='submit' value='Logout' class='imbaInput' />
             </form>
         </div>
         <div style='clear: both;' ></div>

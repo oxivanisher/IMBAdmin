@@ -16,7 +16,10 @@ $(document).ready(function() {
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
     // setting old openid
-    $("#imbaSsoOpenId").val(unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName"))));
+    var oldOpenId = unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName")));
+    if (oldOpenId != null && oldOpenId != "null" && oldOpenId != ""){
+        $("#imbaSsoShowOpenId").val(oldOpenId);
+    }
     
     // Checking if user is online
     $.ajaxSetup({
@@ -132,14 +135,13 @@ function refreshUsersOnline(){
  */
 function setLoggedIn(isLoggedIn){
     if (isLoggedIn){
-        $("#imbaSsoOpenIdSubmit").val("Logout");
+        $("#imbaSsoLoginForm").hide();
+        $("#imbaSsoLogoutForm").show();
         $("#imbaOpenMessaging").show();
-        $("#imbaSsoOpenId").attr("readonly", "true");
-        $("#imbaSsoOpenId").css("background", "gray");
     } else {
-        $("#imbaSsoOpenIdSubmit").val("Login");
+        $("#imbaSsoLoginForm").show();
+        $("#imbaSsoLogoutForm").hide();
         $("#imbaOpenMessaging").hide();
-        $("#imbaSsoOpenId").css("background", "white");
     }
 
     isUserLoggedIn = isLoggedIn;

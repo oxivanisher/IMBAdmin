@@ -52,6 +52,10 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('msn', $user->getMsn());
             $smarty->assign('skype', $user->getSkype());
             $smarty->assign('website', $user->getWebsite());
+            $smarty->assign('motto', $user->getMotto());
+            $smarty->assign('avatar', $user->getAvatar());
+            $smarty->assign('signature', $user->getSignature());
+            $smarty->assign('lastonline', $user->getLastonline());
 
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());

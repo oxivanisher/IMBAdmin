@@ -12,10 +12,10 @@
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $motto != ""}
     <i>"{$motto}"</i>
-    {/fi}
+    {/if}
     {if $avatar != ""}
     <img src="{$avatar}" style="float: right;" />
-    {/fi}
+    {/if}
 </h2></td></tr>
 ({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear})<br />
 <i>Letzter Login {$lastLogin}</i>

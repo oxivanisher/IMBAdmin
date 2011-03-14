@@ -19,7 +19,7 @@
         <tr><td colspan="2">({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear})</td></tr>
         <tr><td><i>Letzter Login {$lastLogin}</i></td></tr>
         <tr><td><br /><br /></td><td>&nbsp;</td></tr>
-        {if $icq != ""}
+        {if $icq != "0"}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         {/if}
         {if $msn != ""}

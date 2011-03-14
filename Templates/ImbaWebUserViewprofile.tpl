@@ -15,10 +15,8 @@
     </thead>
     <tbody>
 
-        <tr><td>Nickname:</td><td>{$nickname}</td></tr>
-        <tr><td>Rang:</td><td><img src="{$roleIcon}" />{$role}</td></tr>
-        <tr><td>Vorname:</td><td>{$firstname}</td></tr>
-        <tr><td>Nachname:</td><td>{$lastname}</td></tr>
+        <tr><td>&nbsp;</td><td><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}</td></tr>
+        <tr><td colspan="2"><i>({$firstname} {$lastname})</i></td></tr>
         <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
         {if $icq != ""}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>

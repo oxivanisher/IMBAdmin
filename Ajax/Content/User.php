@@ -48,9 +48,11 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
             if ($user->getSex() == "M") {
-                $smarty->assign('sex', '');
+                $smarty->assign('sex', 'Images/male.png');
+            } else if ($user->getSex() == "F") {
+                $smarty->assign('sex', 'Images/female.png');
             } else {
-                
+                $smarty->assign('sex', '');
             }
             
             $roleManager = new ImbaManagerUserRole($managerDatabase);

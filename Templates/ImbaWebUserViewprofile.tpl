@@ -10,6 +10,9 @@
    
 </script>
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
+    {if $sex != ""}
+    <img src="{$sex}" />
+    {/if}
     {if $motto != ""}
     <i>"{$motto}"</i>
     {/if}

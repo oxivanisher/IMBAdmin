@@ -22,6 +22,7 @@
 <br />
 <br />
 {if $signature != ""}
+<h3>Signatur:</h3>
 <code>
 {$signature}
 </code>

@@ -29,7 +29,7 @@
 <table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
         {if $icq != "0"}
-        <tr><td>ICQ:</td><td>{$icq}</td></tr>
+        <tr><td>ICQ:</td><td><img src="http://online.mirabilis.com/scripts/online.dll?icq={$icq}&img=5" alt="" align="top" /> {$icq}</td></tr>
         {/if}
         {if $msn != ""}
         <tr><td>MSN:</td><td>{$msn}</td></tr>

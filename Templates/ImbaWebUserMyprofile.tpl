@@ -28,7 +28,7 @@
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         <tr><td>Webseite:</td><td>{$website}</td></tr>
         <tr><td>Titel:</td><td>{$usertitle}</tr>
-        <tr><td>Motto:</td><td>{$motto}</tr>
+        <tr><td>Aktuelles Motto:</td><td>{$motto}</tr>
         <tr><td>Avatar URL:</td><td>{$avatar}</tr>
     </tbody>
 </table>

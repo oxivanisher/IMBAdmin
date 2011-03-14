@@ -35,7 +35,7 @@
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         {/if}
         {if $skype != ""}
-        <tr><td>Skype:</td><td>{$skype}</td></tr>
+        <tr><td>Skype:</td><td><a href="skype:{$skype}?call">{$skype}</a></td></tr>
         {/if}
         {if $website != ""}
         <tr><td>Webseite:</td><td><a href="$website" target="_blank">{$website}</a></td></tr>

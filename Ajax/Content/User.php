@@ -86,7 +86,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
-            if ($user->getSex() == "M") {
+            if (strtolower($user->getSex()) == "m") {
                 $smarty->assign('sex', 'Images/male.png');
             } else if (strtolower($user->getSex()) == "w" || strtolower($user->getSex()) == "f") {
                 $smarty->assign('sex', 'Images/female.png');

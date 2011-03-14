@@ -11,7 +11,7 @@
 </script>
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $sex != ""}
-    <img src="{$sex}" />{$sex}
+    <img src="{$sex}" />
     {/if}
     {if $usertitle != ""}
     <i>"{$usertitle}"</i>
@@ -20,6 +20,7 @@
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />
     {/if}
 </h2>
+{$nickname} aktuelles Motto: "{$motto}"<br>
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $signature != ""}
 <h3>Signatur:</h3>

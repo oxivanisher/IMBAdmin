@@ -1,4 +1,3 @@
-  
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $sex != ""}
     <img src="{$sex}" />{$sex}
@@ -15,11 +14,11 @@
 <br />
 <ul>
     <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br /></li>
-    <li><i>Felder mit einem * siehst nur du.</i></li>
+    <li><i>Felder mit einem * siehst nur du und dein Nachname wird auf einen Buchstaben gek&uml;rtzt.</i></li>
 </ul>
 <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
     <tbody>
-        <tr><td>Email:</td><td>{$email}</td></tr>
+        <tr><td>Email *:</td><td>{$email}</td></tr>
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         <tr><td>Skype:</td><td>{$skype}</td></tr>

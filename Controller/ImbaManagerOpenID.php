@@ -219,6 +219,7 @@ class ImbaManagerOpenID {
                 ImbaUserContext::setOpenIdUrl($esc_identity);
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 $userManager->setMeOnline();
+                $this->afterLoginIsDone();
             } else {
                 throw new Exception("Registrierung noch nicht implementiert");
                 // TODO: Registriereung wieder einbauen
@@ -318,6 +319,21 @@ class ImbaManagerOpenID {
             }
             return true;
         }
+    }
+
+    protected function afterLoginIsDone() {
+        /*
+          // Loginto Wordpress
+          require_once("wp-load.php");
+
+          $credentials = array("user_login" => "Aggravate", "user_password" => "test");
+          $user = wp_signon($credentials);
+
+          // Loginto SMF
+          include "smf_api.php";
+          smf_setLoginCookie(100, "Aggravate", "test", false);
+          smf_authenticateUser();
+         */
     }
 
 }

@@ -33,7 +33,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
 
             $smarty->assign('nickname', $user->getNickname());
-            $smarty->assign('lastname', substr($user->getLastname(), 0, 1) . ".");
+            $smarty->assign('lastname', $user->getLastname());
             $smarty->assign('firstname', $user->getFirstname());
             $smarty->assign('birthday', $user->getBirthday());
             $smarty->assign('birthmonth', $user->getBirthmonth());

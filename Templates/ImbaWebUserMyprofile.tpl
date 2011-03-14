@@ -7,7 +7,7 @@
     <i>"{$motto}"</i>
     {/if}
     {if $avatar != ""}
-    <img src="{$avatar}" style="float: right;" />
+    <img src="{$avatar}" style="float: left;" />
     {/if}
 </h2>
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}<br />

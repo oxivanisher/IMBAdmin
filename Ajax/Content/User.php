@@ -55,7 +55,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('motto', $user->getMotto());
             $smarty->assign('avatar', $user->getAvatar());
             $smarty->assign('signature', $user->getSignature());
-            $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline());
+            $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());

@@ -19,14 +19,14 @@
 </ul>
 <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
     <tbody>
-        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></tr>
-        <tr><td>Benutzerdefinierter Titel:</td><td>{$usertitle}</tr>
-        <tr><td>Avatar URL:</td><td>{$avatar}</tr>
-        <tr><td>Webseite:</td><td>{$website}</td></tr>
-        <tr><td>Email:</td><td>{$email}</td></tr>
-        <tr><td>Skype:</td><td>{$skype}</td></tr>
-        <tr><td>ICQ:</td><td>{$icq}</td></tr>
-        <tr><td>MSN:</td><td>{$msn}</td></tr>
+        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></td></tr>
+        <tr><td>Benutzerdefinierter Titel:</td><td><input type="text" name="usertitle" value="{$usertitle}" /></td></tr>
+        <tr><td>Avatar URL:</td><td><input type="text" name="avatar" value="{$avatar}" /></td></tr>
+        <tr><td>Webseite:</td><td><input type="text" name="website" value="{$website}" /></td></tr>
+        <tr><td>Email:</td><td><input type="text" name="email" value="{$email}" /></td></tr>
+        <tr><td>Skype:</td><td><input type="text" name="skype" value="{$skype}" /></td></tr>
+        <tr><td>ICQ:</td><td><input type="text" name="icq" value="{$icq}" /></td></tr>
+        <tr><td>MSN:</td><td><input type="text" name="msn" value="{$msn}" /></td></tr>
     </tbody>
 </table>
 {$signature}

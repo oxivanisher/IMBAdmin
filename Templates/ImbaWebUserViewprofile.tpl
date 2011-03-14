@@ -16,9 +16,9 @@
     <tbody>
 
         <tr><td colspan="2"><h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}</h2></td></tr>
-        <tr><td colspan="2"><i>({$firstname} {$lastname})</i></td></tr>
+        <tr><td colspan="2">({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear})</td></tr>
+        <tr><td><i>Letzter Login {$lastLogin}</i></td></tr>
         <tr><td><br /><br /></td><td>&nbsp;</td></tr>
-        <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
         {if $icq != ""}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         {/if}
@@ -34,7 +34,6 @@
         {if $games != ""}
         <tr><td>Games:</td><td>{$games}</td></tr>
         {/if}
-        <tr><td>Letzter Login:</td><td>{$lastLogin}</td></tr>
 
     </tbody>
 </table>

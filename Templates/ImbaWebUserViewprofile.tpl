@@ -38,7 +38,7 @@
         <tr><td>Skype:</td><td><a href="skype:{$skype}?call">{$skype}</a></td></tr>
         {/if}
         {if $website != ""}
-        <tr><td>Webseite:</td><td><a href="$website" target="_blank">{$website}</a></td></tr>
+        <tr><td>Webseite:</td><td><a href="{$website}" target="_blank">{$website}</a></td></tr>
         {/if}
         {if $games != ""}
         <tr><td>Games:</td><td>{$games}</td></tr>

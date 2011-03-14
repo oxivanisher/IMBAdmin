@@ -12,7 +12,7 @@
         {if $msn != ""}
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         {/if}
-        {if skype != ""}
+        {if skype != "thanem-udl"}
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         {/if}
         <tr><td>Webseite:</td><td><a href="javascript: viewUserProfile('{$website}');">{$website}</a></td></tr>

@@ -23,9 +23,9 @@
 <code>
 {$signature}
 </code>
-<br />
-<br />
 {/if}
+<br />
+<br />
 <table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
         {if $icq != "0"}

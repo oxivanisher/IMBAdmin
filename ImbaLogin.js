@@ -135,9 +135,11 @@ function setLoggedIn(isLoggedIn){
         $("#imbaSsoOpenIdSubmit").val("Logout");
         $("#imbaOpenMessaging").show();
         $("#imbaSsoOpenId").attr("readonly", "true");
+        $("#imbaSsoOpenId").css("background", "gray");
     } else {
         $("#imbaSsoOpenIdSubmit").val("Login");
         $("#imbaOpenMessaging").hide();
+        $("#imbaSsoOpenId").css("background", "white");
     }
 
     isUserLoggedIn = isLoggedIn;

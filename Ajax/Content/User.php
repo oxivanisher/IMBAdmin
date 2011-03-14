@@ -34,6 +34,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty->assign('nickname', $user->getNickname());
             $smarty->assign('lastname', $user->getLastname());
+            $smarty->assign('shortlastname', substr($user->getLastname(), 0, 1) . ".");
             $smarty->assign('firstname', $user->getFirstname());
             $smarty->assign('birthday', $user->getBirthday());
             $smarty->assign('birthmonth', $user->getBirthmonth());

@@ -11,16 +11,18 @@
 </script>
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>
-<!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
+        <!--        <tr><th>Nickname</th><th>Last Online</th><th>Jabber</th><th>Games</th></tr> -->
     </thead>
     <tbody>
 
         <tr><td>Nickname:</td><td>{$nickname}</td></tr>
+        <tr><td>Rang:</td><td><img src="{$roleIcon}" />{$role}</td></tr>
         <tr><td>Vorname:</td><td>{$firstname}</td></tr>
         <tr><td>Nachname:</td><td>{$lastname}</td></tr>
         <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
         {if $icq != ""}
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
+        {/if}
         {if $msn != ""}
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         {/if}
@@ -30,14 +32,11 @@
         {if $website != ""}
         <tr><td>Webseite:</td><td><a href="$website" target="_blank">{$website}</a></td></tr>
         {/if}
-        {if $skype != ""}
-        <tr><td>Rang:</td><td><img src="{$roleIcon}" />{$role}</td></tr>
-        {/if}
-        {if $skype != ""}
+        {if $games != ""}
         <tr><td>Games:</td><td>{$games}</td></tr>
         {/if}
         <tr><td>Letzter Login:</td><td>{$lastLogin}</td></tr>
-        
+
     </tbody>
 </table>
 <br />

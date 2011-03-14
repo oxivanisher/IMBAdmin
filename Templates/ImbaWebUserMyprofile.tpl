@@ -23,14 +23,12 @@
     </thead>
     <tbody>
         <tr><td>Email:</td><td>{$email}</td></tr>
-        <tr><td>Vorname:</td><td>{$firstname}</td></tr>
-        <tr><td>Nachname:</td><td>{$lastname}</td></tr>
-        <tr><td>Geburtsdatum:</td><td>{$birthday}.{$birthmonth}.{$birthyear}</td></tr>
         <tr><td>ICQ:</td><td>{$icq}</td></tr>
         <tr><td>MSN:</td><td>{$msn}</td></tr>
         <tr><td>Skype:</td><td>{$skype}</td></tr>
         <tr><td>Webseite:</td><td>{$website}</td></tr>
         <tr><td>Titel:</td><td>{$usertitle}</tr>
+        <tr><td>Motto:</td><td>{$motto}</tr>
         <tr><td>Avatar URL:</td><td>{$avatar}</tr>
     </tbody>
 </table>

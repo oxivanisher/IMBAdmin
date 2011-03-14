@@ -15,8 +15,8 @@ $(document).ready(function() {
     //login to wordpress ^^
     //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
 
-    var a = document.cookie;   
-    alert(a);
+    //var a = document.cookie;
+    //alert(a);
 
     // Checking if user is online
     $.ajaxSetup({

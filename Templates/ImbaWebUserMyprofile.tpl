@@ -14,8 +14,8 @@
 <i>(Deine OpenID ist {$openid})</i><br />
 <br />
 <ul>
-    <i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br />
-    <i>Felder mit einem * siehst nur du.</i>
+    <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br /></li>
+    <li><i>Felder mit einem * siehst nur du.</i></li>
 </ul>
 <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>

@@ -19,6 +19,19 @@
   {$role}
   {$lastonline}
     
+  <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
+    {if $sex != ""}
+    <img src="{$sex}" />{$sex}
+    {/if}
+    {if $motto != ""}
+    <i>"{$motto}"</i>
+    {/if}
+    {if $avatar != ""}
+    <img src="{$avatar}" style="float: right;" />
+    {/if}
+</h2>
+  
+  
     
     <table id="ImbaWebUsersViewprofileTable" cellpadding="0" cellspacing="0" border="0">
     <thead>

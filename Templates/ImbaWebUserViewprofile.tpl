@@ -13,8 +13,8 @@
     {if $sex != ""}
     <img src="{$sex}" />{$sex}
     {/if}
-    {if $motto != ""}
-    <i>"{$motto}"</i>
+    {if $usertitle != ""}
+    <i>"{$usertitle}"</i>
     {/if}
     {if $avatar != ""}
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />

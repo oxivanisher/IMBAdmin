@@ -2,8 +2,8 @@
     {if $sex != ""}
     <img src="{$sex}" />{$sex}
     {/if}
-    {if $motto != ""}
-    <i>"{$motto}"</i>
+    {if $usertitle != ""}
+    <i>"{$usertitle}"</i>
     {/if}
     {if $avatar != ""}
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />
@@ -22,7 +22,7 @@
                     <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
                 </ul>                
             </td></tr>
-        <tr><td>Benutzerdefinierter Titel:</td><td><input type="text" name="usertitle" value="{$usertitle}" /></td></tr>
+        <tr><td>Titel:</td><td><input type="text" name="usertitle" value="{$usertitle}" /></td></tr>
         <tr><td>Avatar URL:</td><td><input type="text" name="avatar" value="{$avatar}" /></td></tr>
         <tr><td>Webseite:</td><td><input type="text" name="website" value="{$website}" /></td></tr>
         <tr><td>Email:</td><td><input type="text" name="email" value="{$email}" /></td></tr>

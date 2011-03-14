@@ -45,6 +45,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('email', $user->getEmail());
             $smarty->assign('website', $user->getWebsite());
             $smarty->assign('motto', $user->getMotto());
+            $smarty->assign('usertitle', $user->getUsertitle());
             $smarty->assign('avatar', $user->getAvatar());
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('openid', $user->getOpenid());
@@ -87,6 +88,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('motto', $user->getMotto());
             $smarty->assign('avatar', $user->getAvatar());
             $smarty->assign('openid', $user->getOpenid());
+            $smarty->assign('usertitle', $user->getUsertitle());
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 

@@ -12,14 +12,16 @@
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}<br />
 <i>(Deine OpenID ist {$openid})</i><br />
 <br />
-<ul>
-    <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
-    <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
-    <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
-</ul>
-<table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
+
+<table id="ImbaWebUsersViewprofileTable" style="cellspacing: 1px;">
     <tbody>
-        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></td></tr>
+        <tr><td>Aktuelles Motto:</td><td><input type="text" name="motto" value="{$motto}" /></td><td rowspan="8">
+                <ul>
+                    <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
+                    <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
+                    <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
+                </ul>                
+            </td></tr>
         <tr><td>Benutzerdefinierter Titel:</td><td><input type="text" name="usertitle" value="{$usertitle}" /></td></tr>
         <tr><td>Avatar URL:</td><td><input type="text" name="avatar" value="{$avatar}" /></td></tr>
         <tr><td>Webseite:</td><td><input type="text" name="website" value="{$website}" /></td></tr>

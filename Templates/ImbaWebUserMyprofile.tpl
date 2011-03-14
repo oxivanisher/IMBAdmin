@@ -14,7 +14,7 @@
 <br />
 <ul>
     <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i><br /></li>
-    <li><i>Felder mit einem * siehst nur du und dein Nachname wird auf einen Buchstaben gek&uml;rtzt.</i></li>
+    <li><i>Felder mit einem * siehst nur du und dein Nachname wird auf einen Buchstaben gek&uuml;rzt.</i></li>
 </ul>
 <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 3px;">
     <tbody>

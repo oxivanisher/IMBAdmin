@@ -86,13 +86,13 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('signature', $user->getSignature());
             $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
 
-            if ($user->getSex() == "M") {
+/*            if ($user->getSex() == "M") {
                 $smarty->assign('sex', 'Images/male.png');
             } else if (strtolower($user->getSex()) == "w" || strtolower($user->getSex()) == "f") {
                 $smarty->assign('sex', 'Images/female.png');
             } else {
                 $smarty->assign('sex', '');
-            }
+            } */
 $smarty->assign('sex', $user->getSex());
             $roleManager = new ImbaManagerUserRole($managerDatabase);
             $role = $roleManager->selectById($user->getRole());

@@ -18,8 +18,6 @@
     {/if}
 </h2></td></tr>
 ({$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Letzter Login {$lastLogin})<br />
-<br />
-<br />
 {if $signature != ""}
 <h3>Signatur:</h3>
 <code>

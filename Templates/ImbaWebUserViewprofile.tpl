@@ -20,7 +20,9 @@
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />
     {/if}
 </h2>
+{if $motto}
 {$nickname} aktuelles Motto: "{$motto}"<br>
+{/if}
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $signature != ""}
 <h3>Signatur:</h3>

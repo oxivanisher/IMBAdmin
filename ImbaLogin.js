@@ -273,7 +273,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     }, function (response){
         $("#imbaContentDialog").dialog({
 //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
-            title: "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' onclick='javascript:loadImbaAdminDefaultModule();' ></span>IMBAdmin" + response
+            title: "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' onclick='javascript:loadImbaAdminDefaultModule();' > </span> IMBAdmin" + response
         });
     });
 

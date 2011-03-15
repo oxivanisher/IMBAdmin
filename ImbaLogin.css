@@ -200,7 +200,16 @@
 }
 
 /* IMBAdmin Content */
+#imbaContentNav {
+    background-image: url('/IMBAdmin/Images/guild_logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    filter: alpha(opacity=20);
+    opacity: 0.2;
+}
+
 #imbaContentNav div {
     /* aggravate, ich mach die darstellungsprobleme mit der datatable */
 /*    height: 80%; */
 }
+

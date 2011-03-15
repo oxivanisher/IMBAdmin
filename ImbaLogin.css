@@ -201,7 +201,7 @@
 
 /* IMBAdmin Content */
 #imbaContentNav {
-    background-image: url('/IMBAdmin/Images/guild_logo.png');
+    background-image: url('/IMBAdmin/Images/guild_logo_transparent.png');
     background-position: center center;
     background-repeat: no-repeat;
     filter: alpha(opacity=20);

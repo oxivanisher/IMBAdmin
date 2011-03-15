@@ -19,6 +19,7 @@ $(document).ready(function() {
     var oldOpenId = unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName")));
     if (oldOpenId != null && oldOpenId != "null" && oldOpenId != ""){
         $("#imbaSsoShowOpenId").val(oldOpenId);
+        $("#imbaSsoOpenId").val(oldOpenId);
     }
     
     // Checking if user is online

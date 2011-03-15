@@ -204,8 +204,6 @@
     background-image: url('/IMBAdmin/Images/guild_logo_transparent.png');
     background-position: center center;
     background-repeat: no-repeat;
-    filter: alpha(opacity=20);
-    opacity: 0.2;
 }
 
 #imbaContentNav div {

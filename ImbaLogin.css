@@ -110,10 +110,6 @@
 #imbaContent {
 }
 
-/*#imbaContentDialog {
-    position: fixed;
-}*/
-
 #imbaContent li .ui-icon-close { 
     float: left;
     cursor: pointer;

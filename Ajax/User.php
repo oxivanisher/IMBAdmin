@@ -102,13 +102,8 @@ if (ImbaUserContext::getLoggedIn()) {
      * Return currently logged in User
      */
     if (isset($_POST['returnmyself'])) {
-        $users = $managerUser->selectMyself();
-        $result = array();
-        foreach ($users as $user) {
-            array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
-        }
-
-        echo json_encode($result);
+        $user = $managerUser->selectMyself();
+        echo json_encode(array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
     }
 } else {
     echo "Not logged in";

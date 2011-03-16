@@ -301,13 +301,15 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName
     }, function (response){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
-        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
-        myName = loadMyImbaUser('name');
+        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' /></a>";
+        tmpTitle += "&nbsp;&nbsp;&nbsp;";
 
-        if (currentUserName != "") {
+        if (currentUserName != null) {
             tmpTitle += currentUserName + "&nbsp;@";
         }
-        tmpTitle += "&nbsp;IMBAdmin</a>";
+        
+        tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
+        tmpTitle += "IMBAdmin</a>";
         //        alert(tmpResponse);
         if (response) {
             tmpTitle += "&nbsp;&nbsp;/&nbsp;&nbsp;";

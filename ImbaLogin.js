@@ -245,22 +245,24 @@ function loadImbaAdminDefaultModule(){
         loadImbaAdminModule(response.toString());
     });
 }
+
 /**
 * Returns the name of the user currently logged in
 */
 function loadMyImbaUserName() {
     $.post(ajaxEntry, {
         action: "user",
+        request: "name",
         returnmyself: true
     }, function (response){
     alert("test");
+    var tmpName = "";
         $.each($.parseJSON(response), function(key, value){
-            alert(value.name);
-            return value.name;
+            tmpName = value.name;
         });
+        return tmpName;
     });
 }
-
 
 /**
  * loads the ImbaAdmin module in the IMBAdmin window

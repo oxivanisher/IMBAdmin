@@ -37,4 +37,5 @@ $Navigation->setMinUserRole(1);
  */
 $Navigation->addElement("overview", "Mitglieder &Uuml;bersicht", "Hier kannst du alles &uuml;ber unsere anderen Mitglieder erfahren.");
 $Navigation->addElement("editmyprofile", "Mein Profil Editieren", "Hier kannst du dein Profil editieren.");
+$Navigation->addElement("viewmyprofile", "Mein Profil Ansehen", "Hier kannst du dein Profil so ancheuen.");
 ?>

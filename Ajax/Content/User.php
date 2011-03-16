@@ -130,6 +130,46 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;
 
+        case "viewmyprofile":
+            if (isset($_POST["payLoad"]))
+                $_POST["openid"] = $_POST["payLoad"];
+
+            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+
+            $smarty->assign('nickname', $user->getNickname());
+            $smarty->assign('lastname', substr($user->getLastname(), 0, 1) . ".");
+            $smarty->assign('firstname', $user->getFirstname());
+            $smarty->assign('birthday', $user->getBirthday());
+            $smarty->assign('birthmonth', $user->getBirthmonth());
+            $smarty->assign('birthyear', $user->getBirthyear());
+            $smarty->assign('icq', $user->getIcq());
+            $smarty->assign('msn', $user->getMsn());
+            $smarty->assign('skype', $user->getSkype());
+            $smarty->assign('website', $user->getWebsite());
+            $smarty->assign('motto', $user->getMotto());
+            $smarty->assign('avatar', $user->getAvatar());
+            $smarty->assign('openid', $user->getOpenid());
+            $smarty->assign('usertitle', $user->getUsertitle());
+            $smarty->assign('signature', $user->getSignature());
+            $smarty->assign('lastonline', ImbaSharedFunctions::getNiceAge($user->getLastonline()));
+
+            if (strtolower($user->getSex()) == "m") {
+                $smarty->assign('sex', 'Images/male.png');
+            } else if (strtolower($user->getSex()) == "w" || strtolower($user->getSex()) == "f") {
+                $smarty->assign('sex', 'Images/female.png');
+            } else {
+                $smarty->assign('sex', '');
+            }
+
+            $roleManager = new ImbaManagerUserRole($managerDatabase);
+            $role = $roleManager->selectById($user->getRole());
+
+            $smarty->assign('role', $role->getName());
+            $smarty->assign('roleIcon', $role->getIcon());
+
+            $smarty->display('ImbaWebUserViewprofile.tpl');
+            break;
+
         default:
             $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());

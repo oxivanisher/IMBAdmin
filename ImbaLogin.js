@@ -278,7 +278,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
 //            myOpenid = value.openid;
         });
     });
-    alert("n:"+myName+", o:"+myOpenid);
+//    alert("n:"+myName+", o:"+myOpenid);
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",

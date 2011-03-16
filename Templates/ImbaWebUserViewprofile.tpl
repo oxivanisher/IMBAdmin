@@ -9,6 +9,10 @@
     }
    
 </script>
+{if $avatar != ""}
+<div style='float: left;'><img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /></div>
+{/if}
+<div style='float: left;'>
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $sex != ""}
     <img src="{$sex}" />
@@ -16,10 +20,9 @@
     {if $usertitle != ""}
     <i>"{$usertitle}"</i>
     {/if}
-    {if $avatar != ""}
-    <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />
-    {/if}
 </h2>
+</div>
+<div style='clear: both;' />
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $motto}
 {$nickname} aktuelles Motto: <b>"{$motto}"</b><br />

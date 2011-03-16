@@ -268,14 +268,26 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
      */
     //tmpResponse = null;
     $.post(ajaxEntry, {
+        action: "user",
+        request: "returnmyself"
+    }, function (response){
+        $.each($.parseJSON(response), function(key, value){
+            myName = value.name;
+            myOpenid = value.openid;
+        });
+    });
+    alert("n:"+myName+", o:"+myOpenid);
+    $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
         module: moduleName
     }, function (response){
-        tmpTitle = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";
+        tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
+        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";
 //        alert(tmpResponse);
         if (response)
-            tmpTitle += "&nbsp;&nbsp;/&nbsp;&nbsp;<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
+            tmpTitle += "&nbsp;&nbsp;/&nbsp;&nbsp;";
+            tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
         $("#imbaContentDialog").dialog({
             title: tmpTitle
         });

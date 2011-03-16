@@ -13,14 +13,15 @@
 <div style='float: left;'>
     <br />
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /><br />
+    <img src="{$roleIcon}" width="20" height="20" title="{$role}" />
+    {if $sex != ""}
+    <img src="{$sex}" />
+    {/if}
     <span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span>
 </div>
 {/if}
 <div style='float: left; vertical-align: top; text-align: top;'>
-<h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
-    {if $sex != ""}
-    <img src="{$sex}" />
-    {/if}
+<h2>{$nickname}
     {if $usertitle != ""}
     <i>"{$usertitle}"</i>
     {/if}

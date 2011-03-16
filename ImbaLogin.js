@@ -305,7 +305,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         tmpTitle += "&nbsp;&nbsp;&nbsp;";
 
         if (currentUserName != null) {
-            tmpTitle += currentUserName + "&nbsp;@";
+            tmpTitle += currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;";
         }
         
         tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";

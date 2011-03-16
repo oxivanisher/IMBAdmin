@@ -149,8 +149,8 @@ function setLoggedIn(isLoggedIn){
 }
 
 /**
-* Shows the Menu and stuff around
-*/
+ * Shows the Menu and stuff around
+ */
 function showMenu() {
     // run the effect
     $("#imbaMenu").show("slide", {
@@ -168,8 +168,8 @@ function showMenu() {
 }
 
 /**
-* Hids the Menu and stuff around
-*/
+ * Hids the Menu and stuff around
+ */
 function hideMenu() {
     // run the effect
     $("#imbaMenu").hide("slide", {
@@ -186,15 +186,15 @@ function hideMenu() {
 }
 
 /**
-* Returns the current selected tab index
-*/
+ * Returns the current selected tab index
+ */
 function getSelectedImbaAdminTabIndex(){
     return $('#imbaContentNav').tabs('option', 'selected');
 }
 
 /**
-* Return the Id of a tab from a tabIndex
-*/
+ * Return the Id of a tab from a tabIndex
+ */
 function getImbaAdminTabIdFromTabIndex(tabIndex){
     var result = "";
     $.each($("#imbaContentNav a"), function (k, v) {
@@ -208,8 +208,8 @@ function getImbaAdminTabIdFromTabIndex(tabIndex){
 }
 
 /**
-* loads the ImbaAdminTab content, depending on the data for the post request
-*/
+ * loads the ImbaAdminTab content, depending on the data for the post request
+ */
 function loadImbaAdminTabContent(data, myTabId) {
     var targetIabId = null;
     if (myTabId == null) {
@@ -247,8 +247,8 @@ function loadImbaAdminDefaultModule(){
 }
 
 /**
-* loads the ImbaAdmin module in the IMBAdmin window
-*/
+ * loads the ImbaAdmin module in the IMBAdmin window
+ */
 function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     currentModule = moduleName;
     currentModuleDo = moduleDo;
@@ -272,8 +272,11 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName
     }, function (response){
         $("#imbaContentDialog").dialog({
-//            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
-            title: "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>" + response
+            //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
+            tmpTitle = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";
+            if (response)
+                tmpTitle = tmpTitle + "&nbsp;&nbsp;/&nbsp;&nbsp;<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule('" + moduleName + "');'>" + response + "</a>";
+            title:  tmpTitle;
         });
     });
 

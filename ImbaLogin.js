@@ -306,11 +306,10 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
             tmpTitle += "<div style='float: left; cursor: pointer;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
         }
         
-        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaAdminDefaultModule();'>";
-        tmpTitle += "IMBAdmin</div>";
+        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaAdminDefaultModule();'>IMBAdmin</div>";
 
         if (response) {
-            tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;</div>";
+            tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";
             tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
         }
         $("#imbaContentDialog").dialog({

@@ -12,7 +12,7 @@
 {if $avatar != ""}
 <div style='float: left;'><img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /></div>
 {/if}
-<div style='float: left;'>
+<div style='float: left; vertical-align: top;'>
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
     {if $sex != ""}
     <img src="{$sex}" />

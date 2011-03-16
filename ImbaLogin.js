@@ -256,6 +256,7 @@ function loadMyImbaUserName() {
         returnmyself: true
     }, function (response){
     var tmpName = "";
+        alert(response);
         $.each($.parseJSON(response), function(key, value){
             alert("test: "+key);
             tmpName = value.name;

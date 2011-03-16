@@ -10,7 +10,11 @@
    
 </script>
 {if $avatar != ""}
-<div style='float: left;'><br /><img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /></div>
+<div style='float: left;'>
+    <br />
+    <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /><br />
+    <span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span>
+</div>
 {/if}
 <div style='float: left; vertical-align: top; text-align: top;'>
 <h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
@@ -37,7 +41,7 @@ Aktuelles Motto: <b>"{$motto}"</b><br />
 <br />
 <table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
-        <tr><td>IMBAdmin</td><td><span class='ui-icon ui-icon-comment' style='float: left;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');">Klick mich um ein Chatfenster zu zu &Ouml;ffnen</span></td></tr>
+        <tr><td>IMBAdmin</td><td><span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span></td></tr>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td><img src="http://online.mirabilis.com/scripts/online.dll?icq={$icq}&img=5" alt="" /> {$icq}</td></tr>
         {/if}

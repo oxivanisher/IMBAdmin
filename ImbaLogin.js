@@ -266,19 +266,22 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     /**
      * Set the window title
      */
+    var tmpResponse = null;
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
         module: moduleName
     }, function (response){
-        $("#imbaContentDialog").dialog({
-            //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
-            tmpTitle = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";
-            if (response)
-                tmpTitle = tmpTitle + "&nbsp;&nbsp;/&nbsp;&nbsp;<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule('" + moduleName + "');'>" + response + "</a>";
-            title:  tmpTitle;
-        });
+        tmpResponse = response;
     });
+        //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
+    tmpTitle = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";
+    if (tmpResponse)
+        tmpTitle = tmpTitle + "&nbsp;&nbsp;/&nbsp;&nbsp;<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule('" + moduleName + "');'>" + tmpResponse + "</a>";
+    $("#imbaContentDialog").dialog({
+        title: tmpTitle
+    });
+
 
     /**
      * get and render tabs

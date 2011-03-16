@@ -249,10 +249,9 @@ function loadImbaAdminDefaultModule(){
 /**
 * Returns the name of the user currently logged in
 */
-function loadMyImbaUserName() {
+function loadMyImbaUser(what) {
     $.post(ajaxEntry, {
         action: "user",
-        request: "name",
         returnmyself: true
     }, function (response){
     var tmpName = "";
@@ -294,7 +293,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     }, function (response){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
-        myName = loadMyImbaUserName();
+        myName = loadMyImbaUser('name');
         if (myName != "")
             tmpTitle += myName + "&nbsp;@";
         tmpTitle += "&nbsp;IMBAdmin</a>";

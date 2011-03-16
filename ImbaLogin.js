@@ -249,6 +249,7 @@ function loadImbaAdminDefaultModule(){
 * Returns the name of the user currently logged in
 */
 function loadMyImbaUserName() {
+    alert("test");
     $.post(ajaxEntry, {
         action: "user",
         returnmyself: true

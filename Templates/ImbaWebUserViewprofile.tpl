@@ -9,27 +9,27 @@
     }
    
 </script>
-{if $avatar != ""}
 <div style='float: left;'>
     <br />
+    {if $avatar != ""}
     <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" /><br />
+    {/if}
     <img src="{$roleIcon}" width="20" height="20" title="{$role}" />
     {if $sex != ""}
     <img src="{$sex}" />
     {/if}
     <span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span>
 </div>
-{/if}
 <div style='float: left; vertical-align: top; text-align: top;'>
-<h2>{$nickname}
-    {if $usertitle != ""}
-    <i>"{$usertitle}"</i>
+    <h2>{$nickname}
+        {if $usertitle != ""}
+        <i>"{$usertitle}"</i>
+        {/if}
+    </h2>
+    {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
+    {if $motto}
+    Aktuelles Motto: <b>"{$motto}"</b><br />
     {/if}
-</h2>
-{$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
-{if $motto}
-Aktuelles Motto: <b>"{$motto}"</b><br />
-{/if}
 </div>
 <div style='clear: both;' />
 {if $signature != ""}

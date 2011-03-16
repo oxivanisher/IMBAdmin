@@ -275,6 +275,7 @@ function loadMyImbaUser() {
 function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     currentModule = moduleName;
     currentModuleDo = moduleDo;
+    loadMyImbaUser();
     
     /**
      * Remove all tabs
@@ -299,7 +300,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
         myName = loadMyImbaUser('name');
-        alert(loadMyImbaUser('name'));
+        alert(currentUserName);
         if (myName != "") {
             tmpTitle += myName + "&nbsp;@";
         }

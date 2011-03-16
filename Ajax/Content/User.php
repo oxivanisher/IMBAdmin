@@ -28,7 +28,7 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = new ImbaManagerUser($managerDatabase);
 
     switch ($_POST["request"]) {
-        case "myprofile":
+        case "editmyprofile":
             $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
 
             $smarty->assign('nickname', $user->getNickname());

@@ -28,7 +28,6 @@
         });
     } );   
 </script>
-<i>(Deine OpenID ist {$openid})</i><br />
 <form id="ImbaWebUsersViewprofileForm" action="post">
     <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 1px;">
         <tbody>

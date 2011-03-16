@@ -254,10 +254,10 @@ function loadMyImbaUser(what) {
     $.post(ajaxEntry, {
         action: "user",
         returnmyself: true
-    }, function (response){
+    }, tmpReturn = function (response){
         $.each($.parseJSON(response), function(key, value){
             if (key == what) {
-                tmpReturn = value;
+                return value;
             }
         });
     });

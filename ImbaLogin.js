@@ -266,7 +266,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     /**
      * Set the window title
      */
-    var tmpResponse = null;
+    tmpResponse = null;
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",

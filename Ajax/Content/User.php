@@ -126,7 +126,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
-            $smarty->assign('backlink', '<br /><a href="javascript:void(0)" onclick="javascript: backToUserOverview();">back</a>');
+            $smarty->assign('myownprofile', false);
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;
 
@@ -166,7 +166,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
-            $smarty->assign('backlink', "");
+            $smarty->assign('myownprofile', true);
 
             $smarty->display('ImbaWebUserViewprofile.tpl');
             break;

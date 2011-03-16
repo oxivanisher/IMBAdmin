@@ -18,7 +18,9 @@
     {if $sex != ""}
     <img src="{$sex}" />
     {/if}
+    {if $myownprofile != true}
     <span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span>
+    {/fi}
 </div>
 <div style='float: left; vertical-align: top; text-align: top;'>
     <h2>{$nickname}
@@ -61,4 +63,6 @@
 
     </tbody>
 </table>
-{$backlink}
+{if $myownprofile != true}
+<br /><a href="javascript:void(0)" onclick="javascript: backToUserOverview();">back</a>
+{/fi}

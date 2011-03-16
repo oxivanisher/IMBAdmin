@@ -251,7 +251,7 @@ function loadImbaAdminDefaultModule(){
 function loadMyImbaUserName() {
     $.post(ajaxEntry, {
         action: "user",
-        request: "returnmyself"
+        returnmyself: true
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             alert(value.name);

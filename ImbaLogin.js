@@ -257,9 +257,9 @@ function loadMyImbaUserName() {
     }, function (response){
     var tmpName = "";
         $.each($.parseJSON(response), function(key, value){
+            alert("test: "+key);
             tmpName = value.name;
         });
-    alert("test");
         return tmpName;
     });
 }

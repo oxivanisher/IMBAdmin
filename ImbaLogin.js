@@ -250,16 +250,19 @@ function loadImbaAdminDefaultModule(){
 * Returns the name of the user currently logged in
 */
 function loadMyImbaUser(what) {
-    return $.post(ajaxEntry, {
+    var tmpReturn = null;
+    $.post(ajaxEntry, {
         action: "user",
         returnmyself: true
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             if (key == what) {
-                return value;
+                tmpReturn = value;
             }
         });
     });
+    alert(tmpReturn);
+    return tmpReturn;
 }
 
 /**

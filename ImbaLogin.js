@@ -315,7 +315,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         //        alert(tmpResponse);
         if (response) {
             tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;</div>";
-            tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");' style='float: left;'>" + response + "</div>";
+            tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
         }
         $("#imbaContentDialog").dialog({
             title: tmpTitle

@@ -159,11 +159,6 @@ class ImbaManagerUser {
      * Select one User by OpenId
      */
     public function selectByOpenId($openId) {
-        /*        $checkOpenidLambda = function ($x) {
-          return $x->getOpenId();
-          };
-          $result = array_search($openId, array_map($checkOpenidLambda, $this->selectAllUser()));
-          return $this->usersCached[$result]; */
         foreach ($this->selectAllUser()as $user) {
             if ($user->getOpenId() == $openId)
                 return $user;
@@ -174,11 +169,6 @@ class ImbaManagerUser {
      * Select the actual user
      */
     public function selectMyself() {
-        /*        $checkOpenidLambda = function ($x) {
-          return $x->getOpenId();
-          };
-          $result = array_search($openId, array_map($checkOpenidLambda, $this->selectAllUser()));
-          return $this->usersCached[$result]; */
         foreach ($this->selectAllUser()as $user) {
             if ($user->getOpenId() == ImbaUserContext::getOpenIdUrl())
                 return $user;

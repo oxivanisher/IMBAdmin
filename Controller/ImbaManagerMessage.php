@@ -7,7 +7,6 @@ require_once 'Model/ImbaUser.php';
 
 /**
  * Description of ImbaManagerMessage
- *
  */
 class ImbaManagerMessage {
 

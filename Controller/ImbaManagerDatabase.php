@@ -62,9 +62,9 @@ class ImbaManagerDatabase {
         }
         $query = vsprintf($queryStr, $args);
 
-        $this->result = mysql_query($query, $this->connection);
+        //echo $query . "\n";
 
-        //echo $query;
+        $this->result = mysql_query($query, $this->connection);
 
         if (!$this->result) {
             throw new Exception("Database Query not working!");

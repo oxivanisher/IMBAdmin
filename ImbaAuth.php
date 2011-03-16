@@ -110,6 +110,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
+    setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60*60*24*30)));
     header("location: index.html");
 }

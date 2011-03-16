@@ -271,6 +271,8 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         action: "user",
         request: "returnmyself"
     }, function (response){
+        var myName = "";
+        var myOpenid = "";
         $.each($.parseJSON(response), function(key, value){
             myName = value.name;
             myOpenid = value.openid;

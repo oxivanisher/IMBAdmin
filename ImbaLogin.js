@@ -259,9 +259,9 @@ function loadMyImbaUser() {
         returnmyself: true
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
-            if (key == name) {
+            if (key == "name") {
                 currentUserName = value;
-            } else if (key == openid) {
+            } else if (key == "openid") {
                 currentUserOpenid = value;
             }
         });

@@ -308,11 +308,12 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
             tmpTitle += currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;";
         }
         
+        
         tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "IMBAdmin</a>";
         //        alert(tmpResponse);
         if (response) {
-            tmpTitle += "&nbsp;&nbsp;/&nbsp;&nbsp;";
+            tmpTitle += "&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-w' style='cursor: pointer; float: left;' /></a>&nbsp;&nbsp;";
             tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
         }
         $("#imbaContentDialog").dialog({

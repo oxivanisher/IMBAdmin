@@ -316,8 +316,6 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
             title: tmpTitle
         });
     });
-    //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
-
 
     /**
      * get and render tabs

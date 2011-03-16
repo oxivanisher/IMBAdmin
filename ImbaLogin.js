@@ -273,7 +273,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName
     }, function (response){
         //alert(response);
-        var tmpResponse = response;
+        tmpResponse = response;
     });
         //            title: "<img src='Images/user-home.png' style='cursor: pointer;' width='16' height='16' onclick='javascript:loadImbaAdminDefaultModule();' /> IMBAdmin " + response
     tmpTitle = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'><span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;&nbsp;IMBAdmin</a>";

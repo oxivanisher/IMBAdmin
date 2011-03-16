@@ -274,8 +274,8 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         var myName = "";
         var myOpenid = "";
         $.each($.parseJSON(response), function(key, value){
-            myName = value.name;
-            myOpenid = value.openid;
+//            myName = value.name;
+//            myOpenid = value.openid;
         });
     });
     alert("n:"+myName+", o:"+myOpenid);

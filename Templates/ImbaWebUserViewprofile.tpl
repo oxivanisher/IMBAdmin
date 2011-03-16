@@ -26,9 +26,9 @@
 {/if}
 {if $signature != ""}
 <h3>Signatur:</h3>
-<code>
+<pre>
 {$signature}
-</code>
+</pre>
 {/if}
 <br />
 <br />

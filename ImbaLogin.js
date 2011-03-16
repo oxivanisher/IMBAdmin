@@ -255,11 +255,11 @@ function loadMyImbaUserName() {
         request: "name",
         returnmyself: true
     }, function (response){
-    alert("test");
     var tmpName = "";
         $.each($.parseJSON(response), function(key, value){
             tmpName = value.name;
         });
+    alert("test");
         return tmpName;
     });
 }

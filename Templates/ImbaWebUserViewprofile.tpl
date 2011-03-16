@@ -44,7 +44,6 @@
 <br />
 <table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
-        <tr><td>IMBAdmin</td><td><span class='ui-icon ui-icon-comment' style='float: left; cursor: pointer;' onclick="javascript:createChatWindow('{$nickname}', '{$openid}');"></span></td></tr>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td><img src="http://online.mirabilis.com/scripts/online.dll?icq={$icq}&img=5" alt="" /> {$icq}</td></tr>
         {/if}

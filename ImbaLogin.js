@@ -287,7 +287,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
         //if (myName != "")
-            tmpTitle += myName + "@";
+//            tmpTitle += myName + "@";
         tmpTitle += "&nbsp;IMBAdmin</a>";
         //        alert(tmpResponse);
         if (response)

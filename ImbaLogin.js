@@ -245,6 +245,20 @@ function loadImbaAdminDefaultModule(){
         loadImbaAdminModule(response.toString());
     });
 }
+/**
+* Returns the name of the user currently logged in
+*/
+function loadMyImbaUserName() {
+    $.post(ajaxEntry, {
+        action: "user",
+        request: "returnmyself"
+    }, function (response){
+        $.each($.parseJSON(response), function(key, value){
+            return value.name;
+        });
+    });
+}
+
 
 /**
  * loads the ImbaAdmin module in the IMBAdmin window
@@ -267,26 +281,16 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
      * Set the window title
      */
     //tmpResponse = null;
-    $.post(ajaxEntry, {
-        action: "user",
-        request: "returnmyself"
-    }, function (response){
-        var myName = "";
-        var myOpenid = "";
-        $.each($.parseJSON(response), function(key, value){
-            myName = value.name;
-            myOpenid = value.openid;
-        });
-    });
     //    alert("n:"+myName+", o:"+myOpenid);
     $.post(ajaxEntry, {
         action: "navigation",
         request: "name",
         module: moduleName
-    }, function (response, myName){
+    }, function (response){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
-        //if (myName != "")
+        myName = loadMyImbaUserName();
+        if (myName != "")
             tmpTitle += myName + "@";
         tmpTitle += "&nbsp;IMBAdmin</a>";
         //        alert(tmpResponse);

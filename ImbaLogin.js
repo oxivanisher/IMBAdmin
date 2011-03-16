@@ -257,10 +257,11 @@ function loadMyImbaUser(what) {
     var tmpName = "";
         alert(response);
         $.each($.parseJSON(response), function(key, value){
-            alert("test: "+key);
-            tmpName = value.name;
+            if (key == what) {
+                alert(value);
+                return value;
+            }
         });
-        return tmpName;
     });
 }
 

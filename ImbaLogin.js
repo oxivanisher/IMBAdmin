@@ -300,21 +300,22 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "name",
         module: moduleName
     }, function (response){
-        tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
-        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' /></a>";
-        tmpTitle += "&nbsp;&nbsp;&nbsp;";
+        //href='javascript:void();' style='text-decoration: none;' 
+        tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
+        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' /></div>";
+        tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
 
         if (currentUserName != null) {
-            tmpTitle += currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;";
+            tmpTitle += "<div style='float: left; cursor: pointer;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
         }
         
         
-        tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
-        tmpTitle += "IMBAdmin</a>";
+        tmpTitle += "<div style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
+        tmpTitle += "IMBAdmin</div>";
         //        alert(tmpResponse);
         if (response) {
-            tmpTitle += "&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-e' style='clear: both; float: left;' /></a>&nbsp;&nbsp;";
-            tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
+            tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;<span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;</div>";
+            tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</div>";
         }
         $("#imbaContentDialog").dialog({
             title: tmpTitle

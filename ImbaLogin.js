@@ -299,11 +299,11 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName
     }, function (response){
         tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
-        tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' /></div>";
+        tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
         tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
 
         if (currentUserName != null) {
-            tmpTitle += "<div style='float: left; cursor: pointer;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
+            tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
         }
         
         tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaAdminDefaultModule();'>IMBAdmin&nbsp;&nbsp;&nbsp;</div>";

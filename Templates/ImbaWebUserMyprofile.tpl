@@ -28,22 +28,7 @@
         });
     } );   
 </script>
-
-<h2><img src="{$roleIcon}" width="20" height="20" title="{$role}" /> {$nickname}
-    {if $sex != ""}
-    <img src="{$sex}" />
-    {/if}
-    {if $usertitle != ""}
-    <i>"{$usertitle}"</i>
-    {/if}
-    {if $avatar != ""}
-    <img src="{$avatar}" style="float: left; margin: 5px; border: grey 2px solid;" />
-    {/if}
-</h2>
-{$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}<br />
 <i>(Deine OpenID ist {$openid})</i><br />
-<br />
-
 <form id="ImbaWebUsersViewprofileForm" action="post">
     <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 1px;">
         <tbody>

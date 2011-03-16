@@ -5,6 +5,9 @@
 var isUserLoggedIn = false;
 var currentModule = null;
 var currentModuleDo = null;
+var currentUserName = null;
+var currentUserOpenid = null;
+
 
 // Reload Online Users every 10000 ms
 // TODO Set to 10 Sekunden
@@ -247,22 +250,23 @@ function loadImbaAdminDefaultModule(){
 }
 
 /**
-* Returns the name of the user currently logged in
+* Fills the variables currentUserName and currentUserOpenid
 */
-function loadMyImbaUser(what) {
+function loadMyImbaUser() {
     var tmpReturn = null;
     $.post(ajaxEntry, {
         action: "user",
         returnmyself: true
-    }, tmpReturn = function (response){
+    }, function (response){
         $.each($.parseJSON(response), function(key, value){
-            if (key == what) {
-                return value;
+            if (key == name) {
+                currentUserName = value;
+            } else if (key == openid) {
+                currentUserOpenid = value;
             }
         });
     });
-    alert(tmpReturn);
-    return tmpReturn;
+    alert(currentUserName);
 }
 
 /**

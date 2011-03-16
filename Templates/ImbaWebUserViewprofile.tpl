@@ -37,7 +37,7 @@ Aktuelles Motto: <b>"{$motto}"</b><br />
 <br />
 <table id="ImbaWebUsersViewprofileTable" cellpadding="3" cellspacing="0" border="0">
     <tbody>
-        <tr><td>IMBAdmin</td><td><a href="javascript:void(0)" onclick="javascript:alert('Bitte hier eine funktion einfuegen :D {$openid}');">Klick mich um ein Chatfenster zu zu &Ouml;ffnen</a></td></tr>
+        <tr><td>IMBAdmin</td><td><a href="javascript:void(0)" onclick="javascript:createChatWindow('{$nickname} {$openid}');">Klick mich um ein Chatfenster zu zu &Ouml;ffnen</a></td></tr>
         {if $icq != "0"}
         <tr><td>ICQ:</td><td><img src="http://online.mirabilis.com/scripts/online.dll?icq={$icq}&img=5" alt="" /> {$icq}</td></tr>
         {/if}

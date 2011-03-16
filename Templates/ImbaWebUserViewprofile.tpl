@@ -23,7 +23,7 @@
 </h2>
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $motto}
-{$nickname} aktuelles Motto: <b>"{$motto}"</b><br />
+Aktuelles Motto: <b>"{$motto}"</b><br />
 {/if}
 </div>
 <div style='clear: both;' />

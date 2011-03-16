@@ -266,7 +266,6 @@ function loadMyImbaUser() {
             }
         });
     });
-    alert(currentUserName);
 }
 
 /**

@@ -21,12 +21,12 @@
     <i>"{$usertitle}"</i>
     {/if}
 </h2>
-</div>
-<div style='clear: both;' />
 {$firstname} {$lastname}, {$birthday}.{$birthmonth}.{$birthyear}, Zuletzt online {$lastonline}<br />
 {if $motto}
 {$nickname} aktuelles Motto: <b>"{$motto}"</b><br />
 {/if}
+</div>
+<div style='clear: both;' />
 {if $signature != ""}
 <h3>Signatur:</h3>
 <pre>

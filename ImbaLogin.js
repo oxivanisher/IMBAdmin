@@ -254,6 +254,7 @@ function loadMyImbaUserName() {
         request: "returnmyself"
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
+            alert(value.name);
             return value.name;
         });
     });
@@ -291,7 +292,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
         myName = loadMyImbaUserName();
         if (myName != "")
-            tmpTitle += myName + "@";
+            tmpTitle += myName + "&nbsp;@";
         tmpTitle += "&nbsp;IMBAdmin</a>";
         //        alert(tmpResponse);
         if (response)

@@ -254,11 +254,8 @@ function loadMyImbaUser(what) {
         action: "user",
         returnmyself: true
     }, function (response){
-    var tmpName = "";
-        alert(response);
         $.each($.parseJSON(response), function(key, value){
             if (key == what) {
-                alert(value);
                 return value;
             }
         });
@@ -295,13 +292,15 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         tmpTitle  = "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminDefaultModule();'>";
         tmpTitle += "<span class='ui-icon ui-icon-home' style='cursor: pointer; float: left;' />&nbsp;&nbsp;";
         myName = loadMyImbaUser('name');
-        if (myName != "")
+        if (myName != "") {
             tmpTitle += myName + "&nbsp;@";
+        }
         tmpTitle += "&nbsp;IMBAdmin</a>";
         //        alert(tmpResponse);
-        if (response)
+        if (response) {
             tmpTitle += "&nbsp;&nbsp;/&nbsp;&nbsp;";
-        tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
+            tmpTitle += "<a href='javascript:void();' style='text-decoration: none;' onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");'>" + response + "</a>";
+        }
         $("#imbaContentDialog").dialog({
             title: tmpTitle
         });

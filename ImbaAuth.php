@@ -65,7 +65,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              * try to do the forst step of the openid authentication
              */
             try {
+                 echo "o:".$openid.", p:".$pape_policy_uris.", r:".$redirectUrl.", f:".$formHtml;
                 $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
+
                 if (!empty($redirectUrl)) {
                     /**
                      * we got a redirection url as answer. go there now!

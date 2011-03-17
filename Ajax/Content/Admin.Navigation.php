@@ -36,6 +36,9 @@ $Navigation->setMinUserRole(9);
 /**
  * Set tabs
  */
-$Navigation->addElement("baem", "B&auml;m!", "Wir sind so die ober coolz0rsten!");
-$Navigation->addElement("hacktheplanet", "Take over the world", "Pinky und Brain w&auml;ren stolz auf uns!");
+$Navigation->addElement("role", "Roles", "Manage Roles");
+$Navigation->addElement("log", "Log", "View and clar logs");
+$Navigation->addElement("settings", "Settings", "System wide settings");
+$Navigation->addElement("debug", "Debug", "Probably debug stuff");
+
 ?>

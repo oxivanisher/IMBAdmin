@@ -10,7 +10,7 @@ require_once 'ImbaConfig.php';
  *  - Database
  */
 class ImbaConstants extends ImbaConfig {
-    private $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
+    $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
 
     /**
      * Site context settings

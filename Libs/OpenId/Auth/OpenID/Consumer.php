@@ -324,7 +324,7 @@ class Auth_OpenID_Consumer {
 
         $m = $disco->getManager();
         $loader = new Auth_Yadis_ManagerLoader();
-echo "("; print_r($m); echo ")";
+echo "("; print_r($m); echo ")";exit;
         if ($m) {
             if ($m->stale) {
                 $disco->destroyManager();

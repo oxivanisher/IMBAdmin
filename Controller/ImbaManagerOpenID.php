@@ -133,7 +133,7 @@ class ImbaManagerOpenID {
         if (!ImbaSharedFunctions::isValidURL($openid)) {
             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
         }
-
+echo "("; print_r($m); echo ")";exit(0);
         // Begin the OpenID authentication process.
         $auth_request = $consumer->begin($openid);
 

@@ -339,7 +339,7 @@ class Auth_OpenID_Consumer {
                                            $this->consumer->fetcher);
 
         
-echo "("; print_r($endpoint); echo ")";exit(1);
+//echo "("; print_r($endpoint); echo ")";exit(1);
         // Reset the 'stale' attribute of the manager.
         $m = $disco->getManager();
 

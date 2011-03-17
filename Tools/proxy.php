@@ -13,7 +13,7 @@ echo '  http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">';
 echo '<html><head><title>Knowledge Base</title>';
 echo '<link type="text/css" href="http://alptroeim.ch/IMBAdmin/ImbaLoader.php?load=css" rel="Stylesheet" />';
 echo '<script type="text/javascript" src="http://alptroeim.ch/IMBAdmin/ImbaLoader.php?load=js"></script>';
-echo '</head><body>';
+echo '</head><body margin="0">';
 echo '<iframe src="'.$site.'" style="height:98%; width:100%; border:0px; overflow: auto;" frameborder="no" scrolling="auto"></iframe>';
 echo '</body></html>';
 ?>

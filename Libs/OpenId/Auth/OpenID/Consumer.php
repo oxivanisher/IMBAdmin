@@ -338,14 +338,17 @@ class Auth_OpenID_Consumer {
         $endpoint = $disco->getNextService($this->discoverMethod,
                                            $this->consumer->fetcher);
 
+        
         // Reset the 'stale' attribute of the manager.
         $m = $disco->getManager();
+
         if ($m) {
             $m->stale = false;
             $disco->session->set($disco->session_key,
                                  serialize($loader->toSession($m)));
         }
 
+        
         if ($endpoint === null) {
             return null;
         } else {

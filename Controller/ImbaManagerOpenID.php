@@ -58,7 +58,7 @@ class ImbaManagerOpenID {
                 }
             }
         }
-        $store_path .= DIRECTORY_SEPARATOR . '_php_consumer_test';
+        $store_path .= DIRECTORY_SEPARATOR . '_IMBAdmin_openid_consumer';
 
         if (!file_exists($store_path) &&
                 !mkdir($store_path)) {

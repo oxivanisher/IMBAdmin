@@ -9,6 +9,6 @@ echo '<html><head><title>Knowledge Base</title>';
 echo '<link type="text/css" href="http://alptroeim.ch/IMBAdmin/ImbaLoader.php?load=css" rel="Stylesheet" />';
 echo '<script type="text/javascript" src="http://alptroeim.ch/IMBAdmin/ImbaLoader.php?load=js"></script>';
 echo '</head><bod>';
-echo '<iframe src="http://braingoo.de" style="height:100%; width:100%; border:0px; overflow: auto;" frameborder="no" scrolling="auto"></iframe>';
+echo '<iframe src="http://braingoo.de" style="height:99%; width:100%; border:0px; overflow: auto;" frameborder="no" scrolling="auto"></iframe>';
 echo '</body></html>';
 ?>

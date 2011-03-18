@@ -3,3 +3,5 @@ nbproject/
 Tools/imbadmin.sql.zip
 *.log
 Libs/smarty/templates_c
+Libs/jgrowl/.hg/
+Libs/jgrowl/.hgtags

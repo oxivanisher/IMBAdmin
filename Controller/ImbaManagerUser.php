@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaUser.php';
+require_once 'Controller/ImbaManagerBase.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -9,20 +9,19 @@ require_once 'Controller/ImbaSharedFunctions.php';
  *  Controller / Manager for User
  *  - insert, update, delete Users
  */
-class ImbaManagerUser {
+class ImbaManagerUser extends ImbaManagerBase {
 
     /**
      * ImbaManagerDatabase
      */
-    protected $database = null;
     protected $usersCached = null;
     protected $usersCachedTimestamp = null;
 
     /**
      * Ctor
      */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
+    public function __construct() {
+        parent::__construct();
     }
 
     /**

@@ -28,14 +28,14 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Got something new for user?
      */
-    if (isset($_POST['gotnewmessages'])) {
+    else if (isset($_POST['gotnewmessages'])) {
         echo $managerMessage->selectNewMessagesByOpenid(ImbaUserContext::getOpenIdUrl());
     }
 
     /**
      * Send a Message
      */
-    if (isset($_POST['message']) && isset($_POST['reciever'])) {
+    else if (isset($_POST['message']) && isset($_POST['reciever'])) {
         $message = new ImbaMessage();
         $message->setSender(ImbaUserContext::getOpenIdUrl());
         $message->setReceiver($_POST['reciever']);
@@ -58,14 +58,14 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Set read for a message
      */
-    if (isset($_POST['reciever']) && isset($_POST['setread'])) {
+    else if (isset($_POST['reciever']) && isset($_POST['setread'])) {
         $managerMessage->setMessageRead(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
     }
 
     /**
      * Recieve Messages
      */
-    if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
+    else if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
             $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 10);
 

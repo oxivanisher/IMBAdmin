@@ -18,7 +18,6 @@ $(document).ready(function() {
     // setting old openid
     var oldOpenId = unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName")));
     if (oldOpenId != null && oldOpenId != "null" && oldOpenId != ""){
-        $("#imbaSsoShowOpenId").val(oldOpenId);
         $("#imbaSsoOpenId").val(oldOpenId);
     }
     
@@ -34,6 +33,7 @@ $(document).ready(function() {
             setLoggedIn(false);
         } else {
             setLoggedIn(true);
+            $("#imbaSsoShowOpenId").val(response);
         }
     });
 

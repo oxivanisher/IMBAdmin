@@ -75,7 +75,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Gets a list of users as JSON
      */
-    if (isset($_POST['loaduserlist'])) {
+    else if (isset($_POST['loaduserlist'])) {
         $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
         $result = array();
         foreach ($users as $user) {
@@ -88,7 +88,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Gets a list of users as JSON, with starting like
      */
-    if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
+    else if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
         $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
         $result = array();
         foreach ($users as $user) {
@@ -101,9 +101,16 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Return currently logged in User
      */
-    if (isset($_POST['returnmyself'])) {
+    else if (isset($_POST['returnmyself'])) {
         $user = $managerUser->selectMyself();
         echo json_encode(array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
+    }
+
+    /**
+     * Returns the OpenId
+     */
+    else {
+        echo ImbaUserContext::getOpenIdUrl();
     }
 } else {
     echo "Not logged in";

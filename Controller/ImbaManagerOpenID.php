@@ -186,7 +186,7 @@ class ImbaManagerOpenID {
      *
      * verify the OpenID
      */
-    public function openidVerify(ImbaManagerDatabase $database) {
+    public function openidVerify() {
         $consumer = $this->getConsumer();
 
         // Complete the authentication process using the server's
@@ -208,7 +208,7 @@ class ImbaManagerOpenID {
             $openid = $response->getDisplayIdentifier();
             $esc_identity = $this->escape($openid);
 
-            $userManager = new ImbaManagerUser($database);
+            $userManager = new ImbaManagerUser();
             $currentUser = new ImbaUser();
             $currentUser = $userManager->selectByOpenId($esc_identity);
 

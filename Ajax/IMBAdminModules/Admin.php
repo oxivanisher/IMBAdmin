@@ -42,12 +42,17 @@ if (ImbaUserContext::getLoggedIn()) {
         case "log":
             $managerLog = new ImbaLogger();
             $logs = $managerLog->getAll();
-            
+
+            $managerUser = new ImbaManagerUser();
+
             $smarty_logs = array();
             foreach ($logs as $log) {
+                $user = "Anonymous";
+                $user = $managerUser->selectByOpenId($log->getUser());
+                
                 array_push($smarty_logs, array(
-                    'timestamp' => $log->getTimestamp(),
-                    'user' => $log->getUser(),
+                    'timestamp' => ImbaSharedFunctions::getAge($log->getTimestamp()),
+                    'user' => $user,
                     'module' => $log->getModule(),
                     'message' => $log->getMessage(),
                     'lvl' => $log->getLevel()

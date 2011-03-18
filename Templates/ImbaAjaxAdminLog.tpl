@@ -618,7 +618,7 @@ table.display tr.gradeU {
 </style>
 <table id="ImbaAjaxAdminLogTable" class="display">
     <thead>
-        <tr><th>Timestamp</th><th>User</th><th>Module</th><th>Message</th><th>Level</th></tr>
+        <tr><th>When</th><th>User</th><th>Module</th><th>Message</th><th>Level</th></tr>
     </thead>
     <tbody>
 

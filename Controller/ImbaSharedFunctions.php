@@ -89,47 +89,6 @@ class ImbaSharedFunctions {
         return preg_replace($in, $out, $url);
     }
 
-    // TODO: irgendwie ein logging einbauen
-    public static function sysmsg($msg, $lvl =2, $user ="", $subject ="") {
-        switch ($lvl) {
-            case 0 :
-                $rmsg = "ERROR: ";
-                break;
-
-            case 1 :
-                $rmsg = "WARNING: ";
-                break;
-
-            case 2 :
-                $rmsg = "INFO: ";
-                break;
-
-            default :
-                $rmsg = "UNSET: ";
-        }
-
-        if ($GLOBALS[bot]) {
-            $thash = $subject;
-            $tmodule = "xmpp_daemon";
-            $tuser = $user;
-            $tip = "XMPP";
-        } else {
-            $thash = $_SESSION[hash];
-            $tmodule = $_POST[module];
-            $tuser = $_SESSION[openid_identifier];
-            $tip = getIP();
-        }
-
-        if ($lvl <= $GLOBALS[sysmsglvl])
-            $sqlsysmsg = mysql_query("INSERT INTO " . $GLOBALS[cfg][systemmsgsdb] . " (timestamp,user,ip,module,session,msg,lvl) VALUES " . "('" . time() . "', '" . $tuser . "', '" . $tip . "', '" . $tmodule . "', '" . $thash . "', '" . $msg . "', '" . $lvl . "');");
-
-        if ($lvl < 2)
-            $GLOBALS[html] .= "<b>" . $msg . "</b>";
-
-        if ($lvl == 0)
-            alert($rmsg . $msg, $tuser);
-    }
-
     // TODO: irgendwie ein alerting einbauen
     public static function alert($msg, $from) {
         $alertsql = mysql_query("SELECT openid FROM " . $GLOBALS[cfg][admintablename] . " WHERE dev='1';");
@@ -178,9 +137,9 @@ class ImbaSharedFunctions {
         }
     }
 
-    public static function genAjaxWebLink($action, $tabId, $module) {
+/*    public static function genAjaxWebLink($action, $tabId, $module) {
         return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
-    }
+    } */
 
     public static function newSmarty() {
         require_once('Libs/smarty/libs/Smarty.class.php');
@@ -214,6 +173,48 @@ class ImbaSharedFunctions {
 
     /* import from functions.inc.php ! BIG
      *
+
+    public static function sysmsg($msg, $lvl =2, $user ="", $subject ="") {
+        switch ($lvl) {
+            case 0 :
+                $rmsg = "ERROR: ";
+                break;
+
+            case 1 :
+                $rmsg = "WARNING: ";
+                break;
+
+            case 2 :
+                $rmsg = "INFO: ";
+                break;
+
+            default :
+                $rmsg = "UNSET: ";
+        }
+
+        if ($GLOBALS[bot]) {
+            $thash = $subject;
+            $tmodule = "xmpp_daemon";
+            $tuser = $user;
+            $tip = "XMPP";
+        } else {
+            $thash = $_SESSION[hash];
+            $tmodule = $_POST[module];
+            $tuser = $_SESSION[openid_identifier];
+            $tip = getIP();
+        }
+
+        if ($lvl <= $GLOBALS[sysmsglvl])
+            $sqlsysmsg = mysql_query("INSERT INTO " . $GLOBALS[cfg][systemmsgsdb] . " (timestamp,user,ip,module,session,msg,lvl) VALUES " . "('" . time() . "', '" . $tuser . "', '" . $tip . "', '" . $tmodule . "', '" . $thash . "', '" . $msg . "', '" . $lvl . "');");
+
+        if ($lvl < 2)
+            $GLOBALS[html] .= "<b>" . $msg . "</b>";
+
+        if ($lvl == 0)
+            alert($rmsg . $msg, $tuser);
+    } 
+
+
 
       function setCookies () {
       #set smf cookie

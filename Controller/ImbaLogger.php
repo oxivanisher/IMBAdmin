@@ -20,10 +20,10 @@ class ImbaLogger extends ImbaManagerBase {
      */
     public function getNew() {
         $log = new ImbaLog();
-        $log->timestamp = time();
-        $log->ip = ImbaSharedFunctions::getIP();
-        $log->session = session_id();
-        $log->user = ImbaUserContext::getOpenIdUrl();
+        $log->setTimestamp(time());
+        $log->setIp(ImbaSharedFunctions::getIP());
+        $log->setSession(session_id());
+        $log->setUser(ImbaUserContext::getOpenIdUrl());
 
         return $log;
     }

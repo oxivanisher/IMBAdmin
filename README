@@ -81,6 +81,9 @@ GeoLite City (GeoIP) http://www.maxmind.com/app/geolitecity
   downloaded from: http://geolite.maxmind.com/download/geoip/api/php/
   for updating the database read: http://www.maxmind.com/app/installation?city=1
 smarty http://www.smarty.net/quick_install
+TeamSpeak3 PHP Lib http://addons.teamspeak.com/directory/tools/integration/TeamSpeak-3-PHP-Framework.html
+    doc: http://docs.planetteamspeak.com/ts3/php/framework/
+jGrowl http://www.stanlemon.net/projects/jgrowl.html
 
 Used Tools:
 =================

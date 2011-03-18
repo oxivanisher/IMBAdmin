@@ -204,7 +204,12 @@ class ImbaSharedFunctions {
     }
 
     public static function writeToLog($message) {
-        $myFile = "Logs/ImbaLog.log";
+        if (ImbaUserContext::getLoggedIn()) {
+            $cleanName = preg_replace("/^[^a-z0-9]?(.*?)[^a-z0-9]?$/i", "$1", ImbaUserContext::getOpenIdUrl());
+            $myFile = "Logs/ImbaLog." . $cleanName . ".log";
+        } else {
+            $myFile = "Logs/ImbaLog.log";
+        }
         if ($fh = fopen($myFile, 'a+')) {
             $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
             fwrite($fh, $stringData);

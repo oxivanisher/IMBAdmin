@@ -37,7 +37,7 @@ class ImbaLogger extends ImbaManagerBase {
         $query .= "(timestamp, user, ip, module, session, msg, lvl) VALUES ";
         $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 
-        $this->database->query($query, array(
+        $database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES,
             $log->getTimestamp(),
             $log->getUser(),

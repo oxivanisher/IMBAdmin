@@ -4,6 +4,7 @@ chdir("../");
 require_once 'Controller/ImbaManagerMultigaming.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
+require_once 'Model/ImbaGame.php';
 require_once 'Model/ImbaGameCategory.php';
 
 /**
@@ -80,11 +81,65 @@ try {
 
 
 /**
- * UpdateCategory
+ * DeleteCategory
  */
 try {
     $managerMultigaming->deleteCategory($gameCategory);
     $output .= "deleteCategory working.\n";
+} catch (Exception $e) {
+    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+}
+
+/**
+ * Insert Game
+ */
+$category1 = new ImbaGameCategory();
+$category1->setName("MMO");
+$managerMultigaming->insertCategory($category1);
+
+$category2 = new ImbaGameCategory();
+$category2->setName("Fantasy");
+$managerMultigaming->insertCategory($category2);
+
+$categories = $managerMultigaming->selectAllCategories();
+$category1 = $categories[0];
+$category2 = $categories[1];
+
+try {
+    $game = new ImbaGame();
+    $game->setComment("Comment wow");
+    $game->setForumlink("Forumlink wow");
+    $game->setName("World of Warcraft");
+    $game->setUrl("www.wow.com");
+    $game->setIcon("Wow Icon");
+    $game->setCategories(array($category1, $category2));
+
+    $managerMultigaming->insertGame($game);
+    $output .= "insertGame working.\n";
+} catch (Exception $e) {
+    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+}
+
+/**
+ * Update Game
+ */
+try {
+    $game->setComment("uiuiuiuiii");
+    $managerMultigaming->updateGame($game);
+    $output .= "updateGame working.\n";
+} catch (Exception $e) {
+    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+}
+
+/**
+ * Delete game and cat
+ */
+try {
+    $managerMultigaming->deleteGame($game);
+    $output .= "deleteGame working.\n";
+    
+    $managerMultigaming->deleteCategory($category1);
+    $managerMultigaming->deleteCategory($category2);
 } catch (Exception $e) {
     $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
 }

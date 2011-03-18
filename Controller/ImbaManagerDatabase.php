@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Load dependencies
  */
@@ -75,6 +76,15 @@ class ImbaManagerDatabase {
 
     public function fetchRow() {
         return mysql_fetch_assoc($this->result);
+    }
+
+    public function fetchArray() {
+        $result = array();
+        while ($row = $this->fetchRow()) {
+            array_push($result, $row);
+        }
+
+        return $result;
     }
 
     public function count() {

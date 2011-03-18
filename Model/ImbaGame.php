@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Model/ImbaBase.php';
+
 /**
  * Class for all Games managed by the IMBAdmin
  */

@@ -22,6 +22,9 @@ class ImbaLog extends ImbaBase {
     public function __construct() {
         $this->timestamp = time();
         $this->ip = ImbaSharedFunctions::getIP();
+        $this->session = $_SESSION["hash"];
+        $this->user = ImbaUserContext::getOpenIdUrl();
+        
     }
 
     public function setModule($module) {
@@ -41,7 +44,7 @@ class ImbaLog extends ImbaBase {
     }
 
     public function getUser() {
-        return ImbaUserContext::getOpenIdUrl();
+        return $this->user;
     }
 
     public function getIp() {
@@ -53,7 +56,7 @@ class ImbaLog extends ImbaBase {
     }
 
     public function getSession() {
-        return $_SESSION["hash"];
+        return $this->session;
     }
 
     public function getMessage() {

@@ -170,7 +170,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         default:
-            $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
+//            $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();

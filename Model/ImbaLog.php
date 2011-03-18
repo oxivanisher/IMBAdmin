@@ -16,19 +16,24 @@ class ImbaLog extends ImbaBase {
     protected $message = null;
     protected $level = null;
 
-    /**
-     * Ctor
-     */
-    public function __construct() {
-        $this->timestamp = time();
-        $this->ip = ImbaSharedFunctions::getIP();
-        $this->session = session_id();
-        $this->user = ImbaUserContext::getOpenIdUrl();
-        
-    }
-
     public function setModule($module) {
         $this->module = $module;
+    }
+
+    public function setTimestamp($timestamp) {
+        $this->timestamp = $timestamp;
+    }
+
+    public function setUser($user) {
+        $this->user = $user;
+    }
+
+    public function setIp($ip) {
+        $this->ip = $ip;
+    }
+
+    public function setSession($session) {
+        $this->session = $session;
     }
 
     public function setLevel($level) {

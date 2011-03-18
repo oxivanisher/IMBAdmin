@@ -3,7 +3,6 @@
 require_once 'Model/ImbaLog.php';
 require_once 'Controller/ImbaManagerBase.php';
 
-
 /**
  * Description of ImbaLogger
  */
@@ -25,13 +24,19 @@ class ImbaLogger extends ImbaManagerBase {
      * Create new log entry
      */
     public function getNew() {
-        return new ImbaLog();
-    }
+        $log = new ImbaLog();
+        $log->timestamp = time();
+        $log->ip = ImbaSharedFunctions::getIP();
+        $log->session = session_id();
+        $log->user = ImbaUserContext::getOpenIdUrl();
 
+        return $log;
+    }
 
     /*
      * Inserts a Systemmessage / Log
-     */    
+     */
+
     public function insert(ImbaLog $log) {
         $query = "INSERT INTO %s ";
         $query .= "(timestamp, user, ip, module, session, msg, lvl) VALUES ";
@@ -39,7 +44,7 @@ class ImbaLogger extends ImbaManagerBase {
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES,
-            date("U"),
+            $log->getTimestamp(),
             $log->getUser(),
             $log->getIp(),
             $log->getModule(),
@@ -47,7 +52,31 @@ class ImbaLogger extends ImbaManagerBase {
             $log->getMessage(),
             $log->getLevel()
         ));
-    }    
+    }
+
+    public function getAll() {
+        $query = "SELECT * FROM %s WHERE 1;";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+
+        $messages = array();
+        while ($row = $this->database->fetchRow()) {
+            $log = new ImbaLog();
+            $log->setId($row["id"]);
+            $log->setTimestamp($row["timestamp"]);
+            $log->setUser($row["user"]);
+            $log->setIp($row["ip"]);
+            $log->setModule($row["module"]);
+            $log->setSession($row["session"]);
+            $log->setMessage($row["msg"]);
+            $log->setLevel($row["lvl"]);
+            
+            array_push($messages, $log);
+            unset($log);
+        }
+        
+        return $messages;
+    }
+
 }
 
 ?>

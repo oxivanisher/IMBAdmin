@@ -6,6 +6,7 @@ session_start();
 
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaLogger.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerRole.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -39,7 +40,21 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "log":
-            echo "log";
+            $logs = ImbaLogger::getAll();
+            
+            $smarty_logs = array();
+            foreach ($logs as $log) {
+                array_push($smarty_logs, array(
+                    'timestamp' => $log->getTimestamp(),
+                    'user' => $log->getUser(),
+                    'module' => $log->getModule(),
+                    'msg' => $log->getMessage(),
+                    'lvl' => $log->getLevel()
+                ));
+            }
+            $smarty->assign('logs', $smarty_logs);
+
+            $smarty->display('ImbaAjaxAdminLog.tpl');
             break;
 
         case "updatuser":
@@ -112,7 +127,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         default:
-            $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
+ //           $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();

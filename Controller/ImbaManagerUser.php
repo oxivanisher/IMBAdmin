@@ -113,6 +113,9 @@ class ImbaManagerUser {
             $user->getAccurate(),
             $user->getRole()
         ));
+        
+        $this->usersCached = null;
+        $this->usersCachedTimestamp = null;
     }
 
     /**
@@ -145,6 +148,9 @@ class ImbaManagerUser {
             $user->getRole(),
             $user->getOpenId()
         ));
+        
+        $this->usersCached = null;
+        $this->usersCachedTimestamp = null;
     }
 
     /**
@@ -153,6 +159,9 @@ class ImbaManagerUser {
     public function delete($openId) {
         $query = "DELETE FROM  " . ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES . " Where openid = '" . $openId . "';";
         $this->database->query($query);
+                
+        $this->usersCached = null;
+        $this->usersCachedTimestamp = null;
     }
 
     /**

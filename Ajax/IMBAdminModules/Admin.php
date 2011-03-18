@@ -49,7 +49,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     'timestamp' => $log->getTimestamp(),
                     'user' => $log->getUser(),
                     'module' => $log->getModule(),
-                    'msg' => $log->getMessage(),
+                    'message' => $log->getMessage(),
                     'lvl' => $log->getLevel()
                 ));
             }

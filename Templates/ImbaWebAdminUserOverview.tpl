@@ -12,7 +12,7 @@
         var data = {
             action: "module",
             module: "Admin",
-            request: "edituser",
+            request: "updateuser",
             openid: openid
         };
         loadImbaAdminTabContent(data);

@@ -36,6 +36,10 @@ if (ImbaUserContext::getLoggedIn()) {
             echo "settings";
             break;
 
+        case "statistics":
+            echo "statistics";
+            break;
+
         case "log":
             echo "log";
             break;

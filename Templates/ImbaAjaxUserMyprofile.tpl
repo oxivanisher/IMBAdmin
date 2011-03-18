@@ -17,10 +17,11 @@
                 myProfileSkype: $("#myProfileSkype").val(),
                 myProfileIcq: $("#myProfileIcq").val(),
                 myProfileMsn: $("#myProfileMsn").val(),
-                myProfileSignature: $("#myProfileSignature").val(),
+                myProfileSignature: $("#myProfileSignature").val()
             }, function(response){
                 if (response != "Ok"){
-                    $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Erfolg' });
+                   // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
+                   $.jGrowl(response, { header: 'Error' });
                 } else {
                     $.jGrowl('Daten wurden gespeichert!', { header: 'Erfolg' });
                 }

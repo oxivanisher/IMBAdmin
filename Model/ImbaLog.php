@@ -22,7 +22,7 @@ class ImbaLog extends ImbaBase {
     public function __construct() {
         $this->timestamp = time();
         $this->ip = ImbaSharedFunctions::getIP();
-        $this->session = $_SESSION["hash"];
+        $this->session = session_id();
         $this->user = ImbaUserContext::getOpenIdUrl();
         
     }

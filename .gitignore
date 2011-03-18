@@ -1,7 +1,7 @@
 nbproject/
 .gitignore
 Tools/imbadmin.sql.zip
-*.log
+Logs/*
 Libs/smarty/templates_c
 Libs/jgrowl/.hg/
 Libs/jgrowl/.hgtags

@@ -3,6 +3,7 @@
         // User submits the ImbaWebUsersViewprofileForm
         $("#ImbaWebUsersViewprofileFormSubmit").click(function(){
             // submit the change
+            // hier fehlt noch einiges
             $.post(ajaxEntry, {
                 action: "module",
                 module: "User",

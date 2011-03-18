@@ -44,7 +44,7 @@ if (ImbaUserContext::getLoggedIn()) {
             echo "log";
             break;
 
-        case "updateuser":
+        case "updatuser":
             $user = new ImbaUser();
             $user = $managerUser->selectByOpenId($_POST["myProfileOpenId"]);
             $user->setOpenId($_POST["myProfileOpenId"]);

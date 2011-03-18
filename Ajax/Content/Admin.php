@@ -34,11 +34,11 @@ if (ImbaUserContext::getLoggedIn()) {
         case "settings":
             echo "settings";
             break;
-        case "debug":
-            echo "debug";
+        case "log":
+            echo "log";
             break;
         default:
-            echo "log";
+            echo "user";
             break;
     }
 } else {

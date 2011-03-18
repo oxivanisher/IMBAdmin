@@ -48,9 +48,9 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty_logs = array();
             foreach ($logs as $log) {
                 $username = "Anonymous";
-                $user = $managerUser->selectByOpenId($log->getUser());
-                print_r($user);
-                $username = $user->getNickname();
+                $this->user = $managerUser->selectByOpenId($log->getUser());
+                print_r($this->user);
+                $username = $this->user->getNickname();
                 
                 array_push($smarty_logs, array(
                     'timestamp' => ImbaSharedFunctions::getAge($log->getTimestamp()),

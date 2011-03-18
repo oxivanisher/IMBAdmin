@@ -607,7 +607,13 @@ table.display tr.gradeU {
 	background-color: #ddd;
 }
 
+.css_right {
+	float: right;
+}
 
+.css_left {
+	float: left;
+}
 
 </style>
 <table id="ImbaAjaxUsersOverviewTable" class="display">

@@ -9,11 +9,6 @@ require_once 'Controller/ImbaManagerBase.php';
 class ImbaLogger extends ImbaManagerBase {
 
     /**
-     * ImbaManagerDatabase
-     */
-    protected $database = null;
-
-    /**
      * Ctor
      */
     public function __construct() {

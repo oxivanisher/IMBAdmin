@@ -110,7 +110,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('roleIcon', $role->getIcon());
 
 
-            $smarty->display('ImbaWebAdminViewedituser.tpl');
+            $smarty->display('ImbaAjaxAdminViewedituser.tpl');
             break;
 
         default:
@@ -128,7 +128,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->assign('susers', $smarty_users);
 
-            $smarty->display('ImbaWebAdminUserOverview.tpl');
+            $smarty->display('ImbaAjaxAdminUserOverview.tpl');
             break;
     }
 } else {

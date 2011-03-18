@@ -58,11 +58,11 @@ switch ($_GET["load"]) {
 
             $contentNav = new ImbaContentNavigation();
 
-            if ($handle = opendir('Ajax/Content/')) {
+            if ($handle = opendir('Ajax/IMBAdminModules/')) {
                 $identifiers = array();
                 while (false !== ($file = readdir($handle))) {
                     if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/Content/' . $file;
+                        include 'Ajax/IMBAdminModules/' . $file;
                         if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {

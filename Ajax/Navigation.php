@@ -7,7 +7,7 @@ require_once 'ImbaConstants.php';
  */
 $nav = array();
 
-$moduleFile = "Ajax/Content/" . $_POST["module"] . ".Navigation.php";
+$moduleFile = "Ajax/IMBAdminModules/" . $_POST["module"] . ".Navigation.php";
 
 function returnDefaultModule() {
     session_start();

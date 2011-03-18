@@ -50,11 +50,11 @@ switch ($_POST["action"]) {
         /**
          * Load my module navigation
          */
-        $moduleConfigFile = "Ajax/Content/" . $_POST["module"] . ".Navigation.php";
+        $moduleConfigFile = "Ajax/IMBAdminModules/" . $_POST["module"] . ".Navigation.php";
         if (file_exists($moduleConfigFile)) {
             include $moduleConfigFile;
         }
-        $moduleFile = "Ajax/Content/" . $_POST["module"] . ".php";
+        $moduleFile = "Ajax/IMBAdminModules/" . $_POST["module"] . ".php";
         if (file_exists($moduleFile)) {
             include $moduleFile;
         }

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $('#ImbaWebUsersOverviewTable').dataTable( {
+        $('#ImbaAjaxUsersOverviewTable').dataTable( {
             "bFilter": true,
             "sPaginationType": "full_numbers",
             "bJQueryUI": true,
@@ -11,8 +11,8 @@
     function loadUserProfile(openid){
         var data = {
             action: "module",
-            module: "User",
-            request: "viewprofile",
+            module: "Admin",
+            request: "viewedituser",
             openid: openid
         };
         loadImbaAdminTabContent(data);
@@ -610,14 +610,14 @@ table.display tr.gradeU {
 
 
 </style>
-<table id="ImbaWebUsersOverviewTable" class="display">
+<table id="ImbaAjaxUsersOverviewTable" class="display">
     <thead>
-        <tr><th>Nickname</th><th>Zuletzt Online</th><th>Jabber</th><th>Games</th></tr>
+        <tr><th>Nickname</th><th>Zuletzt Online</th><th>Rolle</th></tr>
     </thead>
     <tbody>
 
         {foreach $susers as $user}
-        <tr onclick="javascript: loadUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>{$user.lastonline}</td><td>{$user.jabber}</td><td>{$user.games}</td></tr>
+        <tr onclick="javascript: loadUserProfile('{$user.openid}');"><td>{$user.nickname}</td><td>{$user.lastonline}</td><td>{$user.role}</td></tr>
         {/foreach}
 
     </tbody>

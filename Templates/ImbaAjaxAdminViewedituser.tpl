@@ -1,8 +1,9 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        // User submits the ImbaWebUsersViewprofileForm
-        $("#ImbaWebUsersViewprofileFormSubmit").click(function(){
+        // User submits the ImbaAjaxUsersViewprofileForm
+        $("#ImbaAjaxUsersViewprofileFormSubmit").click(function(){
             // submit the change
+            // hier fehlt noch einiges
             $.post(ajaxEntry, {
                 action: "module",
                 module: "User",
@@ -28,8 +29,8 @@
         });
     } );   
 </script>
-<form id="ImbaWebUsersViewprofileForm" action="post">
-    <table id="ImbaWebUsersViewprofileTable" style="cellspacing: 1px;">
+<form id="ImbaAjaxUsersViewprofileForm" action="post">
+    <table id="ImbaAjaxUsersViewprofileTable" style="cellspacing: 1px;">
         <tbody>
             <tr>
                 <td>
@@ -85,7 +86,7 @@
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td colspan="2"><input id="ImbaWebUsersViewprofileFormSubmit" type="submit" value="Speichern" /></td>
+                    <td colspan="2"><input id="ImbaAjaxUsersViewprofileFormSubmit" type="submit" value="Speichern" /></td>
                 </tr>
         </tbody>
     </table>

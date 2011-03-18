@@ -65,7 +65,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('roleIcon', $role->getIcon());
 
 
-            $smarty->display('ImbaWebUserMyprofile.tpl');
+            $smarty->display('ImbaAjaxUserMyprofile.tpl');
             break;
 
         case "updatemyprofile":
@@ -127,7 +127,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
             $smarty->assign('myownprofile', false);
-            $smarty->display('ImbaWebUserViewprofile.tpl');
+            $smarty->display('ImbaAjaxUserViewprofile.tpl');
             break;
 
         case "viewmyprofile":
@@ -168,7 +168,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('roleIcon', $role->getIcon());
             $smarty->assign('myownprofile', true);
 
-            $smarty->display('ImbaWebUserViewprofile.tpl');
+            $smarty->display('ImbaAjaxUserViewprofile.tpl');
             break;
 
         default:
@@ -187,7 +187,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->assign('susers', $smarty_users);
 
-            $smarty->display('ImbaWebUserOverview.tpl');
+            $smarty->display('ImbaAjaxUserOverview.tpl');
             break;
     }
 } else {

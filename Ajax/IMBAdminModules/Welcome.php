@@ -32,11 +32,11 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "index":
             $navOptions = array();
-            if ($handle = opendir('Ajax/Content/')) {
+            if ($handle = opendir('Ajax/IMBAdminModules/')) {
                 $identifiers = array();
                 while (false !== ($file = readdir($handle))) {
                     if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/Content/' . $file;
+                        include 'Ajax/IMBAdminModules/' . $file;
                         if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
@@ -73,18 +73,18 @@ if (ImbaUserContext::getLoggedIn()) {
                 closedir($handle);
             }
             $smarty->assign('topnavs', $navOptions);
-            $smarty->display('ImbaWebWelcomeIndex.tpl');
+            $smarty->display('ImbaAjaxWelcomeIndex.tpl');
             break;
 
         default:
             $myself = $managerUser->selectMyself();
             $smarty->assign('nickname', $myself->getNickname());
             $navOptions = array();
-            if ($handle = opendir('Ajax/Content/')) {
+            if ($handle = opendir('Ajax/IMBAdminModules/')) {
                 $identifiers = array();
                 while (false !== ($file = readdir($handle))) {
                     if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/Content/' . $file;
+                        include 'Ajax/IMBAdminModules/' . $file;
                         if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
@@ -107,7 +107,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 closedir($handle);
             }
             $smarty->assign('navs', $navOptions);
-            $smarty->display('ImbaWebWelcomeOverview.tpl');
+            $smarty->display('ImbaAjaxWelcomeOverview.tpl');
             break;
     }
 } else {

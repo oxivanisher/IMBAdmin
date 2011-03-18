@@ -51,7 +51,7 @@ class ImbaLogger extends ImbaManagerBase {
 
     public function getAll() {
         $query = "SELECT * FROM %s WHERE 1;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+        $database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
 
         $messages = array();
         while ($row = $this->database->fetchRow()) {

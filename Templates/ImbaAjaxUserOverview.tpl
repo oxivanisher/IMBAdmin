@@ -2,7 +2,7 @@
     $(document).ready(function() {
         $('#ImbaAjaxUsersOverviewTable').dataTable( {
             "bFilter": true,
-            "sPaginationType": "full_numbers",
+            "sPaginationType": "two_button",
             "bJQueryUI": true,
             "bLengthChange": false
         } );

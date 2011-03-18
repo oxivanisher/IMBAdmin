@@ -32,8 +32,6 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
-        //$log = "action: " . $_POST["action"] . ", module: " . $_POST["module"] . ", request: " . $_POST["request"] . ", tabId: " . $_POST["request"];
-        //ImbaSharedFunctions::writeToLog($log);
         session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = new ImbaManagerUser();

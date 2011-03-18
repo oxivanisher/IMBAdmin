@@ -203,19 +203,14 @@ class ImbaSharedFunctions {
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
     }
 
-    public static function writeToLog($message) {
-/*        if (ImbaUserContext::getLoggedIn()) {
-            $cleanName = preg_replace("/^[^a-z0-9]?(.*?)[^a-z0-9]?$/i", "$1", ImbaUserContext::getOpenIdUrl());
-            $myFile = "Logs/ImbaLog." . $cleanName . ".log";
-        } else { */
-            $myFile = "Logs/ImbaLog.log";
-        //}
+/*    public static function writeToLog($message) {
+        $myFile = "Logs/ImbaLog.log";
         if ($fh = fopen($myFile, 'a+')) {
             $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
             fwrite($fh, $stringData);
             fclose($fh);
         }
-    }
+    } */
 
     /* import from functions.inc.php ! BIG
      *

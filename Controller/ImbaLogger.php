@@ -13,19 +13,6 @@ class ImbaLogger extends ImbaManagerBase {
     protected $database = null;
 
     /**
-     * Static logfunction to write into a file
-     */
-    public static function writeToLogFile($message, $ip) {
-        $myFile = "Logs/ImbaLog.log";
-        $handler = fopen($myFile, 'a+');
-        if ($handler) {
-            $stringData = date("Y-d-m H:i:s") . " ($ip): " . $message . "\n";
-            fwrite($handler, $stringData);
-            fclose($handler);
-        }
-    }
-
-    /**
      * Ctor
      */
     public function __construct() {

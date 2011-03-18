@@ -40,7 +40,8 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "log":
-            $logs = ImbaLogger::getAll();
+            $managerLog = new ImbaLogger();
+            $logs = $managerLog->getAll();
             
             $smarty_logs = array();
             foreach ($logs as $log) {

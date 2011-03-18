@@ -56,7 +56,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setMessage("Logging out");
     $log->setLevel(2);
     $managerLog->insert($log);
-    
+
     ImbaSharedFunctions::killCookies();
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
@@ -72,11 +72,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $formHtml = null;
             $openid = $_GET["openid"];
             /**
-             * try to do the forst step of the openid authentication
+             * try to do the first step of the openid authentication steps
              */
+            $log = $managerLog->getNew();
+            $log->setModule("Auth");
+            $log->setMessage("Redirecting");
+            $log->setLevel(2);
+            $managerLog->insert($log);
+
             try {
                 $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
-                
+
                 if (!empty($redirectUrl)) {
                     /**
                      * we got a redirection url as answer. go there now!
@@ -108,6 +114,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * first step completed. do the verification
          */
+        $log = $managerLog->getNew();
+        $log->setModule("Auth");
+        $log->setMessage("Verification");
+        $log->setLevel(2);
+        $managerLog->insert($log);
+
         try {
             $managerOpenId->openidVerify();
             header("location: " . $_SERVER["PHP_SELF"]);
@@ -121,8 +133,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
+    $log = $managerLog->getNew();
+    $log->setModule("Auth");
+    $log->setMessage("Logged in");
+    $log->setLevel(2);
+    $managerLog->insert($log);
+
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
-    setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60*60*24*30)));
+    setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
     header("location: index.html");
 }
 

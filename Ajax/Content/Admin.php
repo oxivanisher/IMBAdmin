@@ -74,7 +74,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewedituser":
-            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+            $user = $managerUser->selectByOpenId($_POST["openid"]);
 
             $smarty->assign('nickname', $user->getNickname());
             $smarty->assign('lastname', $user->getLastname());

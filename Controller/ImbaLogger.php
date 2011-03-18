@@ -1,9 +1,11 @@
 <?php
 
+require_once 'Controller/ImbaManagerBase.php';
+
 /**
  * Description of ImbaLogger
  */
-class ImbaLogger {
+class ImbaLogger extends ImbaManagerBase {
 
     /**
      * ImbaManagerDatabase
@@ -26,8 +28,8 @@ class ImbaLogger {
     /**
      * Ctor
      */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
+    public function __construct() {
+        parent::__construct();
     }
 
     /*

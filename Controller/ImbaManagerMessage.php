@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Controller/ImbaManagerBase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Model/ImbaMessage.php';
 require_once 'Model/ImbaUser.php';
@@ -8,18 +8,13 @@ require_once 'Model/ImbaUser.php';
 /**
  * Description of ImbaManagerMessage
  */
-class ImbaManagerMessage {
-
-    /**
-     * ImbaManagerDatabase
-     */
-    protected $database = null;
+class ImbaManagerMessage extends ImbaManagerBase {
 
     /**
      * Ctor
      */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
+    public function __construct() {
+        parent::__construct();
     }
 
     /**

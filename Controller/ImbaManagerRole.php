@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Controller/ImbaManagerDatabase.php';
+require_once 'Controller/ImbaManagerBase.php';
 require_once 'Model/ImbaUserRole.php';
 
 /**
@@ -11,20 +11,19 @@ require_once 'Model/ImbaUserRole.php';
  *  TODO: Remove old fields from database eqdkp and phpraider
  * 
  */
-class ImbaManagerUserRole {
+class ImbaManagerUserRole extends ImbaManagerBase {
 
     /**
      * ImbaManagerDatabase
      */
-    protected $database = null;
     protected $rolesCached = null;
     protected $rolesCachedTimestamp = null;
 
     /**
      * Ctor
      */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
+    public function __construct() {
+        parent::__construct();
     }
 
     /**

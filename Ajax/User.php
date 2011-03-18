@@ -5,7 +5,6 @@ session_start();
 
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -14,9 +13,8 @@ require_once 'Controller/ImbaUserContext.php';
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
-    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-    $managerUser = new ImbaManagerUser($managerDatabase);
-    $managerMessage = new ImbaManagerMessage($managerDatabase);
+    $managerUser = new ImbaManagerUser();
+    $managerMessage = new ImbaManagerMessage();
 
     /**
      * Gets a list of online users as JSON

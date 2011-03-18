@@ -16,7 +16,6 @@ session_start();
  * Load dependencies
  */
 require_once "ImbaConstants.php";
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -38,7 +37,6 @@ $pape_policy_uris = array(
  * Prepare variables and objects
  */
 $managerOpenId = new ImbaManagerOpenID();
-$managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
 
 /**
  * OpenID auth logic
@@ -99,7 +97,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          * first step completed. do the verification
          */
         try {
-            $managerOpenId->openidVerify($managerDatabase);
+            $managerOpenId->openidVerify();
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
             echo "openidVerify ERROR: " . $ex->getMessage();

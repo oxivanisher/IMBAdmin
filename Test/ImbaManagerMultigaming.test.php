@@ -2,7 +2,6 @@
 
 chdir("../");
 require_once 'Controller/ImbaManagerMultigaming.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaGame.php';
 require_once 'Model/ImbaGameCategory.php';
@@ -10,8 +9,7 @@ require_once 'Model/ImbaGameCategory.php';
 /**
  * Prepare Variables
  */
-$managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
-$managerMultigaming = new ImbaManagerMultigaming($managerDatabase);
+$managerMultigaming = new ImbaManagerMultigaming();
 $output = "";
 
 /**

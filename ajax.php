@@ -14,7 +14,6 @@ if (!isset($_POST["action"]))
 //$_POST["module"] = "User";
 
 require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 
@@ -37,8 +36,7 @@ switch ($_POST["action"]) {
         //ImbaSharedFunctions::writeToLog($log);
         session_start();
         if (ImbaUserContext::getLoggedIn()) {
-            $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-            $managerUser = new ImbaManagerUser($managerDatabase);
+            $managerUser = new ImbaManagerUser();
             $managerUser->setMeOnline();
             unset($managerUser);
         }

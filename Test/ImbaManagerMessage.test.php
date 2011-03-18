@@ -2,13 +2,11 @@
 
 chdir("../");
 require_once 'Controller/ImbaManagerMessage.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 
 /**
  * Prepare Variables
  */
-$managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
-$managerMessage = new ImbaManagerMessage($managerDatabase);
+$managerMessage = new ImbaManagerMessage();
 $output = "";
 
 /**

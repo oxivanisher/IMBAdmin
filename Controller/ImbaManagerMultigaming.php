@@ -1,5 +1,7 @@
 <?php
 
+require_once 'Controller/ImbaManagerBase.php';
+
 /**
  * Description of ImbaManagerGame
  * SQL:
@@ -7,12 +9,7 @@
  * CREATE TABLE  `oom_openid_multig_category` (`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,`name` VARCHAR( 100 ) NOT NULL) ENGINE = MYISAM
  * CREATE TABLE IF NOT EXISTS `oom_openid_multig_int_games_cat` (`game_id` int(11) NOT NULL, `cat_id` int(11) NOT NULL, UNIQUE KEY `game_id` (`game_id`,`cat_id`)) ENGINE=MyISAM
  */
-class ImbaManagerMultigaming {
-
-    /**
-     * ImbaManagerDatabase
-     */
-    protected $database = null;
+class ImbaManagerMultigaming extends ImbaManagerBase {
 
     /*
      * Cache
@@ -23,8 +20,8 @@ class ImbaManagerMultigaming {
     /**
      * Ctor
      */
-    public function __construct(ImbaManagerDatabase $database) {
-        $this->database = $database;
+    public function __construct() {
+        parent::__construct();
     }
 
     /**

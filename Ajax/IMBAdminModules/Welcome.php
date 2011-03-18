@@ -4,7 +4,6 @@ session_start();
 
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerRole.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -22,8 +21,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerDatabase = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
-    $managerUser = new ImbaManagerUser($managerDatabase);
+    $managerUser = new ImbaManagerUser();
 
 
     $contentNav = new ImbaContentNavigation();

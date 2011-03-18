@@ -16,6 +16,7 @@ session_start();
  * Load dependencies
  */
 require_once "ImbaConstants.php";
+require_once 'Controller/ImbaLogger.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -39,12 +40,23 @@ $pape_policy_uris = array(
 $managerOpenId = new ImbaManagerOpenID();
 
 /**
+ * Load the logger
+ */
+$managerLog = new ImbaLogger();
+
+/**
  * OpenID auth logic
  */
 if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we want to log out
      */
+    $log = $managerLog->getNew();
+    $log->setModule("Auth");
+    $log->setMessage("Logging out");
+    $log->setLevel(2);
+    $managerLog->insert($log);
+    
     ImbaSharedFunctions::killCookies();
     setcookie(session_id(), "", time() - 3600);
     session_destroy();

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Model/ImbaBase.php';
+require_once 'Controller/ImbaUserContext.php';
 
 /**
  * Description of ImbaLog
@@ -23,10 +24,6 @@ class ImbaLog extends ImbaBase {
         $this->ip = ImbaSharedFunctions::getIP();
     }
 
-    public function setUser($user) {
-        $this->user = $user;
-    }
-
     public function setModule($module) {
         $this->module = $module;
     }
@@ -44,7 +41,7 @@ class ImbaLog extends ImbaBase {
     }
 
     public function getUser() {
-        return $this->user;
+        return ImbaUserContext::getOpenIdUrl();
     }
 
     public function getIp() {

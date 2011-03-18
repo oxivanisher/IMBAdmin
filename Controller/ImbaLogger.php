@@ -1,6 +1,8 @@
 <?php
 
+require_once 'Model/ImbaLog.php';
 require_once 'Controller/ImbaManagerBase.php';
+
 
 /**
  * Description of ImbaLogger
@@ -18,6 +20,14 @@ class ImbaLogger extends ImbaManagerBase {
     public function __construct() {
         parent::__construct();
     }
+
+    /**
+     * Create new log entry
+     */
+    public function getNew() {
+        return new ImbaLog();
+    }
+
 
     /*
      * Inserts a Systemmessage / Log

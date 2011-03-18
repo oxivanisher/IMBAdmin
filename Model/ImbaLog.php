@@ -15,60 +15,56 @@ class ImbaLog extends ImbaBase {
     protected $message = null;
     protected $level = null;
 
-    public function getTimestamp() {
-        return $this->timestamp;
-    }
-
-    public function setTimestamp($timestamp) {
-        $this->timestamp = $timestamp;
-    }
-
-    public function getUser() {
-        return $this->user;
+    /**
+     * Ctor
+     */
+    public function __construct() {
+        $this->timestamp = time();
+        $this->ip = ImbaSharedFunctions::getIP();
     }
 
     public function setUser($user) {
         $this->user = $user;
     }
 
-    public function getIp() {
-        return $this->ip;
-    }
-
-    public function setIp($ip) {
-        $this->ip = $ip;
-    }
-
-    public function getModule() {
-        return $this->module;
-    }
-
     public function setModule($module) {
         $this->module = $module;
     }
 
-    public function getSession() {
-        return $this->session;
-    }
-
-    public function setSession($session) {
-        $this->session = $session;
-    }
-
-    public function getMessage() {
-        return $this->message;
+    public function setLevel($level) {
+        $this->level = $level;
     }
 
     public function setMessage($message) {
         $this->message = $message;
     }
 
-    public function getLevel() {
-        return $this->level;
+    public function getTimestamp() {
+        return $this->timestamp;
     }
 
-    public function setLevel($level) {
-        $this->level = $level;
+    public function getUser() {
+        return $this->user;
+    }
+
+    public function getIp() {
+        return $this->ip;
+    }
+
+    public function getModule() {
+        return $this->module;
+    }
+
+    public function getSession() {
+        return $_SESSION["hash"];
+    }
+
+    public function getMessage() {
+        return $this->message;
+    }
+
+    public function getLevel() {
+        return $this->level;
     }
 
 }

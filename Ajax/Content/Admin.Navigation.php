@@ -36,9 +36,9 @@ $Navigation->setMinUserRole(9);
 /**
  * Set tabs
  */
+$Navigation->addElement("user", "User", "Edit user roles and user details");
 $Navigation->addElement("role", "Roles", "Manage Roles");
-$Navigation->addElement("log", "Log", "View and clar logs");
+$Navigation->addElement("log", "Log", "View and clar log");
 $Navigation->addElement("settings", "Settings", "System wide settings");
-$Navigation->addElement("debug", "Debug", "Probably debug stuff");
 
 ?>

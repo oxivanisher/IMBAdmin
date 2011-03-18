@@ -1,5 +1,6 @@
 /* jQuery css include */
 @import url('Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css') all;
+@import url('Libs/jgrowl/jquery.jgrowl.css') all;
 
 /* jQuery dataTabled css include */
 /* @import url('Libs/DataTables/media/css/demo_table.css') all; */
@@ -7,6 +8,12 @@
 /* IMBAdmin error message */
 #ImbaErrorMsg {
     color: red;
+}
+
+#jGrowl {
+    position: fixed;
+    top: 1px;
+    left: 1px;
 }
 
 .imbaFont {
@@ -133,7 +140,7 @@
     padding: 0 20px;
     margin: 0;
     float: left;
-    width: 420px;
+    width: 500px;
     background: #505050;
 }
 
@@ -204,6 +211,6 @@
 
 #imbaContentNav div {
     /* aggravate, ich mach die darstellungsprobleme mit der datatable */
-/*    height: 80%; */
+    /*    height: 80%; */
 }
 

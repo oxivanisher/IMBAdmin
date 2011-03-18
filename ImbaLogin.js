@@ -14,10 +14,7 @@ var currentUserOpenid = null;
 setInterval('refreshUsersOnline()', 10000);
 
 // Test if user is online, if then show chat, else hide
-$(document).ready(function() {
-    //login to wordpress ^^
-    //$.post("../wordpress/wp-login.php", {log: "Aggravate",pwd: "test",rememberme: "1"});
-
+$(document).ready(function() {    
     // setting old openid
     var oldOpenId = unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName")));
     if (oldOpenId != null && oldOpenId != "null" && oldOpenId != ""){
@@ -96,7 +93,7 @@ $(document).ready(function() {
         autoOpen: false
     })
     .dialog("option", "width", 700)
-    .dialog("option", "height", 520);   
+    .dialog("option", "height", 600);
     
     // Firsttime show users online
     refreshUsersOnline();

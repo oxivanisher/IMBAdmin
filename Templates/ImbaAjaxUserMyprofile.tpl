@@ -20,7 +20,9 @@
                 myProfileSignature: $("#myProfileSignature").val(),
             }, function(response){
                 if (response != "Ok"){
-                    alert(response);
+                    $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Erfolg' });
+                } else {
+                    $.jGrowl('Daten wurden gespeichert!', { header: 'Erfolg' });
                 }
             });
             // TODO: Refresh from Database?

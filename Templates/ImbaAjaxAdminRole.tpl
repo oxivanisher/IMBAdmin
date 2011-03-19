@@ -617,7 +617,7 @@
                     action: "module",
                     module: "Admin",
                     request: "updaterole",
-                    row_id: this.parentNode.getAttribute('Id'),
+                    row_id: this.parentNode.getAttribute('id'),
                     column: oTable.fnGetPosition( this )[2]
                 };
             },
@@ -638,7 +638,7 @@
 
         {foreach $roles as $role}
         <tr>
-            <td>{$role.id}</td>
+            <td id="role">{$role.id}</td>
             <td>{$role.role}</td>
             <td>{$role.name}</td>
             <td>{$role.icon}</td>

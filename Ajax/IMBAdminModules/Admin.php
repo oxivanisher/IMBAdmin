@@ -4,13 +4,13 @@
 
 session_start();
 
-require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaLogger.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
+require_once 'Model/ImbaUser.php';
 
 /**
  * are we logged in?
@@ -44,13 +44,13 @@ if (ImbaUserContext::getLoggedIn()) {
             $logs = $managerLog->getAll();
 
             $managerUser = new ImbaManagerUser();
-
+            
             $smarty_logs = array();
             foreach ($logs as $log) {
-                $username = "Anonymous";
-                $user = $managerUser->selectByOpenId($log->getUser());
-                print_r($user);
-                $username = $this->user->getNickname();
+                $username = "Anonymous";                
+                if ($log->getUser() != ""){
+                    $username = $managerUser->selectByOpenId("http://openid-provider.appspot.com/Steffen.So@googlemail.com")->getNickname();
+                }                
                 
                 array_push($smarty_logs, array(
                     'timestamp' => ImbaSharedFunctions::getAge($log->getTimestamp()),

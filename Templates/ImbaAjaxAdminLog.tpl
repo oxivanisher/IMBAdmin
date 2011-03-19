@@ -1,14 +1,14 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#ImbaAjaxAdminLogTable').dataTable( {
-            "aoColumns": [
+  /*          "aoColumns": [
                 { "sType": "title-numeric-asc" },
                 null,
                 null,
                 null,
                 null,
                 null
-            ],
+            ], */
                 
             "bFilter": true,
             "sPaginationType": "two_button",

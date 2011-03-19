@@ -48,8 +48,8 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty_logs = array();
             foreach ($logs as $log) {
                 $username = "Anonymous";
-                $this->user = $managerUser->selectByOpenId($log->getUser());
-                print_r($this->user);
+                $user = $managerUser->selectByOpenId($log->getUser());
+                print_r($user);
                 $username = $this->user->getNickname();
                 
                 array_push($smarty_logs, array(

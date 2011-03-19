@@ -7,7 +7,7 @@ session_start();
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
-require_once 'Controller/ImbaManagerRole.php';
+require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -24,6 +24,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * Load the database
      */
     $managerUser = ImbaManagerUser::getInstance();
+    $roleManager = ImbaManagerUserRole::getInstance();
 
     switch ($_POST["request"]) {
         case "editmyprofile":
@@ -56,8 +57,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = ImbaManagerUserRole::getInstance();
-            $role = $roleManager->selectById($user->getRole());
+            $role = $roleManager->selectById($user->getRole()->getId());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
@@ -119,8 +119,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = ImbaManagerUserRole::getInstance();
-            $role = $roleManager->selectById($user->getRole());
+            $role = $roleManager->selectById($user->getRole()->getId());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
@@ -159,8 +158,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = ImbaManagerUserRole::getInstance();
-            $role = $roleManager->selectById($user->getRole());
+            $role = $roleManager->selectById($user->getRole()->getId());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());

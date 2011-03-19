@@ -91,6 +91,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
                 $role->setSmf($row["smf"]);
                 $role->setWordpress($row["wordpress"]);
                 $role->setIcon($row["icon"]);
+                $role->setId($id);
 
                 array_push($result, $role);
             }

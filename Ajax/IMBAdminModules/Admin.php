@@ -7,10 +7,11 @@ session_start();
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaLogger.php';
 require_once 'Controller/ImbaManagerUser.php';
-require_once 'Controller/ImbaManagerRole.php';
+require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
+require_once 'Model/ImbaUserRole.php';
 
 /**
  * are we logged in?
@@ -25,6 +26,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * Load the database
      */
     $managerUser = ImbaManagerUser::getInstance();
+    $managerRole = ImbaManagerUserRole::getInstance();
 
     switch ($_POST["request"]) {
         case "role":
@@ -42,14 +44,14 @@ if (ImbaUserContext::getLoggedIn()) {
         case "log":
             $managerLog = ImbaLogger::getInstance();
             $logs = $managerLog->getAll();
-            
+
             $smarty_logs = array();
             foreach ($logs as $log) {
-                $username = "Anonymous";                
-                if ($log->getUser() != ""){
+                $username = "Anonymous";
+                if ($log->getUser() != "") {
                     $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
-                }                
-                
+                }
+
                 array_push($smarty_logs, array(
                     'timestamp' => ImbaSharedFunctions::getAge($log->getTimestamp()),
                     'user' => $username,
@@ -69,7 +71,10 @@ if (ImbaUserContext::getLoggedIn()) {
             $user->setOpenId($_POST["myProfileOpenId"]);
             $user->setSex($_POST["myProfileSex"]);
             $user->setMotto($_POST["myProfileMotto"]);
-            $user->setRole($_POST["myProfileRole"]);
+
+            $role = $managerRole->selectById($_POST["myProfileRole"]);
+            $user->setRole($role);
+
             $user->setBirthmonth($_POST["myProfileBirthmonth"]);
             $user->setBirthday($_POST["myProfileBirthday"]);
             $user->setLastname($_POST["myProfileLastname"]);
@@ -99,9 +104,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('lastname', $user->getLastname());
             $smarty->assign('shortlastname', substr($user->getLastname(), 0, 1) . ".");
             $smarty->assign('firstname', $user->getFirstname());
-            $smarty->assign('birthday', $user->getBirthday());
-            $smarty->assign('birthmonth', $user->getBirthmonth());
-            $smarty->assign('birthyear', $user->getBirthyear());
+            $smarty->assign('birthday', $user->getBirthday() . "." . $user->getBirthmonth() . "." . $user->getBirthyear());
             $smarty->assign('icq', $user->getIcq());
             $smarty->assign('msn', $user->getMsn());
             $smarty->assign('skype', $user->getSkype());
@@ -122,8 +125,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = ImbaManagerUserRole::getInstance();
-            $role = $roleManager->selectById($user->getRole());
+            $role = $managerRole->selectById($user->getRole()->getId());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
@@ -132,8 +134,36 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->display('ImbaAjaxAdminViewedituser.tpl');
             break;
 
+        case "updateuserprofile":
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId($_POST["myProfileOpenId"]);
+            $user->setOpenId($_POST["myProfileOpenId"]);
+            $user->setMotto($_POST["myProfileMotto"]);
+            $user->setUsertitle($_POST["myProfileUsertitle"]);
+            $user->setAvatar($_POST["myProfileAvatar"]);
+            $user->setWebsite($_POST["myProfileWebsite"]);
+            $user->setNickname($_POST["myProfileNickname"]);
+            $user->setEmail($_POST["myProfileEmail"]);
+            $user->setSkype($_POST["myProfileSkype"]);
+            $user->setIcq($_POST["myProfileIcq"]);
+            $user->setMsn($_POST["myProfileMsn"]);
+            $user->setSignature($_POST["myProfileSignature"]);
+
+            $birthdate = explode(".", $_POST["myProfileBirthday"]);
+            $user->setBirthday($birthdate[0]);
+            $user->setBirthmonth($birthdate[1]);
+            $user->setBirthyear($birthdate[2]);
+
+            try {
+                $managerUser->update($user);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            break;
+
         default:
- //           $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
+            //           $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();
@@ -142,7 +172,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     'nickname' => $user->getNickname(),
                     'openid' => $user->getOpenID(),
                     'lastonline' => ImbaSharedFunctions::getNiceAge($user->getLastonline()),
-                    'role' => ""
+                    'role' => $user->getRole()->getName()
                 ));
             }
             $smarty->assign('susers', $smarty_users);

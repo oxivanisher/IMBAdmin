@@ -2,6 +2,7 @@
 
 require_once 'Model/ImbaUser.php';
 require_once 'Controller/ImbaManagerBase.php';
+require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -16,7 +17,6 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     protected $usersCached = null;
     protected $usersCachedTimestamp = null;
-
     /**
      * Singleton implementation
      */
@@ -33,6 +33,7 @@ class ImbaManagerUser extends ImbaManagerBase {
     /*
      * Singleton init
      */
+
     public static function getInstance() {
         if (self::$instance === NULL)
             self::$instance = new self();
@@ -60,13 +61,15 @@ class ImbaManagerUser extends ImbaManagerBase {
             // Only fetch Users with role <> banned
             $result = array();
 
-            /**
-             * FIXME: admins should get banned users too
-             */
-            $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid Where p.role <> 0 order by p.nickname;";
-
+            if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() >= 9) {
+                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid order by p.nickname;";                
+            } else {
+                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid Where p.role <> 0 order by p.nickname;";
+            }
+            
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE));
 
+            $managerRole = ImbaManagerUserRole::getInstance();
             while ($row = $this->database->fetchRow()) {
                 $user = new ImbaUser();
                 $user->setOpenId($row["openid"]);
@@ -87,14 +90,22 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setWebsite($row["website"]);
                 $user->setMotto($row["motto"]);
                 $user->setAccurate($row["accurate"]);
-                $user->setRole($row["role"]);
                 $user->setLastonline($row["timestamp"]);
-
+                // store role id in Role Propertie
+                $user->setRole($row["role"]);
                 array_push($result, $user);
             }
+
+            foreach ($result as $user) {
+                // role id stored in Role Propertie
+                $role = $managerRole->selectById($user->getRole());
+                $user->setRole($role);
+            }
+
             $this->usersCachedTimestamp = time();
             $this->usersCached = $result;
         }
+
         return $this->usersCached;
     }
 
@@ -125,7 +136,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getRole()
+            $user->getRole()->getId()
         ));
 
         $this->usersCached = null;
@@ -159,7 +170,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getRole(),
+            $user->getRole()->getId(),
             $user->getOpenId()
         ));
 
@@ -186,7 +197,7 @@ class ImbaManagerUser extends ImbaManagerBase {
         foreach ($this->selectAllUser()as $user) {
             if ($openId == $user->getOpenId())
                 $result = $user;
-        }                
+        }
         return $result;
     }
 
@@ -210,6 +221,7 @@ class ImbaManagerUser extends ImbaManagerBase {
         $result = array();
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself, $startingWith));
 
+        $managerRole = ImbaManagerUserRole::getInstance();
         while ($row = $this->database->fetchRow()) {
             $user = new ImbaUser();
             $user->setOpenId($row["openid"]);
@@ -230,7 +242,9 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->setWebsite($row["website"]);
             $user->setMotto($row["motto"]);
             $user->setAccurate($row["accurate"]);
-            $user->setRole($row["role"]);
+
+            $role = $managerRole->selectById($row["role"]);
+            $user->setRole($role);
 
             array_push($result, $user);
         }

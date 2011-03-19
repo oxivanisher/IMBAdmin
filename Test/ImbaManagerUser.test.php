@@ -2,9 +2,11 @@
 
 chdir("../");
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaUser.php';
+require_once 'Model/ImbaUserRole.php';
 
 /**
  * Test login
@@ -21,6 +23,7 @@ ImbaUserContext::setUserRole(9);
  * Prepare Variables
  */
 $managerUser = ImbaManagerUser::getInstance();
+$managerRole = ImbaManagerUserRole::getInstance();
 $output = "";
 
 /**

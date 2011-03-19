@@ -217,7 +217,7 @@ class ImbaManagerOpenID {
             if ($currentUser->getRole() != null) {
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
-                ImbaUserContext::setUserRole($currentUser->getRole());
+                ImbaUserContext::setUserRole($currentUser->getRole()->getId());
                 $userManager->setMeOnline();
                 $this->afterLoginIsDone();
             } else {

@@ -17,8 +17,6 @@ class ImbaManagerUserRole extends ImbaManagerBase {
      * ImbaManagerDatabase
      */
     protected $rolesCached = null;
-    protected $rolesCachedTimestamp = null;
-
     /**
      * Singleton implementation
      */
@@ -35,6 +33,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
     /*
      * Singleton init
      */
+
     public static function getInstance() {
         if (self::$instance === NULL)
             self::$instance = new self();
@@ -72,18 +71,16 @@ class ImbaManagerUserRole extends ImbaManagerBase {
     }
 
     /**
-     * Select one Role by Id
+     * Select all roles
      */
-    public function selectById($id) {
-        if ($this->usersCached == null) {
-            // Only fetch Users with role <> banned
+    public function selectAll() {
+        if ($this->rolesCached == null) {
             $result = array();
 
             $query = "SELECT * FROM %s;";
 
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PROFILES));
             while ($row = $this->database->fetchRow()) {
-                // FIXME: muss hier auch eines hin für id?
                 $role = new ImbaUserRole();
                 $role->setHandle($row["handle"]);
                 $role->setRole($row["role"]);
@@ -91,18 +88,37 @@ class ImbaManagerUserRole extends ImbaManagerBase {
                 $role->setSmf($row["smf"]);
                 $role->setWordpress($row["wordpress"]);
                 $role->setIcon($row["icon"]);
-                $role->setId($id);
+                $role->setId($row["id"]);
 
                 array_push($result, $role);
             }
 
-            $this->rolesCachedTimestamp = time();
             $this->rolesCached = $result;
         }
-        foreach ($this->rolesCached as $role) {
-            if ($role->getRole() == $id)
+
+        return $this->rolesCached;
+    }
+
+    /**
+     * Select one Role by role
+     */
+    public function selectByRole($roleId) {
+        foreach ($this->selectAll() as $role) {
+            if ($role->getRole() == $roleId)
                 return $role;
-        } return null;
+        }
+        return null;
+    }
+
+    /**
+     * Select one Role by Id
+     */
+    public function selectById($id) {
+        foreach ($this->selectAll() as $role) {
+            if ($role->getId() == $id)
+                return $role;
+        }
+        return null;
     }
 
 }

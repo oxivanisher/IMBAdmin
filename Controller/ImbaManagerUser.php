@@ -98,7 +98,7 @@ class ImbaManagerUser extends ImbaManagerBase {
 
             foreach ($result as $user) {
                 // role id stored in Role Propertie
-                $role = $managerRole->selectById($user->getRole());
+                $role = $managerRole->selectByRole($user->getRole());
                 $user->setRole($role);
             }
 
@@ -243,7 +243,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->setMotto($row["motto"]);
             $user->setAccurate($row["accurate"]);
 
-            $role = $managerRole->selectById($row["role"]);
+            $role = $managerRole->selectByRole($row["role"]);
             $user->setRole($role);
 
             array_push($result, $user);

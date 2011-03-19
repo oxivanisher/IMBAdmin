@@ -1,7 +1,6 @@
 <?php
 
 // Extern Session start
-
 session_start();
 
 require_once 'ImbaConstants.php';
@@ -30,7 +29,21 @@ if (ImbaUserContext::getLoggedIn()) {
 
     switch ($_POST["request"]) {
         case "role":
-            echo "role";
+            $roles = $managerRole->selectAll();
+
+            $smarty_roles = array();
+            foreach ($roles as $role) {
+                array_push($smarty_roles, array(
+                    "id" => $role->getId(),
+                    "role" => $role->getRole(),
+                    "name" => $role->getName(),
+                    "icon" => $role->getIcon(),
+                    "smf" => $role->getSmf(),
+                    "wordpress" => $role->getWordpress()                    
+                ));
+            }
+            $smarty->assign('roles', $smarty_roles);
+            $smarty->display('ImbaAjaxAdminRole.tpl');
             break;
 
         case "settings":
@@ -72,7 +85,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $user->setSex($_POST["myProfileSex"]);
             $user->setMotto($_POST["myProfileMotto"]);
 
-            $role = $managerRole->selectById($_POST["myProfileRole"]);
+            $role = $managerRole->selectByRole($_POST["myProfileRole"]);
             $user->setRole($role);
 
             $user->setBirthmonth($_POST["myProfileBirthmonth"]);
@@ -163,7 +176,6 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         default:
-            //           $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();

@@ -617,6 +617,8 @@
                     action: "module",
                     module: "Admin",
                     request: "updaterole",
+                    
+                    // hilfe, ich weiss nicht wie ich hier auf das id feld wirklich zugreiffe. funktioniert nicht so
                     row_id: this.parentNode.getAttribute('id'),
                     column: oTable.fnGetPosition( this )[2]
                 };

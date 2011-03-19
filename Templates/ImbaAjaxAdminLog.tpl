@@ -1,24 +1,6 @@
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#ImbaAjaxAdminLogTable').dataTable( {
-  /*          "aoColumns": [
-                { "sType": "title-numeric-asc" },
-                null,
-                null,
-                null,
-                null,
-                null
-            ], */
-                
-            "bFilter": true,
-            "sPaginationType": "two_button",
-            "bJQueryUI": true,
-            "bLengthChange": false
-        } );
-    } );   
     
     //http://www.datatables.net/plug-ins/sorting#how_to_type -> Hidden title numeric sorting
-    
     jQuery.fn.dataTableExt.oSort['title-numeric-asc']  = function(a,b) {
         var x = a.match(/title="*(-?[0-9]+)/)[1];
         var y = b.match(/title="*(-?[0-9]+)/)[1];
@@ -35,7 +17,23 @@
         return ((x < y) ?  1 : ((x > y) ? -1 : 0));
     };
     
-
+    $(document).ready(function() {
+        $('#ImbaAjaxAdminLogTable').dataTable( {
+            "aoColumns": [
+                { "sType": "title-numeric-asc" },
+                null,
+                null,
+                null,
+                null
+            ],
+                
+            "bFilter": true,
+            "sPaginationType": "two_button",
+            "bJQueryUI": true,
+            "bLengthChange": false
+        } );
+    } );   
+    
     function showLogDetail(id){
         var data = {
             action: "module",

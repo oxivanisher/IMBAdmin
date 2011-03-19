@@ -9,10 +9,25 @@ require_once 'Controller/ImbaManagerBase.php';
 class ImbaLogger extends ImbaManagerBase {
 
     /**
+     * Singleton implementation
+     */
+    private static $instance = NULL;
+
+    /**
      * Ctor
      */
-    public function __construct() {
-        parent::__construct();
+    protected function __construct() {
+        //parent::__construct();
+        $this->database = ImbaManagerDatabase::getInstance();
+    }
+
+    /*
+     * Singleton init
+     */
+    public static function getInstance() {
+        if (self::$instance === NULL)
+            self::$instance = new self();
+        return self::$instance;
     }
 
     /**
@@ -64,11 +79,11 @@ class ImbaLogger extends ImbaManagerBase {
             $log->setSession($row["session"]);
             $log->setMessage($row["msg"]);
             $log->setLevel($row["lvl"]);
-            
+
             array_push($messages, $log);
             unset($log);
         }
-        
+
         return $messages;
     }
 

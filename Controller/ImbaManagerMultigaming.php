@@ -18,12 +18,26 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
     protected $gamesCached = null;
 
     /**
+     * Singleton implementation
+     */
+    private static $instance = NULL;
+
+    /**
      * Ctor
      */
-    public function __construct() {
-        parent::__construct();
+    protected function __construct() {
+        //parent::__construct();
+        $this->database = ImbaManagerDatabase::getInstance();
     }
 
+    /*
+     * Singleton init
+     */
+    public static function getInstance() {
+        if (self::$instance === NULL)
+            self::$instance = new self();
+        return self::$instance;
+    }
     /**
      * Selects all Gaming Categories
      */

@@ -9,7 +9,7 @@ require_once 'Model/ImbaGameCategory.php';
 /**
  * Prepare Variables
  */
-$managerMultigaming = new ImbaManagerMultigaming();
+$managerMultigaming = ImbaManagerMultigaming::getInstance();
 $output = "";
 
 /**

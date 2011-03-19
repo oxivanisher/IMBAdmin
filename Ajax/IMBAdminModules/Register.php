@@ -20,7 +20,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerUser = new ImbaManagerUser();
+    $managerUser = ImbaManagerUser::getInstance();
 
     /**
      * create a new smarty object

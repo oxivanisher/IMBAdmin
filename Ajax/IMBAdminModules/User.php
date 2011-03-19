@@ -23,7 +23,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerUser = new ImbaManagerUser();
+    $managerUser = ImbaManagerUser::getInstance();
 
     switch ($_POST["request"]) {
         case "editmyprofile":
@@ -56,7 +56,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = new ImbaManagerUserRole();
+            $roleManager = ImbaManagerUserRole::getInstance();
             $role = $roleManager->selectById($user->getRole());
 
             $smarty->assign('role', $role->getName());
@@ -119,7 +119,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = new ImbaManagerUserRole();
+            $roleManager = ImbaManagerUserRole::getInstance();
             $role = $roleManager->selectById($user->getRole());
 
             $smarty->assign('role', $role->getName());
@@ -159,7 +159,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = new ImbaManagerUserRole();
+            $roleManager = ImbaManagerUserRole::getInstance();
             $role = $roleManager->selectById($user->getRole());
 
             $smarty->assign('role', $role->getName());
@@ -170,7 +170,6 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         default:
-//            $smarty->assign('link', ImbaSharedFunctions::genAjaxWebLink($_POST["module"], "viewprofile", $_POST["User"]));
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
 
             $smarty_users = array();

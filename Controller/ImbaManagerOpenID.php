@@ -208,7 +208,7 @@ class ImbaManagerOpenID {
             $openid = $response->getDisplayIdentifier();
             $esc_identity = $this->escape($openid);
 
-            $userManager = new ImbaManagerUser();
+            $userManager = ImbaManagerUser::getInstance();
             $currentUser = new ImbaUser();
             $currentUser = $userManager->selectByOpenId($esc_identity);
 

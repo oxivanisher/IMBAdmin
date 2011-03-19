@@ -13,8 +13,8 @@ require_once 'Controller/ImbaUserContext.php';
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
-    $managerUser = new ImbaManagerUser();
-    $managerMessage = new ImbaManagerMessage();
+    $managerUser = ImbaManagerUser::getInstance();
+    $managerMessage = ImbaManagerMessage::getInstance();
 
     /**
      * Gets a list of online users as JSON

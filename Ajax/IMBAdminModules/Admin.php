@@ -24,7 +24,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerUser = new ImbaManagerUser();
+    $managerUser = ImbaManagerUser::getInstance();
 
     switch ($_POST["request"]) {
         case "role":
@@ -40,10 +40,8 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "log":
-            $managerLog = new ImbaLogger();
+            $managerLog = ImbaLogger::getInstance();
             $logs = $managerLog->getAll();
-
-            $managerUser = new ImbaManagerUser();
             
             $smarty_logs = array();
             foreach ($logs as $log) {
@@ -124,7 +122,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $roleManager = new ImbaManagerUserRole();
+            $roleManager = ImbaManagerUserRole::getInstance();
             $role = $roleManager->selectById($user->getRole());
 
             $smarty->assign('role', $role->getName());

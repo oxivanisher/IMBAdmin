@@ -15,10 +15,10 @@ class ImbaManagerBase {
     
     /**
      * Ctor
-     */
     public function __construct() {
-        $this->database = ImbaManagerDatabase::getInstance(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_DB, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS);
+        $this->database = ImbaManagerDatabase::getInstance();
     }
+     */
 }
 
 ?>

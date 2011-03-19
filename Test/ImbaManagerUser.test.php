@@ -20,7 +20,7 @@ ImbaUserContext::setUserRole(9);
 /**
  * Prepare Variables
  */
-$managerUser = new ImbaManagerUser();
+$managerUser = ImbaManagerUser::getInstance();
 $output = "";
 
 /**

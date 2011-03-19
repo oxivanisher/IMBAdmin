@@ -6,7 +6,7 @@ require_once 'Controller/ImbaManagerMessage.php';
 /**
  * Prepare Variables
  */
-$managerMessage = new ImbaManagerMessage();
+$managerMessage = ImbaManagerMessage::getInstance();
 $output = "";
 
 /**

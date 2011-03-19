@@ -21,7 +21,7 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Load the database
      */
-    $managerUser = new ImbaManagerUser();
+    $managerUser = ImbaManagerUser::getInstance();
 
 
     $contentNav = new ImbaContentNavigation();

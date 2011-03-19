@@ -34,7 +34,7 @@ switch ($_POST["action"]) {
     case "module":
         session_start();
         if (ImbaUserContext::getLoggedIn()) {
-            $managerUser = new ImbaManagerUser();
+            $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
             unset($managerUser);
         }

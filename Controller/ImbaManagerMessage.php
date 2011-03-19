@@ -11,12 +11,27 @@ require_once 'Model/ImbaUser.php';
 class ImbaManagerMessage extends ImbaManagerBase {
 
     /**
+     * Singleton implementation
+     */
+    private static $instance = NULL;
+
+    /**
      * Ctor
      */
-    public function __construct() {
-        parent::__construct();
+    protected function __construct() {
+        //parent::__construct();
+        $this->database = ImbaManagerDatabase::getInstance();
     }
 
+    /*
+     * Singleton init
+     */
+    public static function getInstance() {
+        if (self::$instance === NULL)
+            self::$instance = new self();
+        return self::$instance;
+    }
+    
     /**
      * Tries to send an insert command to the database.
      * Inserts a message into the Database if successfully.
@@ -87,7 +102,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
     /**
      * Selects a complete Conversation between two OpenIds
      */
-    public function selectConversation($openidMe, $openidOpponent, $lines) {
+    public function selectConversation($openidMe, $openidOpponent, $lines = 10) {
         $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC LIMIT 0, %s;";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
@@ -162,7 +177,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
         $databaseresult = array_unique($databaseresult);
 
         $result = array();
-        $managerUser = new ImbaManagerUser($this->database);
+        $managerUser = ImbaManagerUser::getInstance();
         for ($i = 0; $i < 3; $i++) {
             $value = $databaseresult[$i];
             $user = new ImbaUser();

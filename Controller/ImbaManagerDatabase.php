@@ -30,25 +30,27 @@ class ImbaManagerDatabase {
      */
     private static $instance = NULL;
 
-    private function __construct($host, $database, $user, $pass) {
+    /**
+     * ctor
+     */
+    private function __construct() {
         /**
          * Setting the local Timezone
          */
-        setlocale(ImbaConstants::$CONTEXT_LOCALE[0], ImbaConstants::$CONTEXT_LOCALE[1], ImbaConstants::$CONTEXT_LOCALE[2], ImbaConstants::$CONTEXT_LOCALE[3], ImbaConstants::$CONTEXT_LOCALE[4]
-        );
-
-        $this->connection = mysql_pconnect($host, $user, $pass, TRUE);
+        setlocale(ImbaConstants::$CONTEXT_LOCALE[0], ImbaConstants::$CONTEXT_LOCALE[1], ImbaConstants::$CONTEXT_LOCALE[2], ImbaConstants::$CONTEXT_LOCALE[3], ImbaConstants::$CONTEXT_LOCALE[4]);
+        
+        $this->connection = mysql_pconnect(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS, TRUE);
         mysql_query('set character set utf8;');
         mysql_set_charset('UTF8', $this->connection);
 
-        if (!mysql_select_db($database, $this->connection)) {
+        if (!mysql_select_db(ImbaConfig::$DATABASE_DB, $this->connection)) {
             throw new Exception("Database Connection not working!");
         }
     }
 
-    public static function getInstance($host, $database, $user, $pass) {
+    public static function getInstance() {
         if (self::$instance === NULL)
-            self::$instance = new self($host, $database, $user, $pass);
+            self::$instance = new self();
         return self::$instance;
     }
 

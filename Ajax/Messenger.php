@@ -12,8 +12,8 @@ require_once 'Controller/ImbaUserContext.php';
  * are we logged in?
  */
 if (ImbaUserContext::getLoggedIn()) {
-    $managerMessage = new ImbaManagerMessage();
-    $managerUser = new ImbaManagerUser();
+    $managerMessage = ImbaManagerMessage::getInstance();
+    $managerUser = ImbaManagerUser::getInstance();
 
     /**
      * Recieve Statup Data

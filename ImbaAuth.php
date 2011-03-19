@@ -42,7 +42,7 @@ $managerOpenId = new ImbaManagerOpenID();
 /**
  * Load the logger
  */
-$managerLog = new ImbaLogger();
+$managerLog = ImbaLogger::getInstance();
 
 /**
  * OpenID auth logic

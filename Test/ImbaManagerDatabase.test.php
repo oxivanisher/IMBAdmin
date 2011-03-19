@@ -14,7 +14,7 @@ $output = "";
  * Databaseconnection test
  */
 try {
-    $managerDatabase = ImbaManagerDatabase::getInstance("localhost", "imbadmin", "imbadmin", "ua0Quee2");
+    $managerDatabase = ImbaManagerDatabase::getInstance();
     $output .= "Database working.\n";
 } catch (Exception $e) {
     $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";

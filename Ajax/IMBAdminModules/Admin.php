@@ -47,6 +47,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "updaterole":
+            //$role = $managerRole->
             print_r($_POST);
             break;
             
@@ -71,6 +72,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                 array_push($smarty_logs, array(
                     'timestamp' => ImbaSharedFunctions::getAge($log->getTimestamp()),
+                    'age' => $log->getTimestamp(),
                     'user' => $username,
                     'module' => $log->getModule(),
                     'message' => $log->getMessage(),

@@ -34,9 +34,7 @@ class ImbaManagerDatabase {
      * ctor
      */
     private function __construct() {
-        /**
-         * Setting the local Timezone
-         */
+        // Setting the local Timezone
         setlocale(ImbaConstants::$CONTEXT_LOCALE[0], ImbaConstants::$CONTEXT_LOCALE[1], ImbaConstants::$CONTEXT_LOCALE[2], ImbaConstants::$CONTEXT_LOCALE[3], ImbaConstants::$CONTEXT_LOCALE[4]);
         
         $this->connection = mysql_pconnect(ImbaConfig::$DATABASE_HOST, ImbaConfig::$DATABASE_USER, ImbaConfig::$DATABASE_PASS, TRUE);
@@ -61,7 +59,7 @@ class ImbaManagerDatabase {
 
     public function query($queryStr, array $args = array()) {
         foreach ($args as $key => $value) {
-            $args[$key] = mysql_real_escape_string($value);
+            $args[$key] = mysql_real_escape_string(stripslashes($value));
         }
         $query = vsprintf($queryStr, $args);
 

@@ -638,7 +638,7 @@
 
         {foreach $roles as $role}
         <tr>
-            <td id="role">{$role.id}</td>
+            <td id="id">{$role.id}</td>
             <td>{$role.role}</td>
             <td>{$role.name}</td>
             <td>{$role.icon}</td>

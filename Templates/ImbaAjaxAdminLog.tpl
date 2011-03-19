@@ -623,7 +623,7 @@ table.display tr.gradeU {
     <tbody>
 
         {foreach $logs as $log}
-        <tr onclick="javascript: showLogDetail('{$log.id}');"><td value="{$log.timestamp}">{$log.age}</td><td>{$log.user}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.lvl}</td></tr>
+        <tr onclick="javascript: showLogDetail('{$log.id}');"><span title="{$log.timestamp}"></span>{$log.age}</td><td>{$log.user}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.lvl}</td></tr>
         {/foreach}
 
     </tbody>

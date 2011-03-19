@@ -617,7 +617,7 @@
                     action: "module",
                     module: "Admin",
                     request: "updaterole",
-                    row_id: this.parentNode.getAttribute('id'),
+                    row_id: this.parentNode.getAttribute('Id'),
                     column: oTable.fnGetPosition( this )[2]
                 };
             },

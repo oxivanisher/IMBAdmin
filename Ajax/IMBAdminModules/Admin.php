@@ -49,7 +49,7 @@ if (ImbaUserContext::getLoggedIn()) {
             foreach ($logs as $log) {
                 $username = "Anonymous";                
                 if ($log->getUser() != ""){
-                    $username = $managerUser->selectByOpenId("http://openid-provider.appspot.com/Steffen.So@googlemail.com")->getNickname();
+                    $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
                 }                
                 
                 array_push($smarty_logs, array(

@@ -46,6 +46,10 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->display('ImbaAjaxAdminRole.tpl');
             break;
 
+        case "updaterole":
+            echo "test";
+            break;
+            
         case "settings":
             echo "settings";
             break;

@@ -4,7 +4,7 @@
  * load the needed classes for OpenID operations
  */
 $tmpPath = getcwd();
-chdir("Libs/OpenId");
+chdir("Libs/php-openid/");
 require_once "Auth/OpenID/Consumer.php";
 require_once "Auth/OpenID/FileStore.php";
 require_once "Auth/OpenID/SReg.php";

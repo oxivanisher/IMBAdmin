@@ -47,7 +47,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "updaterole":
-            echo "test";
+            print_r($_GET);
             break;
             
         case "settings":

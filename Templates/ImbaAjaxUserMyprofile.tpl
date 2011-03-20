@@ -32,7 +32,7 @@
     } );   
 </script>
 <form id="ImbaAjaxUsersViewprofileForm" action="post">
-    <table id="ImbaAjaxUsersViewprofileTable" style="cellspacing: 1px;">
+    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
         <tbody>
             <tr>
                 <td>

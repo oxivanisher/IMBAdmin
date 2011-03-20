@@ -48,7 +48,6 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "updaterole":
-            //wie finde ich hier das richtige feld? siehe template file
             $role = $managerRole->selectById($_POST["roleid"]);
 
             switch ($_POST["rolecolumn"]) {
@@ -81,7 +80,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "settings":
-            echo "settings / clear log";
+            $smarty->display('ImbaAjaxAdminSettings.tpl');
             break;
 
         case "statistics":
@@ -161,7 +160,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                     array_push($smarty_logs, array(
                         'id' => $sessionLog->getId(),
-                        'date' => ImbaSharedFunctions::genTime($sessionLog->getTimestamp()),
+                        'date' => ImbaSharedFunctions::getAge($sessionLog->getTimestamp()),
                         'module' => $sessionLog->getModule(),
                         'message' => $sessionLog->getMessage(),
                         'level' => $sessionLog->getLevel()
@@ -268,6 +267,38 @@ if (ImbaUserContext::getLoggedIn()) {
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
+            break;
+
+        case "runMaintenanceJob":
+            switch ($_POST["jobHandle"]) {
+                case "clearLog":
+                    if (ImbaUserContext::getUserRole() >= 9) {
+                        $managerLog = ImbaLogger::getInstance();
+                        $managerLog->clearAll();
+
+                        $smarty->assign('name', 'Clear System Messages');
+                        $smarty->assign('message', 'cleared');
+                    } else {
+                        $smarty->assign('name', 'Clear System Messages');
+                        $smarty->assign('message', 'not cleared! you are no admin!');
+                    }
+                    break;
+                default:
+                    $smarty->assign('name', $_POST["jobHandle"]);
+                    $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
+            }
+            $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
+            break;
+
+        case "maintenance":
+
+            $maintenenceJobs = array();
+
+            array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
+            array_push($maintenenceJobs, array('handle' => 'xx', 'name' => 'nix'));
+
+            $smarty->assign('jobs', $maintenenceJobs);
+            $smarty->display('ImbaAjaxAdminMaintenance.tpl');
             break;
 
         default:

@@ -23,12 +23,14 @@
 <h3>Other Session Messages</h3>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
-    {foreach $logs as $log}
 
-    <tr onclick="javascript: showLogDetail('{$log.id}');"><td>
-            {if $id == $log.id}
-                &gt;
-            {/if}      
-            {$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>
+    {foreach $logs as $log}
+    <tr onclick="javascript: showLogDetail('{$log.id}');" style="cursor: pointer;">
+        <td>{if $id == $log.id}&gt; {/if}{$log.date}</td>
+        <td>{$log.module}</td>
+        <td>{$log.message}</td>
+        <td>{$log.level}</td>
+    </tr>
     {/foreach}
+
 </table>

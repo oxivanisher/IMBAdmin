@@ -64,7 +64,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $managerMessage = ImbaManagerMessage::getInstance();
 
             $smarty->assign('users', count($managerUser->selectAll()));
-            $smarty->assign('userroles', count($managerRole->selectAll()));
+            $smarty->assign('userroles', count($managerRole->selectAllUser()));
             $smarty->assign('messages', "noch nix");
             $smarty->assign('logs', count($managerLog->selectAll()));
 

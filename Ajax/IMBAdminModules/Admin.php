@@ -56,7 +56,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "settings":
-            echo "settings / clear log";
+            $smarty->display('ImbaAjaxAdminSettings.tpl');
             break;
 
         case "statistics":
@@ -245,6 +245,10 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             break;
 
+        case "maintenance":
+            $smarty->display('ImbaAjaxAdminMaintenance.tpl');
+            break;
+        
         default:
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 

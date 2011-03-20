@@ -60,8 +60,8 @@ class ImbaLogger extends ImbaManagerBase {
             $log->getTimestamp(),
             $log->getUser(),
             $log->getIp(),
-            $log->getSession(),
             $log->getModule(),
+            $log->getSession(),
             $log->getMessage(),
             $log->getLevel()
         ));

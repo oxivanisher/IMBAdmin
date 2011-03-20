@@ -168,7 +168,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log = $managerLog->getNew();
     $log->setModule("Auth");
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
-    $log->setLevel(2);
+    $log->setLevel(1);
     $managerLog->insert($log);
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));

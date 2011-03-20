@@ -58,7 +58,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "statistics":
             $managerLog = ImbaLogger::getInstance();
-            //$managerMessage = ImbaManagerMessage::getInstance();
+            $managerMessage = ImbaManagerMessage::getInstance();
 
             $smarty->assign('users', count($managerUser->selectAllUser()));
             $smarty->assign('userroles', count($managerRole->selectAll()));
@@ -73,7 +73,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->assign('usersessions', $logCount);
 
-            $smarty->assign('messages', $managerUser->returnNumberOfMessages());
+            $smarty->assign('messages', $managerMessage->returnNumberOfMessages());
             $smarty->assign('logs', count($managerLog->selectAll()));
 
             $smarty->display('ImbaAjaxAdminStatistics.tpl');

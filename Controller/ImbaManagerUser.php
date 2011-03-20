@@ -92,13 +92,13 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setAccurate($row["accurate"]);
                 $user->setLastonline($row["timestamp"]);
                 // store role id in Role Propertie
-                $user->setRole($managerRole->selectById($row["role"])->getRole());
+                $user->setRole($row["role"]);
                 array_push($result, $user);
             }
 
             foreach ($result as $user) {
                 // role id stored in Role Propertie
-                $role = $managerRole->selectByRole($user->getRole());
+                $role = $managerRole->selectById($user->getRole());
                 $user->setRole($role);
             }
 

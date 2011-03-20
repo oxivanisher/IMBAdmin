@@ -5,6 +5,7 @@ session_start();
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaLogger.php';
+require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';

@@ -337,8 +337,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $log->setMessage("Find incomplete User Profiles");
                     $smarty->assign('name', $log->getMessage());
 
-                    $return = "These Members are missing at least one of the following fields:\n";
-                    $return .= "Nickname, Firstname, Lastname, OpenId\n\n";
+                    $return = "<h3>These Members are missing at least one of the following fields:</h3>";
+                    $return .= "Nickname, Firstname, Lastname, OpenId<br /><br />";
 //                    $incompleteUsers = array();
                     foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
@@ -353,7 +353,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                             $count++;
 
                         if ($count > 0) {
-                            $return .= $user->getNickname() . ": " . $count . "\n";
+                            $return .= $user->getNickname() . ": " . $count . "<br />";
                         }
                     }
 

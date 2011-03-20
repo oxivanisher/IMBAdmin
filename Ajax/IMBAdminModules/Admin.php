@@ -369,7 +369,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $managerLog->clearAll();
 
                     $smarty->assign('name', 'Clear System Messages');
-                    $smarty->assign('message', 'cleared');
+                    $smarty->assign('message', 'Messages cleared!<br />');
                     break;
                 default:
                     $smarty->assign('name', $_POST["jobHandle"]);

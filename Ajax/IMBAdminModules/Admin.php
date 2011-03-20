@@ -85,6 +85,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewlogdetail":
+            print_r($_POST);
             $smarty->assign('id', "asdfsdf");
             
             

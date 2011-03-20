@@ -140,13 +140,14 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerLog = ImbaLogger::getInstance();
 
             $log = $managerLog->selectId($_POST["id"]);
+            $user = $managerUser->selectByOpenId($log->getUser());
 
             $smarty->assign('date', ImbaSharedFunctions::genTime($log->getTimestamp()));
             $smarty->assign('age', ImbaSharedFunctions::getAge($log->getTimestamp()));
             $smarty->assign('openid', $log->getUser());
             $smarty->assign('city', $log->getIp());
             $smarty->assign('id', $log->getId());
-            $smarty->assign('user', $managerUser->selectByOpenId($log->getUser())->getNickname());//$managerUser->selectByOpenId($log->getUser())->getNickname());
+            $smarty->assign('user', $user->getNickname());//$managerUser->selectByOpenId($log->getUser())->getNickname());
             $smarty->assign('ip', $log->getIp());
             $smarty->assign('module', $log->getModule());
             $smarty->assign('session', $log->getSession());

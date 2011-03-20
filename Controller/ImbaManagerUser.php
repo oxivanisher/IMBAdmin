@@ -128,7 +128,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getRole()->getId()
+            $user->getRole()
         ));
 
         $this->usersCached = null;
@@ -162,7 +162,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getRole()->getId(),
+            $user->getRole(),
             $user->getOpenId()
         ));
 

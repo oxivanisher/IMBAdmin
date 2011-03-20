@@ -89,7 +89,9 @@ function loadImbaAdminTabContent(data, myTabId) {
     } else {
         targetIabId = myTabId;
     }
-    
+
+    data.action = "module";
+
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
             $(targetIabId).html(response);
@@ -102,7 +104,6 @@ function loadImbaAdminTabContent(data, myTabId) {
  */
 function runModuleAndDisplay(data){
     alert("test");
-    data.action = "module";
     loadImbaAdminTabContent(data);
 }
 

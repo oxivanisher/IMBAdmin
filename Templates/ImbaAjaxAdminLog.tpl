@@ -59,7 +59,7 @@
             request: "viewlogdetail",
             id: id
         };
-        runModuleAndDisplay(data);
+        loadImbaAdminTabContent(data);
     }
 
 </script>

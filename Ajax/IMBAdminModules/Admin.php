@@ -245,7 +245,27 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             break;
 
+        case "runMaintenanceJob":
+            switch ($_POST["jobHandle"]) {
+                case "clearLog":
+                    $smarty->assign('name', 'Clear System Messages');
+                    $smarty->assign('message', 'cleared');
+                    break;
+                default:
+                    $smarty->assign('name', 'error');
+                    $smarty->assign('message', 'unknown job' . $_POST["jobHandle"]);
+            }
+            $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
+            break;
+        
         case "maintenance":
+            
+            $maintenenceJobs = array();
+        
+            array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
+            array_push($maintenenceJobs, array('handle' => 'xx', 'name' => 'nix'));
+          
+            $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('ImbaAjaxAdminMaintenance.tpl');
             break;
         

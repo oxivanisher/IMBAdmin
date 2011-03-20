@@ -66,6 +66,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
         $query = "UPDATE %s SET ";
         $query .= "handle = '%s', role = '%s', name = '%s', smf = '%s', wordpress = '%s', icon = '%s' ";
         $query .= "WHERE id = '%s'";
+
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,
             $role->getHandle(),
@@ -82,6 +83,8 @@ class ImbaManagerUserRole extends ImbaManagerBase {
      * Delets a Role by Id
      */
     public function delete($id) {
+        // TODO: Check if there are users in that role
+
         $query = "DELETE FROM %s Where id = '%s';";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,

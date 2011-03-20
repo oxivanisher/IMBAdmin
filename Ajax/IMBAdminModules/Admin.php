@@ -16,7 +16,7 @@ require_once 'Model/ImbaUserRole.php';
 /**
  * are we logged in?
  */
-if (ImbaUserContext::getLoggedIn()) {
+if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
     /**
      * create a new smarty object
      */
@@ -48,11 +48,39 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "updaterole":
-            //wie finde ich hier das richtige feld? siehe template file
-
             $role = $managerRole->selectById($_POST["roleid"]);
 
-            echo "Ich funze ned" . $_POST["test"];
+            switch ($_POST["rolecolumn"]) {
+                case "Role":
+                    $role->setRole($_POST["value"]);
+                    break;
+
+                case "Name":
+                    $role->setName($_POST["value"]);
+                    break;
+
+                case "Icon":
+                    $role->setIcon($_POST["value"]);
+                    break;
+
+                case "SMF":
+                    $role->setSmf($_POST["value"]);
+                    break;
+
+                case "Wordpress":
+                    $role->setWordpress($_POST["value"]);
+                    break;
+
+                default:
+                    break;
+            }
+
+            $managerRole->update($role);
+            echo $_POST["value"];
+            break;
+
+        case "deleterole":            
+            $managerRole->delete($_POST["roleid"]);            
             break;
 
         case "settings":

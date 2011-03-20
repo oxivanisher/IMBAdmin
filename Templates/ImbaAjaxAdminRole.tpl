@@ -607,7 +607,7 @@
         } );
 	
         // Apply the jEditable handlers to the table
-        $('td', oTable.fnGetNodes()).editable(ajaxEntry, {
+        $("td[editable|='true']", oTable.fnGetNodes()).editable(ajaxEntry, {
             "callback": function( sValue, y ) {
                 var aPos = oTable.fnGetPosition( this );
                 oTable.fnUpdate( sValue, aPos[0], aPos[1] );
@@ -624,7 +624,23 @@
             "height": "14px"
         } );
         
-        
+        $("#ImbaAjaxAdminRoleTable tr td span").click(function(){
+            if(confirm("Soll die Rolle wirklich gelöscht werden?")){                
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Admin",
+                    request: "deleterole",
+                    roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
+                });
+                
+                var data = {
+                    action: "module",
+                    module: "Admin",
+                    request: "role"
+                };
+                loadImbaAdminTabContent(data);
+            }            
+        });
         
     } );  
 </script>
@@ -637,13 +653,13 @@
 
         {foreach $roles as $role}
         <tr id="roleid_{$role.id}">
-            <td>{$role.id}</td>
-            <td>{$role.role}</td>
-            <td>{$role.name}</td>
-            <td>{$role.icon}</td>
-            <td>{$role.smf}</td>
-            <td>{$role.wordpress}</td>
-            <td>X</td>
+            <td editable="false">{$role.id}</td>
+            <td editable="true">{$role.role}</td>
+            <td editable="true">{$role.name}</td>
+            <td editable="true">{$role.icon}</td>
+            <td editable="true">{$role.smf}</td>
+            <td editable="true">{$role.wordpress}</td>
+            <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}
 

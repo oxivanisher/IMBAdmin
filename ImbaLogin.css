@@ -209,8 +209,8 @@
     background-repeat: no-repeat;
 }
 
-#imbaContentNav div {
-    /* aggravate, ich mach die darstellungsprobleme mit der datatable */
-    /*    height: 80%; */
+/* jQuery Fixes */
+.ui-state-error {
+    background: transparent !important; 
+    border: 0px !important;
 }
-

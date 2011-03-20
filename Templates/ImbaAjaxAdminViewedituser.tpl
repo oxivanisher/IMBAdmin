@@ -52,7 +52,7 @@
         <tbody>
             <tr>
                 <td>OpenID:</td>
-                <td>{$openid}></td>
+                <td>{$openid}</td>
                 <td rowspan="14">
                     <ul>
                         <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>

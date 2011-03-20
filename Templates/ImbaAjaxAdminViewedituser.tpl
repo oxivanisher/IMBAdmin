@@ -37,6 +37,15 @@
             return false;
         });
     } );   
+        
+    function backToUserOverview(){
+        var data = {
+            action: "module",
+            module: "Admin",
+            request: ""
+        };
+        loadImbaAdminTabContent(data);
+    }
 </script>
 <form id="ImbaAjaxUsersViewprofileForm" action="post">
     <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
@@ -102,3 +111,5 @@
         </tbody>
     </table>
 </form>
+<br />
+<a href="javascript:void(0)" onclick="javascript: backToUserOverview();">Back to User Overview</a>

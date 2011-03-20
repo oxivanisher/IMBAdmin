@@ -88,8 +88,11 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewlogdetail":
             $managerLog = ImbaLogger::getInstance();
             $log = $managerLog->selectId($_POST["id"]);
+            $smarty->assign('date', $log->getTimestamp());
+            $smarty->assign('age', ImbaSharedFunctions::getAge($log->getTimestamp()));
+            $smarty->assign('openid', $log->getUser());
+            $smarty->assign('city', $log->getIp());
             $smarty->assign('id', $log->getId());
-            $smarty->assign('timestamp', $log->getTimestamp());
             $smarty->assign('user', $log->getUser());
             $smarty->assign('ip', $log->getIp());
             $smarty->assign('module', $log->getModule());

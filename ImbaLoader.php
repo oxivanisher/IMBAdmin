@@ -109,8 +109,8 @@ switch ($_GET["load"]) {
         break;
 
     case "css":
-        echo file_get_contents("location: Media/ImbaLogin.css");
-        echo file_get_contents("location: Media/Imbadmin.css");
+        echo file_get_contents("Media/ImbaLogin.css");
+        echo file_get_contents("Media/Imbadmin.css");
         break;
 
     default:

@@ -8,6 +8,7 @@ require_once 'Controller/ImbaUserContext.php';
  */
 class ImbaLog extends ImbaBase {
 
+    protected $id = null;
     protected $timestamp = null;
     protected $user = null;
     protected $ip = null;
@@ -70,6 +71,14 @@ class ImbaLog extends ImbaBase {
 
     public function getLevel() {
         return $this->level;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
 }

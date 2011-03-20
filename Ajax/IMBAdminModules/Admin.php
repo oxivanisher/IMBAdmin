@@ -71,6 +71,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
 
                 array_push($smarty_logs, array(
+                    'id' => $log->getId(),
                     'timestamp' => $log->getTimestamp(),
                     'age' => ImbaSharedFunctions::getAge($log->getTimestamp()),
                     'user' => $username,

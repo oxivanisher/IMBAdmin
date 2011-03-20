@@ -38,8 +38,8 @@ $Navigation->setMinUserRole(9);
  */
 $Navigation->addElement("user", "User", "Edit user roles and user details");
 $Navigation->addElement("role", "Roles", "Manage Roles");
-$Navigation->addElement("statistics", "Statistics", "Statistics");
 $Navigation->addElement("log", "Log", "View and clar log");
 $Navigation->addElement("settings", "Settings", "System wide settings");
+$Navigation->addElement("statistics", "Statistics", "Statistics");
 
 ?>

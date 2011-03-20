@@ -162,7 +162,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             // $gi = geoip_open("/usr/local/share/GeoIP/GeoIPCity.dat",GEOIP_SHARED_MEMORY);
             $gi = geoip_open("/usr/local/share/GeoIP/GeoIPCity.dat", GEOIP_STANDARD);
             $record = geoip_record_by_addr($gi, $log->getIp());
-            $smarty->assign('city', $record->city . " (" . $record->country_name . ")");
+            $smarty->assign('city', $record->city . ", " . $record->country_name);
             geoip_close($gi);
             $smarty->assign('ip', $log->getIp());
 

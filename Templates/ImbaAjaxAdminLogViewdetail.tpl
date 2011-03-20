@@ -23,6 +23,7 @@
 <b>{$user}{if $openid} ({$openid}){/if}</b><br />
 {$city} ({$ip})<br />
 <i>Session: {$session}</i>
+<br />
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
 

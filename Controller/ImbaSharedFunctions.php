@@ -65,7 +65,7 @@ class ImbaSharedFunctions {
     }
 
     public static function genTime($timestamp) {
-        return strftime("%e. %B %Y, %H:%M:%S", $timestamp);
+        return htmlentities(strftime("%e. %B %Y, %H:%M:%S", $timestamp));
     }
 
     public static function getIP() {

@@ -136,7 +136,7 @@ class ImbaLogger extends ImbaManagerBase {
 
     public function getUserSessions() {
         $query = "SELECT * FROM %s WHERE message='Logged in' ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES), $session);
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
 
         $messages = array();
         while ($row = $this->database->fetchRow()) {

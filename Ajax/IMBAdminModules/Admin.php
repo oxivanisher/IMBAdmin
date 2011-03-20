@@ -337,9 +337,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
                     $return = "These Members are missing at least one of the following fields:\n";
                     $return .= "\n\n";
-                    $incompleteUsers = array();
-                    $users = $managerUser->selectAllUser();
-                    foreach ($users as $user) {
+//                    $incompleteUsers = array();
+                    foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
                         
                         if (empty($user->getFirstname()))

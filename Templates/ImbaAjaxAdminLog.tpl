@@ -60,9 +60,9 @@
             request: "viewlogdetail",
             id: id
         };
-        loadImbaAdminTabContent(data);
+        runModuleAndDisplay(data);
     }
-   
+
 </script>
 <table id="ImbaAjaxAdminLogTable" class="display">
     <thead>

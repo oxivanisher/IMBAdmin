@@ -1,23 +1,3 @@
-
-/**
-* Fills the variables currentUserName and currentUserOpenid
-*/
-function loadMyImbaUser() {
-    var tmpReturn = null;
-    $.post(ajaxEntry, {
-        action: "user",
-        returnmyself: true
-    }, function (response){
-        $.each($.parseJSON(response), function(key, value){
-            if (key == "name") {
-                currentUserName = value;
-            } else if (key == "openid") {
-                currentUserOpenid = value;
-            }
-        });
-    });
-}
-
 /**
  * loads the ImbaAdmin module in the IMBAdmin window
  */
@@ -97,4 +77,66 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     
     
     $("#imbaContentDialog").dialog("open");
+}
+
+/**
+ * loads the ImbaAdminTab content, depending on the data for the post request
+ */
+function loadImbaAdminTabContent(data, myTabId) {
+    var targetIabId = null;
+    if (myTabId == null) {
+        targetIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());
+    } else {
+        targetIabId = myTabId;
+    }
+    
+    $.post(ajaxEntry, data, function (response){
+        if (response != ""){
+            $(targetIabId).html(response);
+        }
+    });
+}
+
+/**
+ * Run module with request, optionName and optionValue and display imbadmin content
+ */
+function runModuleAndDisplay(data){
+    var data.push = {
+        action: "module"
+    };
+    
+    var data = {
+        action: "module",
+        module: module,
+        request: request,
+        name: id
+    };
+    loadImbaAdminTabContent(data);
+}
+
+/**
+ * Support functions
+ * 
+ */
+
+/**
+ * Returns the current selected tab index
+ */
+function getSelectedImbaAdminTabIndex(){
+    return $('#imbaContentNav').tabs('option', 'selected');
+}
+
+/**
+ * Return the Id of a tab from a tabIndex
+ */
+function getImbaAdminTabIdFromTabIndex(tabIndex){
+    var result = "";
+    $.each($("#imbaContentNav a"), function (k, v) {
+        if (k == tabIndex){
+            var tmp = v.toString().split("#");
+            result = "#" + tmp[1];
+        }
+    });
+
+    return result;
 }

@@ -98,7 +98,7 @@ class ImbaLogger extends ImbaManagerBase {
      * Clear all system messages
      */
     public function clearAll() {
-            $query = "DELETE * FROM %s;";
+            $query = "DELETE FROM %s;";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
     }
 

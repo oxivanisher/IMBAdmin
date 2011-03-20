@@ -9,6 +9,15 @@
         };
         loadImbaAdminTabContent(data);
     }
+
+    function backToLogOverview(){
+        var data = {
+            action: "module",
+            module: "Admin",
+            request: "log"
+        };
+        loadImbaAdminTabContent(data);
+    }
    
 </script>
 <b>{$user}{if $openid} ({$openid}){/if}</b><br />
@@ -26,4 +35,5 @@
     </tr>
     {/foreach}
 
-</table>
+</table
+<br /><a href="javascript:void(0)" onclick="javascript: backToLogOverview();">back</a>

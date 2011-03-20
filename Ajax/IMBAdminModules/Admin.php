@@ -356,7 +356,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                                 $count++;
                         
                         //if ($count > 0) {
-                            $return .= $user->getNickname() . ": " . $count;
+                            $return .= $user->getNickname() . ": " . $count . "\n";
                         //}
                     }
 

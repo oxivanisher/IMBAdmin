@@ -94,6 +94,15 @@ class ImbaLogger extends ImbaManagerBase {
         return $this->logsCached;
     }
 
+    /**
+     * Clear all system messages
+     */
+    public function clearAll() {
+            $query = "DELETE * FROM %s;";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+    }
+
+
     public function selectId($id) {
         $message = null;
         foreach ($this->selectAll()as $message) {

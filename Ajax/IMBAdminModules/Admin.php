@@ -248,6 +248,9 @@ if (ImbaUserContext::getLoggedIn()) {
         case "runMaintenanceJob":
             switch ($_POST["jobHandle"]) {
                 case "clearLog":
+                    $managerLog = ImbaLogger::getInstance();
+                    $managerLog->clearAll();
+                    
                     $smarty->assign('name', 'Clear System Messages');
                     $smarty->assign('message', 'cleared');
                     break;

@@ -77,7 +77,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
         if ($this->rolesCached == null) {
             $result = array();
 
-            $query = "SELECT * FROM %s;";
+            $query = "SELECT * FROM %s WHERE 1;";
 
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PROFILES));
             while ($row = $this->database->fetchRow()) {

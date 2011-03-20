@@ -338,7 +338,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('name', $log->getMessage());
 
                     $return = "These Members are missing at least one of the following fields:\n";
-                    $return .= "\n\n";
+                    $return .= "Nickname, Firstname, Lastname, OpenId\n\n";
 //                    $incompleteUsers = array();
                     foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
@@ -347,15 +347,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                             $count++;
                         if ($user->getFirstname() == null)
                             $count++;
-                        if ($user->getOpenId() == null)
-                            $count++;
                         if ($user->getLastname() == null)
                             $count++;
-                        if ($user->getBirthday() == null)
-                            $count++;
-                        if ($user->getBirthmonth() == null)
-                            $count++;
-                        if ($user->getBirthyear() == null)
+                        if ($user->getOpenId() == null)
                             $count++;
 
                         if ($count > 0) {

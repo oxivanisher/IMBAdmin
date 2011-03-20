@@ -1,4 +1,17 @@
-<h3>User Infos</h3>
+<script type="text/javascript">
+  
+    function showLogDetail(id){
+        var data = {
+            action: "module",
+            module: "Admin",
+            request: "viewlogdetail",
+            id: id
+        };
+        loadImbaAdminTabContent(data);
+    }
+   
+</script><
+h3>User Infos</h3>
 {$user} ({$openid}), {$city} ({$ip})
 <h3>Actual Entry</h3>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
@@ -12,6 +25,6 @@
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
     {foreach $logs as $log}
-    <tr><td>{$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>
+    <tr onclick="javascript: showLogDetail('{$log.id}');"><td>{$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>
     {/foreach}
 </table>

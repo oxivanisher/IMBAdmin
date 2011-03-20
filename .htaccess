@@ -1,0 +1,5 @@
+<Directory ~ "\Test">
+Order allow,deny
+Deny from all
+</Directory>
+

@@ -116,20 +116,22 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
             $smarty_logs = array();
             foreach ($logs as $log) {
-                $username = "Anonymous";
-                if ($log->getUser() != "") {
-                    $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
-                }
+                if ($log->getLevel() <= 1) {
+                    $username = "Anonymous";
+                    if ($log->getUser() != "") {
+                        $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
+                    }
 
-                array_push($smarty_logs, array(
-                    'id' => $log->getId(),
-                    'timestamp' => $log->getTimestamp(),
-                    'age' => ImbaSharedFunctions::getAge($log->getTimestamp()),
-                    'user' => $username,
-                    'module' => $log->getModule(),
-                    'message' => $log->getMessage(),
-                    'lvl' => $log->getLevel()
-                ));
+                    array_push($smarty_logs, array(
+                        'id' => $log->getId(),
+                        'timestamp' => $log->getTimestamp(),
+                        'age' => ImbaSharedFunctions::getAge($log->getTimestamp()),
+                        'user' => $username,
+                        'module' => $log->getModule(),
+                        'message' => $log->getMessage(),
+                        'lvl' => $log->getLevel()
+                    ));
+                }
             }
             $smarty->assign('logs', $smarty_logs);
 
@@ -340,22 +342,22 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 //                    $incompleteUsers = array();
                     foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
-                        
+
                         if ($user->getNickname() == null)
-                                $count++;
+                            $count++;
                         if ($user->getFirstname() == null)
-                                $count++;
+                            $count++;
                         if ($user->getOpenId() == null)
-                                $count++;
+                            $count++;
                         if ($user->getLastname() == null)
-                                $count++;
+                            $count++;
                         if ($user->getBirthday() == null)
-                                $count++;
+                            $count++;
                         if ($user->getBirthmonth() == null)
-                                $count++;
+                            $count++;
                         if ($user->getBirthyear() == null)
-                                $count++;
-                        
+                            $count++;
+
                         if ($count > 0) {
                             $return .= $user->getNickname() . ": " . $count . "\n";
                         }

@@ -10,9 +10,8 @@
         loadImbaAdminTabContent(data);
     }
    
-</script><
-h3>User Infos</h3>
-{$user} ({$openid}), {$city} ({$ip})
+</script>
+<b>User: {$user} ({$openid}), {$city} ({$ip})</b>
 <h3>Actual Entry</h3>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><td>Date</td><td>{$date} ({$age})</td></tr>

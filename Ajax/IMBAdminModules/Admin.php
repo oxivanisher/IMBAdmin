@@ -86,8 +86,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewlogdetail":
-            print_r($_POST);
-            $smarty->assign('id', "asdfsdf");
+            $smarty->assign('id', $_POST["id"]);
             
             
             $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');

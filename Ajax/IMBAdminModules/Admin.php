@@ -61,7 +61,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "log":
             $managerLog = ImbaLogger::getInstance();
-            $logs = $managerLog->getAll();
+            $logs = $managerLog->selectAll();
 
             $smarty_logs = array();
             foreach ($logs as $log) {
@@ -89,7 +89,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $managerLog = ImbaLogger::getInstance();
             $log = $managerLog->getId($_POST["id"]);
             
-            $smarty->assign('id', $log::getId());
+            $smarty->assign('id', $log);
             
             
             $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');

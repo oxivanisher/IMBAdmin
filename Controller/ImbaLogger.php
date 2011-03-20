@@ -8,6 +8,8 @@ require_once 'Controller/ImbaManagerBase.php';
  */
 class ImbaLogger extends ImbaManagerBase {
 
+    protected $logsCached = null;
+    protected $logsCachedTimestamp = null;
     /**
      * Singleton implementation
      */
@@ -65,95 +67,57 @@ class ImbaLogger extends ImbaManagerBase {
         ));
     }
 
-    public function getAll() {
-        $query = "SELECT * FROM %s WHERE 1 ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+    public function selectAll() {
+        if ($this->$logsCached == null) {
+            $query = "SELECT * FROM %s WHERE 1 ORDER BY id DESC;";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
 
-        $messages = array();
-        while ($row = $this->database->fetchRow()) {
-            $log = new ImbaLog();
-            $log->setId($row["id"]);
-            $log->setTimestamp($row["timestamp"]);
-            $log->setUser($row["user"]);
-            $log->setIp($row["ip"]);
-            $log->setModule($row["module"]);
-            $log->setSession($row["session"]);
-            $log->setMessage($row["msg"]);
-            $log->setLevel($row["lvl"]);
+            $messages = array();
+            while ($row = $this->database->fetchRow()) {
+                $log = new ImbaLog();
+                $log->setId($row["id"]);
+                $log->setTimestamp($row["timestamp"]);
+                $log->setUser($row["user"]);
+                $log->setIp($row["ip"]);
+                $log->setModule($row["module"]);
+                $log->setSession($row["session"]);
+                $log->setMessage($row["msg"]);
+                $log->setLevel($row["lvl"]);
 
-            array_push($messages, $log);
-            unset($log);
+                array_push($messages, $log);
+                unset($log);
+            }
+            $this->logsCachedTimestamp = time();
+            $this->logsCached = $messages;
         }
 
-        return $messages;
+        return $this->logsCached;
     }
 
     public function getId($id) {
-        $query = "SELECT * FROM %s WHERE id='%s' ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES, $id));
-
-        $messages = array();
-        while ($row = $this->database->fetchRow()) {
-            $log = new ImbaLog();
-            $log->setId($row["id"]);
-            $log->setTimestamp($row["timestamp"]);
-            $log->setUser($row["user"]);
-            $log->setIp($row["ip"]);
-            $log->setModule($row["module"]);
-            $log->setSession($row["session"]);
-            $log->setMessage($row["msg"]);
-            $log->setLevel($row["lvl"]);
-
-            array_push($messages, $log);
-            unset($log);
+        $message = null;
+        foreach ($this->selectAll()as $message) {
+            if ($id == $message->getId())
+                $message = $message;
         }
-
-        return $messages;
+        return $message;
     }
 
     public function getSession($session) {
-        $query = "SELECT * FROM %s WHERE session='%s' ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES, $session));
-
         $messages = array();
-        while ($row = $this->database->fetchRow()) {
-            $log = new ImbaLog();
-            $log->setId($row["id"]);
-            $log->setTimestamp($row["timestamp"]);
-            $log->setUser($row["user"]);
-            $log->setIp($row["ip"]);
-            $log->setModule($row["module"]);
-            $log->setSession($row["session"]);
-            $log->setMessage($row["msg"]);
-            $log->setLevel($row["lvl"]);
-
-            array_push($messages, $log);
-            unset($log);
+        foreach ($this->selectAll()as $message) {
+            if ($session == $message->getSession())
+                array_push($messages, $message);
         }
-
         return $messages;
     }
 
     public function getUserSessions() {
-        $query = "SELECT * FROM %s WHERE message='Logged in' ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
-
         $messages = array();
-        while ($row = $this->database->fetchRow()) {
-            $log = new ImbaLog();
-            $log->setId($row["id"]);
-            $log->setTimestamp($row["timestamp"]);
-            $log->setUser($row["user"]);
-            $log->setIp($row["ip"]);
-            $log->setModule($row["module"]);
-            $log->setSession($row["session"]);
-            $log->setMessage($row["msg"]);
-            $log->setLevel($row["lvl"]);
-
-            array_push($messages, $log);
-            unset($log);
+        foreach ($this->selectAll()as $message) {
+            if ("Logged in" == $message->getMessage())
+                array_push($messages, $message);
         }
-
         return $messages;
     }
 

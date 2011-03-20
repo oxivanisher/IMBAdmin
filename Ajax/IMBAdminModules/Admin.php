@@ -281,14 +281,14 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 case "findUnusedRoles":
                     $log->setMessage("Find unused user Roles");
 
-                    $smarty->assign('name', 'Find unused user Roles');
+                    $smarty->assign('name', $log->setMessage());
                     $smarty->assign('message', 'cleared');
                     break;
 
                 case "findIncompleteUsers":
                     $log->setMessage("Find incomplete User Profiles");
 
-                    $smarty->assign('name', 'Find incomplete User Profiles');
+                    $smarty->assign('name', $log->setMessage());
                     $smarty->assign('message', 'cleared');
                     break;
 

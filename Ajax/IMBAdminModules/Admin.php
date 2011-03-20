@@ -325,7 +325,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                         } else {
                             $count = 0;
                         }
-                        $return .= $role->getId() . " " . $role->getName() . ": " . $count . "\n";
+                        $return .= $role->getRole() . " " . $role->getName() . ": " . $count . "\n";
                     }
 
                     $smarty->assign('message', $return);

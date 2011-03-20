@@ -9,7 +9,7 @@
     <tr><td>Message</td><td>{$message}</td></tr>
 </table>
 <h3>Other Session Messages</h3>
-<table>
+<table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
     {foreach $logs as $log}
     <tr><td>{$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>

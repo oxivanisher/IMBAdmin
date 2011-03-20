@@ -101,9 +101,15 @@ function loadImbaAdminTabContent(data, myTabId) {
  * Run module with request, optionName and optionValue and display imbadmin content
  */
 function runModuleAndDisplay(data){
-
+    var len = data.length;
     
-
+    var data = {
+        action: "module",
+        module: module,
+        request: request,
+        name: id
+    };
+    alert(data);
     loadImbaAdminTabContent(data);
 }
 

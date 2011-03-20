@@ -55,7 +55,6 @@
     
     function showLogDetail(id){
         var data = {
-            action: "module",
             module: "Admin",
             request: "viewlogdetail",
             id: id

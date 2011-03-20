@@ -120,7 +120,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
 
             $role = $roleManager->selectByRole($user->getRole());
-            var_dump($role); exit;
+            var_dump($user->getRole()); exit;
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());

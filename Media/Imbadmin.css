@@ -279,7 +279,7 @@ tr.odd {
 }
 
 tr.even {
-    background-color: black;
+    background-color: transparent;
 }
 
 

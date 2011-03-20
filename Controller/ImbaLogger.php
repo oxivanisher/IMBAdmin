@@ -69,7 +69,7 @@ class ImbaLogger extends ImbaManagerBase {
 
     public function selectAll() {
         if ($this->logsCached == null) {
-            $query = "SELECT * FROM %s WHERE 1 ORDER BY timestamp DESC;";
+            $query = "SELECT * FROM %s WHERE 1 ORDER BY timestamp ASC;";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
 
             $messages = array();

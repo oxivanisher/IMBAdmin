@@ -64,8 +64,12 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('userroles', count($managerRole->selectAll()));
 
             $logCount = 0;
+            $sessions = array();
             foreach ($managerLog->selectAll() as $logEntry) {
-                $logCount++;
+                if (! in_array($logEntry->getSession(), $sessions)) {
+                    array_push($sessions, $logEntry->getSession());
+                    $logCount++;
+                }
             }
             $smarty->assign('usersessions', $logCount);
 

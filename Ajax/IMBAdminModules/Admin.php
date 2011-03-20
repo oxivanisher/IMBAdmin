@@ -341,7 +341,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
                         
-                        if (! $user->getFirstname())
+                        if ($user->getFirstname() == null)
                                 $count++;
 /*                        if (empty($user->getOpenId()))
                                 $count++;

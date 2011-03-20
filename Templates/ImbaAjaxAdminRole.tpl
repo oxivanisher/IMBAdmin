@@ -639,7 +639,7 @@
     <tbody>
 
         {foreach $roles as $role}
-        <tr>
+        <tr id="tr_{$role.id}">
             <td>{$role.id}</td>
             <td>{$role.role}</td>
             <td>{$role.name}</td>

@@ -1,4 +1,4 @@
-<table>
+<table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><td>Id</td><td>{$id}</td></tr>
     <tr><td>Timestamp</td><td>{$timestamp}</td></tr>
     <tr><td>User</td><td>{$user}</td></tr>

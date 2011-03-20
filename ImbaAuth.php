@@ -83,7 +83,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
             $log = $managerLog->getNew();
             $log->setModule("Auth");
-            $log->setLevel(2);
 
             try {
                 $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
@@ -92,6 +91,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     /**
                      * we got a redirection url as answer. go there now!
                      */
+                    $log->setLevel(2);
                     $log->setMessage("Redirecting to: " . $redirectUrl);
                     $managerLog->insert($log);
                     header("Location: " . $redirectUrl);
@@ -100,6 +100,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                      * we get a html form as answer. display it
                      * TODO: make it autosubmit
                      */
+                    $log->setLevel(2);
                     $log->setMessage("Redirecting trough HTML form");
                     $managerLog->insert($log);
                     echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
@@ -112,15 +113,25 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     /**
                      * something went wrong. display error end exit
                      */
+                    $log->setLevel(0);
                     $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                     $managerLog->insert($log);
                     exit;
                 }
             } catch (Exception $ex) {
+                $log->setLevel(1);
                 $log->setMessage("openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")");
                 $managerLog->insert($log);
                 echo $log->getMessage();
             }
+        } else {
+            $log = $managerLog->getNew();
+            $log->setModule("Auth");
+            $log->setMessage("No OpenId submitted");
+            $log->setLevel(2);
+            $managerLog->insert($log);
+
+            header("location: " . $_SERVER["PHP_SELF"]);
         }
     } else {
         /**
@@ -134,14 +145,15 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
-        $log->setLevel(2);
 
         try {
             $managerOpenId->openidVerify();
+            $log->setLevel(2);
             $log->setMessage("Verification sucessful");
             $managerLog->insert($log);
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
+            $log->setLevel(1);
             $log->setMessage("openidVerify ERROR: " . $ex->getMessage());
             $managerLog->insert($log);
             echo $log->getMessage();

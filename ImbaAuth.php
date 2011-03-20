@@ -51,16 +51,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we want to log out
      */
+    $log = $managerLog->getNew();
+    $log->setModule("Auth");
+    $log->setMessage("Logging out (Redirecting)");
+    $log->setLevel(2);
+    $managerLog->insert($log);
+
     ImbaSharedFunctions::killCookies();
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
     session_write_close();
-
-    $log = $managerLog->getNew();
-    $log->setModule("Auth");
-    $log->setMessage("Logging out");
-    $log->setLevel(2);
-    $managerLog->insert($log);
 
     header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 } elseif (!ImbaUserContext::getLoggedIn()) {

@@ -119,7 +119,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $role = $roleManager->selectById($user->getRole()->getId());
+            $role = $roleManager->selectByRole($user->getRole());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());

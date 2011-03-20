@@ -52,18 +52,18 @@
         <tbody>
             <tr>
                 <td>OpenID:</td>
-                <td>{$openid}</td>
-                <td rowspan="14">
+                <td colspan="2">{$openid}</td>
+            </tr>
+            <tr>
+                <td>Firstname:</td>
+                <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
+                <td rowspan="13">
                     <ul>
                         <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
                         <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
                         <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
                     </ul>
                 </td>
-            </tr>
-            <tr>
-                <td>Firstname:</td>
-                <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
             </tr>
             <tr>
                 <td>Lastname:</td>

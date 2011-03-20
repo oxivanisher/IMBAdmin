@@ -140,9 +140,10 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerLog = ImbaLogger::getInstance();
 
             $log = $managerLog->selectId($_POST["id"]);
-            
-            $user = $managerUser->selectByOpenId($log->getUser());
-            if ($user == null) {
+
+            if ($log->getUser()) {
+                $user = $managerUser->selectByOpenId();
+            } else {
                 $user = "Anonymous";
             }
 
@@ -151,7 +152,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->assign('openid', $log->getUser());
             $smarty->assign('city', $log->getIp());
             $smarty->assign('id', $log->getId());
-            $smarty->assign('user', $user);//$managerUser->selectByOpenId($log->getUser())->getNickname());
+            $smarty->assign('user', $user); //$managerUser->selectByOpenId($log->getUser())->getNickname());
             $smarty->assign('ip', $log->getIp());
             $smarty->assign('module', $log->getModule());
             $smarty->assign('session', $log->getSession());

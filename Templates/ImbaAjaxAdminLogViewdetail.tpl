@@ -36,5 +36,4 @@
     {/foreach}
 </table>
 <br />
-<br />
-<a href="javascript:void(0)" onclick="javascript: backToLogOverview();">back</a>
+<a href="javascript:void(0)" onclick="javascript: backToLogOverview();">Back to Log Overview</a>

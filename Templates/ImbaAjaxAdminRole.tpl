@@ -653,7 +653,7 @@
 
         {foreach $roles as $role}
         <tr id="roleid_{$role.id}">
-            <td editable="false">{$role.id}</td>
+<!--            <td editable="false">{$role.id}</td> -->
             <td editable="true">{$role.role}</td>
             <td editable="true">{$role.name}</td>
             <td editable="true">{$role.icon}</td>
@@ -664,7 +664,7 @@
         {/foreach}
 
         <tr>
-            <td>Neu</td>
+<!--            <td>Neu</td> -->
             <td><input type="text" style="width: 80px;"></td>
             <td><input type="text" style="width: 80px;"></td>
             <td><input type="text" style="width: 80px;"></td>

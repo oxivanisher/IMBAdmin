@@ -22,7 +22,7 @@ switch ($_GET["load"]) {
         echo "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
         echo file_get_contents("Media/ImbaBaseMethods.js") . "\n";
         echo file_get_contents("Media/ImbaLogin.js") . "\n";
-        echo file_get_contents("Media/Imbaadmin.js") . "\n";
+        echo file_get_contents("Media/Imbadmin.js") . "\n";
 
         /**
          * Load IMBAdmin index template

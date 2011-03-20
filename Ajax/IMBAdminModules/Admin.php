@@ -57,14 +57,11 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "statistics":
-            // $managerUser
-            // $managerRole
-
             $managerLog = ImbaLogger::getInstance();
-            $managerMessage = ImbaManagerMessage::getInstance();
+            //$managerMessage = ImbaManagerMessage::getInstance();
 
-            $smarty->assign('users', count($managerUser->selectAll()));
-            $smarty->assign('userroles', count($managerRole->selectAllUser()));
+            $smarty->assign('users', count($managerUser->selectAllUser()));
+            $smarty->assign('userroles', count($managerRole->selectAll()));
             $smarty->assign('messages', "noch nix");
             $smarty->assign('logs', count($managerLog->selectAll()));
 

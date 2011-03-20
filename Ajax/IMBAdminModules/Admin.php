@@ -341,9 +341,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     foreach ($managerUser->selectAllUser() as $user) {
                         $count = 0;
                         
-                        if (empty($user->getFirstname()))
+                        if ($user->getFirstname())
                                 $count++;
-                        if (empty($user->getOpenId()))
+/*                        if (empty($user->getOpenId()))
                                 $count++;
                         if (empty($user->getLastname()))
                                 $count++;
@@ -353,7 +353,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                                 $count++;
                         if (empty($user->getBirthyear()))
                                 $count++;
-                        
+  */                      
                         //if ($count > 0) {
                             $return .= $user->getNickname() . ": " . $count . "\n";
                         //}

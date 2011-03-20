@@ -131,7 +131,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $log->setLevel(2);
             $managerLog->insert($log);
 
-            header("location: " . $_SERVER["PHP_SELF"]);
+            header("location: index.html");
         }
     } else {
         /**

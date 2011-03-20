@@ -330,6 +330,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                         $return .= $role->getRole() . " " . $role->getName() . ": " . $count . "<br />";
                     }
 
+                    $managerLog->insert($log);
                     $smarty->assign('message', $return);
                     break;
 
@@ -360,22 +361,23 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
 
 
+                    $managerLog->insert($log);
                     $smarty->assign('message', $return);
                     break;
 
                 case "clearLog":
-                    $log->setLevel(1);
                     $managerLog = ImbaLogger::getInstance();
                     $managerLog->clearAll();
 
                     $smarty->assign('name', 'Clear System Messages');
                     $smarty->assign('message', 'Messages cleared!<br />');
                     break;
+
                 default:
+
                     $smarty->assign('name', $_POST["jobHandle"]);
                     $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }
-            $managerLog->insert($log);
             $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
             break;
 

@@ -95,7 +95,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('openid', $log->getUser());
             $smarty->assign('city', $log->getIp());
             $smarty->assign('id', $log->getId());
-            $smarty->assign('user', $managerUser->selectByOpenId($log->getUser()));
+            $smarty->assign('user', $managerUser->selectByOpenId($log->getUser())->getNickname());
             $smarty->assign('ip', $log->getIp());
             $smarty->assign('module', $log->getModule());
             $smarty->assign('session', $log->getSession());

@@ -90,7 +90,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $log = $managerLog->selectId($_POST["id"]);
 
-            $smarty->assign('date', $log->getTimestamp());
+            $smarty->assign('date', ImbaSharedFunctions::genTime($log->getTimestamp()));
             $smarty->assign('age', ImbaSharedFunctions::getAge($log->getTimestamp()));
             $smarty->assign('openid', $log->getUser());
             $smarty->assign('city', $log->getIp());
@@ -113,7 +113,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                     array_push($smarty_logs, array(
                         'id' => $sessionLog->getId(),
-                        'timestamp' => $sessionLog->getTimestamp(),
+                        'date' => ImbaSharedFunctions::genTime($sessionLog->getTimestamp()),
                         'module' => $sessionLog->getModule(),
                         'message' => $sessionLog->getMessage(),
                         'level' => $sessionLog->getLevel()

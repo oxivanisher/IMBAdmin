@@ -162,7 +162,8 @@ class ImbaSharedFunctions {
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
     }
 
-/*    public static function writeToLog($message) {
+   
+    /*    public static function writeToLog($message) {
         $myFile = "Logs/ImbaLog.log";
         if ($fh = fopen($myFile, 'a+')) {
             $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";

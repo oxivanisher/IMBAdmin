@@ -94,7 +94,7 @@ class ImbaLogger extends ImbaManagerBase {
         return $this->logsCached;
     }
 
-    public function getId($id) {
+    public function selectId($id) {
         $message = null;
         foreach ($this->selectAll()as $message) {
             if ($id == $message->getId())
@@ -103,7 +103,7 @@ class ImbaLogger extends ImbaManagerBase {
         return $message;
     }
 
-    public function getSession($session) {
+    public function selectSession($session) {
         $messages = array();
         foreach ($this->selectAll()as $message) {
             if ($session == $message->getSession())
@@ -112,7 +112,7 @@ class ImbaLogger extends ImbaManagerBase {
         return $messages;
     }
 
-    public function getUserSessions() {
+    public function selectUserSessions() {
         $messages = array();
         foreach ($this->selectAll()as $message) {
             if ("Logged in" == $message->getMessage())

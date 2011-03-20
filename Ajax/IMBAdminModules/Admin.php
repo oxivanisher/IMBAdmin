@@ -306,7 +306,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $log->setMessage("Find unused user Roles");
                     $smarty->assign('name', $log->getMessage());
                     
-                    $users = $managerUser->selectAll();
+                    $users = $managerUser->selectAllUser();
                     $roles = $managerRole->selectAll();
                     $tmpRoles = array();
                     $counts = array();

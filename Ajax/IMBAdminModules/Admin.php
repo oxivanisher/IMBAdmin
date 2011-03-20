@@ -39,7 +39,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     "name" => $role->getName(),
                     "icon" => $role->getIcon(),
                     "smf" => $role->getSmf(),
-                    "wordpress" => $role->getWordpress()                    
+                    "wordpress" => $role->getWordpress()
                 ));
             }
             $smarty->assign('roles', $smarty_roles);
@@ -50,7 +50,7 @@ if (ImbaUserContext::getLoggedIn()) {
             //$role = $managerRole->
             print_r($_POST);
             break;
-            
+
         case "settings":
             echo "settings";
             break;
@@ -82,6 +82,10 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('logs', $smarty_logs);
 
             $smarty->display('ImbaAjaxAdminLog.tpl');
+            break;
+
+        case "viewlogdetail":
+            echo "viewlogdetail";
             break;
 
         case "updatuser":

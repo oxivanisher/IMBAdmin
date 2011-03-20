@@ -88,9 +88,14 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewlogdetail":
             $managerLog = ImbaLogger::getInstance();
             $log = $managerLog->selectId($_POST["id"]);
-            var_dump($log);
             $smarty->assign('id', $log->getId());
-            
+            $smarty->assign('timestamp', $log->getTimestamp());
+            $smarty->assign('user', $log->getUser());
+            $smarty->assign('ip', $log->getIp());
+            $smarty->assign('module', $log->getModule());
+            $smarty->assign('session', $log->getSession());
+            $smarty->assign('message', $log->getMessage());
+            $smarty->assign('level', $log->getLevel());
             
             $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');
             break;

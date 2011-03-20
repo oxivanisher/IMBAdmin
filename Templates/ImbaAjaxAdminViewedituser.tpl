@@ -65,8 +65,16 @@
         </td>
         </tr>
         <tr>
-            <td>Titel:</td>
-            <td><input id="myProfileUsertitle" type="text" name="usertitle" value="{$usertitle}" /></td>
+            <td>OpenID:</td>
+            <td>{$openid}></td>
+        </tr>
+        <tr>
+            <td>Firstname:</td>
+            <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
+        </tr>
+        <tr>
+            <td>Lastname:</td>
+            <td><input id="myProfileUsertitle" type="text" name="lastname" value="{$lastname}" /></td>
         </tr>
         <tr>
             <td>Avatar URL:</td>

@@ -620,8 +620,8 @@
                     
                     // hilfe, ich weiss nicht wie ich hier auf das id feld wirklich zugreiffe. funktioniert nicht so
                     roleid: this.parentNode.getAttribute('id').substr(7),
-                    column: oTable.fnGetPosition( this )[2]
-                    //test: oTable.fnGetTds(0)
+                    column: oTable.fnGetPosition( this )[2],
+                    test: oTable.fnGetTds(0)
                 };
             },
             "height": "14px"

@@ -52,7 +52,7 @@ if (ImbaUserContext::getLoggedIn()) {
             
             $role = $managerRole->selectById($_POST["roleid"]);
             
-            echo "Ich funze ned" . $role->getName();
+            echo "Ich funze ned" . $_POST["test"];
             break;
 
         case "settings":

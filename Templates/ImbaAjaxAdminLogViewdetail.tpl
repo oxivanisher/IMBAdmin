@@ -30,10 +30,10 @@
 
     {foreach $logs as $log}
     <tr onclick="javascript: showLogDetail('{$log.id}');" style="cursor: pointer;">
-        <td{if $id == $log.id} style="background-color: #cccccc;"{/if}>{$log.date}</td>
-        <td{if $id == $log.id} style="border: 1px white solid;"{/if}>{$log.module}</td>
-        <td{if $id == $log.id} style="border: 1px white solid;"{/if}>{$log.message}</td>
-        <td{if $id == $log.id} style="border: 1px white solid;"{/if}>{$log.level}</td>
+        <td{if $id == $log.id} style="background-color: #333333;"{/if}>{$log.date}</td>
+        <td{if $id == $log.id} style="background-color: #333333;"{/if}>{$log.module}</td>
+        <td{if $id == $log.id} style="background-color: #333333;"{/if}>{$log.message}</td>
+        <td{if $id == $log.id} style="background-color: #333333;"{/if}>{$log.level}</td>
     </tr>
     {/foreach}
 </table>

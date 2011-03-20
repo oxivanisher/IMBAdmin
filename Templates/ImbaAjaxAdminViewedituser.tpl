@@ -62,18 +62,16 @@
                 </td>
             </tr>
             <tr>
+                <td>Firstname:</td>
+                <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
+            </tr>
+            <tr>
+                <td>Lastname:</td>
+                <td><input id="myProfileUsertitle" type="text" name="lastname" value="{$lastname}" /></td>
+            </tr>
+            <tr>
                 <td><nobr>Aktuelles Motto:</nobr></td>
-        <td>
-            <input id="myProfileMotto" type="text" name="motto" value="{$motto}" />
-        </td>
-        </tr>
-        <tr>
-            <td>Firstname:</td>
-            <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
-        </tr>
-        <tr>
-            <td>Lastname:</td>
-            <td><input id="myProfileUsertitle" type="text" name="lastname" value="{$lastname}" /></td>
+                <td><input id="myProfileMotto" type="text" name="motto" value="{$motto}" /></td>
         </tr>
         <tr>
             <td>Avatar URL:</td>

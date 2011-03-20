@@ -247,11 +247,12 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty_users = array();
             foreach ($users as $user) {
+                $role = $managerRole->selectByRole($user->getRole());
                 array_push($smarty_users, array(
                     'nickname' => $user->getNickname(),
                     'openid' => $user->getOpenID(),
                     'lastonline' => ImbaSharedFunctions::getNiceAge($user->getLastonline()),
-                    'role' => $user->getRole()->getName()
+                    'role' => $role->getName()
                 ));
             }
             $smarty->assign('susers', $smarty_users);

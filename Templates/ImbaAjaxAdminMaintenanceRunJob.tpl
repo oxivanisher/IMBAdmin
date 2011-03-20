@@ -12,4 +12,5 @@
 <pre>
 {$message}
 </pre>
-<br /><a href="javascript:void(0)" onclick="javascript: backToMaintenance();">back</a>
+<br />
+<a href="javascript:void(0)" onclick="javascript: backToMaintenance();">Back to Maintenance Overview</a>

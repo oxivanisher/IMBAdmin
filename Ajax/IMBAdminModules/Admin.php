@@ -85,7 +85,9 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewlogdetail":
-            echo "viewlogdetail";
+            
+            
+            $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');
             break;
 
         case "updatuser":

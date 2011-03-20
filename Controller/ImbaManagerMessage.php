@@ -103,22 +103,11 @@ class ImbaManagerMessage extends ImbaManagerBase {
     /**
      * Get num of messages
      */
-    public function selectById($id) {
+    public function returnNumberOfMessages() {
         $query = "SELECT * FROM  %s Where 1;";
 
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES));
-        $numMsgs = mysql_num_rows($this->database);
-
-        $message = new ImbaMessage();
-        $message->setOpenId($id);
-        $message->setSender($result["sender"]);
-        $message->setReceiver($result["receiver"]);
-        $message->setTimestamp($result["timestamp"]);
-        $message->setSubject($result["subject"]);
-        $message->setMessage($numMsgs);
-        $message->setNew($result["new"]);
-        $message->setXmpp($result["xmpp"]);
-        return $message;
+        return  mysql_num_rows($this->database);
     }
 
     /**

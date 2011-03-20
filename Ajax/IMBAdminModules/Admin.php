@@ -73,7 +73,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->assign('usersessions', $logCount);
 
-            $smarty->assign('messages', "noch nix");
+            $smarty->assign('messages', $managerUser->returnNumberOfMessages());
             $smarty->assign('logs', count($managerLog->selectAll()));
 
             $smarty->display('ImbaAjaxAdminStatistics.tpl');

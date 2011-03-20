@@ -2,7 +2,6 @@
   
     function startMaintenanceJob(handle){
         var data = {
-            action: "module",
             module: "Admin",
             request: "runMaintenanceJob",
             jobHandle: handle

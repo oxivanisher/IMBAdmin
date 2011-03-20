@@ -36,7 +36,6 @@
                 });
                 
                 var data = {
-                    action: "module",
                     module: "Admin",
                     request: "role"
                 };

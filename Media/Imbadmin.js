@@ -99,13 +99,6 @@ function loadImbaAdminTabContent(data, myTabId) {
     });
 }
 
-/**
- * Run module with request, optionName and optionValue and display imbadmin content
- */
-function runModuleAndDisplay(data){
-    alert("test");
-    loadImbaAdminTabContent(data);
-}
 
 /**
  * Support functions

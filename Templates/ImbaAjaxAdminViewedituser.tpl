@@ -40,7 +40,6 @@
         
     function backToUserOverview(){
         var data = {
-            action: "module",
             module: "Admin",
             request: ""
         };

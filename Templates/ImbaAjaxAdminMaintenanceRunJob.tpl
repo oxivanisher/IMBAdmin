@@ -1,7 +1,6 @@
 <script type="text/javascript">
     function backToMaintenance(){
         var data = {
-            action: "module",
             module: "Admin",
             request: "maintenance"
         };

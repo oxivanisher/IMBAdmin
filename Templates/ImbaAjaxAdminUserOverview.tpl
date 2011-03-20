@@ -10,7 +10,6 @@
     
     function loadUserProfile(openid){
         var data = {
-            action: "module",
             module: "Admin",
             request: "viewedituser",
             openid: openid

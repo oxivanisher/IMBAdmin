@@ -1,7 +1,6 @@
 <script type="text/javascript">
     function backToUserOverview(){
         var data = {
-            action: "module",
             module: "User",
             request: "overview"
         };

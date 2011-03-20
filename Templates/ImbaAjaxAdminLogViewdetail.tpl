@@ -2,7 +2,6 @@
   
     function showLogDetail(id){
         var data = {
-            action: "module",
             module: "Admin",
             request: "viewlogdetail",
             id: id
@@ -12,7 +11,6 @@
 
     function backToLogOverview(){
         var data = {
-            action: "module",
             module: "Admin",
             request: "log"
         };

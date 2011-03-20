@@ -47,8 +47,8 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "updaterole":
-            //$role = $managerRole->
-            print_r($_POST);
+            //wie finde ich hier das richtige feld? siehe template file
+            echo "Ich funze ned";
             break;
 
         case "settings":
@@ -56,7 +56,9 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "statistics":
-            echo "statistics";
+            $managerLog = ImbaLogger::getInstance();
+
+            $smarty->display('ImbaAjaxAdminStatistics.tpl');
             break;
 
         case "log":

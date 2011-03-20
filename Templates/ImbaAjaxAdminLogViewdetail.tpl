@@ -2,7 +2,7 @@
 {$user} ({$openid}), {$city} ({$ip})
 <h3>Actual Entry</h3>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
-    <tr><td>Date</td><td>{$date} {$age}</td></tr>
+    <tr><td>Date</td><td>{$date} ({$age})</td></tr>
     <tr><td>Module</td><td>{$module}</td></tr>
     <tr><td>Session</td><td>{$session}</td></tr>
     <tr><td>Level</td><td>{$level}</td></tr>

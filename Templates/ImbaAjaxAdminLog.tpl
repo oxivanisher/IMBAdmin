@@ -32,6 +32,25 @@
             "bJQueryUI": true,
             "bLengthChange": false
         } );
+        
+  /*      $("td[editable|='true']", oTable.fnGetNodes()).editable(ajaxEntry, {
+            "callback": function( sValue, y ) {
+                var aPos = oTable.fnGetPosition( this );
+                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            },
+            "submitdata": function ( value, settings ) {
+                return {
+                    action: "module",
+                    module: "Admin",
+                    request: "updaterole",
+                    roleid: this.parentNode.getAttribute('id').substr(7),
+                    rolecolumn: getColumnHeadByIndex("ImbaAjaxAdminRoleTable", oTable.fnGetPosition(this)[2])
+                };
+            },
+            "height": "14px"
+        } );*/
+
+        
     } );   
     
     function showLogDetail(id){

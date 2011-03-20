@@ -20,7 +20,7 @@ switch ($_GET["load"]) {
          * load our js scripts
          */
         echo "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
-        echo file_get_contents("ImbaLogin.js") . "\n";
+        echo file_get_contents("Media/ImbaLogin.js") . "\n";
 
         /**
          * Load IMBAdmin index template
@@ -68,13 +68,13 @@ switch ($_GET["load"]) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
                                 $showMe = true;
-                            } elseif ((! ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
+                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
                                 $showMe = true;
                             }
 
                             if ($showMe) {
                                 $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='".$Navigation->getComment($nav)."'>" . $Navigation->getName($nav) . "</a></li>";
+                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
                                 array_push($identifiers, $modIdentifier);
                                 $Navigation = null;
                             }
@@ -109,7 +109,8 @@ switch ($_GET["load"]) {
         break;
 
     case "css":
-        header("location: ImbaLogin.css");
+        echo file_get_contents("location: Media/ImbaLogin.css");
+        echo file_get_contents("location: Media/Imbadmin.css");
         break;
 
     default:

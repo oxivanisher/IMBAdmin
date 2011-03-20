@@ -184,24 +184,3 @@ function hideMenu() {
         direction: "up"
     });
 }
-
-/**
- * Show the User Profile in IMBAdmin window
- */
-function showUserProfile(openid) {
-    loadImbaAdminModule("User", "viewprofile", openid);
-}
-
-/**
- * Loads the default ImbaAdminTab
- */
-function loadImbaAdminDefaultModule(){
-    // Get the default module
-    $.post(ajaxEntry, {
-        action: "navigation",
-        request: "getDefault"
-    }, function (response){
-        // Call the loadImbaAdminModule to open the dialog         
-        loadImbaAdminModule(response.toString());
-    });
-}

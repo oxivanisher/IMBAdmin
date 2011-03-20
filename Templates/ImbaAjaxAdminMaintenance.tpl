@@ -14,6 +14,6 @@
 <h3>Maintenance Jobs</h3>
 <ul>
     {foreach $jobs as $job}
-    <li><a onclick="javascript: startMaintenanceJob('{$job.handle}');">{$job.name}</a></li>
+    <li onclick="javascript: startMaintenanceJob('{$job.handle}');" style="cursor: pointer;">{$job.name}</a></li>
     {/foreach}
 </ul>

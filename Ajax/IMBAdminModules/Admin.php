@@ -88,7 +88,7 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewlogdetail":
             $managerLog = ImbaLogger::getInstance();
             $log = $managerLog->selectId($_POST["id"]);
-            
+            var_dump($log);
             $smarty->assign('id', $log->getId());
             
             

@@ -43,7 +43,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
     /**
      * Inserts a user into the Database
      */
-    public function insert(ImbaUserRole $user) {
+    public function insert(ImbaUserRole $role) {
 
         $query = "INSERT INTO %s ";
         $query .= "(handle, role, name, smf, wordpress, icon) VALUES ";
@@ -56,6 +56,25 @@ class ImbaManagerUserRole extends ImbaManagerBase {
             $role->getSmf(),
             $role->getWordpress(),
             $role->getIcon()
+        ));
+    }
+
+    /**
+     * Updates a user into the Database
+     */
+    public function update(ImbaUserRole $role) {
+        $query = "UPDATE %s SET ";
+        $query .= "handle = '%s', role = '%s', name = '%s', smf = '%s', wordpress = '%s', icon = '%s' ";
+        $query .= "WHERE id = '%s'";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,
+            $role->getHandle(),
+            $role->getRole(),
+            $role->getName(),
+            $role->getSmf(),
+            $role->getWordpress(),
+            $role->getIcon(),
+            $role->getId()
         ));
     }
 

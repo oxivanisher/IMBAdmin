@@ -617,11 +617,8 @@
                     action: "module",
                     module: "Admin",
                     request: "updaterole",
-                    
-                    // hilfe, ich weiss nicht wie ich hier auf das id feld wirklich zugreiffe. funktioniert nicht so
                     roleid: this.parentNode.getAttribute('id').substr(7),
-                    column: oTable.fnGetPosition( this )[2],
-                    test: oTable.fnGetTds(0)
+                    rolecolumn: getColumnHeadByIndex("ImbaAjaxAdminRoleTable", oTable.fnGetPosition(this)[2])
                 };
             },
             "height": "14px"
@@ -629,13 +626,12 @@
         
         
         
-    } );   
-   
+    } );  
 </script>
 
 <table id="ImbaAjaxAdminRoleTable" class="display">
     <thead>
-        <tr><th>Id</th><th>Role</th><th>Name</th><th>Icon</th><th>SMF</th><th>Wordpress</th><th>&nbsp;</th></tr>
+        <tr><th title="Id">Id</th><th title="Role">Role</th><th title="Name">Name</th><th title="Icon">Icon</th><th title="SMF">SMF</th><th title="Wordpress">Wordpress</th><th>&nbsp;</th></tr>
     </thead>
     <tbody>
 

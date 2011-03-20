@@ -90,6 +90,23 @@ try {
     $output.= "Error at delete.\n";
 }
 
+/**
+ * Role update test
+ */
+try {
+    $role = $managerRole->selectById(1);
+
+    $roleOldName = $role->getName();
+    $role->setName($role->getName() . " Test");
+    $managerRole->update($role);
+
+    $role->setName($roleOldName);
+    $managerRole->update($role);
+    $output.= "Role update working.\n";
+} catch (Exception $e) {
+    $output.= "Error at delete.\n";
+}
+
 
 echo "<pre>ImbaManagerUser Test:\n" . $output . "</pre>";
 ?>

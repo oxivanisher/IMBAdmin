@@ -347,6 +347,19 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
 }
 
 /**
+ *  Retrievs the Columnhead by index
+ *  the <th> element needs to have an "title" Attribute
+ */  
+function getColumnHeadByIndex(tableId, colIndex){
+    var result = null;
+    $.each($("#"+tableId+" thead th"), function(index, value) { 
+        if (index == colIndex) result = value.getAttribute("title");
+    });
+        
+    return result;
+}
+
+/**
  * Creats a cookie, with name, value und days of expire
  */
 function createCookie(name,value,days) {

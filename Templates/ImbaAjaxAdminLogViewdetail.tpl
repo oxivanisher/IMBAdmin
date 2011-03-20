@@ -11,7 +11,7 @@
     }
    
 </script>
-<b>User: {$user}{if $openid}({$openid}){/if}, {$city} ({$ip})</b><br />
+<b>User: {$user}{if $openid} ({$openid}){/if}, {$city} ({$ip})</b><br />
 <i>Session: {$session}</i>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>

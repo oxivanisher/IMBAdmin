@@ -139,21 +139,38 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
         case "viewlogdetail":
             $managerLog = ImbaLogger::getInstance();
 
+            /**
+             * Get log entry
+             */
             $log = $managerLog->selectId($_POST["id"]);
 
+            /**
+             * Get user
+             */
             if ($log->getUser() == null) {
                 $user = "Anonymous";
             } else {
                 $user = $managerUser->selectByOpenId($log->getUser())->getNickname();
             }
 
+            /**
+             * Get city trough GeoIP
+             */
+            include("Libs/GeoIP/GeoIP.php");
+            // uncomment for Shared Memory support
+            // geoip_load_shared_mem("/usr/local/share/GeoIP/GeoIPCity.dat");
+            // $gi = geoip_open("/usr/local/share/GeoIP/GeoIPCity.dat",GEOIP_SHARED_MEMORY);
+            $gi = geoip_open("/usr/local/share/GeoIP/GeoIPCity.dat", GEOIP_STANDARD);
+            $record = geoip_record_by_addr($gi, $log->getIp());
+            $smarty->assign('city', $record->city . " (" . $record->country_name . ")");
+            geoip_close($gi);
+            $smarty->assign('ip', $log->getIp());
+
             $smarty->assign('date', ImbaSharedFunctions::genTime($log->getTimestamp()));
             $smarty->assign('age', ImbaSharedFunctions::getAge($log->getTimestamp()));
             $smarty->assign('openid', $log->getUser());
-            $smarty->assign('city', $log->getIp());
             $smarty->assign('id', $log->getId());
-            $smarty->assign('user', $user); //$managerUser->selectByOpenId($log->getUser())->getNickname());
-            $smarty->assign('ip', $log->getIp());
+            $smarty->assign('user', $user);
             $smarty->assign('module', $log->getModule());
             $smarty->assign('session', $log->getSession());
             $smarty->assign('message', $log->getMessage());

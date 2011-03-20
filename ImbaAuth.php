@@ -136,7 +136,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      */
     $log = $managerLog->getNew();
     $log->setModule("Auth");
-    $log->setMessage("Logged in");
+    $log->setMessage("Logged in with " . ImbaUserContext::getOpenIdUrl());
     $log->setLevel(2);
     $managerLog->insert($log);
 

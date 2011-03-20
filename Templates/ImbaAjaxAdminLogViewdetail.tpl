@@ -13,8 +13,6 @@
 </script>
 <b>User: {$user} ({$openid}), {$city} ({$ip})</b><br />
 <i>Session: {$session}</i>
-<h3>Actual Entry</h3>
-<h3>Other Session Messages</h3>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
 

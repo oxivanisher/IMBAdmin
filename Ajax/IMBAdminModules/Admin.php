@@ -299,7 +299,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $maintenenceJobs = array();
 
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
-            array_push($maintenenceJobs, array('handle' => 'xx', 'name' => 'nix'));
+            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Find unused user Roles'));
+            array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
 
             $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('ImbaAjaxAdminMaintenance.tpl');

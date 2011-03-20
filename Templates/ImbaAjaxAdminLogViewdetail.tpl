@@ -1,10 +1,5 @@
 <h2>User Infos</h2>
-{$user} ({$openid})
-
-<table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
-    <tr><td>User</td><td>{$user} ({$openid})</td></tr>
-    <tr><td>Ip</td><td>{$ip} ({$city})</td></tr>
-</table>
+{$user} ({$openid}), {$city} ({$ip})
 <h2>Actual Entry</h2>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><td>Date</td><td>{$date} {$age}</td></tr>

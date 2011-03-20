@@ -49,9 +49,9 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "updaterole":
             //wie finde ich hier das richtige feld? siehe template file
-            
+
             $role = $managerRole->selectById($_POST["roleid"]);
-            
+
             echo "Ich funze ned" . $_POST["test"];
             break;
 
@@ -248,11 +248,16 @@ if (ImbaUserContext::getLoggedIn()) {
         case "runMaintenanceJob":
             switch ($_POST["jobHandle"]) {
                 case "clearLog":
-                    $managerLog = ImbaLogger::getInstance();
-                    $managerLog->clearAll();
-                    
-                    $smarty->assign('name', 'Clear System Messages');
-                    $smarty->assign('message', 'cleared');
+                    if (ImbaUserContext::getUserRole() >= 9) {
+                        $managerLog = ImbaLogger::getInstance();
+                        $managerLog->clearAll();
+
+                        $smarty->assign('name', 'Clear System Messages');
+                        $smarty->assign('message', 'cleared');
+                    } else {
+                        $smarty->assign('name', 'Clear System Messages');
+                        $smarty->assign('message', 'not cleared! you are no admin!');
+                    }
                     break;
                 default:
                     $smarty->assign('name', $_POST["jobHandle"]);
@@ -260,18 +265,18 @@ if (ImbaUserContext::getLoggedIn()) {
             }
             $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
             break;
-        
+
         case "maintenance":
-            
+
             $maintenenceJobs = array();
-        
+
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'xx', 'name' => 'nix'));
-          
+
             $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('ImbaAjaxAdminMaintenance.tpl');
             break;
-        
+
         default:
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());
 

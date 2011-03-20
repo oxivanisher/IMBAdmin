@@ -60,8 +60,8 @@ class ImbaLogger extends ImbaManagerBase {
             $log->getTimestamp(),
             $log->getUser(),
             $log->getIp(),
-            $log->getModule(),
             $log->getSession(),
+            $log->getModule(),
             $log->getMessage(),
             $log->getLevel()
         ));
@@ -100,8 +100,13 @@ class ImbaLogger extends ImbaManagerBase {
     public function clearAll() {
             $query = "DELETE FROM %s;";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+            
+            $log = $this->getNew(); 
+            $log->setModule("Admin");
+            $log->setMessage("Logs cleared");
+            $log->setLevel(0);
+            $this->insert($log);
     }
-
 
     public function selectId($id) {
         $message = null;

@@ -271,7 +271,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $maintenenceJobs = array();
 
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
-            array_push($maintenenceJobs, array('handle' => 'xx', 'name' => 'nix'));
+            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Find unused user Roles'));
 
             $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('ImbaAjaxAdminMaintenance.tpl');

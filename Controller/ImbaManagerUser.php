@@ -69,7 +69,6 @@ class ImbaManagerUser extends ImbaManagerBase {
             
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE));
 
-            $managerRole = ImbaManagerUserRole::getInstance();
             while ($row = $this->database->fetchRow()) {
                 $user = new ImbaUser();
                 $user->setOpenId($row["openid"]);
@@ -94,12 +93,6 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setRole($row["role"]);
                 array_push($result, $user);
             }
-
-/*            foreach ($result as $user) {
-                // role id stored in Role Propertie
-                $role = $managerRole->selectById($user->getRole());
-                $user->setRole($role);
-            } */
 
             $this->usersCachedTimestamp = time();
             $this->usersCached = $result;

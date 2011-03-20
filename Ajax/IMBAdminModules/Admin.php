@@ -79,8 +79,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             echo $_POST["value"];
             break;
 
-        case "deleterole":            
-            $managerRole->delete($_POST["roleid"]);            
+        case "deleterole":
+            $managerRole->delete($_POST["roleid"]);
             break;
 
         case "settings":
@@ -274,23 +274,36 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "runMaintenanceJob":
+            $log = $this->getNew();
+            $log->setModule("Admin");
+            $log->setLevel(1);
             switch ($_POST["jobHandle"]) {
-                case "clearLog":
-                    if (ImbaUserContext::getUserRole() >= 9) {
-                        $managerLog = ImbaLogger::getInstance();
-                        $managerLog->clearAll();
+                case "findUnusedRoles":
+                    $log->setMessage("Find unused user Roles");
 
-                        $smarty->assign('name', 'Clear System Messages');
-                        $smarty->assign('message', 'cleared');
-                    } else {
-                        $smarty->assign('name', 'Clear System Messages');
-                        $smarty->assign('message', 'not cleared! you are no admin!');
-                    }
+                    $smarty->assign('name', 'Find unused user Roles');
+                    $smarty->assign('message', 'cleared');
+                    break;
+
+                case "findIncompleteUsers":
+                    $log->setMessage("Find incomplete User Profiles");
+
+                    $smarty->assign('name', 'Find incomplete User Profiles');
+                    $smarty->assign('message', 'cleared');
+                    break;
+
+                case "clearLog":
+                    $managerLog = ImbaLogger::getInstance();
+                    $managerLog->clearAll();
+
+                    $smarty->assign('name', 'Clear System Messages');
+                    $smarty->assign('message', 'cleared');
                     break;
                 default:
                     $smarty->assign('name', $_POST["jobHandle"]);
                     $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }
+            $this->insert($log);
             $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
             break;
 

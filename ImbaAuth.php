@@ -77,9 +77,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              */
             $log = $managerLog->getNew();
             $log->setModule("Auth");
-            $log->setMessage("Redirecting");
+            $log->setMessage("Determing Auth style");
             $log->setLevel(2);
             $managerLog->insert($log);
+
+            $log = $managerLog->getNew();
+            $log->setModule("Auth");
+            $log->setLevel(2);
 
             try {
                 $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
@@ -88,12 +92,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     /**
                      * we got a redirection url as answer. go there now!
                      */
+                    $log->setMessage("Redirecting to: " . $redirectUrl);
+                    $managerLog->insert($log);
                     header("Location: " . $redirectUrl);
                 } elseif (!empty($formHtml)) {
                     /**
                      * we get a html form as answer. display it
                      * TODO: make it autosubmit
                      */
+                    $log->setMessage("Redirecting trough HTML form");
+                    $managerLog->insert($log);
                     echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
                     echo "<body onload='submitForm()'><h2>Redirecting...</h2>";
                     echo "Please submit the following form:<br />";
@@ -104,11 +112,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     /**
                      * something went wrong. display error end exit
                      */
-                    echo "Ehhrmm keine URL, weil ehhrmm.";
+                    $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
+                    $managerLog->insert($log);
                     exit;
                 }
             } catch (Exception $ex) {
-                echo "openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")";
+                $log->setMessage("openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")");
+                $managerLog->insert($log);
+                echo $log->getMessage();
             }
         }
     } else {
@@ -117,15 +128,23 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          */
         $log = $managerLog->getNew();
         $log->setModule("Auth");
-        $log->setMessage("Verification");
+        $log->setMessage("Verification starting");
         $log->setLevel(2);
         $managerLog->insert($log);
 
+        $log = $managerLog->getNew();
+        $log->setModule("Auth");
+        $log->setLevel(2);
+
         try {
             $managerOpenId->openidVerify();
+            $log->setMessage("Verification sucessful");
+            $managerLog->insert($log);
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
-            echo "openidVerify ERROR: " . $ex->getMessage();
+            $log->setMessage("openidVerify ERROR: " . $ex->getMessage());
+            $managerLog->insert($log);
+            echo $log->getMessage();
         }
     }
 } else {
@@ -136,7 +155,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      */
     $log = $managerLog->getNew();
     $log->setModule("Auth");
-    $log->setMessage("Logged in with " . ImbaUserContext::getOpenIdUrl());
+    $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
     $log->setLevel(2);
     $managerLog->insert($log);
 

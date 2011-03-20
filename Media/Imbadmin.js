@@ -103,7 +103,7 @@ function loadImbaAdminTabContent(data, myTabId) {
 function runModuleAndDisplay(data){
     alert("test");
     var len = data.length;
-    alert(len);
+    alert(data);
     var data = {
         action: "module",
         module: module,

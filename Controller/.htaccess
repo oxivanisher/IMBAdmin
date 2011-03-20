@@ -1,4 +1,2 @@
-<Directory
-
-Options -Indexes
-</Directory>
+Order allow,deny
+Deny from all

@@ -297,7 +297,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "runMaintenanceJob":
-            $log = $this->getNew();
+            $managerLog = ImbaLogger::getInstance();
+            $log = $managerLog->getNew();
             $log->setModule("Admin");
             $log->setLevel(1);
             switch ($_POST["jobHandle"]) {
@@ -326,7 +327,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('name', $_POST["jobHandle"]);
                     $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }
-            $this->insert($log);
+            $managerLog->insert($log);
             $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
             break;
 

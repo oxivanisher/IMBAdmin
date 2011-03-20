@@ -333,9 +333,19 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
                 case "findIncompleteUsers":
                     $log->setMessage("Find incomplete User Profiles");
-
                     $smarty->assign('name', $log->getMessage());
-                    $smarty->assign('message', 'cleared');
+                    
+                    $return  = "These Members are missing at least one of the following fields:";
+                    $return .= "";
+                    $incompleteUsers = array();
+                    $users = $managerUser->selectAllUser();
+                    foreach ($users as $user) {
+                        $return .= "";
+                    }
+
+                    
+                    
+                    $smarty->assign('message', $return);
                     break;
 
                 case "clearLog":

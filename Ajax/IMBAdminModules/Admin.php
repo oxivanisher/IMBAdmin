@@ -144,7 +144,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             if ($log->getUser() == null) {
                 $user = "Anonymous";
             } else {
-                $user = $managerUser->selectByOpenId($log->getUser());
+                $user = $managerUser->selectByOpenId($log->getUser())->getNickname();
             }
 
             $smarty->assign('date', ImbaSharedFunctions::genTime($log->getTimestamp()));

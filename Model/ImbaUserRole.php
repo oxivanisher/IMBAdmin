@@ -11,6 +11,7 @@ class ImbaUserRole extends ImbaBase {
     /**
      * Fields
      */
+    protected $id;
     protected $handle;
     protected $role;
     protected $name;
@@ -67,6 +68,14 @@ class ImbaUserRole extends ImbaBase {
 
     public function setIcon($icon) {
         $this->icon = $icon;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
     }
 
 }

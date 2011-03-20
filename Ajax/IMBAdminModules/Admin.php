@@ -302,11 +302,11 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerLog = ImbaLogger::getInstance();
             $log = $managerLog->getNew();
             $log->setModule("Admin");
-            $log->setLevel(1);
             switch ($_POST["jobHandle"]) {
                 case "findUnusedRoles":
                     $log->setMessage("Analyze User Roles");
                     $smarty->assign('name', $log->getMessage());
+                    $log->setLevel(2);
 
                     $users = $managerUser->selectAllUser();
                     $roles = $managerRole->selectAll();
@@ -336,6 +336,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 case "findIncompleteUsers":
                     $log->setMessage("Find incomplete User Profiles");
                     $smarty->assign('name', $log->getMessage());
+                    $log->setLevel(2);
 
                     $return = "<b>These Members are missing at least one of the following fields:</b><br />";
                     $return .= "<i>Nickname, Firstname, Lastname, OpenId</i><br /><br />";
@@ -363,6 +364,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
 
                 case "clearLog":
+                    $log->setLevel(1);
                     $managerLog = ImbaLogger::getInstance();
                     $managerLog->clearAll();
 

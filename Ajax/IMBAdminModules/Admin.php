@@ -142,7 +142,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $log = $managerLog->selectId($_POST["id"]);
 
             if ($log->getUser()) {
-                $user = $managerUser->selectByOpenId();
+                $user = $managerUser->selectByOpenId($log->getUser());
             } else {
                 $user = "Anonymous";
             }

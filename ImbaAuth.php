@@ -77,7 +77,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              */
             $log = $managerLog->getNew();
             $log->setModule("Auth");
-            $log->setMessage("Determing Auth style");
+            $log->setMessage("Determing Auth style for " . $openid);
             $log->setLevel(2);
             $managerLog->insert($log);
 

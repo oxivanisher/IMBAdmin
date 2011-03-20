@@ -29,8 +29,8 @@
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
 
     {foreach $logs as $log}
-    <tr onclick="javascript: showLogDetail('{$log.id}');" style="cursor: pointer;">
-        <td>{if $id == $log.id}&gt; {/if}{$log.date}</td>
+    <tr onclick="javascript: showLogDetail('{$log.id}');" style="cursor: pointer;{if $id == $log.id}border: 1px grey solid;{/if}">
+        <td>{$log.date}</td>
         <td>{$log.module}</td>
         <td>{$log.message}</td>
         <td>{$log.level}</td>

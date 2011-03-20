@@ -647,7 +647,15 @@
 
 <table id="ImbaAjaxAdminRoleTable" class="display">
     <thead>
-        <tr><th title="Id">Id</th><th title="Role">Role</th><th title="Name">Name</th><th title="Icon">Icon</th><th title="SMF">SMF</th><th title="Wordpress">Wordpress</th><th>&nbsp;</th></tr>
+        <tr>
+<!--            <th title="Id">Id</th> -->
+            <th title="Role">Role</th>
+            <th title="Name">Name</th>
+            <th title="Icon">Icon</th>
+            <th title="SMF">SMF</th>
+            <th title="Wordpress">Wordpress</th>
+            <th>&nbsp;</th>
+        </tr>
     </thead>
     <tbody>
 

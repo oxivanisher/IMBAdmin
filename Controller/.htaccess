@@ -1,1 +1,4 @@
-deny from all
+<Directory
+
+Options -Indexes
+</Directory>

@@ -303,7 +303,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $log->setLevel(1);
             switch ($_POST["jobHandle"]) {
                 case "findUnusedRoles":
-                    $log->setMessage("Find unused user Roles");
+                    $log->setMessage("Analyze User Roles");
                     $smarty->assign('name', $log->getMessage());
 
                     $users = $managerUser->selectAllUser();
@@ -358,7 +358,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $maintenenceJobs = array();
 
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
-            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Find unused user Roles'));
+            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
             array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
 
             $smarty->assign('jobs', $maintenenceJobs);

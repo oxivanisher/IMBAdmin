@@ -51,22 +51,21 @@
     <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
         <tbody>
             <tr>
-                <td><nobr>Aktuelles Motto:</nobr>
-        </td>
+                <td>OpenID:</td>
+                <td>{$openid}></td>
+                <td rowspan="14">
+                    <ul>
+                        <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
+                        <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
+                        <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><nobr>Aktuelles Motto:</nobr></td>
         <td>
             <input id="myProfileMotto" type="text" name="motto" value="{$motto}" />
         </td>
-        <td rowspan="8">
-            <ul>
-                <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
-                <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
-                <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
-            </ul>
-        </td>
-        </tr>
-        <tr>
-            <td>OpenID:</td>
-            <td>{$openid}></td>
         </tr>
         <tr>
             <td>Firstname:</td>

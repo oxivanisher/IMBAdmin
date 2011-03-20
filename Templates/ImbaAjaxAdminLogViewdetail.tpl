@@ -24,6 +24,11 @@
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
     {foreach $logs as $log}
-    <tr onclick="javascript: showLogDetail('{$logs.id}');"><td>{$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>
+
+    <tr onclick="javascript: showLogDetail('{$log.id}');"><td>
+            {if $id == $log.id}
+                *
+            {/if}      
+            {$log.date}</td><td>{$log.module}</td><td>{$log.message}</td><td>{$log.level}</td></tr>
     {/foreach}
 </table>

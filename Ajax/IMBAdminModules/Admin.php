@@ -49,8 +49,10 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "updaterole":
             //wie finde ich hier das richtige feld? siehe template file
-            print_r($_POST);
-            echo "Ich funze ned";
+            
+            $role = new ImbaUserRole();
+
+            echo "Ich funze ned" . $_POST["roleid"];
             break;
 
         case "settings":
@@ -67,7 +69,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $logCount = 0;
             $sessions = array();
             foreach ($managerLog->selectAll() as $logEntry) {
-                if (! in_array($logEntry->getSession(), $sessions)) {
+                if (!in_array($logEntry->getSession(), $sessions)) {
                     array_push($sessions, $logEntry->getSession());
                     $logCount++;
                 }

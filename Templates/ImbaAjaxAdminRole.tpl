@@ -619,7 +619,7 @@
                     request: "updaterole",
                     
                     // hilfe, ich weiss nicht wie ich hier auf das id feld wirklich zugreiffe. funktioniert nicht so
-                    row_id: this.parentNode.getAttribute('id'),
+                    roleid: this.parentNode.getAttribute('id').substr(7),
                     column: oTable.fnGetPosition( this )[2]
                 };
             },
@@ -639,7 +639,7 @@
     <tbody>
 
         {foreach $roles as $role}
-        <tr id="tr_{$role.id}">
+        <tr id="roleid_{$role.id}">
             <td>{$role.id}</td>
             <td>{$role.role}</td>
             <td>{$role.name}</td>

@@ -1,13 +1,13 @@
 
 <h2>Actual Entry</h2>
 <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
-    <tr><th>Date</th><td>{$date} {$age}</td></tr>
-    <tr><th>User</th><td>{$user} ({$openid})</td></tr>
-    <tr><th>Ip</th><td>{$ip} ({$city})</td></tr>
-    <tr><th>Module</th><td>{$module}</td></tr>
-    <tr><th>Session</th><td>{$session}</td></tr>
-    <tr><th>Level</th><td>{$level}</td></tr>
-    <tr><th>Message</th><td>{$message}</td></tr>
+    <tr><td>Date</td><td>{$date} {$age}</td></tr>
+    <tr><td>User</td><td>{$user} ({$openid})</td></tr>
+    <tr><td>Ip</td><td>{$ip} ({$city})</td></tr>
+    <tr><td>Module</td><td>{$module}</td></tr>
+    <tr><td>Session</td><td>{$session}</td></tr>
+    <tr><td>Level</td><td>{$level}</td></tr>
+    <tr><td>Message</td><td>{$message}</td></tr>
 </table>
 <h2>User Session</h2>
 <table>

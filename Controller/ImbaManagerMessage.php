@@ -26,12 +26,13 @@ class ImbaManagerMessage extends ImbaManagerBase {
     /*
      * Singleton init
      */
+
     public static function getInstance() {
         if (self::$instance === NULL)
             self::$instance = new self();
         return self::$instance;
     }
-    
+
     /**
      * Tries to send an insert command to the database.
      * Inserts a message into the Database if successfully.
@@ -100,6 +101,27 @@ class ImbaManagerMessage extends ImbaManagerBase {
     }
 
     /**
+     * Get num of messages
+     */
+    public function selectById($id) {
+        $query = "SELECT * FROM  %s Where 1;";
+
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES));
+        $numMsgs = mysql_num_rows($this->database);
+
+        $message = new ImbaMessage();
+        $message->setOpenId($id);
+        $message->setSender($result["sender"]);
+        $message->setReceiver($result["receiver"]);
+        $message->setTimestamp($result["timestamp"]);
+        $message->setSubject($result["subject"]);
+        $message->setMessage($numMsgs);
+        $message->setNew($result["new"]);
+        $message->setXmpp($result["xmpp"]);
+        return $message;
+    }
+
+    /**
      * Selects a complete Conversation between two OpenIds
      */
     public function selectConversation($openidMe, $openidOpponent, $lines = 10) {
@@ -135,7 +157,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
      */
     public function selectMessagesCount($openidMe, $openidOpponent) {
         // TODO: Nur die zählen, die in den letzten monaten geschlumpft wurden
-        $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') AND timestamp > (" . (time() - 4838400) .");";
+        $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') AND timestamp > (" . (time() - 4838400) . ");";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openidMe,

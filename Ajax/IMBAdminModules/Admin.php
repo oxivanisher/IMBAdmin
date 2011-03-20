@@ -50,9 +50,9 @@ if (ImbaUserContext::getLoggedIn()) {
         case "updaterole":
             //wie finde ich hier das richtige feld? siehe template file
             
-            $role = new ImbaUserRole();
-
-            echo "Ich funze ned" . $_POST["roleid"];
+            $role = $managerRole->selectById($_POST["roleid"]);
+            
+            echo "Ich funze ned" . $role->getName();
             break;
 
         case "settings":

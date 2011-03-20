@@ -107,7 +107,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
         $query = "SELECT * FROM  %s Where 1;";
 
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES));
-        return mysql_num_rows($this->database);
+        return $this->database->count();
     }
 
     /**

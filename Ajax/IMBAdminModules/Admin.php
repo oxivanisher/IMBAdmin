@@ -252,8 +252,8 @@ if (ImbaUserContext::getLoggedIn()) {
                     $smarty->assign('message', 'cleared');
                     break;
                 default:
-                    $smarty->assign('name', 'error');
-                    $smarty->assign('message', 'unknown job' . $_POST["jobHandle"]);
+                    $smarty->assign('name', $_POST["jobHandle"]);
+                    $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }
             $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
             break;

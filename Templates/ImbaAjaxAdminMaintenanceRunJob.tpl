@@ -8,7 +8,7 @@
         loadImbaAdminTabContent(data);
     }
    
-</script><h3>Maintenance Job {$name} running</h3>
+</script><h3>Job <i>"{$name}"</i> running</h3>
 <pre>
 {$message}
 </pre>

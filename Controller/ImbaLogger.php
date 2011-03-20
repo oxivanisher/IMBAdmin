@@ -110,9 +110,9 @@ class ImbaLogger extends ImbaManagerBase {
 
     public function selectId($id) {
         $message = null;
-        foreach ($this->selectAll()as $message) {
-            if ($id == $message->getId())
-                $message = $message;
+        foreach ($this->selectAll()as $tmpMessage) {
+            if ($id == $tmpMessage->getId())
+                $message = $tmpMessage;
         }
         return $message;
     }

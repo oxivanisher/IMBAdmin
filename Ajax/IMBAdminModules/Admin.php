@@ -89,7 +89,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $managerLog = ImbaLogger::getInstance();
 
             $log = $managerLog->selectId($_POST["id"]);
-            
+
             $smarty->assign('date', $log->getTimestamp());
             $smarty->assign('age', ImbaSharedFunctions::getAge($log->getTimestamp()));
             $smarty->assign('openid', $log->getUser());
@@ -101,6 +101,26 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->assign('session', $log->getSession());
             $smarty->assign('message', $log->getMessage());
             $smarty->assign('level', $log->getLevel());
+
+            $sessionLogs = $managerLog->selectAll();
+            $smarty_logs = array();
+            foreach ($sessionLogs as $sessionLog) {
+                if ($sessionLog->getSession() == $log->getSession()) {
+                    $username = "Anonymous";
+                    if ($sessionLog->getUser() != "") {
+                        $username = $managerUser->selectByOpenId($sessionLog->getUser())->getNickname();
+                    }
+
+                    array_push($smarty_logs, array(
+                        'id' => $sessionLog->getId(),
+                        'timestamp' => $sessionLog->getTimestamp(),
+                        'module' => $sessionLog->getModule(),
+                        'message' => $sessionLog->getMessage(),
+                        'level' => $sessionLog->getLevel()
+                    ));
+                }
+            }
+            $smarty->assign('logs', $smarty_logs);
 
             $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');
             break;

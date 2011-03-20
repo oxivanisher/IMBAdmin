@@ -343,20 +343,20 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                         
                         if ($user->getFirstname() == null)
                                 $count++;
-/*                        if (empty($user->getOpenId()))
+                        if ($user->getOpenId() == null)
                                 $count++;
-                        if (empty($user->getLastname()))
+                        if ($user->getLastname() == null)
                                 $count++;
-                        if (empty($user->getBirthday()))
+                        if ($user->getBirthday() == null)
                                 $count++;
-                        if (empty($user->getBirthmonth()))
+                        if ($user->getBirthmonth() == null)
                                 $count++;
-                        if (empty($user->getBirthyear()))
+                        if ($user->getBirthyear() == null)
                                 $count++;
-  */                      
-                        //if ($count > 0) {
+                        
+                        if ($count > 0) {
                             $return .= $user->getNickname() . ": " . $count . "\n";
-                        //}
+                        }
                     }
 
 

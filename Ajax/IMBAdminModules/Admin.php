@@ -304,9 +304,26 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             switch ($_POST["jobHandle"]) {
                 case "findUnusedRoles":
                     $log->setMessage("Find unused user Roles");
-
                     $smarty->assign('name', $log->getMessage());
-                    $smarty->assign('message', 'cleared');
+                    
+                    $users = $managerUser->selectAll();
+                    $roles = $managerRole->selectAll();
+                    $tmpRoles = array();
+                    $counts = array();
+                    foreach ($users as $user) {
+                        if (! in_array($user->getRole(), $tmpRoles)) {
+                            array_push($tmpRoles, $user->getRole());
+                            $counts[$user->getRole()] = 1;
+                        }
+                        $counts[$user->getRole()]++;
+                    }
+                    
+                    $return = "";
+                    foreach ($roles as $role) {
+                        $return .= $role->getName() . ": " . $counts[$role->getRole()] . "\n";
+                    }
+                        
+                    $smarty->assign('message', $return);
                     break;
 
                 case "findIncompleteUsers":

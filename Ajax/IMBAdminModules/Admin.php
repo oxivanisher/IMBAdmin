@@ -49,6 +49,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "updaterole":
             //wie finde ich hier das richtige feld? siehe template file
+            print_r($_POST);
             echo "Ich funze ned";
             break;
 

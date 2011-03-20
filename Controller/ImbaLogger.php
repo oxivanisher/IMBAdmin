@@ -90,7 +90,7 @@ class ImbaLogger extends ImbaManagerBase {
 
     public function getId($id) {
         $query = "SELECT * FROM %s WHERE id='%s' ORDER BY id DESC;";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES, $id);
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES, $id));
 
         $messages = array();
         while ($row = $this->database->fetchRow()) {

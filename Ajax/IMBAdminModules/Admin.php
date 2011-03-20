@@ -136,7 +136,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                     array_push($smarty_logs, array(
                         'id' => $sessionLog->getId(),
-                        'date' => ImbaSharedFunctions::genTime($sessionLog->getTimestamp()),
+                        'date' => ImbaSharedFunctions::getAge($sessionLog->getTimestamp()),
                         'module' => $sessionLog->getModule(),
                         'message' => $sessionLog->getMessage(),
                         'level' => $sessionLog->getLevel()

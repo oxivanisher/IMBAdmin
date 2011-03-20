@@ -27,7 +27,7 @@
     {foreach $logs as $log}
     <tr onclick="javascript: showLogDetail('{$log.id}');" style="cursor: pointer;">
         <td>{if $id == $log.id}&gt; {/if}{$log.date}</td>
-        <td>{$log.id}{$log.module}</td>
+        <td>{$log.module}</td>
         <td>{$log.message}</td>
         <td>{$log.level}</td>
     </tr>

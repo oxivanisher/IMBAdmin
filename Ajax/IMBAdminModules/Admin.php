@@ -213,6 +213,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updatesetting":
             //$role = $managerRole->selectById($_POST["roleid"]);
+            $setting = substr($POST["settingid"], 3);
 
             switch ($_POST["rolecolumn"]) {
                 case "Role":
@@ -242,7 +243,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             //    $managerRole->update($role);
             //    echo $_POST["value"];
             //    
-            print_r($_POST);
+            //print_r($_POST);
+            echo $setting . " to " . $_POST["value"];
             break;
 
         case "deleterole":

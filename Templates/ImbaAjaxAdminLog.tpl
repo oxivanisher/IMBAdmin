@@ -63,7 +63,7 @@
     }
 
 </script>
-<table id="ImbaAjaxAdminLogTable" class="display">
+<table id="ImbaAjaxAdminLogTable" class="dataTableDisplay">
     <thead>
         <tr>
             <th>When</th>

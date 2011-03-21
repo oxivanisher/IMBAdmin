@@ -161,7 +161,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
 */
-table.display {
+table.dataTableDisplay {
     margin: 0 auto;
     clear: both;
     width: 100%;

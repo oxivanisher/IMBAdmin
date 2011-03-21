@@ -18,7 +18,7 @@
     }
    
 </script>
-<table id="ImbaAjaxUsersOverviewTable" class="display">
+<table id="ImbaAjaxUsersOverviewTable" class="dataTableDisplay">
     <thead>
         <tr><th>Nickname</th><th>Zuletzt Online</th><th>Rolle</th></tr>
     </thead>

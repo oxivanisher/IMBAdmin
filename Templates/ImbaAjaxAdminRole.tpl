@@ -68,16 +68,15 @@
             <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}
-
+    </tbody>
+    <tfoot>
         <tr>
-<!--            <td>Neu</td> -->
-            <td><input type="text" style="width: 80px;"></td>
-            <td><input type="text" style="width: 80px;"></td>
-            <td><input type="text" style="width: 80px;"></td>
-            <td><input type="text" style="width: 80px;"></td>
-            <td><input type="text" style="width: 80px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td> OK </td>
         </tr>
-
-    </tbody>
+    </tfoot>
 </table>

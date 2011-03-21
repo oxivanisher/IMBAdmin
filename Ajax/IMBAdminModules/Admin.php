@@ -90,7 +90,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
              * - load?
              * 
              */
-            $managerDatabase = ImbaManagerUserRole::getInstance();
+            $managerDatabase = ImbaManagerDatabase::getInstance();
             $settings = array();
             $managerDatabase->query("SELECT * FROM %s;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
               while ($row = $this->database->fetchRow()) {

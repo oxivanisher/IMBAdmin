@@ -84,6 +84,12 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "settings":
+            $settings = array();
+            $this->database->query("SELECT * FROM ", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS. ";"));
+              while ($row = $this->database->fetchRow()) {
+                array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
+              }
+            $smarty->assign('settings', $settings);
             $smarty->display('ImbaAjaxAdminSettings.tpl');
             break;
 

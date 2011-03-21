@@ -43,7 +43,9 @@
             }            
         });
         
-    } );  
+    } );
+    
+    
 </script>
 <table id="ImbaAjaxAdminRoleTable" class="display">
     <thead>

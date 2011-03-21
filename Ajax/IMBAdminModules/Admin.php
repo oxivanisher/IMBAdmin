@@ -29,6 +29,119 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
     $managerRole = ImbaManagerUserRole::getInstance();
 
     switch ($_POST["request"]) {
+
+        /**
+         * Mainenance Jobs
+         */
+        case "maintenance":
+            $maintenenceJobs = array();
+
+            array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
+            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
+            array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
+            array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
+
+            $smarty->assign('jobs', $maintenenceJobs);
+            $smarty->display('ImbaAjaxAdminMaintenance.tpl');
+            break;
+
+        case "runMaintenanceJob":
+            $managerLog = ImbaLogger::getInstance();
+            $log = $managerLog->getNew();
+            $log->setModule("Admin");
+            switch ($_POST["jobHandle"]) {
+                case "findUnusedRoles":
+                    $log->setMessage("Analyze User Roles");
+                    $smarty->assign('name', $log->getMessage());
+                    $log->setLevel(2);
+
+                    $users = $managerUser->selectAllUser();
+                    $roles = $managerRole->selectAll();
+                    $tmpRoles = array();
+                    $counts = array();
+                    foreach ($users as $user) {
+                        if (!in_array($user->getRole(), $tmpRoles)) {
+                            array_push($tmpRoles, $user->getRole());
+                            $counts[$user->getRole()] = 1;
+                        }
+                        $counts[$user->getRole()]++;
+                    }
+
+                    $return = "";
+                    foreach ($roles as $role) {
+                        if ($counts[$role->getRole()]) {
+                            $count = $counts[$role->getRole()];
+                        } else {
+                            $count = 0;
+                        }
+                        $return .= $role->getRole() . " " . $role->getName() . ": " . $count . "<br />";
+                    }
+
+                    $managerLog->insert($log);
+                    $smarty->assign('message', $return);
+                    break;
+
+                case "findIncompleteUsers":
+                    $log->setMessage("Find incomplete User Profiles");
+                    $smarty->assign('name', $log->getMessage());
+                    $log->setLevel(2);
+
+                    $return = "<b>These Members are missing at least one of the following fields:</b><br />";
+                    $return .= "<i>Nickname, Firstname, Lastname, OpenId</i><br /><br />";
+//                    $incompleteUsers = array();
+                    foreach ($managerUser->selectAllUser() as $user) {
+                        $count = 0;
+
+                        if ($user->getNickname() == null)
+                            $count++;
+                        if ($user->getFirstname() == null)
+                            $count++;
+                        if ($user->getLastname() == null)
+                            $count++;
+                        if ($user->getOpenId() == null)
+                            $count++;
+
+                        if ($count > 0) {
+                            $return .= $user->getNickname() . ": " . $count . "<br />";
+                        }
+                    }
+
+
+
+                    $managerLog->insert($log);
+                    $smarty->assign('message', $return);
+                    break;
+
+                case "clearLog":
+                    $managerLog = ImbaLogger::getInstance();
+                    $managerLog->clearAll();
+
+                    $smarty->assign('name', 'Clear System Messages');
+                    $smarty->assign('message', 'Messages cleared!<br />');
+                    break;
+
+                case "showSettings":
+                    $smarty->assign('name', 'Show the $SETTINGS array');
+                    ImbaConstants::loadSettings();
+                    $message = "";
+                    foreach (ImbaConstants::$SETTINGS as $key => $value) {
+                        $message .= $key . ": " . $value . "<br />";
+                    }
+
+                    $smarty->assign('message', $message);
+                    break;
+
+                default:
+                    $smarty->assign('name', $_POST["jobHandle"]);
+                    $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
+            }
+            $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
+            break;
+
+
+        /**
+         * Role Management
+         */
         case "role":
             $roles = $managerRole->selectAll();
 
@@ -83,21 +196,62 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerRole->delete($_POST["roleid"]);
             break;
 
+
+        /**
+         * Settings Management
+         */
         case "settings":
-            /**
-             * Brauchen wir hier einen manager für die settings?
-             * 
-             */
             $managerDatabase = ImbaManagerDatabase::getInstance();
             $settings = array();
             $managerDatabase->query("SELECT * FROM %s;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
-              while ($row = $managerDatabase->fetchRow()) {
+            while ($row = $managerDatabase->fetchRow()) {
                 array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
-              }
+            }
             $smarty->assign('settings', $settings);
             $smarty->display('ImbaAjaxAdminSettings.tpl');
             break;
 
+        case "updatesetting":
+            //$role = $managerRole->selectById($_POST["roleid"]);
+
+            switch ($_POST["rolecolumn"]) {
+                case "Role":
+                    //         $role->setRole($_POST["value"]);
+                    break;
+
+                case "Name":
+                    //         $role->setName($_POST["value"]);
+                    break;
+
+                case "Icon":
+                    //       $role->setIcon($_POST["value"]);
+                    break;
+
+                case "SMF":
+                    //        $role->setSmf($_POST["value"]);
+                    break;
+
+                case "Wordpress":
+                    //        $role->setWordpress($_POST["value"]);
+                    break;
+
+                default:
+                    break;
+            }
+
+            //    $managerRole->update($role);
+            //    echo $_POST["value"];
+            //    
+            print_r($_POST);
+            break;
+
+        case "deleterole":
+            break;
+
+
+        /**
+         * System Statistics
+         */
         case "statistics":
             $managerLog = ImbaLogger::getInstance();
             $managerMessage = ImbaManagerMessage::getInstance();
@@ -121,6 +275,10 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->display('ImbaAjaxAdminStatistics.tpl');
             break;
 
+
+        /**
+         * Log viewer
+         */
         case "log":
             $managerLog = ImbaLogger::getInstance();
             $logs = $managerLog->selectAll();
@@ -212,6 +370,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');
             break;
 
+        /**
+         * User Management
+         */
         case "updatuser":
             $user = new ImbaUser();
             $user = $managerUser->selectByOpenId($_POST["myProfileOpenId"]);
@@ -309,111 +470,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             }
             break;
 
-        case "runMaintenanceJob":
-            $managerLog = ImbaLogger::getInstance();
-            $log = $managerLog->getNew();
-            $log->setModule("Admin");
-            switch ($_POST["jobHandle"]) {
-                case "findUnusedRoles":
-                    $log->setMessage("Analyze User Roles");
-                    $smarty->assign('name', $log->getMessage());
-                    $log->setLevel(2);
 
-                    $users = $managerUser->selectAllUser();
-                    $roles = $managerRole->selectAll();
-                    $tmpRoles = array();
-                    $counts = array();
-                    foreach ($users as $user) {
-                        if (!in_array($user->getRole(), $tmpRoles)) {
-                            array_push($tmpRoles, $user->getRole());
-                            $counts[$user->getRole()] = 1;
-                        }
-                        $counts[$user->getRole()]++;
-                    }
-
-                    $return = "";
-                    foreach ($roles as $role) {
-                        if ($counts[$role->getRole()]) {
-                            $count = $counts[$role->getRole()];
-                        } else {
-                            $count = 0;
-                        }
-                        $return .= $role->getRole() . " " . $role->getName() . ": " . $count . "<br />";
-                    }
-
-                    $managerLog->insert($log);
-                    $smarty->assign('message', $return);
-                    break;
-
-                case "findIncompleteUsers":
-                    $log->setMessage("Find incomplete User Profiles");
-                    $smarty->assign('name', $log->getMessage());
-                    $log->setLevel(2);
-
-                    $return = "<b>These Members are missing at least one of the following fields:</b><br />";
-                    $return .= "<i>Nickname, Firstname, Lastname, OpenId</i><br /><br />";
-//                    $incompleteUsers = array();
-                    foreach ($managerUser->selectAllUser() as $user) {
-                        $count = 0;
-
-                        if ($user->getNickname() == null)
-                            $count++;
-                        if ($user->getFirstname() == null)
-                            $count++;
-                        if ($user->getLastname() == null)
-                            $count++;
-                        if ($user->getOpenId() == null)
-                            $count++;
-
-                        if ($count > 0) {
-                            $return .= $user->getNickname() . ": " . $count . "<br />";
-                        }
-                    }
-
-
-
-                    $managerLog->insert($log);
-                    $smarty->assign('message', $return);
-                    break;
-
-                case "clearLog":
-                    $managerLog = ImbaLogger::getInstance();
-                    $managerLog->clearAll();
-
-                    $smarty->assign('name', 'Clear System Messages');
-                    $smarty->assign('message', 'Messages cleared!<br />');
-                    break;
-
-                case "showSettings":
-                    $smarty->assign('name', 'Show the $SETTINGS array');
-                    ImbaConstants::loadSettings();
-                    $message = "";
-                    foreach (ImbaConstants::$SETTINGS as $key => $value) {
-                        $message .= $key . ": " . $value . "<br />";
-                    }
-                    
-                    $smarty->assign('message', $message);
-                    break;
-
-                default:
-                    $smarty->assign('name', $_POST["jobHandle"]);
-                    $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
-            }
-            $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
-            break;
-
-        case "maintenance":
-
-            $maintenenceJobs = array();
-
-            array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
-            array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
-            array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
-            array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
-
-            $smarty->assign('jobs', $maintenenceJobs);
-            $smarty->display('ImbaAjaxAdminMaintenance.tpl');
-            break;
 
         default:
             $users = $managerUser->selectAllUser(ImbaUserContext::getOpenIdUrl());

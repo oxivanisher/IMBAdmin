@@ -67,13 +67,10 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
     public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
     
-    
-    public static $SETTINGS = array();
-
     /**
-     * Warum geht das nicht? :(
+     * Support for loading settings from database
      */
-
+    public static $SETTINGS = array();
     public function loadSettings() {
         $database = ImbaManagerDatabase::getInstance();
         $database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
@@ -81,9 +78,6 @@ class ImbaConstants extends ImbaConfig {
             ImbaConstants::$SETTINGS[$row['name']] = $row['value'];
         }
     }
-
-    /*
-     */
 }
 
 ?>

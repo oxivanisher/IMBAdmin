@@ -57,7 +57,7 @@
 
         {foreach $settings as $setting}
         <tr id="settingid_{$setting.name}">
-            <td editable="true">{$setting.name}</td>
+            <td editable="false">{$setting.name}</td>
             <td editable="true">{$setting.value}</td>
             <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>

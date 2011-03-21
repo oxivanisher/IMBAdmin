@@ -213,20 +213,15 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updatesetting":
             $managerDatabase = ImbaManagerDatabase::getInstance();
-
             $setting = substr($_POST["settingid"], 3);
-
             $managerDatabase->query("UPDATE %s SET value='%s' WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $setting));
-
-            //    $managerRole->update($role);
-            //    echo $_POST["value"];
-            //    
-            //print_r($_POST);
             echo $_POST["value"];
             break;
 
-        case "deleterole":
+        case "deletesetting":
             $managerDatabase = ImbaManagerDatabase::getInstance();
+            $setting = substr($_POST["settingid"], 3);
+            $managerDatabase->query("DELETE FROM %s WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $setting));
             break;
 
 

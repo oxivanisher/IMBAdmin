@@ -386,11 +386,15 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
                 case "showSettings":
                     $smarty->assign('name', 'Show the $SETTINGS array');
-                    $smarty->assign('message', '<pre>'.var_dump(ImbaConstants::$SETTINGS).'</pre>');
+                    $message = "";
+                    foreach (ImbaConstants::$SETTINGS as $key => $value) {
+                        $message .= $key . ": " . $value . "<br />";
+                    }
+                    
+                    $smarty->assign('message', $message);
                     break;
 
                 default:
-
                     $smarty->assign('name', $_POST["jobHandle"]);
                     $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }

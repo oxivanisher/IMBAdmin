@@ -18,7 +18,11 @@
     }
    
 </script>
-<b><span>{$user}</span>{if $openid} ({$openid}){/if}</b><br />
+<b><span>{$user}</span>{
+    if $openid
+      } ({$openid}){
+    /if
+    }</b><br />
 {$city} ({$ip})<br />
 <i>Session: {$session}</i>
 <br />

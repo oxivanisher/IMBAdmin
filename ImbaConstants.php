@@ -14,6 +14,7 @@ class ImbaConstants extends ImbaConfig {
 
 //    $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
     private $WEB_PATH = "/IMBAdmin";
+    private $database = null;
     /**
      * Site context settings
      */

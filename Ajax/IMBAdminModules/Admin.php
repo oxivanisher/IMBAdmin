@@ -84,9 +84,15 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "settings":
+            /**
+             * Brauchen wir hier einen manager für die settings?
+             * - mit getSetting und setSetting
+             * - load?
+             * 
+             */
             $managerDatabase = ImbaManagerUserRole::getInstance();
             $settings = array();
-            $managerDatabase->query("SELECT * FROM ", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS. ";"));
+            $managerDatabase->query("SELECT * FROM %s;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
               while ($row = $this->database->fetchRow()) {
                 array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
               }

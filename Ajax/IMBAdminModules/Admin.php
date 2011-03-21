@@ -93,7 +93,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerDatabase = ImbaManagerDatabase::getInstance();
             $settings = array();
             $managerDatabase->query("SELECT * FROM %s;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
-              while ($row = $this->database->fetchRow()) {
+              while ($row = $managerDatabase->fetchRow()) {
                 array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
               }
             $smarty->assign('settings', $settings);

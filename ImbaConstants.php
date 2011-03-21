@@ -14,7 +14,7 @@ class ImbaConstants extends ImbaConfig {
 
 //    $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
     private $WEB_PATH = "/IMBAdmin";
-    private $database = null;
+
     /**
      * Site context settings
      */
@@ -79,10 +79,10 @@ class ImbaConstants extends ImbaConfig {
      */
     public function loadSettings() {
         //parent::__construct();
-        $this->database = ImbaManagerDatabase::getInstance();
-        $this->database->query("SELECT name,value FROM %s WHERE 1;", array($this->$DATABASE_TABLES_SYS_SETTINGS));
+        $database = ImbaManagerDatabase::getInstance();
+        $database->query("SELECT name,value FROM %s WHERE 1;", array($this->$DATABASE_TABLES_SYS_SETTINGS));
         array_push($this->SETTINGS, array('_construct' => 'true'));
-        while ($row = $this->database->fetchRow()) {
+        while ($row = $database->fetchRow()) {
             array_push($this->SETTINGS, array($row['name'] => $row['value']));
         }
     }

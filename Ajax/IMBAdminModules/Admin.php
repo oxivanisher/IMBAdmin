@@ -212,42 +212,21 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "updatesetting":
-            //$role = $managerRole->selectById($_POST["roleid"]);
+            $managerDatabase = ImbaManagerDatabase::getInstance();
+
             $setting = substr($_POST["settingid"], 3);
 
-            switch ($_POST["rolecolumn"]) {
-                case "Role":
-                    //         $role->setRole($_POST["value"]);
-                    break;
-
-                case "Name":
-                    //         $role->setName($_POST["value"]);
-                    break;
-
-                case "Icon":
-                    //       $role->setIcon($_POST["value"]);
-                    break;
-
-                case "SMF":
-                    //        $role->setSmf($_POST["value"]);
-                    break;
-
-                case "Wordpress":
-                    //        $role->setWordpress($_POST["value"]);
-                    break;
-
-                default:
-                    break;
-            }
+            $managerDatabase->query("UPDATE %s SET value='%s' WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $setting));
 
             //    $managerRole->update($role);
             //    echo $_POST["value"];
             //    
             //print_r($_POST);
-            echo $setting . " to " . $_POST["value"];
+            echo $_POST["value"];
             break;
 
         case "deleterole":
+            $managerDatabase = ImbaManagerDatabase::getInstance();
             break;
 
 

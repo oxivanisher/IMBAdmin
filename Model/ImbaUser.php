@@ -77,7 +77,8 @@ class ImbaUser extends ImbaBase {
     }
 
     public function getBirthday() {
-        if (count($this->birthday) == 1) $this->birthday = "0" . $this->birthday;
+        if (strlen($this->birthday) == 1)
+                $this->birthday = "0" . $this->birthday;
         return $this->birthday;
     }
 
@@ -86,7 +87,8 @@ class ImbaUser extends ImbaBase {
     }
 
     public function getBirthmonth() {
-        if (count($this->birthmonth) == 1) $this->birthmonth = "0" . $this->birthmonth;
+        if (strlen($this->birthmonth) == 1)
+                $this->birthmonth = "0" . $this->birthmonth;
         return $this->birthmonth;
     }
 

@@ -55,18 +55,12 @@
             </tr>
             <tr>
                 <td>Firstname:</td>
-                <td><input id="myProfileUsertitle" type="text" name="firstname" value="{$firstname}" /></td>
-                <td rowspan="13">
-                    <ul>
-                        <li><i>Um deinen Namen das Geschlecht oder dein Geburtstag zu &auml;ndern, kontaktiere bitte einen Administrator.</i></li>
-                        <li><i>Die Emailadresse wird ausschliesslich gebraucht um mit dir Kontakt aufzunehmen.</i></li>
-                        <li><i>Dein Nachname wird f&uuml;r alle anderen auf einen Buchstaben gek&uuml;rzt ({$firstname} {$shortlastname}).</i></li>
-                    </ul>
-                </td>
+                <td><input id="myProfileFirstname" type="text" name="firstname" value="{$firstname}" /></td>
+                <td rowspan="13">&nbsp;</td>
             </tr>
             <tr>
                 <td>Lastname:</td>
-                <td><input id="myProfileUsertitle" type="text" name="lastname" value="{$lastname}" /></td>
+                <td><input id="myProfileLastname" type="text" name="lastname" value="{$lastname}" /></td>
             </tr>
             <tr>
                 <td><nobr>Aktuelles Motto:</nobr></td>

@@ -18,11 +18,7 @@
     }
    
 </script>
-<b><span>{$user}</span>{
-    if $openid
-      } ({$openid}){
-    /if
-    }</b><br />
+<b><span{if $openid} onclick="javascript: showUserProfile('{$openid}')" style="cursor: pointer;";{/if}>{$user}</span>{if $openid} ({$openid}){/if}</b><br />
 {$city} ({$ip})<br />
 <i>Session: {$session}</i>
 <br />

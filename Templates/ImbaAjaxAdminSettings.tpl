@@ -23,9 +23,7 @@
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
                 };
             },
-            "height": "14px",
-            "width": "100%",
-            "overflow": "auto"
+            "height": "14px"
         } );
         
         $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
@@ -66,8 +64,8 @@
         {/foreach}
 
         <tr>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 14px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 14px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 20px;"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 20px;"></td>
             <td> OK </td>
         </tr>
 

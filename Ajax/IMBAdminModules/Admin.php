@@ -243,8 +243,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             //    $managerRole->update($role);
             //    echo $_POST["value"];
             //    
-            print_r($_POST);
-            //echo $setting . " to " . $_POST["value"];
+            //print_r($_POST);
+            echo $setting . " to " . $_POST["value"];
             break;
 
         case "deleterole":

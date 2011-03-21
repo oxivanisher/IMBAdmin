@@ -64,7 +64,7 @@
         {/foreach}
 
         <tr>
-            <td><input type="text" style="width: 100%; overflow: auto"></td>
+            <td><input type="text" style="width: 100%; overflow: auto; height: 100%;"></td>
             <td><input type="text" style="width: 100%; overflow: auto"></td>
             <td> OK </td>
         </tr>

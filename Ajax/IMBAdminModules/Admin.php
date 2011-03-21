@@ -386,6 +386,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
                 case "showSettings":
                     $smarty->assign('name', 'Show the $SETTINGS array');
+                    ImbaConstants::loadSettings();
                     $message = "";
                     foreach (ImbaConstants::$SETTINGS as $key => $value) {
                         $message .= $key . ": " . $value . "<br />";

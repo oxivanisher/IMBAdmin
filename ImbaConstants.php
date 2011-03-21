@@ -76,7 +76,7 @@ class ImbaConstants extends ImbaConfig {
     /**
      * Ctor
      */
-    protected function __construct() {
+    public function loadSettings() {
         //parent::__construct();
         $this->database = ImbaManagerDatabase::getInstance();
         $this->database->query("SELECT name,value FROM %s WHERE 1;", array($this->$DATABASE_TABLES_SYS_SETTINGS));

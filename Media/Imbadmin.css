@@ -165,6 +165,7 @@ table.dataTableDisplay {
     margin: 0 auto;
     clear: both;
     width: 100%;
+    color: lightgray;
     overflow: auto;
 
     /* Note Firefox 3.5 and before have a bug with border-collapse

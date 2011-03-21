@@ -47,7 +47,7 @@
     
     
 </script>
-<table id="ImbaAjaxAdminRoleTable" class="dispdataTableDisplay">
+<table id="ImbaAjaxAdminRoleTable" class="dataTableDisplay">
     <thead>
         <tr>
             <th title="Role">Role</th>

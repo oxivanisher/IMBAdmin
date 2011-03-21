@@ -86,8 +86,6 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
         case "settings":
             /**
              * Brauchen wir hier einen manager für die settings?
-             * - mit getSetting und setSetting
-             * - load?
              * 
              */
             $managerDatabase = ImbaManagerDatabase::getInstance();
@@ -386,6 +384,11 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('message', 'Messages cleared!<br />');
                     break;
 
+                case "settings":
+                    $smarty->assign('name', 'Show the $SETTINGS array');
+                    $smarty->assign('message', '<pre>'.var_dump(ImbaConstants::$SETTINGS).'</pre>');
+                    break;
+
                 default:
 
                     $smarty->assign('name', $_POST["jobHandle"]);
@@ -401,6 +404,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
             array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
+            array_push($maintenenceJobs, array('settings' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
 
             $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('ImbaAjaxAdminMaintenance.tpl');

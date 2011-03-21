@@ -76,12 +76,10 @@ class ImbaConstants extends ImbaConfig {
 
     public function loadSettings() {
         $database = ImbaManagerDatabase::getInstance();
-        //$database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
-        ImbaConstants::$SETTINGS['construct'] = 'true';
-//        while ($row = $database->fetchRow()) {
-    //        ImbaConstants::$SETTINGS[$row['name']] => $row['value'];
-  //      }
-        ImbaConstants::$SETTINGS['test'] = ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS;
+        $database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
+        while ($row = $database->fetchRow()) {
+            ImbaConstants::$SETTINGS[$row['name']] = $row['value'];
+        }
     }
 
     /*

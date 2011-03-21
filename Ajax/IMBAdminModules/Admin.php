@@ -384,7 +384,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('message', 'Messages cleared!<br />');
                     break;
 
-                case "settings":
+                case "showSettings":
                     $smarty->assign('name', 'Show the $SETTINGS array');
                     $smarty->assign('message', '<pre>'.var_dump(ImbaConstants::$SETTINGS).'</pre>');
                     break;

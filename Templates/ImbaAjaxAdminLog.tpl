@@ -3,13 +3,13 @@
 
     $(document).ready(function() {
         $('#ImbaAjaxAdminLogTable').dataTable( {
-            /*"aoColumns": [
-                { "sType": "title-numeric-asc" },
+            "aoColumns": [
+                { "sType": "title-numeric" },
                 null,
                 null,
                 null,
                 null
-            ], */
+            ], 
             "iDisplayLength": 16,
             "bFilter": true,
             "sPaginationType": "two_button",
@@ -42,7 +42,7 @@
 
         {foreach $logs as $log}
         <tr onclick="javascript: showLogDetail('{$log.id}');">
-            <td title="{$log.timestamp}"><span title="{$log.timestamp}">{$log.age}</span></td>
+            <td><span title="{$log.timestamp}">{$log.age}</span></td>
             <td>{$log.user}</td>
             <td>{$log.module}</td>
             <td>{$log.message}</td>

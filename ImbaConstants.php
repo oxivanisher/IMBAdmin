@@ -68,16 +68,16 @@ class ImbaConstants extends ImbaConfig {
     /**
      * Support for loading settings from database
      */
-    private $settingsCached = null;
+    public static $SETTINGS_CACHED = null;
     public static $SETTINGS = array();
     public function loadSettings() {
-        if (ImbaConstants::$settingsCached == null) {
+        if (ImbaConstants::$SETTINGS_CACHED == null) {
             $database = ImbaManagerDatabase::getInstance();
             $database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
             while ($row = $database->fetchRow()) {
                 ImbaConstants::$SETTINGS[$row['name']] = $row['value'];
             }
-            ImbaConstants::$settingsCached == true;
+            ImbaConstants::$SETTINGS_CACHED == true;
         }
     }
 

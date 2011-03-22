@@ -2,6 +2,7 @@
     $(document).ready(function() {
         // Init DataTable
         var oTable = $('#ImbaAjaxAdminSettingsTable').dataTable( {
+            "iDisplayLength": 16,
             "bFilter": true,
             "sPaginationType": "two_button",
             "bJQueryUI": true,

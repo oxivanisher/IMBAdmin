@@ -2,6 +2,7 @@
     $(document).ready(function() {
         // Init DataTable
         var oTable = $('#ImbaAjaxAdminRoleTable').dataTable( {
+            "iDisplayLength": 13,
             "bFilter": true,
             "sPaginationType": "two_button",
             "bJQueryUI": true,

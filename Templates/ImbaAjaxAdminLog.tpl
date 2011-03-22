@@ -26,7 +26,7 @@
                 null,
                 null
             ], */
-                
+            "iDisplayLength": 16,
             "bFilter": true,
             "sPaginationType": "two_button",
             "bJQueryUI": true,

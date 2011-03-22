@@ -149,6 +149,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             foreach ($roles as $role) {
                 array_push($smarty_roles, array(
                     "id" => $role->getId(),
+                    "handle" => $role->getHandle(),
                     "role" => $role->getRole(),
                     "name" => $role->getName(),
                     "icon" => $role->getIcon(),
@@ -166,6 +167,10 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             switch ($_POST["rolecolumn"]) {
                 case "Role":
                     $role->setRole($_POST["value"]);
+                    break;
+
+                case "Handle":
+                    $role->setHandle($_POST["value"]);
                     break;
 
                 case "Name":
@@ -196,6 +201,16 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerRole->delete($_POST["roleid"]);
             break;
 
+        case "addrole":
+            $role = $managerRole->getNew();
+            $role->setHandle($_POST["handle"]);
+            $role->setRole($_POST["role"]);
+            $role->setName($_POST["name"]);
+            $role->setSmf($_POST["smf"]);
+            $role->setWordpress($_POST["wordpress"]);
+            $role->setIcon($_POST["icon"]);
+            $managerRole->insert($role);
+            break;
 
         /**
          * Settings Management

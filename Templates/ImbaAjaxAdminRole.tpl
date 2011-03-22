@@ -43,14 +43,44 @@
             }            
         });
         
+        $("#ImbaAddRoleOK").click( function() {
+            if ((ImbaAddRoleRole.value.valueOf() != "")
+                && (ImbaAddRoleHandle.value.valueOf() != "")
+                && (ImbaAddRoleName.value.valueOf() != "")
+                && (ImbaAddRoleIcon.value.valueOf() != "")
+                && (ImbaAddRoleSmf.value.valueOf() != "")
+                && (ImbaAddRoleWordpress.value.valueOf() != "")) {
+                
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Admin",
+                    request: "addrole",
+                    role: ImbaAddRoleRole.value.valueOf(),
+                    handle: ImbaAddRoleHandle.value.valueOf(),
+                    name: ImbaAddRoleName.value.valueOf(),
+                    icon: ImbaAddRoleIcon.value.valueOf(),
+                    smf: ImbaAddRoleSmf.value.valueOf(),
+                    wordpress: ImbaAddRoleWordpress.value.valueOf()
+                });
+                
+                var data = {
+                    module: "Admin",
+                    request: "role"
+                };
+                loadImbaAdminTabContent(data);
+                
+            } else {
+                alert('Please fill out all the fields');
+            }
+                
+        });        
     } );
-    
-    
 </script>
 <table id="ImbaAjaxAdminRoleTable" class="dataTableDisplay">
     <thead>
         <tr>
             <th title="Role">Role</th>
+            <th title="Handle">Handle</th>
             <th title="Name">Name</th>
             <th title="Icon">Icon</th>
             <th title="SMF">SMF</th>
@@ -63,6 +93,7 @@
         {foreach $roles as $role}
         <tr id="roleid_{$role.id}">
             <td editable="true">{$role.role}</td>
+            <td editable="true">{$role.handle}</td>
             <td editable="true">{$role.name}</td>
             <td editable="true">{$role.icon}</td>
             <td editable="true">{$role.smf}</td>
@@ -73,12 +104,12 @@
     </tbody>
     <tfoot>
         <tr>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td> OK </td>
+            <td><input id="ImbaAddRoleRole" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddRoleName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddRoleIcon" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddRoleSmf" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddRoleWordpress" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td id="ImbaAddRoleOK" style="cursor: pointer;"><b>OK</b></td>
         </tr>
     </tfoot>
 </table>

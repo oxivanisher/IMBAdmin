@@ -122,6 +122,14 @@ class ImbaManagerUserRole extends ImbaManagerBase {
     }
 
     /**
+     * Get a new Role
+     */
+    public function getNew() {
+        $role = new ImbaUserRole();
+        return $role;
+    }
+
+    /**
      * Select one Role by role
      */
     public function selectByRole($roleId) {

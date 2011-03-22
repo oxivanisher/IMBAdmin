@@ -48,8 +48,8 @@
                 action: "module",
                 module: "Admin",
                 request: "addsetting",
-                name: $("#ImbaAddSettingName").valueOf(),
-                value: $("#ImbaAddSettingValue").valueOf()
+                name: this.ImbaAddSettingName.valueOf(),
+                value: this.ImbaAddSettingValue.valueOf()
             });
             alert('test');
 

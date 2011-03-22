@@ -33,6 +33,6 @@ if (ImbaUserContext::getLoggedIn()) {
 //            $smarty->assign('lastLogin', $user->getLastLogin());
 
 
-    $smarty->display('ImbaAjaxRegister.tpl');
+    $smarty->display('IMBAdminModules/Register.tpl');
 }
 ?>

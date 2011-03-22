@@ -42,7 +42,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
 
             $smarty->assign('jobs', $maintenenceJobs);
-            $smarty->display('ImbaAjaxAdminMaintenance.tpl');
+            $smarty->display('IMBAdminModules/AdminMaintenance.tpl');
             break;
 
         case "runMaintenanceJob":
@@ -135,7 +135,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('name', $_POST["jobHandle"]);
                     $smarty->assign('message', 'unknown job: ' . $_POST["jobHandle"]);
             }
-            $smarty->display('ImbaAjaxAdminMaintenanceRunJob.tpl');
+            $smarty->display('IMBAdminModules/AdminMaintenanceRunJob.tpl');
             break;
 
 
@@ -158,7 +158,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 ));
             }
             $smarty->assign('roles', $smarty_roles);
-            $smarty->display('ImbaAjaxAdminRole.tpl');
+            $smarty->display('IMBAdminModules/AdminRole.tpl');
             break;
 
         case "updaterole":
@@ -223,7 +223,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
             }
             $smarty->assign('settings', $settings);
-            $smarty->display('ImbaAjaxAdminSettings.tpl');
+            $smarty->display('IMBAdminModules/AdminSettings.tpl');
             break;
 
         case "updatesetting":
@@ -266,7 +266,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->assign('messages', $managerMessage->returnNumberOfMessages());
             $smarty->assign('logs', count($managerLog->selectAll()));
 
-            $smarty->display('ImbaAjaxAdminStatistics.tpl');
+            $smarty->display('IMBAdminModules/AdminStatistics.tpl');
             break;
 
 
@@ -304,7 +304,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             }
             $smarty->assign('logs', $smarty_logs);
 
-            $smarty->display('ImbaAjaxAdminLog.tpl');
+            $smarty->display('IMBAdminModules/AdminLog.tpl');
             break;
 
         case "viewlogdetail":
@@ -367,7 +367,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             }
             $smarty->assign('logs', $smarty_logs);
 
-            $smarty->display('ImbaAjaxAdminLogViewdetail.tpl');
+            $smarty->display('IMBAdminModules/AdminLogViewdetail.tpl');
             break;
 
         /**
@@ -439,7 +439,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->assign('roleIcon', $role->getIcon());
 
 
-            $smarty->display('ImbaAjaxAdminViewedituser.tpl');
+            $smarty->display('IMBAdminModules/AdminViewedituser.tpl');
             break;
 
         case "updateuserprofile":
@@ -486,7 +486,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             }
             $smarty->assign('susers', $smarty_users);
 
-            $smarty->display('ImbaAjaxAdminUserOverview.tpl');
+            $smarty->display('IMBAdminModules/AdminUserOverview.tpl');
             break;
     }
 } else {

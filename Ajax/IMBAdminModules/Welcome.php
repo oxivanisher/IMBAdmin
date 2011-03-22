@@ -71,7 +71,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 closedir($handle);
             }
             $smarty->assign('topnavs', $navOptions);
-            $smarty->display('ImbaAjaxWelcomeIndex.tpl');
+            $smarty->display('IMBAdminModules/WelcomeIndex.tpl');
             break;
 
         default:
@@ -105,7 +105,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 closedir($handle);
             }
             $smarty->assign('navs', $navOptions);
-            $smarty->display('ImbaAjaxWelcomeOverview.tpl');
+            $smarty->display('IMBAdminModules/WelcomeOverview.tpl');
             break;
     }
 } else {

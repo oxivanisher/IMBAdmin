@@ -26,31 +26,31 @@
             "height": "14px"
         } );
         
-        $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
-            if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
-                $.post(ajaxEntry, {
-                    action: "module",
-                    module: "Admin",
-                    request: "deletesetting",
-                    roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
-                });
+    $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
+        if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
+            $.post(ajaxEntry, {
+                action: "module",
+                module: "Admin",
+                request: "deletesetting",
+                roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
+            });
                 
-                var data = {
-                    module: "Admin",
-                    request: "settings"
-                };
-                loadImbaAdminTabContent(data);
-            }            
-        });
+            var data = {
+                module: "Admin",
+                request: "settings"
+            };
+            loadImbaAdminTabContent(data);
+        }            
+    });
         
-        $("#ImbaAddSettingOK").click( function() {
-            alert('name: ' + ImbaAddSettingName.value.toString());
+    $("#ImbaAddSettingOK").click( function() {
+        if ((ImbaAddSettingName.value.valueOf() != "") && (ImbaAddSettingValue.value.valueOf() != "")) {
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
                 request: "addsetting",
-                name: this.ImbaAddSettingName.valueOf(),
-                value: this.ImbaAddSettingValue.valueOf()
+                name: ImbaAddSettingName.value.valueOf(),
+                value: ImbaAddSettingValue.value.valueOf()
             });
             alert('test');
 
@@ -59,9 +59,15 @@
                 request: "settings"
             };
             loadImbaAdminTabContent(data);
-        });
+                
+        } else {
+            alert('Please fill out all the fields!');
+                
+        }
+                
+    });
         
-    } );  
+} );  
 </script>
 <table id="ImbaAjaxAdminSettingsTable" class="dataTableDisplay">
     <thead>

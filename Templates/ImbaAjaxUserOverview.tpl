@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#ImbaAjaxUsersOverviewTable').dataTable( {
+            "iDisplayLength": 15,
             "bFilter": true,
             "sPaginationType": "two_button",
             "bJQueryUI": true,

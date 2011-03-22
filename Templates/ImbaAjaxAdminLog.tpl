@@ -41,7 +41,7 @@
 
         {foreach $logs as $log}
         <tr onclick="javascript: showLogDetail('{$log.id}');">
-            <td title="{$log.timestamp}">{$log.age}</td>
+            <td><span title="{$log.timestamp}">{$log.age}</span></td>
             <td>{$log.user}</td>
             <td>{$log.module}</td>
             <td>{$log.message}</td>

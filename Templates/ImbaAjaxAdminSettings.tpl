@@ -32,7 +32,7 @@
                 action: "module",
                 module: "Admin",
                 request: "deletesetting",
-                roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
+                settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
             });
                 
             var data = {

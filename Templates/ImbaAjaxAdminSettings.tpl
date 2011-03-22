@@ -44,7 +44,7 @@
         });
         
         $("#ImbaAddSettingOK").click( function() {
-            alert('name: ' + $("#ImbaAddSettingName").toString());
+            alert('name: ' + ImbaAddSettingName.valueOf());
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",

@@ -4,14 +4,6 @@
  * Single point of Ajax entry
  *
  */
-/**
- * FIXME: Kill me after bugfixing
- */
-if (!isset($_POST["action"]))
-    $_POST = $_GET;
-
-//FIXME: I am just temporary here for testing purposes
-//$_POST["module"] = "User";
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
@@ -31,6 +23,9 @@ switch ($_POST["action"]) {
         include 'Ajax/Navigation.php';
         break;
 
+    case "game":
+        break;
+    
     case "module":
         session_start();
         if (ImbaUserContext::getLoggedIn()) {

@@ -17,18 +17,18 @@
     
     $(document).ready(function() {
         $('#ImbaAjaxAdminLogTable').dataTable( {
-            "iDisplayLength": 16,
-            "bFilter": true,
-            "sPaginationType": "two_button",
-            "bJQueryUI": true,
-            "bLengthChange": false,
-            "aoColumns": [
+/*            "aoColumns": [
                 { "sType": "title-numeric-asc" },
                 null,
                 null,
                 null,
                 null
-            ]
+            ], */
+            "iDisplayLength": 16,
+            "bFilter": true,
+            "sPaginationType": "two_button",
+            "bJQueryUI": true,
+            "bLengthChange": false
         } );
     } );   
     
@@ -56,7 +56,7 @@
 
         {foreach $logs as $log}
         <tr onclick="javascript: showLogDetail('{$log.id}');">
-            <td><span title="{$log.timestamp}">{$log.age}</span></td>
+            <td title="{$log.timestamp}"><span title="{$log.timestamp}">{$log.age}</span></td>
             <td>{$log.user}</td>
             <td>{$log.module}</td>
             <td>{$log.message}</td>

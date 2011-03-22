@@ -16,7 +16,7 @@ session_start();
  * Load dependencies
  */
 require_once "ImbaConstants.php";
-require_once 'Controller/ImbaLogger.php';
+require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -42,7 +42,7 @@ $managerOpenId = new ImbaManagerOpenID();
 /**
  * Load the logger
  */
-$managerLog = ImbaLogger::getInstance();
+$managerLog = ImbaManagerLog::getInstance();
 
 /**
  * OpenID auth logic

@@ -4,7 +4,7 @@
 session_start();
 
 require_once 'ImbaConstants.php';
-require_once 'Controller/ImbaLogger.php';
+require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
@@ -46,7 +46,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "runMaintenanceJob":
-            $managerLog = ImbaLogger::getInstance();
+            $managerLog = ImbaManagerLog::getInstance();
             $log = $managerLog->getNew();
             $log->setModule("Admin");
             switch ($_POST["jobHandle"]) {
@@ -113,7 +113,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
 
                 case "clearLog":
-                    $managerLog = ImbaLogger::getInstance();
+                    $managerLog = ImbaManagerLog::getInstance();
                     $managerLog->clearAll();
 
                     $smarty->assign('name', 'Clear System Messages');
@@ -247,7 +247,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * System Statistics
          */
         case "statistics":
-            $managerLog = ImbaLogger::getInstance();
+            $managerLog = ImbaManagerLog::getInstance();
             $managerMessage = ImbaManagerMessage::getInstance();
 
             $smarty->assign('users', count($managerUser->selectAllUser()));
@@ -274,7 +274,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * Log viewer
          */
         case "log":
-            $managerLog = ImbaLogger::getInstance();
+            $managerLog = ImbaManagerLog::getInstance();
             $logs = $managerLog->selectAll();
 
             $smarty_logs = array();
@@ -308,7 +308,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "viewlogdetail":
-            $managerLog = ImbaLogger::getInstance();
+            $managerLog = ImbaManagerLog::getInstance();
 
             /**
              * Get log entry

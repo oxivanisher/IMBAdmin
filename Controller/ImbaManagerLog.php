@@ -4,9 +4,9 @@ require_once 'Model/ImbaLog.php';
 require_once 'Controller/ImbaManagerBase.php';
 
 /**
- * Description of ImbaLogger
+ * Description of ImbaManagerLog
  */
-class ImbaLogger extends ImbaManagerBase {
+class ImbaManagerLog extends ImbaManagerBase {
 
     protected $logsCached = null;
     protected $logsCachedTimestamp = null;

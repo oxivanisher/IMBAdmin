@@ -225,7 +225,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "addsetting":
-            print_r($_POST);
+            $managerDatabase = ImbaManagerDatabase::getInstance();
+            $managerDatabase->query("INSERT INTO %s SET name='%s', value='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["name"], $_POST["value"]));
             break;
         /**
          * System Statistics

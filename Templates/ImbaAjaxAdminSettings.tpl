@@ -52,7 +52,6 @@
                 name: ImbaAddSettingName.value.valueOf(),
                 value: ImbaAddSettingValue.value.valueOf()
             });
-            alert('test');
 
             var data = {
                 module: "Admin",
@@ -61,7 +60,7 @@
             loadImbaAdminTabContent(data);
                 
         } else {
-            alert('Please fill out all the fields!');
+            alert('Please fill out all the fields');
                 
         }
                 

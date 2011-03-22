@@ -83,7 +83,7 @@
         <tr>
             <td><input id="ImbaAddSettingName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddSettingValue" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><span id="ImbaAddSettingOK"><b>OK</b></span></td>
+            <td id="ImbaAddSettingOK" style="cursor: pointer;"><b>OK</b></td>
         </tr>
     </tfoot>
 </table>

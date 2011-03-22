@@ -14,7 +14,6 @@ class ImbaConstants extends ImbaConfig {
 
 //    $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
     private $WEB_PATH = "/IMBAdmin";
-
     /**
      * Site context settings
      */
@@ -66,18 +65,22 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_WOW_ARMORY_CHARCACHE = "oom_openid_armory_charcache";
     public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
     public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
-    
     /**
      * Support for loading settings from database
      */
+    private $settingsCached = null;
     public static $SETTINGS = array();
     public function loadSettings() {
-        $database = ImbaManagerDatabase::getInstance();
-        $database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
-        while ($row = $database->fetchRow()) {
-            ImbaConstants::$SETTINGS[$row['name']] = $row['value'];
+        if (ImbaConstants::$settingsCached == null) {
+            $database = ImbaManagerDatabase::getInstance();
+            $database->query("SELECT name,value FROM %s WHERE 1;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
+            while ($row = $database->fetchRow()) {
+                ImbaConstants::$SETTINGS[$row['name']] = $row['value'];
+            }
+            ImbaConstants::$settingsCached == true;
         }
     }
+
 }
 
 ?>

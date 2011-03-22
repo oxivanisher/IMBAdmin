@@ -43,6 +43,22 @@
             }            
         });
         
+        $("#ImbaAddSettingOK").click( function() {
+            $.post(ajaxEntry, {
+                action: "module",
+                module: "Admin",
+                request: "addsetting",
+                name: $("#ImbaAddSettingName").valueOf(),
+                value: $("#ImbaAddSettingValue").valueOf()
+            });
+
+            var data = {
+                module: "Admin",
+                request: "settings"
+            };
+            loadImbaAdminTabContent(data);
+        });
+        
     } );  
 </script>
 <table id="ImbaAjaxAdminSettingsTable" class="dataTableDisplay">
@@ -65,9 +81,9 @@
     </tbody>
     <tfoot>
         <tr>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td> OK </td>
+            <td><input id="ImbaAddSettingName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddSettingValue" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><span id="ImbaAddSettingOK"><b>OK</b></span></td>
         </tr>
     </tfoot>
 </table>

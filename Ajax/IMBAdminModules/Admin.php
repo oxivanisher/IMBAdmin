@@ -224,7 +224,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $managerDatabase->query("DELETE FROM %s WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $setting));
             break;
 
-
+        case "addsetting":
+            print_r($_POST);
+            break;
         /**
          * System Statistics
          */

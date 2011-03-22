@@ -285,13 +285,19 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                         $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
                     }
 
+                    if (count($log->getMessage()) > 40) {
+                        $tmpMessage = substr($log->getMessage(), 0, 37) . "...";
+                    } else {
+                        $tmpMessage = $log->getMessage();
+                    }
+
                     array_push($smarty_logs, array(
                         'id' => $log->getId(),
                         'timestamp' => $log->getTimestamp(),
                         'age' => ImbaSharedFunctions::getAge($log->getTimestamp()),
                         'user' => $username,
                         'module' => $log->getModule(),
-                        'message' => $log->getMessage(),
+                        'message' => $tmpMessage,
                         'lvl' => $log->getLevel()
                     ));
                 }

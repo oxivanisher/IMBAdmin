@@ -285,7 +285,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                         $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
                     }
 
-                    if (count($log->getMessage()) > 40) {
+                    if (count($log->getMessage() > 40)) {
                         $tmpMessage = substr($log->getMessage(), 0, 37) . "...";
                     } else {
                         $tmpMessage = $log->getMessage();

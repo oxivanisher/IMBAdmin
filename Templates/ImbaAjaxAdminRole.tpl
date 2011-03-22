@@ -80,8 +80,8 @@
     <thead>
         <tr>
             <th title="Role">Role</th>
-            <th title="Handle">Handle</th>
             <th title="Name">Name</th>
+            <th title="Handle">Handle</th>
             <th title="Icon">Icon</th>
             <th title="SMF">SMF</th>
             <th title="Wordpress">Wordpress</th>
@@ -93,8 +93,8 @@
         {foreach $roles as $role}
         <tr id="roleid_{$role.id}">
             <td editable="true">{$role.role}</td>
-            <td editable="true">{$role.handle}</td>
             <td editable="true">{$role.name}</td>
+            <td editable="true">{$role.handle}</td>
             <td editable="true">{$role.icon}</td>
             <td editable="true">{$role.smf}</td>
             <td editable="true">{$role.wordpress}</td>
@@ -106,6 +106,7 @@
         <tr>
             <td><input id="ImbaAddRoleRole" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddRoleName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddRoleHandle" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddRoleIcon" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddRoleSmf" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddRoleWordpress" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>

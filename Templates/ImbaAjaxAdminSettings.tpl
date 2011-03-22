@@ -44,7 +44,6 @@
         });
         
         $("#ImbaAddSettingOK").click( function() {
-            alert('test');
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
@@ -52,6 +51,7 @@
                 name: $("#ImbaAddSettingName").valueOf(),
                 value: $("#ImbaAddSettingValue").valueOf()
             });
+            alert('test');
 
             var data = {
                 module: "Admin",

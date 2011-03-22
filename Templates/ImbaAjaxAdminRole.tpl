@@ -33,13 +33,15 @@
                     module: "Admin",
                     request: "deleterole",
                     roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
+                }).complete(function() {
+                    //                    alert("complete"); 
+                    var data = {
+                        module: "Admin",
+                        request: "role"
+                    };
+                    loadImbaAdminTabContent(data);
                 });
                 
-                var data = {
-                    module: "Admin",
-                    request: "role"
-                };
-                loadImbaAdminTabContent(data);
             }            
         });
         

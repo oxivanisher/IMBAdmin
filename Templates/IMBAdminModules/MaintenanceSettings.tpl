@@ -18,7 +18,7 @@
             "submitdata": function ( value, settings ) {
                 return {
                     action: "module",
-                    module: "Admin",
+                    module: "Maintenance",
                     request: "updatesetting",
                     settingid: this.parentNode.getAttribute('id').substr(10),
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
@@ -31,13 +31,13 @@
         if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
             $.post(ajaxEntry, {
                 action: "module",
-                module: "Admin",
+                module: "Maintenance",
                 request: "deletesetting",
                 settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
             });
                 
             var data = {
-                module: "Admin",
+                module: "Maintenance",
                 request: "settings"
             };
             loadImbaAdminTabContent(data);
@@ -48,14 +48,14 @@
         if ((ImbaAddSettingName.value.valueOf() != "") && (ImbaAddSettingValue.value.valueOf() != "")) {
             $.post(ajaxEntry, {
                 action: "module",
-                module: "Admin",
+                module: "Maintenance",
                 request: "addsetting",
                 name: ImbaAddSettingName.value.valueOf(),
                 value: ImbaAddSettingValue.value.valueOf()
             });
 
             var data = {
-                module: "Admin",
+                module: "Maintenance",
                 request: "settings"
             };
             loadImbaAdminTabContent(data);

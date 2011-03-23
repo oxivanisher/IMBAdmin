@@ -252,39 +252,6 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         /**
-         * Settings Management
-         */
-        case "settings":
-            $managerDatabase = ImbaManagerDatabase::getInstance();
-            $settings = array();
-            $managerDatabase->query("SELECT * FROM %s;", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS));
-            while ($row = $managerDatabase->fetchRow()) {
-                array_push($settings, array('name' => $row["name"], 'value' => $row["value"]));
-            }
-            $smarty->assign('settings', $settings);
-            $smarty->display('IMBAdminModules/AdminSettings.tpl');
-            break;
-
-        case "updatesetting":
-            $managerDatabase = ImbaManagerDatabase::getInstance();
-            $setting = substr($_POST["settingid"], 3);
-            $managerDatabase->query("UPDATE %s SET value='%s' WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $setting));
-            echo $_POST["value"];
-            break;
-
-        case "deletesetting":
-            $managerDatabase = ImbaManagerDatabase::getInstance();
-            $setting = substr($_POST["settingid"], 3);
-            $managerDatabase->query("DELETE FROM %s WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["settingid"]));
-            break;
-
-        case "addsetting":
-            $managerDatabase = ImbaManagerDatabase::getInstance();
-            $managerDatabase->query("INSERT INTO %s SET name='%s', value='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["name"], $_POST["value"]));
-            break;
-
-
-        /**
          * User Management
          */
         case "updatuser":

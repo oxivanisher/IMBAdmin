@@ -39,5 +39,6 @@ $Navigation->setMinUserRole(9);
 $Navigation->addElement("log", "Log", "View and clar log");
 $Navigation->addElement("statistics", "Statistics", "Statistics");
 $Navigation->addElement("maintenance", "Maintenance", "System maintenance jobs");
+$Navigation->addElement("settings", "Settings", "System wide settings");
 
 ?>

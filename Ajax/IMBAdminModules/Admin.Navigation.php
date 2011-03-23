@@ -40,6 +40,5 @@ $Navigation->addElement("user", "Users", "Edit user roles and user details");
 $Navigation->addElement("role", "Roles", "Manage Roles");
 $Navigation->addElement("game", "Games", "Manage Games");
 $Navigation->addElement("gamecategory", "Game Categories", "Manage Game Categories");
-$Navigation->addElement("settings", "Settings", "System wide settings");
 
 ?>

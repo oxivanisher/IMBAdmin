@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Controller/ImbaManagerBase.php';
+require_once 'Model/ImbaGame.php';
 
 /**
  * Description of ImbaManagerGame

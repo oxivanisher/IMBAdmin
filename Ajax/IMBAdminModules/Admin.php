@@ -116,23 +116,13 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * Game Management
          */
         case "game":
-            $games = $managerMultigaming->selectAllGames();
-            $categories = $managerGameCategory->selectAllCategories();
-            $properties = $managerGameProperty->selectAllProperties();
-
+            $games = $managerGame->selectAll();
 
             $smarty_categories = array();
-            foreach ($categories as $category) {
-                array_push($smarty_categories, array(
-                    'id' => $category->getId(),
-                    'name' => $category->getName()
-                ));
-            }
-            $smarty->assign('categories', $smarty_categories);
+          
 
             $smarty_games = array();
             foreach ($games as $game) {
-                $tmpCategories = array();
 
                 /**
                  * Not jet implemented in imbaManagerMultigaming!
@@ -147,8 +137,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     "comment" => $game->getComment(),
                     "icon" => $game->getIcon(),
                     "url" => $game->getUrl(),
-                    "forumlink" => $game->getForumlink(),
-                    "categoriesSelected" => $tmpCategories,
+                    "forumlink" => $game->getForumlink()
                 ));
             }
             $smarty->assign('games', $smarty_games);

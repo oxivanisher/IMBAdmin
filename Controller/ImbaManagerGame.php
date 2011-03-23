@@ -103,6 +103,7 @@ class ImbaManagerGame extends ImbaManagerBase {
                 $game->setIcon($row["icon"]);
                 $game->setUrl($row["url"]);
                 $game->setForumlink($row["forumlink"]);
+                $game->setComment($row["comment"]);
 
                 array_push($result, $game);
             }

@@ -126,7 +126,7 @@ $output = "";
 $category = new ImbaGameCategory();
 $category->setName("categoryyName");
 try {
-    $managerCategory->insert($property);
+    $managerCategory->insert($category);
     $output.= "ImbaManagerGameCategory insert working.\n";
 } catch (Exception $e) {
     $output.= "Error at ImbaManagerGameCategory.\n";
@@ -136,8 +136,8 @@ try {
  * Category update
  */
 try {
-    $property->setProperty("blabla");
-    $managerCategory->update($property);
+    $category->setProperty("blabla");
+    $managerCategory->update($category);
 
     $output.= "ImbaManagerGameCategory update working.\n";
 } catch (Exception $e) {
@@ -148,7 +148,7 @@ try {
  * Category delete
  */
 try {
-    $managerCategory->delete($property->getId());
+    $managerCategory->delete($category->getId());
 
     $output.= "ImbaManagerGameCategory delete working.\n";
 } catch (Exception $e) {

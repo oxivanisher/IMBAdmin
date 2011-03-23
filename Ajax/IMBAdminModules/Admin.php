@@ -8,6 +8,8 @@ require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
+//require_once 'Controller/ImbaManagerGame.php';
+//require_once 'Controller/ImbaManagerGameCategory.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -27,6 +29,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
      */
     $managerUser = ImbaManagerUser::getInstance();
     $managerRole = ImbaManagerUserRole::getInstance();
+//    $managerGame = ImbaManagerGame::getInstance();
+//    $managerGameCategory = ImbaManagerGameCategory::getInstance();
 
     switch ($_POST["request"]) {
 
@@ -101,6 +105,87 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $role->setWordpress($_POST["wordpress"]);
             $role->setIcon($_POST["icon"]);
             $managerRole->insert($role);
+            break;
+
+
+        /**
+         * Game Management
+         */
+        case "game":
+            $games = $managerGame->selectAll();
+            $categories = $managerGameCategory->selectAll();
+
+            $smarty_categories = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
+            }
+            $smarty->assign('categories', $smarty_categories);
+
+            $smarty_games = array();
+            foreach ($games as $game) {
+                $tmpCategories = array();
+                foreach ($game->getCategories() as $category) {
+                    array_push($tmpCategories, $category->getId());
+                }
+
+                array_push($smarty_roles, array(
+                    "id" => $game->getId(),
+                    "name" => $game->getName(),
+                    "icon" => $game->getIcon(),
+                    "url" => $game->getUrl(),
+                    "forumlink" => $game->getForumlink(),
+                    "categoriesSelected" => $tmpCategories,
+                ));
+            }
+            $smarty->display('IMBAdminModules/AdminGame.tpl');
+            break;
+
+        case "updategame":
+            $game = $managerGame->selectById($_POST["gameid"]);
+
+            switch ($_POST["gamecolumn"]) {
+                case "Name":
+                    $game->setName($_POST["value"]);
+                    break;
+
+                case "Icon":
+                    $game->setIcon($_POST["value"]);
+                    break;
+
+                case "Url":
+                    $game->setUrl($_POST["value"]);
+                    break;
+
+                case "Forumlink":
+                    $game->setForumlink($_POST["value"]);
+                    break;
+
+                /**
+                 * FIXME: irgendwie muessen wir die spiele noch den kategorien zuweisen :/
+                 * 
+                 */
+                default:
+                    break;
+            }
+
+            $managerGame->update($game);
+            echo $_POST["value"];
+            break;
+
+        case "deletegame":
+            $managerGame->delete($_POST["gameid"]);
+            break;
+
+        case "addgame":
+            $role = $managerGame->getNew();
+            $game->setName($_POST["name"]);
+            $game->setIcon($_POST["icon"]);
+            $game->setUrl($_POST["url"]);
+            $game->setForumlink($_POST["forumlink"]);
+            $managerGame->insert($game);
             break;
 
         /**

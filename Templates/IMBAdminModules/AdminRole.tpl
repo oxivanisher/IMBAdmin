@@ -28,7 +28,7 @@
         } );
         
         $("#ImbaAjaxAdminRoleTable tr td span").click(function(){
-            if(confirm("Soll die Rolle wirklich gelöscht werden?")){                
+            if(confirm("Soll die Rolle wirklich geloescht werden?")){                
                 $.post(ajaxEntry, {
                     action: "module",
                     module: "Admin",

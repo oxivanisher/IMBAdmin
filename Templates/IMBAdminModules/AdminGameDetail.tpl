@@ -8,11 +8,11 @@
                 module: "Admin",
                 request: "updategame",
                 gameid: "{$id}",
-                name: $("myGameName").val(),
-                comment: $("myGameComment").val(),
-                icon: $("myGameIcon").val(),
-                url: $("myGameUrl").val(),
-                forumlink: $("myGameForumlink").val()
+                name: $("#myGameName").val(),
+                comment: $("#myGameComment").val(),
+                icon: $("#myGameIcon").val(),
+                url: $("#myGameUrl").val(),
+                forumlink: $("#myGameForumlink").val()
             }, function(response){
                 if (response != "Ok"){
                     // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });

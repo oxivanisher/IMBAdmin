@@ -80,7 +80,7 @@ class ImbaManagerGame extends ImbaManagerBase {
             throw new Exception("No Game Id given");
 
         $query = "UPDATE %s SET ";
-        $query .= "name = '%s', icon= '%s', url = '%s', forumlink = '%s' ";
+        $query .= "name = '%s', icon= '%s', url = '%s', comment = '%s',  forumlink = '%s' ";
         $query .= "WHERE id = '%s'";
 
         $this->database->query($query, array(
@@ -88,6 +88,7 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getName(),
             $game->getIcon(),
             $game->getUrl(),
+            $game->getComment(),
             $game->getForumlink(),
             $game->getId()
         ));

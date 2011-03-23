@@ -163,7 +163,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 ));
             }
             $smarty->assign('categories', $smarty_categories);
-            
+
             $categories = $game->getCategories();
             $smarty_categories_selected = array();
             foreach ($categories as $category) {
@@ -173,18 +173,23 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 ));
             }
             $smarty->assign('categoriesSeleted', $smarty_categories_selected);
-            
+
             $smarty->display('IMBAdminModules/AdminGameDetail.tpl');
             break;
 
         case "updategame":
-            $game = $managerGame->selectGameById($_POST["gameid"]);
-            $game->setName($_POST["name"]);
-            $game->setIcon($_POST["icon"]);
-            $game->setComment($_POST["comment"]);
-            $game->setUrl($_POST["url"]);
-            $game->setForumlink($_POST["forumlink"]);
-            $managerGame->update($game);
+            try {
+                $game = $managerGame->selectById($_POST["gameid"]);
+                $game->setName($_POST["name"]);
+                $game->setIcon($_POST["icon"]);
+                $game->setComment($_POST["comment"]);
+                $game->setUrl($_POST["url"]);
+                $game->setForumlink($_POST["forumlink"]);
+                $managerGame->update($game);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
 
             break;
 

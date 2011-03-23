@@ -10,7 +10,7 @@ require_once 'Model/ImbaGame.php';
 class ImbaManagerGame extends ImbaManagerBase {
 
     /**
-     * ImbaManagerDatabase
+     * Property
      */
     protected $gamesCached = null;
     /**
@@ -40,17 +40,14 @@ class ImbaManagerGame extends ImbaManagerBase {
      * Inserts a game into the Database
      */
     public function insert(ImbaGame $game) {
-        $query = "INSERT INTO %s ";
-        $query .= "(handle, role, name, smf, wordpress, icon) VALUES ";
-        $query .= "('%s', '%s', '%s', '%s', '%s', '%s')";
+        $query = "INSERT INTO %s (name, url, comment, icon, forumlink) VALUES ('%s', '%s', '%s', '%s', '%s');";
         $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,
-            $game->getHandle(),
-            $game->getRole(),
+            ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES,
             $game->getName(),
-            $game->getSmf(),
-            $game->getWordpress(),
-            $game->getIcon()
+            $game->getUrl(),
+            $game->getComment(),
+            $game->getIcon(),
+            $game->getForumlink()
         ));
 
         $this->gamesCached = null;
@@ -72,7 +69,7 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getForumlink(),
             $game->getId()
         ));
-        
+
         $this->gamesCached = null;
     }
 
@@ -82,13 +79,10 @@ class ImbaManagerGame extends ImbaManagerBase {
     public function delete($id) {
         $query = "DELETE FROM %s Where id = '%s';";
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES, $id));
-        
-        $query = "DELETE FROM %s Where game_id = '%s';";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES, $id));
-        
+
         $query = "DELETE FROM %s Where game_id = '%s';";
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES, $id));
-        
+
         $this->gamesCached = null;
     }
 

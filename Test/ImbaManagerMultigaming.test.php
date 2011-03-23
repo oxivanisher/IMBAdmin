@@ -1,147 +1,82 @@
 <?php
 
 chdir("../");
-require_once 'Controller/ImbaManagerMultigaming.php';
+require_once 'Controller/ImbaManagerGame.php';
+require_once 'Controller/ImbaManagerGameCategory.php';
+require_once 'Controller/ImbaManagerGameProperty.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Model/ImbaGame.php';
 require_once 'Model/ImbaGameCategory.php';
+require_once 'Model/ImbaGameProperty.php';
 
 /**
  * Prepare Variables
  */
-$managerMultigaming = ImbaManagerMultigaming::getInstance();
+$managerGame = ImbaManagerGame::getInstance();
+$managerCategory = ImbaManagerGameCategory::getInstance();
+$managerProperty = ImbaManagerGameProperty::getInstance();
 $output = "";
 
 /**
- * Insert
+ * Game insert
  */
-$gameCategory = new ImbaGameCategory();
-
+$game = new ImbaGame();
+$game->setCategories("1");
+$game->setComment("2");
+$game->setForumlink("3");
+$game->setIcon("4");
+$game->setName("the new game");
+$game->setUrl("6");
 try {
-    $gameCategory->setName("Kategorie 1");
-    $managerMultigaming->insertCategory($gameCategory);
-    $output .= "insertCategory working.\n";
+    $managerGame->insert($game);
+    $output.= "ImbaManagerGame insert working.\n";
 } catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+    $output.= "Error at insert.\n";
 }
 
 /**
- * Select All
+ * Game select all
  */
 try {
-    $categories = $managerMultigaming->selectAllCategories();
+    $games = $managerGame->selectAll();
 
-    if (count($categories) > 0) {
-        if ($categories[0]->getId() != null && $categories[0]->getId() != "") {
-            $output .= "selectAllCategories working.\n";
-        } else {
-            throw new Exception("Kategorien fehlerhaft");
-        }
+    if (count($games) > 0) {
+        $output.= "ImbaManagerGame selectAll working.\n";
     } else {
-        throw new Exception("Keine Kategorien gefunden");
+        throw new Exception("No results.");
     }
 } catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+    $output.= "Error at ImbaManagerGame selectAll.\n";
 }
 
 /**
- * SelectCategoryById
+ * Game update
  */
 try {
-    foreach ($categories as $cat) {
-        if ($cat->getName() == "Kategorie 1") {
-            $gameCategory = $cat;
+    foreach ($games as $tmp) {
+        if ($tmp->getName() == "the new game") {
+            $game = $tmp;
         }
     }
 
-    $gameCategory = $managerMultigaming->selectCategoryById($gameCategory->getId());
+    $game->setName("the new game 2");
+    $managerGame->update($game);
 
-    if ($gameCategory->getId() != null && $gameCategory->getId() != "") {
-        $output .= "selectCategoryById working.\n";
-    } else {
-        throw new Exception("Keine Kategorie gefunden");
-    }
+    $output.= "ImbaManagerGame update working.\n";
 } catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
-}
-
-
-/**
- * UpdateCategory
- */
-try {
-    $gameCategory->setName("Kategorie 2");
-    $managerMultigaming->updateCategory($gameCategory);
-    $output .= "updateCategory working.\n";
-} catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
-}
-
-
-/**
- * DeleteCategory
- */
-try {
-    $managerMultigaming->deleteCategory($gameCategory);
-    $output .= "deleteCategory working.\n";
-} catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+    $output.= "Error at ImbaManagerGame update.\n";
 }
 
 /**
- * Insert Game
- */
-$category1 = new ImbaGameCategory();
-$category1->setName("MMO");
-$managerMultigaming->insertCategory($category1);
-
-$category2 = new ImbaGameCategory();
-$category2->setName("Fantasy");
-$managerMultigaming->insertCategory($category2);
-
-$categories = $managerMultigaming->selectAllCategories();
-$category1 = $categories[0];
-$category2 = $categories[1];
-
-try {
-    $game = new ImbaGame();
-    $game->setComment("Comment wow");
-    $game->setForumlink("Forumlink wow");
-    $game->setName("World of Warcraft");
-    $game->setUrl("www.wow.com");
-    $game->setIcon("Wow Icon");
-    $game->setCategories(array($category1, $category2));
-
-    $managerMultigaming->insertGame($game);
-    $output .= "insertGame working.\n";
-} catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
-}
-
-/**
- * Update Game
+ * Game delete
  */
 try {
-    $game->setComment("uiuiuiuiii");
-    $managerMultigaming->updateGame($game);
-    $output .= "updateGame working.\n";
+    $managerGame->delete($game->getId());
+
+    $output.= "ImbaManagerGame delete working.\n";
 } catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
+    $output.= "Error at ImbaManagerGame delete.\n";
 }
 
-/**
- * Delete game and cat
- */
-try {
-    $managerMultigaming->deleteGame($game);
-    $output .= "deleteGame working.\n";
-    
-    $managerMultigaming->deleteCategory($category1);
-    $managerMultigaming->deleteCategory($category2);
-} catch (Exception $e) {
-    $output .= 'Exception abgefangen: ' . $e->getMessage() . "\n";
-}
-
-
-echo "<pre>ImbaManagerMultigaming Test:\n" . $output . "</pre>";
+echo "<pre>Multigaming Test:\n" . $output . "</pre>";
 ?>

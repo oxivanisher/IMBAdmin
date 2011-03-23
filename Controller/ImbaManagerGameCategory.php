@@ -6,11 +6,11 @@ require_once 'Model/ImbaGameCategory.php';
 /**
  *  Controller / Manager for Categories
  *  - insert, update, delete Categories
-  */
+ */
 class ImbaManagerGameCategory extends ImbaManagerBase {
 
     /**
-     * ImbaManagerDatabase
+     * Property
      */
     protected $categoryCategoriesCached = null;
     /**
@@ -40,7 +40,6 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
      * Inserts a category into the Database
      */
     public function insert(ImbaGameCategory $category) {
-
         $query = "INSERT INTO %s ";
         $query .= "(name) VALUES ";
         $query .= "('%s')";
@@ -69,7 +68,6 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
      * Delets a category by Id
      */
     public function delete($id) {
-
         $query = "DELETE FROM %s Where id = '%s';";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES,
@@ -102,7 +100,7 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
     }
 
     /**
-     * Get a new Game
+     * Get a new Game category
      */
     public function getNew() {
         $category = new ImbaGameCategory();

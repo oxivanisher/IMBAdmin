@@ -33,6 +33,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
     $managerMultigaming = ImbaManagerMultigaming::getInstance();
 //$managerGame = ImbaManagerGame::getInstance();
 //$managerGameCategory = ImbaManagerGameCategory::getInstance();
+    $managerLog = ImbaManagerLog::getInstance();
+    $log = $managerLog->getNew();
+    $log->setModule("Admin");
 
     switch ($_POST["request"]) {
 
@@ -191,6 +194,10 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "addgame":
+            $log->setMessage("jop");
+            $log->setLevel(4);
+            $managerLog->insert($log);
+            
             $game = $managerMultigaming->getNewGame();
             $game->setName($_POST["name"]);
             $game->setComment($_POST["comment"]);

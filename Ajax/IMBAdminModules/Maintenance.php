@@ -49,7 +49,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
         case "runMaintenanceJob":
             $managerLog = ImbaManagerLog::getInstance();
             $log = $managerLog->getNew();
-            $log->setModule("Admin");
+            $log->setModule("Maintenance");
             switch ($_POST["jobHandle"]) {
                 case "findUnusedRoles":
                     $log->setMessage("Analyze User Roles");

@@ -80,6 +80,23 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
 
         return null;
     }
+    
+    /**
+     * Selecting a Game by Id
+     */
+    public function selectGameById($id) {
+        if ($this->gamesCached == null) {
+            $this->selectAllGames();
+        }
+
+        foreach ($this->gamesCached as $game) {
+            if ($game->getId() == $id) {
+                return $game;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * Inserts a Category

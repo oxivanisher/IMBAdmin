@@ -164,7 +164,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     system("mv /tmp/" . $backupFile . " " . $backupPath);
 
                     $smarty->assign('name', 'Backup Database');
-                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a><br />' . $command);
+                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="Backup/' . $backupFile . '">' . $backupFile . '</a>');
                     break;
 
                 case "showSettings":

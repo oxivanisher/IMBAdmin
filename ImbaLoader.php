@@ -91,8 +91,6 @@ switch ($_GET["load"]) {
             }
             echo "</ul>";
             echo "</li>";
-            echo "</li></ul></div>";
-            
 
             /**
              * Render Games Menu Point
@@ -128,6 +126,9 @@ switch ($_GET["load"]) {
 
             echo "</ul>";
             echo "</li>";
+            
+            
+            
             echo "</li></ul></div>";
             echo "\";\ndocument.write(htmlContent);\n\n";
 

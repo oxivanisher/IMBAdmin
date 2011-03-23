@@ -212,7 +212,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * GameCategories Management
          */
         case "gamecategory":
-            $categories = $managerMultigamingCategory->selectAll();
+            $categories = $managerGameCategory->selectAll();
 
             $smarty_categories = array();
             foreach ($categories as $category) {

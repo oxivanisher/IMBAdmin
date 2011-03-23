@@ -137,7 +137,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                   array_push($tmpCategories, $category->getId());
                   }
                  */
-                array_push($smarty_roles, array(
+                array_push($smarty_games, array(
                     "id" => $game->getId(),
                     "name" => $game->getName(),
                     "icon" => $game->getIcon(),

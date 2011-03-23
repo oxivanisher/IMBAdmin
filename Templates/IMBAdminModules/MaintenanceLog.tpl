@@ -20,7 +20,7 @@
     
     function showLogDetail(id){
         var data = {
-            module: "Admin",
+            module: "Maintenance",
             request: "viewlogdetail",
             id: id
         };

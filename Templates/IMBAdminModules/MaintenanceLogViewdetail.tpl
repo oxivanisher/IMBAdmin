@@ -2,7 +2,7 @@
   
     function showLogDetail(id){
         var data = {
-            module: "Admin",
+            module: "Maintenance",
             request: "viewlogdetail",
             id: id
         };
@@ -11,7 +11,7 @@
 
     function backToLogOverview(){
         var data = {
-            module: "Admin",
+            module: "Maintenance",
             request: "log"
         };
         loadImbaAdminTabContent(data);

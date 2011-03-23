@@ -1,7 +1,7 @@
 <script type="text/javascript">
     function backToMaintenance(){
         var data = {
-            module: "Admin",
+            module: "Maintenance",
             request: "maintenance"
         };
         loadImbaAdminTabContent(data);

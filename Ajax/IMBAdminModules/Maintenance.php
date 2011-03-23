@@ -162,7 +162,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     system($command);
 
                     $smarty->assign('name', 'Backup Database');
-                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a>');
+                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a>'.
+                            $_SERVER['PATH_TRANSLATED'] . "--" . $_SERVER['DOCUMENT_ROOT']);
                     break;
 
                 case "showSettings":

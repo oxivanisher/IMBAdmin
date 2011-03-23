@@ -140,6 +140,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 array_push($smarty_games, array(
                     "id" => $game->getId(),
                     "name" => $game->getName(),
+                    "comment" => $game->getComment(),
                     "icon" => $game->getIcon(),
                     "url" => $game->getUrl(),
                     "forumlink" => $game->getForumlink(),
@@ -169,6 +170,10 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $game->setForumlink($_POST["value"]);
                     break;
 
+                case "Comment":
+                    $game->setComment($_POST["value"]);
+                    break;
+
                 /**
                  * FIXME: irgendwie muessen wir die spiele noch den kategorien zuweisen :/
                  * 
@@ -188,6 +193,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
         case "addgame":
             $game = $managerMultigaming->getNewGame();
             $game->setName($_POST["name"]);
+            $game->setComment($_POST["comment"]);
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);

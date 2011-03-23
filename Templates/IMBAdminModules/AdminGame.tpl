@@ -46,6 +46,7 @@
         
         $("#ImbaAddGameOK").click( function() {
             if ((ImbaAddGameName.value.valueOf() != "")
+                && (ImbaAddGameComment.value.valueOf() != "")
                 && (ImbaAddGameIcon.value.valueOf() != "")
                 && (ImbaAddGameUrl.value.valueOf() != "")
                 && (ImbaAddGameForumlink.value.valueOf() != "")) {
@@ -57,9 +58,10 @@
                     name: ImbaAddGameName.value.valueOf(),
                     icon: ImbaAddGameIcon.value.valueOf(),
                     url: ImbaAddGameUrl.value.valueOf(),
+                    comment: ImbaAddGameComment.value.valueOf(),
                     forumlink: ImbaAddGameForumlink.value.valueOf()
                 });
-                alert('test');
+
                 var data = {
                     module: "Admin",
                     request: "game"
@@ -77,6 +79,7 @@
     <thead>
         <tr>
             <th title="Name">Name</th>
+            <th title="Comment">Comment</th>
             <th title="Icon">Icon</th>
             <th title="Url">Url</th>
             <th title="Forumlink">Forumlink</th>
@@ -88,6 +91,7 @@
         {foreach $games as $game}
         <tr id="gameid_{$game.id}">
             <td editable="true">{$game.name}</td>
+            <td editable="true">{$game.comment}</td>
             <td editable="true">{$game.icon}</td>
             <td editable="true">{$game.url}</td>
             <td editable="true">{$game.forumlink}</td>
@@ -98,6 +102,7 @@
     <tfoot>
         <tr>
             <td><input id="ImbaAddGameName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddGameComment" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddGameIcon" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddGameUrl" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddGameForumlink" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>

@@ -152,6 +152,19 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $smarty->assign('message', 'Messages cleared!<br />');
                     break;
 
+                case "backupDatabase":
+                    $backupFile = "Backup/" . ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
+                    $command = "mysqldump --opt -h " .
+                            ImbaConstants::$DATABASE_HOST . " -u " .
+                            ImbaConstants::$DATABASE_USER . " -p " .
+                            ImbaConstants::$DATABASE_PASS . " " .
+                            ImbaConstants::$DATABASE_DB . " | gzip > " . $backupFile;
+                    system($command);
+
+                    $smarty->assign('name', 'Backup Database');
+                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a>');
+                    break;
+
                 case "showSettings":
                     $smarty->assign('name', 'Show the $SETTINGS array');
                     ImbaConstants::loadSettings();

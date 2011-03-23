@@ -11,6 +11,7 @@ require_once 'Controller/ImbaManagerUserRole.php';
 //require_once 'Controller/ImbaManagerMultigaming.php';
 require_once 'Controller/ImbaManagerGame.php';
 require_once 'Controller/ImbaManagerGameCategory.php';
+require_once 'Controller/ImbaManagerGameProperty.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -33,6 +34,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
     //$managerMultigaming = ImbaManagerMultigaming::getInstance();
     $managerGame = ImbaManagerGame::getInstance();
     $managerGameCategory = ImbaManagerGameCategory::getInstance();
+    $managerGameProperty = ImbaManagerGameProperty::getInstance();
 
     switch ($_POST["request"]) {
 
@@ -115,7 +117,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          */
         case "game":
             $games = $managerMultigaming->selectAllGames();
-            $categories = $managerMultigaming->selectAllCategories();
+            $categories = $managerGameCategory->selectAllCategories();
+            $properties = $managerGameProperty->selectAllProperties();
+            
 
             $smarty_categories = array();
             foreach ($categories as $category) {
@@ -208,7 +212,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * GameCategories Management
          */
         case "gamecategory":
-            $categories = $managerMultigaming->selectAllCategories();
+            $categories = $managerMultigamingCategory->selectAll();
 
             $smarty_categories = array();
             foreach ($categories as $category) {

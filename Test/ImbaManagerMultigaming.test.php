@@ -21,7 +21,6 @@ $output = "";
  * Game insert
  */
 $game = new ImbaGame();
-$game->setCategories("1");
 $game->setComment("2");
 $game->setForumlink("3");
 $game->setIcon("4");
@@ -78,7 +77,6 @@ try {
     $output.= "Error at ImbaManagerGame delete.\n";
 }
 echo "<pre>Multigaming Test:\n" . $output . "</pre>";
-
 
 /**
  * Add a property to the game
@@ -188,6 +186,49 @@ try {
     $output.= "ImbaManagerGameCategory delete working.\n";
 } catch (Exception $e) {
     $output.= "Error at ImbaManagerGameCategory delete.\n";
+}
+echo "<pre>Multigaming Test:\n" . $output . "</pre>";
+
+
+/**
+ * Mix it up, baby 
+ */
+try {
+    $output = "";
+    
+    $category1 = new ImbaGameCategory();
+    $category1->setName("c1");
+    $managerCategory->insert($category1);
+
+    $category2 = new ImbaGameCategory();
+    $category2->setName("c2");
+    $managerCategory->insert($category2);
+    
+    $categories = $managerCategory->selectAll();
+    var_dump($categories);
+
+    $game = new ImbaGame();
+    $game->setComment("2");
+    $game->setForumlink("3");
+    $game->setIcon("4");
+    $game->setName("the new game");
+    $game->setUrl("6");
+    $game->setCategories(array($categories[0], $categories[1]));
+
+    var_dump($game);
+    
+    $game = $managerGame->insert($game);
+    $managerGame->delete($game->getId());
+        
+    foreach($categories as $tmp){
+        if ($tmp->getName() == "c1" || $tmp->getName() == "c2"){
+            $managerCategory->delete($tmp->getId());
+        }
+    }
+    
+    $output.= "Mix working.\n";        
+} catch (Exception $e) {
+    $output.= "Error at Mix. " . $e->getMessage() . "\n";
 }
 echo "<pre>Multigaming Test:\n" . $output . "</pre>";
 ?>

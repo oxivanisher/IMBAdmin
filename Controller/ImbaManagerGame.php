@@ -50,13 +50,35 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getForumlink()
         ));
 
+        $query = "SELECT LAST_INSERT_ID() as LastId;";
+        $this->database->query($query, array());
+        $row = $this->database->fetchRow();
+        $game->setId($row["LastId"]);
+
+        foreach ($game->getCategories() as $category) {
+            if ($category->getId() == null || $category->getId() == 0)
+                throw new Exception("No Category Id given");
+
+            $query = "INSERT INTO %s (game_id, cat_id) VALUES ('%s', '%s');";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
+                $game->getId(),
+                $category->getId()
+            ));
+        }
+
         $this->gamesCached = null;
+
+        return $game;
     }
 
     /**
      * Updates a game into the Database
      */
     public function update(ImbaGame $game) {
+        if ($game->getId() == null)
+            throw new Exception("No Game Id given");
+
         $query = "UPDATE %s SET ";
         $query .= "name = '%s', icon= '%s', url = '%s', forumlink = '%s' ";
         $query .= "WHERE id = '%s'";
@@ -70,6 +92,26 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getId()
         ));
 
+        foreach ($game->getCategories() as $category) {
+            if ($category->getId() == null)
+                throw new Exception("No Category Id given");
+
+            $query = "DELETE FROM %s WHERE game_id = '%s';";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
+                $game->getId()
+            ));
+
+            foreach ($game->getCategories() as $category) {
+                $query = "INSERT INTO %s (game_id, cat_id) VALUES ('%s', '%s');";
+                $this->database->query($query, array(
+                    ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
+                    $game->getId(),
+                    $category->getId()
+                ));
+            }
+        }
+
         $this->gamesCached = null;
     }
 
@@ -82,6 +124,9 @@ class ImbaManagerGame extends ImbaManagerBase {
 
         $query = "DELETE FROM %s Where game_id = '%s';";
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES, $id));
+
+        $query = "DELETE FROM %s Where game_id = '%s';";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY, $id));
 
         $this->gamesCached = null;
     }

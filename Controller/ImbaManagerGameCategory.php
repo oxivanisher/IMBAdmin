@@ -12,7 +12,7 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
     /**
      * Property
      */
-    protected $categoryCategoriesCached = null;
+    protected $gameCategoriesCached = null;
     /**
      * Singleton implementation
      */
@@ -47,6 +47,8 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES,
             $category->getName(),
         ));
+        
+        $this->gameCategoriesCached = null;
     }
 
     /**
@@ -61,6 +63,8 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
             $category->getName(),
             $category->getId()
         ));
+        
+        $this->gameCategoriesCached = null;
     }
 
     /**
@@ -72,6 +76,8 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES,
             $id
         ));
+        
+        $this->gameCategoriesCached = null;
     }
 
     /**

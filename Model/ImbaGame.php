@@ -13,6 +13,7 @@ class ImbaGame extends ImbaBase {
     protected $name = null;
     protected $comment = null;
     protected $categories = array();
+    protected $properties = array();
     protected $url = null;
     protected $icon = null;
     protected $forumlink = null;
@@ -42,6 +43,14 @@ class ImbaGame extends ImbaBase {
 
     public function setCategories($categories) {
         $this->categories = $categories;
+    }
+
+    public function getProperties() {
+        return $this->properties;
+    }
+
+    public function setProperties($properties) {
+        $this->properties = $properties;
     }
 
     public function getUrl() {

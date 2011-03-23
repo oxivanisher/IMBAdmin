@@ -6,7 +6,7 @@ require_once 'Model/ImbaGame.php';
 /**
  *  Controller / Manager for Game
  *  - insert, update, delete Games
-  */
+ */
 class ImbaManagerGame extends ImbaManagerBase {
 
     /**
@@ -40,7 +40,6 @@ class ImbaManagerGame extends ImbaManagerBase {
      * Inserts a game into the Database
      */
     public function insert(ImbaGame $game) {
-
         $query = "INSERT INTO %s ";
         $query .= "(handle, role, name, smf, wordpress, icon) VALUES ";
         $query .= "('%s', '%s', '%s', '%s', '%s', '%s')";
@@ -53,6 +52,8 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getWordpress(),
             $game->getIcon()
         ));
+
+        $this->gamesCached = null;
     }
 
     /**
@@ -71,18 +72,24 @@ class ImbaManagerGame extends ImbaManagerBase {
             $game->getForumlink(),
             $game->getId()
         ));
+        
+        $this->gamesCached = null;
     }
 
     /**
      * Delets a Game by Id
      */
     public function delete($id) {
-
         $query = "DELETE FROM %s Where id = '%s';";
-        $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES,
-            $id
-        ));
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES, $id));
+        
+        $query = "DELETE FROM %s Where game_id = '%s';";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES, $id));
+        
+        $query = "DELETE FROM %s Where game_id = '%s';";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES, $id));
+        
+        $this->gamesCached = null;
     }
 
     /**

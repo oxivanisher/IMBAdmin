@@ -153,17 +153,18 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
 
                 case "backupDatabase":
-                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/";
-                    $backupFile = "Backup/" . ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
+                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/Backup/";
+                    $backupFile = ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
                     $command = "mysqldump --opt" .
                             " -h " . ImbaConstants::$DATABASE_HOST .
                             " -u " . ImbaConstants::$DATABASE_USER .
                             " -p" . ImbaConstants::$DATABASE_PASS .
-                            " " . ImbaConstants::$DATABASE_DB . " | gzip > " . $backupPath.$backupFile;
+                            " " . ImbaConstants::$DATABASE_DB . " | gzip > /tmp/" . $backupFile;
                     system($command);
+                    system("mv /tmp/" . $backupFile . " " . $backupPath);
 
                     $smarty->assign('name', 'Backup Database');
-                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a><br />'.$command);
+                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a><br />' . $command);
                     break;
 
                 case "showSettings":

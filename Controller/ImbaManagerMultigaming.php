@@ -144,8 +144,7 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
             // catch Categories
             $categories = $this->selectAllCategories();
             foreach ($result as $game) {
-                $query = "SELECT * FROM  % Where game_id = '%s';";
-            echo $query . ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY . "::" . $game->getId();
+                $query = "SELECT * FROM %s Where game_id = '%s';";
                 $this->database->query($query, array(
                     ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
                     $game->getId())

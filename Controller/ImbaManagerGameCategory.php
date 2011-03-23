@@ -56,7 +56,7 @@ class ImbaManagerGameCategory extends ImbaManagerBase {
         $query = "UPDATE %s SET ";
         $query .= "name = '%s' ";
         $query .= "WHERE id = '%s'";
-
+echo $query;
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES,
             $category->getName(),

@@ -191,7 +191,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);
-            $managerMultigaming->insert($game);
+            $managerMultigaming->insertGame($game);
             break;
 
         /**

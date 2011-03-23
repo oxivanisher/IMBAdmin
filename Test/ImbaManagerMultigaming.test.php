@@ -136,7 +136,7 @@ try {
  * Category update
  */
 try {
-    $category->setProperty("blabla");
+    $category->setName("blablibla");
     $managerCategory->update($category);
 
     $output.= "ImbaManagerGameCategory update working.\n";

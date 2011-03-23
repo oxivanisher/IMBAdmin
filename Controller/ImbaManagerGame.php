@@ -46,12 +46,12 @@ class ImbaManagerGame extends ImbaManagerBase {
         $query .= "('%s', '%s', '%s', '%s', '%s', '%s')";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_PROFILES,
-            $role->getHandle(),
-            $role->getRole(),
-            $role->getName(),
-            $role->getSmf(),
-            $role->getWordpress(),
-            $role->getIcon()
+            $game->getHandle(),
+            $game->getRole(),
+            $game->getName(),
+            $game->getSmf(),
+            $game->getWordpress(),
+            $game->getIcon()
         ));
     }
 
@@ -65,10 +65,11 @@ class ImbaManagerGame extends ImbaManagerBase {
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES,
-            $role->getName(),
-            $role->getIcon(),
-            $role->getUrl(),
-            $role->getForumlink(),
+            $game->getName(),
+            $game->getIcon(),
+            $game->getUrl(),
+            $game->getForumlink(),
+            $game->getId()
         ));
     }
 

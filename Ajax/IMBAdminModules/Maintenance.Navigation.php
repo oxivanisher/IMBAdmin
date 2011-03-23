@@ -18,8 +18,8 @@ $Navigation = new ImbaContentNavigation();
 /**
  * Set module name
  */
-$Navigation->setName("Administration");
-$Navigation->setComment("Hier kann der IMBAdmin konfiguriert werden.");
+$Navigation->setName("Maintenance");
+$Navigation->setComment("Hier werden Wartungsarbeten am System durchgef&uuml;hrt.");
 
 
 /**
@@ -36,10 +36,8 @@ $Navigation->setMinUserRole(9);
 /**
  * Set tabs
  */
-$Navigation->addElement("user", "Users", "Edit user roles and user details");
-$Navigation->addElement("role", "Roles", "Manage Roles");
-$Navigation->addElement("game", "Games", "Manage Games");
-$Navigation->addElement("gamecategory", "Game Categories", "Manage Game Categories");
-$Navigation->addElement("settings", "Settings", "System wide settings");
+$Navigation->addElement("log", "Log", "View and clar log");
+$Navigation->addElement("statistics", "Statistics", "Statistics");
+$Navigation->addElement("maintenance", "Maintenance", "System maintenance jobs");
 
 ?>

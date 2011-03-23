@@ -34,7 +34,7 @@
             <td>Name</td>
             <td><input id="myGameName" type="text" name="name" value="{$name}" /></td>
             <td rowspan="4">Comment:<br />
-                <textarea id="myGameComment" name="comment" rows="4" cols="30">{$comment}</textarea></td>
+                <textarea id="myGameComment" name="comment" rows="5" cols="20">{$comment}</textarea></td>
 
         </tr>
         <tr>

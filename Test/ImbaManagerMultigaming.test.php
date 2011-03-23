@@ -101,9 +101,9 @@ try {
     $property->setProperty("blabla");
     $managerProperty->update($property);
 
-    $output.= "ImbaManagerGame update working.\n";
+    $output.= "ImbaManagerGameProperty update working.\n";
 } catch (Exception $e) {
-    $output.= "Error at ImbaManagerGame update.\n";
+    $output.= "Error at ImbaManagerGameProperty update.\n";
 }
 
 /**

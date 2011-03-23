@@ -194,9 +194,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "addgame":
-            $log->setMessage("jop");
             $log->setLevel(4);
-            $managerLog->insert($log);
             
             $game = $managerMultigaming->getNewGame();
             $game->setName($_POST["name"]);
@@ -205,6 +203,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);
             $managerMultigaming->insertGame($game);
+            
+            $log->setMessage("jop2");
+            $managerLog->insert($log);
             break;
 
         /**

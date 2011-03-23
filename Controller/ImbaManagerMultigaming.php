@@ -232,6 +232,19 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
         $this->gamesCached = null;
     }
 
+    /**
+     * Get new Game
+     */
+    public function getNewGame() {
+        return new ImbaGame();
+    }
+
+    /**
+     * Get new Category
+     */
+    public function getNewCategory() {
+        return new ImbaGameCategory();
+    }
 }
 
 ?>

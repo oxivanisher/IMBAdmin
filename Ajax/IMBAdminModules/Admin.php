@@ -8,8 +8,9 @@ require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
-require_once 'Controller/ImbaManagerGame.php';
-require_once 'Controller/ImbaManagerGameCategory.php';
+require_once 'Controller/ImbaManagerMultigaming.php';
+//require_once 'Controller/ImbaManagerGame.php';
+//require_once 'Controller/ImbaManagerGameCategory.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -29,8 +30,9 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
      */
     $managerUser = ImbaManagerUser::getInstance();
     $managerRole = ImbaManagerUserRole::getInstance();
-    $managerGame = ImbaManagerGame::getInstance();
-    $managerGameCategory = ImbaManagerGameCategory::getInstance();
+    $managerMultigaming = ImbaManagerMultigaming::getInstance();
+//$managerGame = ImbaManagerGame::getInstance();
+//$managerGameCategory = ImbaManagerGameCategory::getInstance();
 
     switch ($_POST["request"]) {
 
@@ -112,8 +114,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
          * Game Management
          */
         case "game":
-            $games = $managerGame->selectAll();
-            $categories = $managerGameCategory->selectAll();
+            $games = $managerMultigaming->selectAllGames();
+            $categories = $managerMultigaming->selectAllCategories();
 
             $smarty_categories = array();
             foreach ($categories as $category) {
@@ -144,7 +146,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "updategame":
-            $game = $managerGame->selectById($_POST["gameid"]);
+            $game = $managerMultigaming->selectGameById($_POST["gameid"]);
 
             switch ($_POST["gamecolumn"]) {
                 case "Name":
@@ -171,21 +173,21 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
             }
 
-            $managerGame->update($game);
+            $managerMultigaming->updateGame($game);
             echo $_POST["value"];
             break;
 
         case "deletegame":
-            $managerGame->delete($_POST["gameid"]);
+            $managerMultigaming->deleteGame($_POST["gameid"]);
             break;
 
         case "addgame":
-            $role = $managerGame->getNew();
+            $role = $managerMultigaming->getNewGame();
             $game->setName($_POST["name"]);
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);
-            $managerGame->insert($game);
+            $managerMultigaming->insert($game);
             break;
 
         /**

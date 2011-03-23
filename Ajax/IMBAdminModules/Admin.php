@@ -129,10 +129,14 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty_games = array();
             foreach ($games as $game) {
                 $tmpCategories = array();
-                foreach ($game->getCategories() as $category) {
-                    array_push($tmpCategories, $category->getId());
-                }
 
+                /**
+                 * Not jet implemented in imbaManagerMultigaming!
+                 *
+                  foreach ($game->getCategories() as $category) {
+                  array_push($tmpCategories, $category->getId());
+                  }
+                 */
                 array_push($smarty_roles, array(
                     "id" => $game->getId(),
                     "name" => $game->getName(),

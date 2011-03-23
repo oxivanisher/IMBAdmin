@@ -85,11 +85,28 @@ echo "<pre>Multigaming Test:\n" . $output . "</pre>";
  */
 $output = "";
 $property = new ImbaGameProperty();
-$property->setGameId($game->getId);
+$property->setGameId($game->getId());
 $property->setProperty("property");
 try {
     $managerProperty->insert($property);
     $output.= "ImbaManagerGameProperty insert working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameProperty.\n";
+}
+
+/**
+ * Select all by id
+ */
+try {
+    $properties = $managerProperty->selectAllByGameId($game->getId());
+    
+    foreach ($properties as $tmp){
+        if ($tmp->getProperty() == "property"){
+            $property = $tmp;
+        }
+    }
+    
+    $output.= "ImbaManagerGameProperty selectAllByGameId working.\n";
 } catch (Exception $e) {
     $output.= "Error at ImbaManagerGameProperty.\n";
 }
@@ -124,7 +141,7 @@ echo "<pre>Multigaming Test:\n" . $output . "</pre>";
  */
 $output = "";
 $category = new ImbaGameCategory();
-$category->setName("categoryyName");
+$category->setName("categoryName");
 try {
     $managerCategory->insert($category);
     $output.= "ImbaManagerGameCategory insert working.\n";

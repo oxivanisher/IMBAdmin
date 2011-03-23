@@ -153,7 +153,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
 
                 case "backupDatabase":
-                    $backupFile = "Backup/" . ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
+                    $backupFile = "/tmp/" . ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
                     $command = "mysqldump --opt" .
                             " -h " . ImbaConstants::$DATABASE_HOST .
                             " -u " . ImbaConstants::$DATABASE_USER .

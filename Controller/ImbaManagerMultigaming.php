@@ -124,7 +124,6 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
     public function selectAllGames() {
         if ($this->gamesCached == null) {
             $query = "SELECT * FROM %s order by name DESC;";
-            echo $query . ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES;
             $this->database->query($query, array(
                 ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES
             ));
@@ -146,6 +145,7 @@ class ImbaManagerMultigaming extends ImbaManagerBase {
             $categories = $this->selectAllCategories();
             foreach ($result as $game) {
                 $query = "SELECT * FROM  % Where game_id = '%s';";
+            echo $query . ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY . "::" . $game->getId();
                 $this->database->query($query, array(
                     ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
                     $game->getId())

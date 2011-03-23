@@ -119,7 +119,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $games = $managerGame->selectAll();
 
             $smarty_categories = array();
-          
+
 
             $smarty_games = array();
             foreach ($games as $game) {
@@ -144,56 +144,63 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->display('IMBAdminModules/AdminGame.tpl');
             break;
 
-        case "updategame":
-            $game = $managerMultigaming->selectGameById($_POST["gameid"]);
+        case "viewgamedetail":
+            $game = $managerGame->selectById($_POST["id"]);
 
-            switch ($_POST["gamecolumn"]) {
-                case "Name":
-                    $game->setName($_POST["value"]);
-                    break;
+            $smarty->assign("id", $game->getId());
+            $smarty->assign("name", $game->getName());
+            $smarty->assign("comment", $game->getComment());
+            $smarty->assign("icon", $game->getIcon());
+            $smarty->assign("url", $game->getUrl());
+            $smarty->assign("forumlink", $game->getForumlink());
 
-                case "Icon":
-                    $game->setIcon($_POST["value"]);
-                    break;
-
-                case "Url":
-                    $game->setUrl($_POST["value"]);
-                    break;
-
-                case "Forumlink":
-                    $game->setForumlink($_POST["value"]);
-                    break;
-
-                case "Comment":
-                    $game->setComment($_POST["value"]);
-                    break;
-
-                /**
-                 * FIXME: irgendwie muessen wir die spiele noch den kategorien zuweisen :/
-                 * 
-                 */
-                default:
-                    break;
+            $categories = $managerGameCategory->selectAll();
+            $smarty_categories = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
             }
+            $smarty->assign('categories', $smarty_categories);
+            
+            $categories = $game->getCategories();
+            $smarty_categories_selected = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
+            }
+            $smarty->assign('categoriesSeleted', $smarty_categories_selected);
+            
+            $smarty->display('IMBAdminModules/AdminGameDetail.tpl');
+            break;
 
-            $managerMultigaming->updateGame($game);
-            echo $_POST["value"];
+        case "updategame":
+            $game = $managerGame->selectGameById($_POST["gameid"]);
+            $game->setName($_POST["name"]);
+            $game->setIcon($_POST["icon"]);
+            $game->setComment($_POST["comment"]);
+            $game->setUrl($_POST["url"]);
+            $game->setForumlink($_POST["forumlink"]);
+            $managerGame->update($game);
+
             break;
 
         case "deletegame":
-            $tmpGame = $managerMultigaming->selectGameById($_POST["gameid"]);
-            $managerMultigaming->deleteGame($tmpGame);
+            $managerGame->delete($_POST["gameid"]);
             break;
 
         case "addgame":
 
-            $game = $managerMultigaming->getNewGame();
+            $game = $managerGame->getNew();
             $game->setName($_POST["name"]);
             $game->setComment($_POST["comment"]);
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);
-            $managerMultigaming->insertGame($game);
+            $managerGame->insert($game);
 
             break;
 
@@ -217,7 +224,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updategamecategory":
             $category = $managerGameCategory->selectById($_POST["categoryid"]);
-            
+
             switch ($_POST["categorycolumn"]) {
                 case "Name":
                     $category->setName($_POST["value"]);
@@ -234,7 +241,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
         case "deletegamecategory":
             $managerGameCategory->delete($_POST["categoryid"]);
             break;
-        
+
         case "addgamecategory":
 
             $category = $managerGameCategory->getNew();

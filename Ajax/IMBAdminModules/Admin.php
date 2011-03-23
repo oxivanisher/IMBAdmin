@@ -179,38 +179,13 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updategame":
             $game = $managerGame->selectGameById($_POST["gameid"]);
-
-            switch ($_POST["gamecolumn"]) {
-                case "Name":
-                    $game->setName($_POST["value"]);
-                    break;
-
-                case "Icon":
-                    $game->setIcon($_POST["value"]);
-                    break;
-
-                case "Url":
-                    $game->setUrl($_POST["value"]);
-                    break;
-
-                case "Forumlink":
-                    $game->setForumlink($_POST["value"]);
-                    break;
-
-                case "Comment":
-                    $game->setComment($_POST["value"]);
-                    break;
-
-                /**
-                 * FIXME: irgendwie muessen wir die spiele noch den kategorien zuweisen :/
-                 * 
-                 */
-                default:
-                    break;
-            }
-
+            $game->setName($_POST["name"]);
+            $game->setIcon($_POST["icon"]);
+            $game->setComment($_POST["comment"]);
+            $game->setUrl($_POST["url"]);
+            $game->setForumlink($_POST["forumlink"]);
             $managerGame->update($game);
-            echo $_POST["value"];
+
             break;
 
         case "deletegame":

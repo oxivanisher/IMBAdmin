@@ -33,6 +33,9 @@
         <tr>
             <td>Name</td>
             <td><input id="myGameName" type="text" name="name" value="{$name}" /></td>
+            <td rowspan="4">Comment:<br />
+                <textarea id="myGameComment" name="comment" rows="8" cols="30">{$comment}</textarea></td>
+
         </tr>
         <tr>
             <td>Icon</td>
@@ -47,12 +50,9 @@
             <td><input id="myGameForumlink" type="text" name="forumlink" value="{$forumlink}" /></td>
         </tr>
         <tr>
-            <td colspan="2">Comment:<br />
-                <textarea id="myGameComment" name="comment" rows="10" cols="5">{$comment}</textarea></td>
-        </tr>
-        <tr>
             <td>&nbsp;</td>
             <td><input id="ImbaAjaxAdminGameDetailFormSubmit" type="submit" value="Speichern" /></td>
+            <td>&nbsp;</td>
         </tr>
     </table>
 </form>

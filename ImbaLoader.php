@@ -51,16 +51,20 @@ switch ($_GET["load"]) {
             echo "\nhtmlContent = \" \\\n";
             echo "<div id='imbaMenu'><ul class='topnav'>";
 
+            /**
+             * Render Top Navigation Entries
+             */
             foreach ($topNav->getElements() as $nav) {
                 echo "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
             }
 
+            /**
+             * Render IMBAdmin Menu Point
+             */
             echo "<li>";
             echo "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaAdminDefaultModule();' title='IMBAdmin &ouml;ffnen'>Auf zum Atem!</a>";
             echo "<ul class='subnav'>";
-
             $contentNav = new ImbaContentNavigation();
-
             if ($handle = opendir('Ajax/IMBAdminModules/')) {
                 $identifiers = array();
                 while (false !== ($file = readdir($handle))) {
@@ -77,6 +81,42 @@ switch ($_GET["load"]) {
                             if ($showMe) {
                                 $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
                                 echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
+                                array_push($identifiers, $modIdentifier);
+                                $Navigation = null;
+                            }
+                        }
+                    }
+                }
+                closedir($handle);
+            }
+            echo "</ul>";
+            echo "</li>";
+            echo "</li></ul></div>";
+            
+
+            /**
+             * Render Games Menu Point
+             */
+            echo "<li>";
+            echo "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='IMBA Games &ouml;ffnen'>IMBA Games</a>";
+            echo "<ul class='subnav'>";
+            $contentNav = new ImbaContentNavigation();
+            if ($handle = opendir('Ajax/IMBAdminGames/')) {
+                $identifiers = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (strrpos($file, ".Navigation.php") > 0) {
+                        include 'Ajax/IMBAdminGames/' . $file;
+                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
+                            $showMe = false;
+                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
+                                $showMe = true;
+                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
+                                $showMe = true;
+                            }
+
+                            if ($showMe) {
+                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
+                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
                                 array_push($identifiers, $modIdentifier);
                                 $Navigation = null;
                             }

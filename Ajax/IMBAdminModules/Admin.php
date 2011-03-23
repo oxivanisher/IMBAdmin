@@ -9,7 +9,7 @@ require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaManagerGame.php';
-//require_once 'Controller/ImbaManagerGameCategory.php';
+require_once 'Controller/ImbaManagerGameCategory.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -30,7 +30,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
     $managerUser = ImbaManagerUser::getInstance();
     $managerRole = ImbaManagerUserRole::getInstance();
     $managerGame = ImbaManagerGame::getInstance();
-//    $managerGameCategory = ImbaManagerGameCategory::getInstance();
+    $managerGameCategory = ImbaManagerGameCategory::getInstance();
 
     switch ($_POST["request"]) {
 

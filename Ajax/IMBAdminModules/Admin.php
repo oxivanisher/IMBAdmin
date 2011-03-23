@@ -186,7 +186,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "addgame":
-            $role = $managerMultigaming->getNewGame();
+            $game = $managerMultigaming->getNewGame();
             $game->setName($_POST["name"]);
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);

@@ -146,12 +146,35 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "viewgamedetail":
             $game = $managerGame->selectById($_POST["id"]);
+
+            $smarty->assign("id", $game->getId());
+            $smarty->assign("name", $game->getName());
+            $smarty->assign("comment", $game->getComment());
+            $smarty->assign("icon", $game->getIcon());
+            $smarty->assign("url", $game->getUrl());
+            $smarty->assign("forumlink", $game->getForumlink());
+
+            $categories = $managerGameCategory->selectAll();
+            $smarty_categories = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
+            }
+            $smarty->assign('categories', $smarty_categories);
             
-            $smarty->assign('name', $game->getName());
+            $categories = $game->getCategories();
+            $smarty_categories_selected = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
+            }
+            $smarty->assign('categoriesSeleted', $smarty_categories_selected);
             
-            
-            
-            $smarty->display('IMBAdminModules/AdminGameDetail.tpl');       
+            $smarty->display('IMBAdminModules/AdminGameDetail.tpl');
             break;
 
         case "updategame":

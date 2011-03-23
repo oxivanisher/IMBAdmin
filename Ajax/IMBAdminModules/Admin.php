@@ -119,7 +119,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $games = $managerMultigaming->selectAllGames();
             $categories = $managerGameCategory->selectAllCategories();
             $properties = $managerGameProperty->selectAllProperties();
-            
+
 
             $smarty_categories = array();
             foreach ($categories as $category) {
@@ -228,7 +228,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updategamecategory":
             $category = $managerGameCategory->selectById($_POST["categoryid"]);
-echo $_POST["categorycolumn"];
+            
             switch ($_POST["categorycolumn"]) {
                 case "Name":
                     $category->setName($_POST["value"]);
@@ -243,15 +243,14 @@ echo $_POST["categorycolumn"];
             break;
 
         case "deletegamecategory":
-            $tmpCategory = $managerGameCategory->selectCategoryById($_POST["categoryid"]);
-            $managerGameCategory->deleteCategory($tmpCategory);
+            $managerGameCategory->delete($_POST["categoryid"]);
             break;
-
+        
         case "addgamecategory":
 
-            $category = $managerGameCategory->getNewCategory();
+            $category = $managerGameCategory->getNew();
             $category->setName($_POST["name"]);
-            $managerGameCategory->insertCategory($category);
+            $managerGameCategory->insert($category);
 
             break;
 

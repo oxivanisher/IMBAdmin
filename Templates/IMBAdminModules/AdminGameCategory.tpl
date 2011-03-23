@@ -21,7 +21,7 @@
                     module: "Admin",
                     request: "updategamecategory",
                     categoryid: this.parentNode.getAttribute('id').substr(11),
-                    categorycolumn: getColumnHeadByIndex("ImbaAjaxAdminCategoryTable", oTable.fnGetPosition(this)[2])
+                    categorycolumn: getColumnHeadByIndex("ImbaAjaxAdminCategoriesTable", oTable.fnGetPosition(this)[2])                                                                 
                 };
             },
             "height": "14px"
@@ -43,7 +43,7 @@
             loadImbaAdminTabContent(data);
         }            
     });
-        
+
     $("#ImbaAddCategoryOK").click( function() {
         if (ImbaAddCategoryName.value.valueOf() != "") {
             $.post(ajaxEntry, {
@@ -60,10 +60,8 @@
             loadImbaAdminTabContent(data);
                 
         } else {
-            alert('Please fill out all the fields');
-                
-        }
-                
+            alert('Please fill out all the fields');                
+        }                
     });
         
 } );  

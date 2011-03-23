@@ -56,6 +56,16 @@
                 
         });        
     } );
+    
+    function showGameDetail(id){
+        var data = {
+            module: "Admin",
+            request: "viewgamedetail",
+            id: id
+        };
+        loadImbaAdminTabContent(data);
+    }
+    
 </script>
 <table id="ImbaAjaxAdminGameTable" class="dataTableDisplay">
     <thead>
@@ -71,7 +81,7 @@
     <tbody>
 
         {foreach $games as $game}
-        <tr id="gameid_{$game.id}">
+        <tr onclick="javascript: showGameDetail('{$game.id}');">
             <td editable="true">{$game.name}</td>
             <td editable="true">{$game.comment}</td>
             <td editable="true">{$game.icon}</td>

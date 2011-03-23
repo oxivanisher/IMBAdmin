@@ -59,7 +59,7 @@
                     url: ImbaAddGameUrl.value.valueOf(),
                     forumlink: ImbaAddGameForumlink.value.valueOf()
                 });
-                
+                alert('test');
                 var data = {
                     module: "Admin",
                     request: "game"

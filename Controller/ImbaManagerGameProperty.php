@@ -47,13 +47,13 @@ class ImbaManagerGameProperty extends ImbaManagerBase {
     /**
      * Updates a property into the Database
      */
-    public function update(ImbaGameCategory $category) {
+    public function update(ImbaGameProperty $property) {
         $query = "UPDATE %s SET game_id = '%s', property = '%s' WHERE id='%s';";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES,
-            $gameProperty->getGameId(),
-            $gameProperty->getProperty(),
-            $gameProperty->getId()
+            $property->getGameId(),
+            $property->getProperty(),
+            $property->getId()
         ));
     }
 

@@ -77,6 +77,49 @@ try {
 } catch (Exception $e) {
     $output.= "Error at ImbaManagerGame delete.\n";
 }
-
 echo "<pre>Multigaming Test:\n" . $output . "</pre>";
+
+
+/**
+ * Add a property to the game
+ */
+$output = "";
+$property = new ImbaGameProperty();
+$property->setGameId($game->getId);
+$property->setProperty("property");
+try {
+    $managerProperty->insert($property);
+    $output.= "ImbaManagerGameProperty insert working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameProperty.\n";
+}
+
+/**
+ * Property update
+ */
+try {
+    $property->setProperty("blabla");
+    $managerProperty->update($property);
+
+    $output.= "ImbaManagerGame update working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGame update.\n";
+}
+
+/**
+ * Property delete
+ */
+try {
+    $managerProperty->delete($property->getId());
+
+    $output.= "ImbaManagerGameProperty delete working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameProperty delete.\n";
+}
+echo "<pre>Multigaming Test:\n" . $output . "</pre>";
+
+/**
+ * Add a category to the game
+ */
+
 ?>

@@ -9,24 +9,6 @@
             "bLengthChange": false
         } );
 	
-        // Apply the jEditable handlers to the table
-        $("td[editable|='true']", oTable.fnGetNodes()).editable(ajaxEntry, {
-            "callback": function( sValue, y ) {
-                var aPos = oTable.fnGetPosition( this );
-                oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-            },
-            "submitdata": function ( value, settings ) {
-                return {
-                    action: "module",
-                    module: "Admin",
-                    request: "updategame",
-                    gameid: this.parentNode.getAttribute('id').substr(7),
-                    gamecolumn: getColumnHeadByIndex("ImbaAjaxAdminGameTable", oTable.fnGetPosition(this)[2])
-                };
-            },
-            "height": "14px"
-        } );
-        
         $("#ImbaAjaxAdminGameTable tr td span").click(function(){
             if(confirm("Soll das Game wirklich geloescht werden?")){               
                 $.post(ajaxEntry, {

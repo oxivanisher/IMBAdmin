@@ -145,7 +145,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "updategame":
-            $game = $managerMultigaming->selectGameById($_POST["gameid"]);
+            $game = $managerGame->selectGameById($_POST["gameid"]);
 
             switch ($_POST["gamecolumn"]) {
                 case "Name":
@@ -176,24 +176,23 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
             }
 
-            $managerMultigaming->updateGame($game);
+            $managerGame->update($game);
             echo $_POST["value"];
             break;
 
         case "deletegame":
-            $tmpGame = $managerMultigaming->selectGameById($_POST["gameid"]);
-            $managerMultigaming->deleteGame($tmpGame);
+            $managerGame->delete($_POST["gameid"]);
             break;
 
         case "addgame":
 
-            $game = $managerMultigaming->getNewGame();
+            $game = $managerGame->getNew();
             $game->setName($_POST["name"]);
             $game->setComment($_POST["comment"]);
             $game->setIcon($_POST["icon"]);
             $game->setUrl($_POST["url"]);
             $game->setForumlink($_POST["forumlink"]);
-            $managerMultigaming->insertGame($game);
+            $managerGame->insert($game);
 
             break;
 

@@ -1,17 +1,17 @@
 <pre>
-{$id}
-{$name}
-{$comment}
-{$icon}
-{$url}
-{$forumlink}
+i:{$id}
+n:{$name}
+c:{$comment}
+i:{$icon}
+u:{$url}
+f:{$forumlink}
 
 {foreach $categories as $category}
-{$category.id} = {$category.name}
+c:{$category.id} = {$category.name}
 {/foreach}
 
 {foreach $categoriesSelected as $categorySelected}
-{$categorySelected.id} = {$categorySelected.name}
+cs:{$categorySelected.id} = {$categorySelected.name}
 {/foreach}
 
 

@@ -118,8 +118,41 @@ try {
 }
 echo "<pre>Multigaming Test:\n" . $output . "</pre>";
 
+
 /**
  * Add a category to the game
  */
+$output = "";
+$category = new ImbaGameCategory();
+$category->setName("categoryyName");
+try {
+    $managerCategory->insert($property);
+    $output.= "ImbaManagerGameCategory insert working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameCategory.\n";
+}
 
+/**
+ * Category update
+ */
+try {
+    $property->setProperty("blabla");
+    $managerCategory->update($property);
+
+    $output.= "ImbaManagerGameCategory update working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameCategory update.\n";
+}
+
+/**
+ * Category delete
+ */
+try {
+    $managerCategory->delete($property->getId());
+
+    $output.= "ImbaManagerGameCategory delete working.\n";
+} catch (Exception $e) {
+    $output.= "Error at ImbaManagerGameCategory delete.\n";
+}
+echo "<pre>Multigaming Test:\n" . $output . "</pre>";
 ?>

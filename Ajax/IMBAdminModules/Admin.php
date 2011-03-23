@@ -228,7 +228,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
 
         case "updategamecategory":
             $category = $managerGameCategory->selectById($_POST["categoryid"]);
-echo $category->getName();
+echo $_POST["categorycolumn"];
             switch ($_POST["categorycolumn"]) {
                 case "Name":
                     $category->setName($_POST["value"]);

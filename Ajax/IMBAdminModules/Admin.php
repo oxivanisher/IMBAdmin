@@ -205,6 +205,53 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         /**
+         * GameCategories Management
+         */
+        case "gamecategory":
+            $categories = $managerMultigaming->selectAllCategories();
+
+            $smarty_categories = array();
+            foreach ($categories as $category) {
+                array_push($smarty_categories, array(
+                    'id' => $category->getId(),
+                    'name' => $category->getName()
+                ));
+            }
+            $smarty->assign('categories', $smarty_categories);
+
+            $smarty->display('IMBAdminModules/AdminGameCategory.tpl');
+            break;
+
+        case "updategamecategory":
+            $category = $managerMultigaming->selectCategoryById($_POST["categoryid"]);
+
+            switch ($_POST["gamecolumn"]) {
+                case "Name":
+                    $category->setName($_POST["value"]);
+                    break;
+
+                default:
+                    break;
+            }
+
+            $managerMultigaming->updateCategory($category);
+            echo $_POST["value"];
+            break;
+
+        case "deletegamecategory":
+            $tmpCategory = $managerMultigaming->selectCategoryById($_POST["categoryid"]);
+            $managerMultigaming->deleteCategory($tmpCategory);
+            break;
+
+        case "addgamecategory":
+
+            $category = $managerMultigaming->getNewCategory();
+            $category->setName($_POST["name"]);
+            $managerMultigaming->insertCategory($category);
+
+            break;
+
+        /**
          * Settings Management
          */
         case "settings":

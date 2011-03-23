@@ -20,7 +20,7 @@
                     action: "module",
                     module: "Admin",
                     request: "updatesetting",
-                    settingid: this.parentNode.getAttribute('id').substr(7),
+                    settingid: this.parentNode.getAttribute('id').substr(10),
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
                 };
             },

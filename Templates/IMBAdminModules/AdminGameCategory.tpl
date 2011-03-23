@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         // Init DataTable
-        var oTable = $('#ImbaAjaxAdminSettingsTable').dataTable( {
+        var oTable = $('#ImbaAjaxAdminCategoriesTable').dataTable( {
             "iDisplayLength": 16,
             "bFilter": true,
             "sPaginationType": "two_button",
@@ -19,44 +19,43 @@
                 return {
                     action: "module",
                     module: "Admin",
-                    request: "updatesetting",
-                    settingid: this.parentNode.getAttribute('id').substr(7),
-                    settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
+                    request: "updategamecategory",
+                    categoryid: this.parentNode.getAttribute('id').substr(11),
+                    categorycolumn: getColumnHeadByIndex("ImbaAjaxAdminCategoryTable", oTable.fnGetPosition(this)[2])
                 };
             },
             "height": "14px"
         } );
         
-    $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
-        if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
+    $("#ImbaAjaxAdminCategoriesTable tr td span").click(function(){
+        if(confirm("Soll die Kategorie wirklich geloescht werden?")){                
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
-                request: "deletesetting",
-                settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
+                request: "deletegamecategory",
+                categoryid: this.parentNode.parentNode.getAttribute('id').substr(11)
             });
                 
             var data = {
                 module: "Admin",
-                request: "settings"
+                request: "gamecategory"
             };
             loadImbaAdminTabContent(data);
         }            
     });
         
-    $("#ImbaAddSettingOK").click( function() {
-        if ((ImbaAddSettingName.value.valueOf() != "") && (ImbaAddSettingValue.value.valueOf() != "")) {
+    $("#ImbaAddCategoryOK").click( function() {
+        if (ImbaAddCategoryName.value.valueOf() != "") {
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
-                request: "addsetting",
-                name: ImbaAddSettingName.value.valueOf(),
-                value: ImbaAddSettingValue.value.valueOf()
+                request: "addgamecategory",
+                name: ImbaAddCategoryName.value.valueOf()
             });
 
             var data = {
                 module: "Admin",
-                request: "settings"
+                request: "gamecategory"
             };
             loadImbaAdminTabContent(data);
                 
@@ -69,29 +68,26 @@
         
 } );  
 </script>
-<table id="ImbaAjaxAdminSettingsTable" class="dataTableDisplay">
+<table id="ImbaAjaxAdminCategoriesTable" class="dataTableDisplay">
     <thead>
         <tr>
-            <th title="Role">Name</th>
-            <th title="Name">Wert</th>
+            <th title="Name">Name</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
 
-        {foreach $settings as $setting}
-        <tr id="settingid_{$setting.name}">
-            <td editable="false">{$setting.name}</td>
-            <td editable="true">{$setting.value}</td>
+        {foreach $categories as $category}
+        <tr id="categoryid_{$category.id}">
+            <td editable="false">{$category.name}</td>
             <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}
     </tbody>
     <tfoot>
         <tr>
-            <td><input id="ImbaAddSettingName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input id="ImbaAddSettingValue" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td id="ImbaAddSettingOK" style="cursor: pointer;"><b>OK</b></td>
+            <td><input id="ImbaAddCategoryName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td id="ImbaAddCategoryOK" style="cursor: pointer;"><b>OK</b></td>
         </tr>
     </tfoot>
 </table>

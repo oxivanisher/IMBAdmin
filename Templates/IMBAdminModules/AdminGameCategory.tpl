@@ -79,7 +79,7 @@
 
         {foreach $categories as $category}
         <tr id="categoryid_{$category.id}">
-            <td editable="false">{$category.name}</td>
+            <td editable="true">{$category.name}</td>
             <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}

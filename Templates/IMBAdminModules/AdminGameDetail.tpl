@@ -7,7 +7,7 @@
                 action: "module",
                 module: "Admin",
                 request: "updategame",
-                id: "{$id}",
+                gameid: "{$id}",
                 name: $("myGameName").val(),
                 comment: $("myGameComment").val(),
                 icon: $("myGameIcon").val(),
@@ -26,17 +26,13 @@
         });
     } );   
 </script>
-<h3>Base Settings for Game</h3>
+<h2>Base Settings for Game</h2>
 <form id="ImbaAjaxAdminGameDetail" action="post">
     <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
         <!-- ID:{$id} -->
         <tr>
             <td>Name</td>
             <td><input id="myGameName" type="text" name="name" value="{$name}" /></td>
-        </tr>
-        <tr>
-            <td>Comment</td>
-            <td><input id="myGameComment" type="text" name="comment" value="{$comment}" /></td>
         </tr>
         <tr>
             <td>Icon</td>
@@ -49,6 +45,10 @@
         <tr>
             <td>Forumlink</td>
             <td><input id="myGameForumlink" type="text" name="forumlink" value="{$forumlink}" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">Comment:<br />
+                <textarea id="myGameComment" name="comment" rows="10" cols="5">{$comment}</textarea></td>
         </tr>
         <tr>
             <td>&nbsp;</td>

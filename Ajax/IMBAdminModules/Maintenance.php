@@ -158,7 +158,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     $command = "mysqldump --opt" .
                             " -h " . ImbaConstants::$DATABASE_HOST .
                             " -u " . ImbaConstants::$DATABASE_USER .
-                            " -p " . ImbaConstants::$DATABASE_PASS .
+                            " -p" . ImbaConstants::$DATABASE_PASS .
                             " " . ImbaConstants::$DATABASE_DB . " | gzip > " . $backupPath.$backupFile;
                     system($command);
 

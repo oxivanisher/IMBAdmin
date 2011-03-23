@@ -188,7 +188,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             break;
 
         case "deletegame":
-            $tmpGame = $managerMultigaming->gselectGameById($_POST["gameid"]);
+            $tmpGame = $managerMultigaming->selectGameById($_POST["gameid"]);
             $managerMultigaming->deleteGame($tmpGame);
             break;
 

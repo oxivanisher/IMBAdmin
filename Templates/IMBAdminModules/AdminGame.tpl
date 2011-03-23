@@ -29,8 +29,6 @@
         
         $("#ImbaAjaxAdminGameTable tr td span").click(function(){
             if(confirm("Soll das Game wirklich geloescht werden?")){               
-                
-                alert(this.parentNode.parentNode.getAttribute('id').substr(7));
                 $.post(ajaxEntry, {
                     action: "module",
                     module: "Admin",

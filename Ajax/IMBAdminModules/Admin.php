@@ -147,6 +147,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     "categoriesSelected" => $tmpCategories,
                 ));
             }
+            $smart->assign('games', $smarty_games);
             $smarty->display('IMBAdminModules/AdminGame.tpl');
             break;
 

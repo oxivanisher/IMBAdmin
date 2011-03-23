@@ -165,6 +165,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
+    
+    /**
+     * FIXME: we need to check if the session is stilkl good. we get logged in but fell offline sometimes
+     */
+    
     $log = $managerLog->getNew();
     $log->setModule("Auth");
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");

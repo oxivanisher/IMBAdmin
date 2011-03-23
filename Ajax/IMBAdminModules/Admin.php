@@ -238,7 +238,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                     break;
             }
 
-            $managerGameCategory->updateCategory($category);
+            $managerGameCategory->update($category);
             echo $_POST["value"];
             break;
 

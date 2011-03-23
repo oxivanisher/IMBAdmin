@@ -159,11 +159,11 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                             " -h " . ImbaConstants::$DATABASE_HOST .
                             " -u " . ImbaConstants::$DATABASE_USER .
                             " -p " . ImbaConstants::$DATABASE_PASS .
-                            " " . ImbaConstants::$DATABASE_DB . " | gzip > " . $backupFile;
+                            " " . ImbaConstants::$DATABASE_DB . " | gzip > " . $backupPath.$backupFile;
                     system($command);
 
                     $smarty->assign('name', 'Backup Database');
-                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupPath.$backupFile . '</a>');
+                    $smarty->assign('message', 'You can download the actual dump from here:<br /><a href="' . $backupFile . '">' . $backupFile . '</a>');
                     break;
 
                 case "showSettings":

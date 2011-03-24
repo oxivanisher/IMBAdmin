@@ -3,6 +3,7 @@
  */
 // Storring if user is logged in
 var isUserLoggedIn = false;
+var userNeedsToRegister = false;
 var currentModule = null;
 var currentModuleDo = null;
 var currentUserName = null;
@@ -33,7 +34,7 @@ $(document).ready(function() {
             setLoggedIn(false);
         } else if (response == "Need to register") {
             setLoggedIn(false);
-            loadImbaAdminDefaultModule();
+            userNeedsToRegister = true;
         } else {
             setLoggedIn(true);
             $("#imbaSsoShowOpenId").val(response);
@@ -97,7 +98,14 @@ $(document).ready(function() {
     })
     .dialog("option", "width", 700)
     .dialog("option", "height", 600);
-    
+
+    /**
+     * If the user needs to register, show the IMBAdmin windows
+     */
+    if (userNeedsToRegister == true) {
+            loadImbaAdminDefaultModule();
+    }
+
     // Firsttime show users online
     refreshUsersOnline();
 });

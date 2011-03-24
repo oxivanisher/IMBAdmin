@@ -32,7 +32,7 @@ if (ImbaUserContext::getLoggedIn()) {
             /**
              * Cancle the registration, kill the session and let the user reload the page
              */
-            ImbaUserContext::getNeedToRegister(null);
+            ImbaUserContext::getNeedToRegister(false);
             $log = $managerLog->getNew();
             $log->setModule("Register");
             $log->setMessage(ImbaUserContext::getOpenIdUrl() . " aborted the registration");

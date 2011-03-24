@@ -36,6 +36,8 @@ if (ImbaUserContext::getLoggedIn()) {
         $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
         $smarty->display('IMBAdminModules/RegisterForm2.tpl');
     } else {
+        $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
+
         $smarty->display('IMBAdminModules/RegisterForm1.tpl');
     }
 }

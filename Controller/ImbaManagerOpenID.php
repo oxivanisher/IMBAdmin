@@ -212,6 +212,7 @@ class ImbaManagerOpenID {
             $currentUser = $userManager->getNew();
             $currentUser = $userManager->selectByOpenId($esc_identity);
 
+            var_dump($currentUser);
             $bFoundRole = false;
 
             if ($currentUser->getRole() != null) {

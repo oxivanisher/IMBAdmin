@@ -189,7 +189,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                  */
                 $log = $managerLog->getNew();
                 $log->setModule("Auth");
-                $log->setMessage($currentUser->getName() . " logged in");
+                $log->setMessage($currentUser->getNickname() . " logged in");
                 $log->setLevel(2);
                 $managerLog->insert($log);
 

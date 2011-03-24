@@ -23,9 +23,8 @@
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
 <i>({$openid})</i>
-
-Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.
-<hr style="clear:both;">
+<hr />
+<b>Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.</b><br />
 
 Vorname: 
 <input id="regFirstname" class="regField" type="text" name="forename" onChange="validateInput('regFirstname');" title="Hans">

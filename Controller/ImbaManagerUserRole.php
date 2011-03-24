@@ -20,7 +20,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
     /**
      * Singleton implementation
      */
-    private static $instance = NULL;
+    private static $instance = null;
 
     /**
      * Ctor
@@ -35,7 +35,7 @@ class ImbaManagerUserRole extends ImbaManagerBase {
      */
 
     public static function getInstance() {
-        if (self::$instance === NULL)
+        if (self::$instance === null)
             self::$instance = new self();
         return self::$instance;
     }

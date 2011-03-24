@@ -14,21 +14,21 @@ require_once "ImbaConstants.php";
  */
 class ImbaManagerDatabase {
 
-    private $connection = NULL;
+    private $connection = null;
     /**
      * Recent response from sql server.
      */
-    private $result = NULL;
+    private $result = null;
     /**
      * Number of rows afflicted by the recent successful query send.
      */
-    private $counter = NULL;
+    private $counter = null;
     /**
      * Singleton implementation.
      *
      * @var type singleton object.
      */
-    private static $instance = NULL;
+    private static $instance = null;
 
     /**
      * ctor
@@ -47,7 +47,7 @@ class ImbaManagerDatabase {
     }
 
     public static function getInstance() {
-        if (self::$instance === NULL)
+        if (self::$instance === null)
             self::$instance = new self();
         return self::$instance;
     }
@@ -71,7 +71,7 @@ class ImbaManagerDatabase {
             throw new Exception("Database Query not working!");
         }
 
-        $this->counter = NULL;
+        $this->counter = null;
     }
 
     public function getQuery($queryStr, array $args = array()) {
@@ -97,7 +97,7 @@ class ImbaManagerDatabase {
     }
 
     public function count() {
-        if ($this->counter == NULL && is_resource($this->result)) {
+        if ($this->counter == null && is_resource($this->result)) {
             $this->counter = mysql_num_rows($this->result);
         }
 

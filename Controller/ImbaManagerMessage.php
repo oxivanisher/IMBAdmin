@@ -13,7 +13,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
     /**
      * Singleton implementation
      */
-    private static $instance = NULL;
+    private static $instance = null;
 
     /**
      * Ctor
@@ -28,7 +28,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
      */
 
     public static function getInstance() {
-        if (self::$instance === NULL)
+        if (self::$instance === null)
             self::$instance = new self();
         return self::$instance;
     }
@@ -145,7 +145,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
      * Selects the count of lines Conversation between two OpenIds
      */
     public function selectMessagesCount($openidMe, $openidOpponent) {
-        // TODO: Nur die zählen, die in den letzten monaten geschlumpft wurden
+        // TODO: Nur die zÃ¤hlen, die in den letzten monaten geschlumpft wurden
         $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') AND timestamp > (" . (time() - 4838400) . ");";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,

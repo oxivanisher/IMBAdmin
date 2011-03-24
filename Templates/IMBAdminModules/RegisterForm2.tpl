@@ -19,10 +19,10 @@
     }
    
 </script>
-<form id="ImbaAjaxUsersViewprofileForm" action="post">
+<form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-<h3>Deine OpenID {$openid}</h3>
+<i>({$openid})</i>
 
 Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.
 <hr style="clear:both;">

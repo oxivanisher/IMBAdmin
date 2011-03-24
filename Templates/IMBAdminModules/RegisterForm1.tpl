@@ -4,7 +4,7 @@ Wenn du noch keine <a class="regLink" href="http://de.wikipedia.org/wiki/OpenID"
 besitzt darfst du dir gerne bei unseren <a href="https://oom.ch/openid/" target="_blank">OpenID-Provider</a><br>
 eine ID erstellen indem du folgenden Link aufrufst: <a href="https://oom.ch/openid/users/register" target="_blank">OpenID bei OOM.ch registrieren</a>
 <br />
-<form id='imbaSsoLoginForm' action='ImbaAuth.php' method='get'>
+<form id='imbaSsoLoginForm' action='ImbaAuth.php' method='post'>
     <input id='imbaSsoOpenId' name='openid' type='text' class='imbaInput' />
     <input id='imbaSsoOpenIdSubmit' type='submit' value='Registrieren' class='imbaInput' />
 </form>

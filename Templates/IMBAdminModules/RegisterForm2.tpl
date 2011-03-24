@@ -39,13 +39,11 @@ DATEPICKER HERE
 Geschlecht *&nbsp;&nbsp;
 <img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
 <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M">
-
 <br />
+Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt."><br />
+Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"><br />
 
-Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt.">
-Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();">
-
-<b>Die Community:</b><br />
+<b>Die Community Regeln:</b><br />
 <textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="5">
 Aufnahme / Voraussetzungen:
 Mindestalter: 18 (Die Ausnahme best&auml;tigt die Regel)
@@ -75,7 +73,6 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 <hr>
 
 <hr style="clear:both;">
-<div >
 <div onClick="javascript:cancleRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Stop it</div>
 <div onClick="javascript:sendRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Do it</div>
 </form>

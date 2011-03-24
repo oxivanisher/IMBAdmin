@@ -154,23 +154,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $managerLog->insert($log);
 
             $userManager = ImbaManagerUser::getInstance();
-            $currentUser = $userManager->getNew();
             $currentUser = $userManager->selectByOpenId($esc_identity);
 
             /**
              * Check the status of the user
              */
-            if ($currentUser->getRole() == 0) {
-                /**
-                 * this user is banned
-                 */
-                $log = $managerLog->getNew();
-                $log->setModule("Auth");
-                $log->setMessage($currentUser->getName() . " is banned but tried to login");
-                $log->setLevel(2);
-                $managerLog->insert($log);
-                throw new Exception("You are Banned!");
-            } elseif ($currentUser == null) {
+            if ($currentUser == null) {
                 /**
                  * This is a new user. let him register
                  */
@@ -184,6 +173,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setOpenIdUrl($esc_identity);
                 
                 header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+            } elseif ($currentUser->getRole() == 0) {
+                /**
+                 * this user is banned
+                 */
+                $log = $managerLog->getNew();
+                $log->setModule("Auth");
+                $log->setMessage($currentUser->getName() . " is banned but tried to login");
+                $log->setLevel(2);
+                $managerLog->insert($log);
+                throw new Exception("You are Banned!");
             } elseif ($currentUser->getRole() != null) {
                 /**
                  * this user is allowed to log in

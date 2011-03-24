@@ -30,7 +30,7 @@ if (ImbaUserContext::getLoggedIn()) {
     switch ($request) {
         case "abort":
             /**
-             * Cacncle the registration, kill the session and let the user reload the page
+             * Cancle the registration, kill the session and let the user reload the page
              */
             ImbaUserContext::getNeedToRegister(null);
             $log = $managerLog->getNew();

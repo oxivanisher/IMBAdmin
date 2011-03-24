@@ -110,6 +110,8 @@ if (ImbaUserContext::getLoggedIn()) {
     else {
         echo ImbaUserContext::getOpenIdUrl();
     }
+} elseif (ImbaUserContext::getNeedToRegister()) {
+    echo "Need to register";
 } else {
     echo "Not logged in";
 }

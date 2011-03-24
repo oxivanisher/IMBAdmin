@@ -31,6 +31,9 @@ $(document).ready(function() {
     }, function (response){
         if (response == "Not logged in"){
             setLoggedIn(false);
+        } else if (response == "Need to register") {
+            setLoggedIn(false);
+            loadImbaAdminDefaultModule();
         } else {
             setLoggedIn(true);
             $("#imbaSsoShowOpenId").val(response);

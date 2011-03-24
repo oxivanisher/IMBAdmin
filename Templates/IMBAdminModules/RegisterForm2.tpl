@@ -1,6 +1,6 @@
 <script type="text/javascript">
   
-    function cancleRegistration(id){
+    function cancleRegistration(){
         var data = {
             module: "Register",
             request: "abort"

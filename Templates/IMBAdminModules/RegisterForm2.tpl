@@ -1,3 +1,22 @@
+<script type="text/javascript">
+  
+    function cancleRegistration(id){
+        var data = {
+            module: "Register",
+            request: "abort"
+        };
+        loadImbaAdminTabContent(data);
+    }
+
+    function sendRegistration(){
+        var data = {
+            module: "Register",
+            request: "registerme"
+        };
+        loadImbaAdminTabContent(data);
+    }
+   
+</script>
 <form id="ImbaAjaxUsersViewprofileForm" action="post">
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
@@ -19,7 +38,7 @@ Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.
 <div style="clear:both;"><div class="regSpace">Geburtsdatum *</div><div style="width:280px;float:left;">
 
 DATEPICKER HERE
-
+<br /><br />
 Geschlecht *&nbsp;&nbsp;
 <img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
 <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M">
@@ -66,6 +85,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 
 <hr style="clear:both;">
 <div >
+<div onClick="javascript:cancleRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Stop it</div>
 <div onClick="javascript:sendRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Do it</div>
 </form>
 

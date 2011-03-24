@@ -57,7 +57,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setLevel(2);
     $managerLog->insert($log);
 
-    ImbaSharedFunctions::killCookies();
+    //ImbaSharedFunctions::killCookies();
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
     session_write_close();

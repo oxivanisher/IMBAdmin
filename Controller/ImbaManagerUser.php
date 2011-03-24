@@ -257,6 +257,12 @@ class ImbaManagerUser extends ImbaManagerBase {
         }
     }
 
+    /**
+     * Get a new user
+     */
+    public function getNew() {
+        return new ImbaUser();
+    }
 }
 
 ?>

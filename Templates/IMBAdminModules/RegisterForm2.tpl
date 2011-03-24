@@ -44,7 +44,7 @@ Nickname: <input id="regNickname" class="regField" type="text" name="nickname" o
 Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"><br />
 
 <b>Die Community Regeln:</b><br />
-<textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="5">
+<textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="10">
 Aufnahme / Voraussetzungen:
 Mindestalter: 18 (Die Ausnahme best&auml;tigt die Regel)
 Nach der Aufnahme wird man zuerst "Anw&auml;rter" und hat solange nur bedingtes Mitspracherecht.

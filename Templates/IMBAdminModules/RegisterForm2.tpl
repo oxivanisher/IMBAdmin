@@ -22,40 +22,28 @@
 <form id="ImbaAjaxUsersViewprofileForm" action="post">
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-<h1>Bewerbungformular von {$openid}</h1>
+<h3>Deine OpenID {$openid}</h3>
 
 Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.
 <hr style="clear:both;">
 
-<div class="regSpace">Vorname *</div>
-<div style="float:left;padding-bottom:7px;">
+Vorname: 
 <input id="regFirstname" class="regField" type="text" name="forename" onChange="validateInput('regFirstname');" title="Hans">
-</div>
-<div style="width:80px;float:left;padding-left:20px;">Name *</div>
-<div style="float:left;">
+<br />
+Nachname: 
 <input id="regLastname" class="regField" type="text" name="surname" onChange="validateInput('regLastname');" title="Muster">
-</div>
-</div>
 
-<div style="clear:both;"><div class="regSpace">Geburtsdatum *</div><div style="width:280px;float:left;">
 
 DATEPICKER HERE
 <br /><br />
 Geschlecht *&nbsp;&nbsp;
 <img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
 <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M">
-</div>
 
-<hr style="clear:both;">
-<div class="regSpace">Angezeigter-Name *</div>
-<input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt.">
-<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();">
+<br />
 
-
-
-<input id="regEmail" class="regField" type="text" name="icq" >
-
-<hr style="clear:both;">
+Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt.">
+Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();">
 
 <div class="regSpace">Die Gildenregeln:</div><textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px;">
 Aufnahme / Voraussetzungen:

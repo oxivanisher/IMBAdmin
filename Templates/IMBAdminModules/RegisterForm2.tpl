@@ -68,12 +68,10 @@ Wer den Rang "Inaktiv" hat ist vor Gildenkicks durch l&auml;ngere Abwesenheit ge
 
 
 Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Ausschluss aus der Gilde zu Folge haben.
-</textarea></div>
-<div><div class="regSpace">&nbsp;</div><input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.</div>
-<hr>
-
+</textarea>
+<input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
 <hr style="clear:both;">
-<div onClick="javascript:cancleRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Stop it</div>
-<div onClick="javascript:sendRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Do it</div>
+<span onClick="javascript:cancleRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Stop it</span>
+<span onClick="javascript:sendRegistration();" style="font-size:16px;cursor:pointer;padding-left:480px;">Do it</span>
 </form>
 

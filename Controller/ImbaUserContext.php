@@ -55,6 +55,13 @@ class ImbaUserContext {
         $_SESSION["IUC_LastOnline"] = time();
     }
 
+    public static function getNeedToRegister() {
+        return $_SESSION["IUC_NeedToRegister"];
+    }
+
+    public static function setNeedToRegister($needToRegister) {
+        $_SESSION["IUC_NeedToRegister"] = $needToRegister;
+    }
 }
 
 ?>

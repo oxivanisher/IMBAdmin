@@ -32,7 +32,11 @@ if (ImbaUserContext::getLoggedIn()) {
 //            $smarty->assign('games', $user->getGames());
 //            $smarty->assign('lastLogin', $user->getLastLogin());
 
-
-    $smarty->display('IMBAdminModules/Register.tpl');
+    if (ImbaUserContext::getNeedToRegister()) {
+        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+        $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+    } else {
+        $smarty->display('IMBAdminModules/RegisterForm1.tpl');
+    }
 }
 ?>

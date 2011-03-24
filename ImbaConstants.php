@@ -19,6 +19,7 @@ class ImbaConstants extends ImbaConfig {
      */
     public static $CONTEXT_SITE_TITLE = "IMBAdmin";
     public static $CONTEXT_LOCALE = array(LC_ALL, 'de_DE@euro', 'de_DE', 'de', 'ge');
+    public static $CONTEXT_NEW_USER_ROLE = 1;
     /**
      * Files and Folders
      */

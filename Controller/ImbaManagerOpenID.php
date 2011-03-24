@@ -188,6 +188,7 @@ class ImbaManagerOpenID {
      */
     public function openidVerify() {
         $consumer = $this->getConsumer();
+        $esc_identity = null;
 
         // Complete the authentication process using the server's
         // response.
@@ -207,50 +208,6 @@ class ImbaManagerOpenID {
             // returned).
             $openid = $response->getDisplayIdentifier();
             $esc_identity = $this->escape($openid);
-
-            $userManager = ImbaManagerUser::getInstance();
-            $currentUser = $userManager->getNew();
-            $currentUser = $userManager->selectByOpenId($esc_identity);
-
-            var_dump($currentUser);
-            $bFoundRole = false;
-
-            if ($currentUser && ($currentUser->getRole() != null)) {
-                ImbaUserContext::setLoggedIn(true);
-                ImbaUserContext::setOpenIdUrl($esc_identity);
-                ImbaUserContext::setUserRole($currentUser->getRole());
-                $userManager->setMeOnline();
-                $this->afterLoginIsDone();
-            } else {
-                throw new Exception("Registrierung noch nicht implementiert");
-                // TODO: Registriereung wieder einbauen
-                /*
-                  $applicant = 0;
-                  $sql = "SELECT nickname,timestamp,state,answer FROM " . $GLOBALS[cfg][userapplicationtable] . " WHERE openid='" . $esc_identity . "';";
-                  $sqlr = mysql_query($sql);
-                  while ($row = mysql_fetch_array($sqlr)) {
-                  $applicant = 1;
-                  $appname = $row[nickname];
-                  $appanswer = $row[answer];
-                  $appstate = $row[state];
-                  $appage = getNiceAge($row[timestamp]);
-                  }
-
-                  if ($applicant) {
-                  $atmp = templGetFile("waiting.html");
-                  $atmp = templReplText($atmp, "NICK", $appname);
-                  $atmp = templReplText($atmp, "ANSWER", $appanswer);
-                  $atmp = templReplText($atmp, "STATE", $appstate);
-                  $atmp = templReplText($atmp, "AGE", $appage);
-                  $GLOBALS[html] .= $atmp;
-                  } else {
-                  sysmsg("Unauthorized access / Banned! " . $esc_identity, 1);
-                  }
-                  return false;
-                 */
-            }
-
-            // TODO: logging! (ich bin eingeloggt)
 
             if ($response->endpoint->canonicalID)
                 $escaped_canonicalID = escape($response->endpoint->canonicalID);
@@ -318,25 +275,9 @@ class ImbaManagerOpenID {
             } else {
                 $success .= "<p>No PAPE response was sent by the provider.</p>";
             }
-            return true;
+            return $esc_identity;
         }
     }
-
-    protected function afterLoginIsDone() {
-        /*
-          // Loginto Wordpress
-          require_once("wp-load.php");
-
-          $credentials = array("user_login" => "Aggravate", "user_password" => "test");
-          $user = wp_signon($credentials);
-
-          // Loginto SMF
-          include "smf_api.php";
-          smf_setLoginCookie(100, "Aggravate", "test", false);
-          smf_authenticateUser();
-         */
-    }
-
 }
 
 ?>

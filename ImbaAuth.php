@@ -147,14 +147,63 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $log->setModule("Auth");
 
         try {
-            $managerOpenId->openidVerify();
+            $esc_identity = $managerOpenId->openidVerify();
+
             $log->setLevel(2);
-            $log->setMessage("Verification sucessful");
+            $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);
+
+            $userManager = ImbaManagerUser::getInstance();
+            $currentUser = $userManager->getNew();
+            $currentUser = $userManager->selectByOpenId($esc_identity);
+
+            /**
+             * Check the status of the user
+             */
+            if ($currentUser->getRole() == 0) {
+                /**
+                 * this user is banned
+                 */
+                $log = $managerLog->getNew();
+                $log->setModule("Auth");
+                $log->setMessage($currentUser->getName() . " is banned but tried to login");
+                $log->setLevel(2);
+                $managerLog->insert($log);
+                throw new Exception("You are Banned!");
+            } elseif ($currentUser == null) {
+                /**
+                 * This is a new user. let him register
+                 */
+                $log = $managerLog->getNew();
+                $log->setModule("Auth");
+                $log->setMessage("Registering new user");
+                $log->setLevel(2);
+                $managerLog->insert($log);
+
+                ImbaUserContext::setNeedToRegister(true);
+                ImbaUserContext::setOpenIdUrl($esc_identity);
+                
+                header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+            } elseif ($currentUser->getRole() != null) {
+                /**
+                 * this user is allowed to log in
+                 */
+                $log = $managerLog->getNew();
+                $log->setModule("Auth");
+                $log->setMessage($currentUser->getName() . " logged in");
+                $log->setLevel(2);
+                $managerLog->insert($log);
+
+                ImbaUserContext::setLoggedIn(true);
+                ImbaUserContext::setOpenIdUrl($esc_identity);
+                ImbaUserContext::setUserRole($currentUser->getRole());
+                $userManager->setMeOnline();
+            }
+
             header("location: " . $_SERVER["PHP_SELF"]);
         } catch (Exception $ex) {
             $log->setLevel(1);
-            $log->setMessage("openidVerify ERROR: " . $ex->getMessage());
+            $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
             $managerLog->insert($log);
             echo $log->getMessage();
         }
@@ -165,11 +214,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
-    
     /**
-     * FIXME: we need to check if the session is stilkl good. we get logged in but fell offline sometimes
+     * FIXME: we need to check if the session is still good. we get logged in but should fell offline sometimes
      */
-    
     $log = $managerLog->getNew();
     $log->setModule("Auth");
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
@@ -178,7 +225,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
-    header("location: index.html");
+    header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 }
 
 // generate runtime output

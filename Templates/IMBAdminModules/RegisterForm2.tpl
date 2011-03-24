@@ -45,7 +45,8 @@ Geschlecht *&nbsp;&nbsp;
 Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt.">
 Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();">
 
-<div class="regSpace">Die Gildenregeln:</div><textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px;">
+<b>Die Community:</b><br />
+<textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="5">
 Aufnahme / Voraussetzungen:
 Mindestalter: 18 (Die Ausnahme best&auml;tigt die Regel)
 Nach der Aufnahme wird man zuerst "Anw&auml;rter" und hat solange nur bedingtes Mitspracherecht.

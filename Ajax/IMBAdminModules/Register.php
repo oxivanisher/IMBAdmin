@@ -57,6 +57,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
             }
             break;
+            case "checkCaptcha":
+                break;
         default:
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();

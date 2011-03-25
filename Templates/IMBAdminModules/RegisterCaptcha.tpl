@@ -19,15 +19,15 @@
     
     function showCaptcha () {
         Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
-            theme: "black",
+            theme: "blackglass",
             callback: Recaptcha.focus_response_field
         });
     };
-    
-    function helpCaptcha () {
-        Recaptcha.showhelp();
+
+    function checkCaptcha () {
+        //send to http://www.google.com/recaptcha/api/verify
+        
     }
-      
 </script>
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
@@ -84,7 +84,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 </form>
 
 <input type="submit" onClick="javascript:showCaptcha();" value="Senden" />
-<input type="submit" onClick="javascript:helpCaptcha();" value="Hilfe! was ist das?" />
+<input type="submit" onClick="javascript:Recaptcha.showhelp();" value="Hilfe! was ist das?" />
 <!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->
 

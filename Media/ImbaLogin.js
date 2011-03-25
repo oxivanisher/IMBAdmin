@@ -100,6 +100,15 @@ $(document).ready(function() {
     .dialog("option", "height", 600);
 
     /**
+     * Setting up the Dialog for the IMBAGames
+     */
+    $("#imbaGameDialog").dialog({
+        autoOpen: false
+    })
+    .dialog("option", "width", 800)
+    .dialog("option", "height", 700);
+
+    /**
      * If the user needs to register, show the IMBAdmin windows
      */
     if (userNeedsToRegister == true) {

@@ -58,6 +58,10 @@ facebook on openid http://developers.facebook.com/blog/post/246/
 facebook openauth http://developers.facebook.com/docs/authentication/
 openauth pdf doc http://tools.ietf.org/pdf/draft-ietf-oauth-v2-12.pdf
 
+XMPP Lib:
+=================
+http://code.google.com/p/xmpphp/
+
 Gravatar Links:
 =================
 http://en.gravatar.com/site/implement/images/

@@ -39,3 +39,9 @@
         <ul></ul>
     </div>
 </div>
+
+<div id='imbaGameDialog' title='IMBAGame' class='imbaFont' style='padding: 3px;'>
+    <div id='imbaGameNav' style='height: 98%; overflow: auto;'>
+        <ul></ul>
+    </div>
+</div>

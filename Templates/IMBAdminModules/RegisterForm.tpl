@@ -39,7 +39,13 @@
             module: "Register",
             request: "checkCaptcha",
             challenge: $("#recaptcha_challenge_field").val(),
-            answer: $("#recaptcha_response_field").val()
+            answer: $("#recaptcha_response_field").val(),
+            firstname: $("#regFirstname").val(),
+            lastname: $("#regLastname").val(),
+            birthday: $("#regBirthday").val(),
+            sex: $("#regSex").val(),
+            nickname: $("#regNickname").val(),
+            email: $("#regEmail").val()
                 
         }, function(response){
                 
@@ -87,8 +93,8 @@
             </tr>
             <tr>
                 <td>Geschlecht</td>
-                <td><img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
-                    <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M"></td>
+                <td><img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="regSex" value="F">
+                    <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="regSex" value="M"></td>
             </tr>
             <tr>
                 <td>Nickname:</td>

@@ -16,7 +16,7 @@
   
     function cancleRegistration(){
         alert('w00t');
-        /*window.location.replace('{$authPath}?logout=true');*/
+        window.location.replace('{$authPath}?logout=true');
     };
 
     function step2 () {
@@ -31,6 +31,7 @@
         $("#ImbaReCaptchaContainer").show();
         $("#ImbaRegisterForm").hide();
         createCaptcha();
+        return false;
     };
 
     function checkCaptcha () {

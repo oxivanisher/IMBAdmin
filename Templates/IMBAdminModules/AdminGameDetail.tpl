@@ -25,7 +25,25 @@
             // TODO: Refresh from Database?
             return false;
         });
-             
+        
+        $("#ImbaAjaxAdminGameDetailProperty tr td span").click(function(){
+            if(confirm("Soll die Eigenschaft wirklich geloescht werden?")){               
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Admin",
+                    request: "deletegameproperty",
+                    gamepropertyid: this.parentNode.parentNode.getAttribute('id').substr(15)
+                }, function(response){
+                    if (response != "Ok"){
+                        $.jGrowl(response, { header: 'Error' });
+                    } else {
+                        $.jGrowl('Daten wurden gespeichert! Eigenschaft geloescht.', { header: 'Erfolg' });
+                    }
+                });               
+               reloadGameDetail();
+            }            
+        });
+                     
         $("#myGameAddPropertyOK").click( function() {
             if ($("#myGameAddProperty").val() != "") {                
                 $.post(ajaxEntry, {
@@ -40,14 +58,8 @@
                     } else {
                         $.jGrowl('Daten wurden gespeichert! Eigenschaft hinzugefüt.', { header: 'Erfolg' });
                     }
-                });
-                
-                var data = {
-                    module: "Admin",
-                    request: "viewgamedetail",
-                    id:  "{$id}"
-                };
-                loadImbaAdminTabContent(data);
+                });               
+               reloadGameDetail();
             } else {
                 alert('Bitte Eigenschaft eintragen');
             }
@@ -55,6 +67,15 @@
         }); 
         
     } );   
+    
+    function reloadGameDetail(){
+        var data = {
+            module: "Admin",
+            request: "viewgamedetail",
+            id:  "{$id}"
+        };
+        loadImbaAdminTabContent(data);
+    }
 </script>
 <h2>Base Settings for Game</h2>
 <form id="ImbaAjaxAdminGameDetail" action="post">
@@ -80,7 +101,7 @@
             <td><input id="myGameForumlink" type="text" name="forumlink" value="{$forumlink}" /></td>
         </tr>
         <tr>
-            <td style="vertical-align: top;">Kategorien</td>
+            <td> style="vertical-align: top;">Kategorien</td>
             <td>
                 <select id="myGameCategories" size="5" multiple="true" style="width: 100%; overflow: auto;">
                     {foreach $categories as $category}
@@ -99,7 +120,7 @@
         </tr>
         <tr>
             <td>
-                <table class="ImbaAjaxBlindTable">
+                <table id="ImbaAjaxAdminGameDetailProperty" class="ImbaAjaxBlindTable">
                     <thead>
                         <tr>
                             <th title="Eigenschaft">Eigenschaft</th>
@@ -108,7 +129,7 @@
                     </thead>
                     <tbody>
                         {foreach $properties as $property}
-                        <tr>
+                        <tr id="gamepropertyid_{$property.id}">
                             <td>{$property.name}</td><td class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>         
                         </tr>
                         {/foreach}

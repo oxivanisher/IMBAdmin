@@ -189,12 +189,20 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 $property->setGameId($_POST["gameid"]);
                 $property->setProperty($_POST["property"]);
                 ImbaManagerGameProperty::getInstance()->insert($property);
-                echo "OK";
+                echo "Ok";
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
             break;
-
+        
+        case "deletegameproperty":
+            try {
+                ImbaManagerGameProperty::getInstance()->delete($_POST["gamepropertyid"]);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            break;
         case "updategame":
             try {
                 $game = $managerGame->selectById($_POST["gameid"]);

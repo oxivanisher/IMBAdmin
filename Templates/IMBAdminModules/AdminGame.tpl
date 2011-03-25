@@ -81,12 +81,12 @@
     <tbody>
 
         {foreach $games as $game}
-        <tr onclick="javascript: showGameDetail('{$game.id}');">
-            <td editable="true">{$game.name}</td>
-            <td editable="true">{$game.comment}</td>
-            <td editable="true">{$game.icon}</td>
-            <td editable="true">{$game.url}</td>
-            <td editable="true">{$game.forumlink}</td>
+        <tr id="gameid_{$game.id}">
+            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.name}</td>
+            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.comment}</td>
+            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.icon}</td>
+            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.url}</td>
+            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.forumlink}</td>
             <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}

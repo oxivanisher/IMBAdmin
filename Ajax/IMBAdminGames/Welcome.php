@@ -1,0 +1,67 @@
+<?php
+
+session_start();
+
+require_once 'Model/ImbaUser.php';
+require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerUserRole.php';
+require_once 'Controller/ImbaUserContext.php';
+require_once 'Controller/ImbaSharedFunctions.php';
+
+/**
+ * are we logged in?
+ */
+if (ImbaUserContext::getLoggedIn()) {
+    /**
+     * create a new smarty object
+     */
+    $smarty = ImbaSharedFunctions::newSmarty();
+
+    /**
+     * Load the database
+     */
+    $managerUser = ImbaManagerUser::getInstance();
+
+
+    $contentNav = new ImbaContentNavigation();
+
+    switch ($_POST["request"]) {
+        default:
+            $myself = $managerUser->selectMyself();
+            $smarty->assign('nickname', $myself->getNickname());
+            $navOptions = array();
+            if ($handle = opendir('Ajax/IMBAdminGames/')) {
+                $identifiers = array();
+                while (false !== ($file = readdir($handle))) {
+                    if (strrpos($file, ".Navigation.php") > 0) {
+                        include 'Ajax/IMBAdminGames/' . $file;
+                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
+                            $showMe = false;
+                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
+                                $showMe = true;
+                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
+                                $showMe = true;
+                            }
+
+                            if ($showMe) {
+                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
+                                array_push($navOptions, array("identifier" => $modIdentifier,
+                                    "name" => $Navigation->getName($nav),
+                                    "comment" => $Navigation->getComment($nav)
+                                ));
+                                $Navigation = null;
+                            }
+                        }
+                    }
+                }
+                closedir($handle);
+            }
+            $smarty->assign('navs', $navOptions);
+            $smarty->display('IMBAdminGames/WelcomeOverview.tpl');
+            break;
+    }
+} else {
+    echo "Not logged in";
+}
+?>

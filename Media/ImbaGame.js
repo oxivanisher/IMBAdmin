@@ -37,7 +37,7 @@ function loadImbaGame(gameName){
             tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
         }
         
-        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaGameDefaultGame();'>IMBAdmin&nbsp;&nbsp;&nbsp;</div>";
+        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaGameDefaultGame();'>IMBA Game&nbsp;&nbsp;&nbsp;</div>";
 
         if (response) {
             tmpTitle += "<div style='float: left;'><span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";

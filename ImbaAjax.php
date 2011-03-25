@@ -24,6 +24,25 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
+        session_start();
+        if (ImbaUserContext::getLoggedIn()) {
+            $managerUser = ImbaManagerUser::getInstance();
+            $managerUser->setMeOnline();
+            unset($managerUser);
+        }
+
+        /**
+         * Load my module navigation
+         */
+        $moduleConfigFile = "Ajax/IMBAdminGames/" . $_POST["module"] . ".Navigation.php";
+        if (file_exists($moduleConfigFile)) {
+            include $moduleConfigFile;
+        }
+        $moduleFile = "Ajax/IMBAdminGames/" . $_POST["module"] . ".php";
+        if (file_exists($moduleFile)) {
+            include $moduleFile;
+        }
+
         break;
     
     case "module":
@@ -34,10 +53,6 @@ switch ($_POST["action"]) {
             unset($managerUser);
         }
 
-        /**
-         * This block will be the same for every module
-         * $_POST["module"]
-         */
         /**
          * Load my module navigation
          */

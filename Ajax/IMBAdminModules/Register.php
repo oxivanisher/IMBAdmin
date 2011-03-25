@@ -38,12 +38,12 @@ if (ImbaUserContext::getLoggedIn()) {
             $log->setMessage(ImbaUserContext::getOpenIdUrl() . " aborted the registration");
             $log->setLevel(3);
             $managerLog->insert($log);
+            $smarty->display('IMBAdminModules/RegisterAbort.tpl');
 
             //ImbaSharedFunctions::killCookies();
             setcookie(session_id(), "", time() - 3600);
             session_destroy();
             session_write_close();
-            $smarty->display('IMBAdminModules/RegisterAbort.tpl');
             break;
         case "registerme":
             /**

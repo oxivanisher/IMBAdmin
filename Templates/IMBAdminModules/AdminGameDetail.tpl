@@ -12,7 +12,8 @@
                 comment: $("#myGameComment").val(),
                 icon: $("#myGameIcon").val(),
                 url: $("#myGameUrl").val(),
-                forumlink: $("#myGameForumlink").val()
+                forumlink: $("#myGameForumlink").val(),
+                myGameCategories: $("#myGameCategories").val()
             }, function(response){
                 if (response != "Ok"){
                     // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
@@ -24,6 +25,35 @@
             // TODO: Refresh from Database?
             return false;
         });
+             
+        $("#myGameAddPropertyOK").click( function() {
+            if ($("#myGameAddProperty").val() != "") {                
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Admin",
+                    request: "addpropertytogame",
+                    gameid: "{$id}",
+                    property: $("#myGameAddProperty").val()
+                }, function(response){
+                    if (response != "Ok"){
+                        $.jGrowl(response, { header: 'Error' });
+                    } else {
+                        $.jGrowl('Daten wurden gespeichert! Eigenschaft hinzugefüt.', { header: 'Erfolg' });
+                    }
+                });
+                
+                var data = {
+                    module: "Admin",
+                    request: "viewgamedetail",
+                    id:  "{$id}"
+                };
+                loadImbaAdminTabContent(data);
+            } else {
+                alert('Bitte Eigenschaft eintragen');
+            }
+                
+        }); 
+        
     } );   
 </script>
 <h2>Base Settings for Game</h2>
@@ -50,21 +80,47 @@
             <td><input id="myGameForumlink" type="text" name="forumlink" value="{$forumlink}" /></td>
         </tr>
         <tr>
+            <td style="vertical-align: top;">Kategorien</td>
+            <td>
+                <select id="myGameCategories" size="5" multiple="true" style="width: 100%; overflow: auto;">
+                    {foreach $categories as $category}
+                    <option value="{$category.id}" {if $category.selected == 'true'}selected{/if} >{$category.name}</option>
+                    {/foreach}
+                </select>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2" style="vertical-align: top;">Eigenschaften</td>
+            <td>
+                <input id="myGameAddProperty" type="text" name="addproperty" value="" />
+            </td>
+            <td id="myGameAddPropertyOK" style="cursor: pointer;"><b>OK</b></td>
+        </tr>
+        <tr>
+            <td>
+                <table id="ImbaAjaxBlindTable">
+                    <thead>
+                        <tr>
+                            <th title="Eigenschaft">Eigenschaft</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach $properties as $property}
+                        <tr>
+                            <td>{$property.name}</td><td class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>         
+                        </tr>
+                        {/foreach}
+                    </tbody>        
+                </table>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
             <td>&nbsp;</td>
             <td><input id="ImbaAjaxAdminGameDetailFormSubmit" type="submit" value="Speichern" /></td>
             <td>&nbsp;</td>
         </tr>
     </table>
 </form>
-
-
-
-<pre>
-{foreach $categories as $category}
-c:{$category.id} = {$category.name}
-{/foreach}
-
-{foreach $categoriesSelected as $categorySelected}
-cs:{$categorySelected.id} = {$categorySelected.name}
-{/foreach}
-</pre>

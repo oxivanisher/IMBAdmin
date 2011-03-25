@@ -38,7 +38,7 @@ try {
  */
 try {
     $games = $managerGame->selectAll();
-
+    
     if (count($games) > 0) {
         $output.= "ImbaManagerGame selectAll working.\n";
     } else {
@@ -205,7 +205,6 @@ try {
     $managerCategory->insert($category2);
     
     $categories = $managerCategory->selectAll();
-    var_dump($categories);
 
     $game = new ImbaGame();
     $game->setComment("2");
@@ -214,8 +213,6 @@ try {
     $game->setName("the new game");
     $game->setUrl("6");
     $game->setCategories(array($categories[0], $categories[1]));
-
-    var_dump($game);
     
     $game = $managerGame->insert($game);
     $managerGame->delete($game->getId());

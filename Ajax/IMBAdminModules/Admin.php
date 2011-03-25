@@ -154,27 +154,45 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty->assign("url", $game->getUrl());
             $smarty->assign("forumlink", $game->getForumlink());
 
-            $categories = $managerGameCategory->selectAll();
             $smarty_categories = array();
-            foreach ($categories as $category) {
+            foreach ($managerGameCategory->selectAll() as $category) {
+                $selected = "false";
+                foreach ($game->getCategories() as $selCategory) {
+                    if ($selCategory->getId() == $category->getId()) {
+                        $selected = "true";
+                    }
+                }
+
                 array_push($smarty_categories, array(
                     'id' => $category->getId(),
-                    'name' => $category->getName()
+                    'name' => $category->getName(),
+                    'selected' => $selected
                 ));
             }
             $smarty->assign('categories', $smarty_categories);
 
-            $categories = $game->getCategories();
-            $smarty_categories_selected = array();
-            foreach ($categories as $category) {
-                array_push($smarty_categories, array(
-                    'id' => $category->getId(),
-                    'name' => $category->getName()
+            $smarty_properties = array();
+            foreach ($game->getProperties() as $property) {
+                array_push($smarty_properties, array(
+                    'id' => $property->getId(),
+                    'name' => $property->getProperty()
                 ));
             }
-            $smarty->assign('categoriesSeleted', $smarty_categories_selected);
+            $smarty->assign('properties', $smarty_properties);
 
             $smarty->display('IMBAdminModules/AdminGameDetail.tpl');
+            break;
+
+        case "addpropertytogame":
+            try {
+                $property = ImbaManagerGameProperty::getInstance()->getNew();
+                $property->setGameId($_POST["gameid"]);
+                $property->setProperty($_POST["property"]);
+                ImbaManagerGameProperty::getInstance()->insert($property);
+                echo "OK";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
             break;
 
         case "updategame":
@@ -185,6 +203,12 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 $game->setComment($_POST["comment"]);
                 $game->setUrl($_POST["url"]);
                 $game->setForumlink($_POST["forumlink"]);
+                $categories = array();
+                foreach ($_POST["myGameCategories"] as $categoryId) {
+                    array_push($categories, ImbaManagerGameCategory::getInstance()->selectById($categoryId));
+                }
+                $game->setCategories($categories);
+
                 $managerGame->update($game);
                 echo "Ok";
             } catch (Exception $e) {

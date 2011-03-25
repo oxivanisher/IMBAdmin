@@ -153,7 +153,7 @@ class ImbaSharedFunctions {
         $smarty->setCompileDir('Libs/smarty/templates_c');
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
-
+        
         return $smarty;
     }
 

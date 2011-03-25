@@ -154,6 +154,26 @@ class ImbaManagerGame extends ImbaManagerBase {
                 array_push($result, $game);
             }
 
+            // catch categories and properties
+            ImbaManagerGameCategory::getInstance()->selectAll();
+            foreach ($result as $game) {
+                $query = "SELECT * FROM %s Where game_id = '%s';";
+                $this->database->query($query, array(
+                    ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
+                    $game->getId())
+                );
+
+                // Reset Categories... just in case
+                $categories = array();
+                while ($row = $this->database->fetchRow()) {
+                    array_push($categories, ImbaManagerGameCategory::getInstance()->selectById($row["cat_id"]));
+                }
+                $game->setCategories($categories);
+
+                // Properties
+                $game->setProperties(ImbaManagerGameProperty::getInstance()->selectAllByGameId($game->getId()));
+            }
+
             $this->gamesCached = $result;
         }
 

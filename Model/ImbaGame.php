@@ -40,6 +40,10 @@ class ImbaGame extends ImbaBase {
     public function getCategories() {
         return $this->categories;
     }
+    
+    public function addCategory($category) {
+        array_push($this->categories, $category);
+    }
 
     public function setCategories($categories) {
         $this->categories = $categories;
@@ -47,6 +51,10 @@ class ImbaGame extends ImbaBase {
 
     public function getProperties() {
         return $this->properties;
+    }
+    
+    public function addProperty($property) {
+        array_push($this->properties, $property);
     }
 
     public function setProperties($properties) {

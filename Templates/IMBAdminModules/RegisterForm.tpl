@@ -19,6 +19,7 @@
     
     function showCaptcha () {
         $("#ImbaRegisterForm").hide();
+        $("#ImbaReCaptchaContainer").show();
         Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
             theme: "blackglass",
             callback: Recaptcha.focus_response_field

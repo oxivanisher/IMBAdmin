@@ -22,7 +22,7 @@
             theme: "black",
             callback: Recaptcha.focus_response_field
         });
-        alert('chalärm!');
+        alert('aaa!');
     };
       
 </script>

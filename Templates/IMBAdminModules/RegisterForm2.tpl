@@ -33,5 +33,6 @@
 
 <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />
+<a href="/IMBAdmin/ImbaAuth.php?logout=true">logout</a>
 </form>
 

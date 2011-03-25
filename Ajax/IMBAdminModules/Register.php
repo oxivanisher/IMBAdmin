@@ -50,7 +50,6 @@ if (ImbaUserContext::getLoggedIn()) {
                 $resp = recaptcha_check_answer(
                         ImbaConstants::$SETTINGS["captcha_private_key"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
                 );
-                print_r($_POST);
                 if ($resp->is_valid) {
                     if ((!empty($_POST["birthday"])) &&
                             (!empty($_POST["firstname"])) &&

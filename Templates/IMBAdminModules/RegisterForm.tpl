@@ -23,13 +23,14 @@
          * Check if all needed forms are filled out
          * -->> http://docs.jquery.com/Plugins/validation
          */
-        alert('test');
+
         /**
          * Hide the form and show the captcha div
          */
         $("#ImbaReCaptchaContainer").show();
         $("#ImbaRegisterForm").hide();
         createCaptcha();
+        alert('test');
     };
 
     function checkCaptcha () {
@@ -134,10 +135,10 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
     </form>
 </div>
 <div id="ImbaReCaptchaContainer" style="display: none;">
-        <b>Bitte beweise, dass du aus Fleisch und Blut bist.</b><br />
-        Mit dem Abschreiben der W&ouml;rter zeigst du uns, dass du kein Programm bist dass unsere Communitysite zuspammen will. :)<br />
-        <br />
-        <br />
+    <b>Bitte beweise, dass du aus Fleisch und Blut bist.</b><br />
+    Mit dem Abschreiben der W&ouml;rter zeigst du uns, dass du kein Programm bist dass unsere Communitysite zuspammen will. :)<br />
+    <br />
+    <br />
     <div id="ImbaReCaptcha"></div>
     <input type="submit" onClick="javascript:checkCaptcha();" value="Eingabe &Uuml;berpr&uuml;fen" />
     <input type="submit" onClick="javascript:Recaptcha.showhelp();" value="Hilfe! was ist das?" />

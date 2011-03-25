@@ -43,7 +43,7 @@
             firstname: $("#regFirstname").val(),
             lastname: $("#regLastname").val(),
             birthday: $("#regBirthday").val(),
-            sex: $("#regSex").val(),
+            sex: $("input[name='regSex']:checked").val(), 
             nickname: $("#regNickname").val(),
             email: $("#regEmail").val()
                 

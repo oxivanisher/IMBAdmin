@@ -63,7 +63,7 @@ if (ImbaUserContext::getLoggedIn()) {
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
                 echo $_POST["challenge"];
-                echo $_POST["response"];
+                echo $_POST["answer"];
                 /**
                  * Check fucking everything here! NEVER THRUST A USER
                  */

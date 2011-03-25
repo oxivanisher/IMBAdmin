@@ -136,7 +136,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 </div>
 <div id="ImbaReCaptchaContainer" style="display: none;">
     <b>Bitte beweise, dass du aus Fleisch und Blut bist.</b><br />
-    Mit dem Abschreiben der Zeichen zeigst du uns, dass du kein Programm bist dass unsere Communitysite zuspammen will. :)<br />
+    Mit dem Abschreiben der Zeichen unten auf dem Bild zeigst du uns, dass du kein Programm bist dass unsere Communitysite zuspammen will. :)<br />
     Zus&auml;tzlich hilfst du so, alte Dokumente und B&uuml;cher für die Nachwelt zu digitalisieren.
     <br />
     <br />

@@ -23,6 +23,10 @@
             callback: Recaptcha.focus_response_field
         });
     };
+    
+    function helpCaptcha () {
+        Recaptcha.help();
+    }
       
 </script>
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
@@ -79,7 +83,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 <div id="ImbaReCaptcha"></div>
 
 <input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
-
+<input type="submit" onClick="javascript:helpCaptcha();" value="helpCaptcha" />
 <!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->
 </form>

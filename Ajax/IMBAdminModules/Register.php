@@ -41,11 +41,22 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "checkCaptcha":
-            echo "check!!";
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
-                echo $_POST["challenge"];
-                echo $_POST["answer"];
+                require_once 'Libs/reCaptcha/recaptchalib.php';
+                $resp = null;
+                $error = null;
+
+                $resp = recaptcha_check_answer(
+                        ImbaConstants::$SETTINGS["captcha_private_key"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
+                );
+
+                if ($resp->is_valid) {
+                    echo "You got it!";
+                } else {
+                    # set the error code so that we can display it
+                    $error = $resp->error;
+                }
                 /**
                  * Check fucking everything here! NEVER THRUST A USER
                  * - query http://www.google.com/recaptcha/api/verify

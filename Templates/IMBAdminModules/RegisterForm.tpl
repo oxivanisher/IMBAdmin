@@ -92,7 +92,7 @@
             </tr>
         </table>
         <b>Die Community Regeln:</b><br />
-        <textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="9>
+        <textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="9">
 Aufnahme / Voraussetzungen:
 Mindestalter: 18 (Die Ausnahme best&auml;tigt die Regel)
 Nach der Aufnahme wird man zuerst "Anw&auml;rter" und hat solange nur bedingtes Mitspracherecht.

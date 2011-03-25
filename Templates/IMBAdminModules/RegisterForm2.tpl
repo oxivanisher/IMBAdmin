@@ -1,6 +1,6 @@
-<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
+<!-- <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script> -->
 <script type="text/javascript">
-  
+  /*
     function cancleRegistration(){
         var data = {
             module: "Register",
@@ -16,7 +16,7 @@
         };
         loadImbaAdminTabContent(data);
     }
-    
+    */
     function showCaptcha () {
         alert('chalärm!');
         Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
@@ -35,7 +35,7 @@
 
 <div id="ImbaReCaptcha"></div>
 
-<input type="submit" onClick="javascript:alert('uiuiu');" value="showCaptcha" />
+<input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
 
 <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />

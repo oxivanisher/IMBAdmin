@@ -73,13 +73,12 @@ if (ImbaUserContext::getLoggedIn()) {
                     $_SESSION["IUC_captchaState"] = "unchecked";
                 }
 
+                $smarty->assign('captchaContent', 'Could not load captcha content.');
                 if ($_SESSION["IUC_captchaState"] == "unchecked") {
                     /**
                      * The user needs to fill out the captcha
                      */
                     $_SESSION["IUC_captchaState"] = "checking";
-                    echo ImbaConstants::$SETTINGS["captcha_public_key"];
-                    echo ImbaConstants::$SETTINGS["captcha_private_key"];
                     $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
                     $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                 } else {

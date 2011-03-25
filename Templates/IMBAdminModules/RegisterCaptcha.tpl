@@ -81,10 +81,10 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 <input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
 <hr style="clear:both;">
 <div id="ImbaReCaptcha"></div>
+</form>
 
 <input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
 <input type="submit" onClick="javascript:helpCaptcha();" value="helpCaptcha" />
 <!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->
-</form>
 

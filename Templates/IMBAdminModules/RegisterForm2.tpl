@@ -26,7 +26,9 @@
 <h3>{$error}</h3>
 {/if}
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
-<form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
+<!-- <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'> -->
+
+<form action="" method="post">
     {$captchaContent}
     <input type="submit" value="submit" />
 </form>

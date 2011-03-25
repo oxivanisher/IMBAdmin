@@ -92,8 +92,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         $tmpOpenid = $user->getOpenId();
                     }
                 }
-                
-                if (($securityCounter == 1) && (!empty($tmpUser->getOpenId()))) {
+
+                if (($securityCounter == 1) && (!empty($tmpOpenid))) {
                     $openid = $tmpOpenid;
                 }
             }

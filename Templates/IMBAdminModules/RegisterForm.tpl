@@ -37,6 +37,7 @@
         $.post(ajaxEntry, {
             action: "module",
             module: "Register",
+            request: "checkCaptcha",
             challenge:  $("#recaptcha_challenge_field").val(),
             response: $("#recaptcha_response_field").val()
                 

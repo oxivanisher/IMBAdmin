@@ -49,7 +49,8 @@
                 };
                 loadImbaAdminTabContent(data);
             }   
-        }
+        });
+    };
 </script>
 <div id="ImbaRegisterForm">
     <form id='imbaSsoRegisterForm' action='' method='post'>

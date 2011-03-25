@@ -2,7 +2,7 @@
 <script type="text/javascript">
     // set the datepicker
     $("#regBirthday").datepicker({ 
-        defaultDate: "-17y",
+        defaultDate: "-25y",
         dateFormat: 'dd.mm.yy', 
         changeMonth: true,
         changeYear: true });

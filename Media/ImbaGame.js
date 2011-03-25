@@ -1,7 +1,7 @@
 /**
  * loads the ImbaGame game in the IMBAdmin window
  */
-function loadImbaGame(gameName){
+function loadImbaGame(gameName, gameDo, payLoad){
     currentGame = gameName;
     currentGameDo = gameDo;
     

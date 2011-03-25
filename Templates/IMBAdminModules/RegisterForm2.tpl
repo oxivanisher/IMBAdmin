@@ -1,13 +1,13 @@
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script type="text/javascript">
-  /*
+  
     function cancleRegistration(){
         var data = {
             module: "Register",
             request: "abort"
         };
         loadImbaAdminTabContent(data);
-    }
+    };
 
     function sendRegistration(){
         var data = {
@@ -15,15 +15,15 @@
             request: "registerme"
         };
         loadImbaAdminTabContent(data);
-    }
-    */
+    };
+    
     function showCaptcha () {
         Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
         });
         alert('chalärm!');
-    }
+    };
       
 </script>
 

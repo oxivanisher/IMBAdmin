@@ -16,13 +16,11 @@
         loadImbaAdminTabContent(data);
     }
     
-    $(document).ready(function() {    
         Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
         }
     );
-    }
       
 </script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>

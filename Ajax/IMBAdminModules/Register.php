@@ -82,7 +82,7 @@ if (ImbaUserContext::getLoggedIn()) {
                      */
 //                    $_SESSION["IUC_captchaState"] = "checking";
                     $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
-                    $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+                    $smarty->display('IMBAdminModules/RegisterCaptcha.tpl');
                 } else {
 
                     if ($resp->is_valid) {

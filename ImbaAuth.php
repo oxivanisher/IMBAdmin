@@ -85,16 +85,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                  * Try to lookup the nickname
                  */
                 $securityCounter = 0;
-                $tmpUser = null;
+                $tmpOpenid = null;
                 $allUsers = $managerUser->selectAll();
                 foreach ($allUsers as $user) {
                     if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
-                        $tmpUser = $user;
+                        $tmpOpenid = $user->getOpenId();
                     }
                 }
                 
                 if (($securityCounter == 1) && (!empty($tmpUser->getOpenId()))) {
-                    $openid = $tmpUser->getOpenId();
+                    $openid = $tmpOpenid;
                 }
             }
 

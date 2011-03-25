@@ -26,8 +26,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * create a new smarty object
      */
     $smarty = ImbaSharedFunctions::newSmarty();
-
-    switch ($request) {
+    switch ($_POST["request"]) {
         case "registerme":
             /**
              * Show success an let him click a button which sends him trough the normal login procedure

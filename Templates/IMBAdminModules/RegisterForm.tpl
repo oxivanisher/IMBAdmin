@@ -36,7 +36,7 @@
         }, function(response){
                 
             if (response != "Ok"){
-                // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
+                // $.jGrowl('Deine Eingabe war nicht richtig!', { header: 'Error' });
                 $.jGrowl(response, { header: 'Error' });
                 Recaptcha.destroy();
                 createCaptcha();

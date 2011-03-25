@@ -42,6 +42,8 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "checkCaptcha":
+            echo $_POST["challenge"];
+            echo $_POST["answer"];  
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
                 echo $_POST["challenge"];
@@ -50,11 +52,9 @@ if (ImbaUserContext::getLoggedIn()) {
                  * Check fucking everything here! NEVER THRUST A USER
                  * - query http://www.google.com/recaptcha/api/verify
                  */
-                
                 /**
                  * Then save the user
                  */
-                
                 $_SESSION["IUC_captchaState"] = "ok";
             }
             break;

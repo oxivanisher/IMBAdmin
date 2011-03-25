@@ -60,11 +60,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
-    if ($_POST["authDone"] != true) {
-        if (!empty($_POST["openid"])) {
+    if ($_GET["authDone"] != true) {
+        if (!empty($_GET["openid"])) {
             $redirectUrl = null;
             $formHtml = null;
-            $openid = $_POST["openid"];
+            $openid = $_GET["openid"];
             /**
              * try to do the first step of the openid authentication steps
              */

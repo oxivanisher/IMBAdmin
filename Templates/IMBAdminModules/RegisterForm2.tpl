@@ -18,7 +18,7 @@
     };
     
     function showCaptcha () {
-        Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
+        Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
         });

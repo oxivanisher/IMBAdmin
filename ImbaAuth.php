@@ -1,13 +1,6 @@
 <?php
 
 /**
- * get start time of script
- */
-$m_time = explode(" ", microtime());
-$m_time = $m_time[0] + $m_time[1];
-$starttime = $m_time;
-
-/**
  * start the php session
  */
 session_start();
@@ -107,12 +100,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $smarty = ImbaSharedFunctions::newSmarty();
                     $smarty->assign('siteTitle', ImbaConstants::$CONTEXT_SITE_TITLE);
                     $smarty->assign('formHtml', $formHtml);
-/*                    echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
-                    echo "<body onload='submitForm()'><h2>Redirecting...</h2>";
-                    echo "Please submit the following form:<br />";
-                    echo $formHtml;
-                    echo "<script type='text/javascript'>document.openid_message.submit();</script>";
-                    echo "</body></html>"; */
                     $smarty->display('ImbaRedirect.tpl');
                 } else {
                     /**
@@ -232,10 +219,4 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 }
 
-// generate runtime output
-$m_time = explode(" ", microtime());
-$totaltime = (($m_time[0] + $m_time[1]) - $starttime);
-echo "<br /><br /><a href='" . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE . "'>Back to Index</a>";
-echo "<hr /><center>Page loading took:" . round($totaltime, 3) . " seconds</center><br /><br /></div>";
-echo "</body>\n</html>";
 ?>

@@ -15,23 +15,25 @@
         };
         loadImbaAdminTabContent(data);
     }
-   
+    
+    $(document).ready(function() {    
+        Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
+            theme: "black",
+            callback: Recaptcha.focus_response_field
+        }
+    );
+    }
+      
 </script>
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 
 <i>(Registrierung von {$openid})</i>
 <hr />
 <b>Bitte zeige uns das du ein Mensch bist.</b><br />
 
-{if $error != ""}
-<h3>{$error}</h3>
-{/if}
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
-<!-- <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'> -->
 
-<form action="" method="post">
-    {$captchaContent}
-    <input type="submit" value="submit" />
-</form>
+<div id="ImbaReCaptcha"></div>
 
 <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />

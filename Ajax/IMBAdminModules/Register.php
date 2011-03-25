@@ -74,54 +74,53 @@ if (ImbaUserContext::getLoggedIn()) {
                     } else {
                         header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
                     }
-                }
-            } else {
-                # set the error code so that we can display it
-                $error = $resp->error;
-                if ($error == "incorrect-captcha-sol") {
-                    echo "Deine Eingabe war nicht korrekt!";
                 } else {
-                    echo $error;
+                    # set the error code so that we can display it
+                    $error = $resp->error;
+                    if ($error == "incorrect-captcha-sol") {
+                        echo "Deine Eingabe war nicht korrekt!";
+                    } else {
+                        echo $error;
+                    }
                 }
+                /**
+                 * Check fucking everything here! NEVER THRUST A USER
+                 * - query http://www.google.com/recaptcha/api/verify
+                 */
+                /**
+                 * Then save the user
+                 */
+                $_SESSION["IUC_captchaState"] = "ok";
+            } else {
+                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
-            /**
-             * Check fucking everything here! NEVER THRUST A USER
-             * - query http://www.google.com/recaptcha/api/verify
-             */
-            /**
-             * Then save the user
-             */
-            $_SESSION["IUC_captchaState"] = "ok";
-    } else {
-        header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
-    }
-    break;
+            break;
 
-    default:
-    if (ImbaUserContext::getNeedToRegister()) {
-        ImbaConstants::loadSettings();
-        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+        default:
+            if (ImbaUserContext::getNeedToRegister()) {
+                ImbaConstants::loadSettings();
+                $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
 
 //                require_once('Libs/reCaptcha/recaptchalib.php');
 //                $resp = null;
 //                $error = null;
 
-        /**
-         * use $_SESSION["IUC_captchaState"] as control variable
-         */
-        $_SESSION["IUC_captchaState"] = "unchecked";
+                /**
+                 * use $_SESSION["IUC_captchaState"] as control variable
+                 */
+                $_SESSION["IUC_captchaState"] = "unchecked";
 
-        $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
-        $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
-        $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
-        $smarty->display('IMBAdminModules/RegisterForm.tpl');
-    } else {
-        /**
-         * User gets the welcome screen with the openid input field
-         */
-        $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
-        $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
+                $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+                $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
+                $smarty->display('IMBAdminModules/RegisterForm.tpl');
+            } else {
+                /**
+                 * User gets the welcome screen with the openid input field
+                 */
+                $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
+            }
     }
-}
 }
 ?>

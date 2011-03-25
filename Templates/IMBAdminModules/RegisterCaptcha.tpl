@@ -25,7 +25,7 @@
     };
     
     function helpCaptcha () {
-        Recaptcha.help();
+        Recaptcha.showhelp();
     }
       
 </script>

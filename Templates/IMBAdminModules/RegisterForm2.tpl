@@ -17,6 +17,7 @@
     }
    
 </script>
+<html>
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
@@ -35,4 +36,4 @@
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />
 <a href="/IMBAdmin/ImbaAuth.php?logout=true">logout</a>
 </form>
-
+</html>

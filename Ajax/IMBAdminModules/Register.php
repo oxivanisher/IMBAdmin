@@ -79,7 +79,7 @@ if (ImbaUserContext::getLoggedIn()) {
                      */
                     $_SESSION["IUC_captchaState"] = "checking";
                     echo ImbaConstants::$SETTINGS["captcha_public_key"];
-                    echo ImbaConstants::$SETTINGS["private_key"];
+                    echo ImbaConstants::$SETTINGS["captcha_private_key"];
                     $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
                     $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                 } else {

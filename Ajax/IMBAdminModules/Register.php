@@ -52,54 +52,76 @@ if (ImbaUserContext::getLoggedIn()) {
                 );
                 print_r($_POST);
                 if ($resp->is_valid) {
-                    echo "Ok";
-                } else {
-                    # set the error code so that we can display it
-                    $error = $resp->error;
-                    if ($error == "incorrect-captcha-sol") {
-                        echo "Deine Eingabe war nicht korrekt!";
+                    if ((!empty($_POST["birthday"])) &&
+                            (!empty($_POST["firstname"])) &&
+                            (!empty($_POST["lastname"])) &&
+                            (!empty($_POST["sex"])) &&
+                            (!empty($_POST["nickname"])) &&
+                            (!empty($_POST["email"]))) {
+
+                        $birthdate = explode(".", $_POST["birthday"]);
+                        $newUser = $managerUser->getNew();
+                        $newUser->setFirstname($_POST["firstname"]);
+                        $newUser->setLastname($_POST["lastname"]);
+                        $newUser->setSex($_POST["sex"]);
+                        $newUser->setNickname($_POST["nickname"]);
+                        $newUser->setEmail($_POST["email"]);
+                        $newUser->setBirthday($birthdate[0]);
+                        $newUser->setBirthmonth($birthdate[1]);
+                        $newUser->setBirthyear($birthdate[2]);
+                        $managerUser->insertNew($newUser);
+                        echo "Ok";
                     } else {
-                        echo $error;
+                        header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
                     }
                 }
-                /**
-                 * Check fucking everything here! NEVER THRUST A USER
-                 * - query http://www.google.com/recaptcha/api/verify
-                 */
-                /**
-                 * Then save the user
-                 */
-                $_SESSION["IUC_captchaState"] = "ok";
             } else {
-                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                # set the error code so that we can display it
+                $error = $resp->error;
+                if ($error == "incorrect-captcha-sol") {
+                    echo "Deine Eingabe war nicht korrekt!";
+                } else {
+                    echo $error;
+                }
             }
-            break;
+            /**
+             * Check fucking everything here! NEVER THRUST A USER
+             * - query http://www.google.com/recaptcha/api/verify
+             */
+            /**
+             * Then save the user
+             */
+            $_SESSION["IUC_captchaState"] = "ok";
+    } else {
+        header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+    }
+    break;
 
-        default:
-            if (ImbaUserContext::getNeedToRegister()) {
-                ImbaConstants::loadSettings();
-                $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+    default:
+    if (ImbaUserContext::getNeedToRegister()) {
+        ImbaConstants::loadSettings();
+        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
 
 //                require_once('Libs/reCaptcha/recaptchalib.php');
 //                $resp = null;
 //                $error = null;
 
-                /**
-                 * use $_SESSION["IUC_captchaState"] as control variable
-                 */
-                $_SESSION["IUC_captchaState"] = "unchecked";
+        /**
+         * use $_SESSION["IUC_captchaState"] as control variable
+         */
+        $_SESSION["IUC_captchaState"] = "unchecked";
 
-                $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
-                $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
-                $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
-                $smarty->display('IMBAdminModules/RegisterForm.tpl');
-            } else {
-                /**
-                 * User gets the welcome screen with the openid input field
-                 */
-                $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
-                $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
-            }
+        $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
+        $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+        $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
+        $smarty->display('IMBAdminModules/RegisterForm.tpl');
+    } else {
+        /**
+         * User gets the welcome screen with the openid input field
+         */
+        $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
+        $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
     }
+}
 }
 ?>

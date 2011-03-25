@@ -12,14 +12,6 @@
         window.location.replace('{$authPath}?logout=true');
     };
 
-    function sendRegistration(){
-        var data = {
-            module: "Register",
-            request: "registerme"
-        };
-        loadImbaAdminTabContent(data);
-    };
-    
     function step2 () {
         /**
          * Check if all needed forms are filled out

@@ -55,7 +55,12 @@ if (ImbaUserContext::getLoggedIn()) {
                     echo "You got it!";
                 } else {
                     # set the error code so that we can display it
-                    echo  $resp->error;
+                    $error = $resp->error;
+                    if ($error == "incorrect-captcha-sol") {
+                        echo "Deine Eingame war nicht korrekt!";
+                    } else {
+                        echo $error;
+                    }
                 }
                 /**
                  * Check fucking everything here! NEVER THRUST A USER

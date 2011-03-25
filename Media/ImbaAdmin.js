@@ -25,6 +25,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
      */
     $.post(ajaxEntry, {
         action: "navigation",
+        context: "IMBAdminModules",
         request: "name",
         module: moduleName
     }, function (response){
@@ -52,6 +53,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
      */
     $.post(ajaxEntry, {
         action: "navigation",
+        context: "IMBAdminModules",
         request: "nav",
         module: moduleName
     }, function (response){
@@ -117,6 +119,7 @@ function loadImbaAdminDefaultModule(){
     // Get the default module
     $.post(ajaxEntry, {
         action: "navigation",
+        context: "IMBAdminModules",
         request: "getDefault"
     }, function (response){
         // Call the loadImbaAdminModule to open the dialog         

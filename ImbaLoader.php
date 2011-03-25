@@ -22,7 +22,8 @@ switch ($_GET["load"]) {
         echo "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
         echo file_get_contents("Media/ImbaBaseMethods.js") . "\n";
         echo file_get_contents("Media/ImbaLogin.js") . "\n";
-        echo file_get_contents("Media/Imbadmin.js") . "\n";
+        echo file_get_contents("Media/ImbaAdmin.js") . "\n";
+        echo file_get_contents("Media/ImbaGame.js") . "\n";
 
         /**
          * Load IMBAdmin index template
@@ -153,7 +154,7 @@ switch ($_GET["load"]) {
 
     case "css":
         echo file_get_contents("Media/ImbaLogin.css");
-        echo file_get_contents("Media/Imbadmin.css");
+        echo file_get_contents("Media/ImbaAdmin.css");
         break;
 
     default:

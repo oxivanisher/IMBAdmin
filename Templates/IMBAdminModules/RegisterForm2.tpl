@@ -35,7 +35,7 @@
 
 <div id="ImbaReCaptcha"></div>
 
-<input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
+<input type="submit" onClick="alert('uiuiu');" value="showCaptcha" />
 
 <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />

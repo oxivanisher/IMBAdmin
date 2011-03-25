@@ -1,6 +1,13 @@
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script type="text/javascript">
   
+    function createCaptcha () {
+        Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
+            theme: "blackglass",
+            callback: Recaptcha.focus_response_field
+        });
+    }
+  
     function cancleRegistration(){
         window.location.replace('{$authPath}?logout=true');
     };
@@ -13,16 +20,38 @@
         loadImbaAdminTabContent(data);
     };
     
-    function showCaptcha () {
+    function step2 () {
+        /**
+         * Check if all needed forms are filled out
+         */
+        
+        /**
+         * Hide the form and show the captcha div
+         */
         $("#ImbaReCaptchaContainer").show();
         $("#ImbaRegisterForm").hide();
-        Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
-            theme: "blackglass",
-            callback: Recaptcha.focus_response_field
-        });
+        createCaptcha();
     };
 
     function checkCaptcha () {
+        $.post(ajaxEntry, {
+            action: "module",
+            module: "Register",
+            challenge:  $("#recaptcha_challenge_field").val(),
+            response: $("#recaptcha_response_field").val()
+                
+        }, function(response){
+                
+            if (response != "Ok"){
+                // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
+                $.jGrowl(response, { header: 'Error' });
+                Recaptcha.destroy();
+                createCaptcha();
+            } else {
+                $.jGrowl('Deine Daten wurden gespeichert!', { header: 'Erfolg' });
+                window.location.replace('{$authPath}?openid={$openid}');
+            }
+        });        
         //send to http://www.google.com/recaptcha/api/verify
         
     }
@@ -80,7 +109,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
         <input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
     </form>
     <hr style="clear:both;">
-    <input type="submit" onClick="javascript:showCaptcha();" value="Weiter" />
+    <input type="submit" onClick="javascript:step2();" value="Weiter" />
 </div>
 <div id="ImbaReCaptchaContainer">
     <div id="ImbaReCaptcha"></div>

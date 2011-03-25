@@ -62,7 +62,11 @@ if (ImbaUserContext::getLoggedIn()) {
         case "checkCaptcha":
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
-                $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+                echo $_POST["challenge"];
+                echo $_POST["response"];
+                /**
+                 * Check fucking everything here! NEVER THRUST A USER
+                 */
             }
             break;
 

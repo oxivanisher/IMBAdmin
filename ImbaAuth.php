@@ -61,6 +61,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if ($_GET["authDone"] != true) {
+        if (empty($_POST["openid"]) && (!empty ($_GET["openid"]))) {
+            $_POST["openid"] = $_GET["openid"];
+        }
         if (!empty($_POST["openid"])) {
             $redirectUrl = null;
             $formHtml = null;

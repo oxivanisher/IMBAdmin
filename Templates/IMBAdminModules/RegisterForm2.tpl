@@ -22,12 +22,12 @@
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-<i>({$openid})</i>
+<i>(Registrierung von {$openid})</i>
 <hr />
 <b>Bitte zeige uns das du ein Mensch bist.</b><br />
 
-{if $return != ""}
-<h3>{$return}</h3>
+{if $error != ""}
+<h3>{$error}</h3>
 {/if}
 
 

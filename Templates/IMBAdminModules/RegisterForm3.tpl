@@ -22,7 +22,7 @@
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-<i>({$openid})</i>
+<i>(Registrierung von {$openid})</i>
 <hr />
 <b>Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.</b><br />
 

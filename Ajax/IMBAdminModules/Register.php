@@ -49,14 +49,10 @@ if (ImbaUserContext::getLoggedIn()) {
             /**
              * Put the user into the database an let him klick a button which sends him the normal login procedure
              */
+            //if all the checks are ok and the user is allowed to log in, clear
+            $_SESSION["IUC_captchaState"] = "";
+            ImbaUserContext::getNeedToRegister(false);
             $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
-            break;
-        case "checkCaptcha":
-            if (ImbaUserContext::getNeedToRegister()) {
-                /**
-                 * The user needs to fill out the form
-                 */
-            }
             break;
         default:
             if (ImbaUserContext::getNeedToRegister()) {
@@ -77,10 +73,10 @@ if (ImbaUserContext::getLoggedIn()) {
                 $resp = null;
                 $error = null;
                 if ($_SESSION["IUC_captchaState"] == "unchecked") {
+                    $_SESSION["IUC_captchaState"] == "checking";
                     $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
                     $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                 } else {
-
                     $resp = recaptcha_check_answer(ImbaConstants::$SETTINGS["captcha_private_key"], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
                     if ($resp->is_valid) {
@@ -88,7 +84,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     } else {
                         # set the error code so that we can display it
                         $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
-                        $smarty->assign('return', $resp->error);
+                        $smarty->assign('error', $resp->error);
                         $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                     }
                 }

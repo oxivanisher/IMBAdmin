@@ -47,7 +47,7 @@
     }
 </script>
 <form id="ImbaAjaxUsersViewprofileForm" action="post">
-    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
+    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;">
         <tbody>
             <tr>
                 <td>OpenID:</td>

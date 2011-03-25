@@ -58,7 +58,7 @@
 </script>
 <h2>Base Settings for Game</h2>
 <form id="ImbaAjaxAdminGameDetail" action="post">
-    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
+    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;">
         <!-- ID:{$id} -->
         <tr>
             <td>Name</td>
@@ -99,7 +99,7 @@
         </tr>
         <tr>
             <td>
-                <table id="ImbaAjaxBlindTable">
+                <table class="ImbaAjaxBlindTable">
                     <thead>
                         <tr>
                             <th title="Eigenschaft">Eigenschaft</th>

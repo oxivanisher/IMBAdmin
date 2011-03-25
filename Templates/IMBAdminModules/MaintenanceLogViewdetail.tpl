@@ -23,7 +23,7 @@
 <i>Session: {$session}</i>
 <br />
 <br />
-<table id="ImbaAjaxBlindTable" style="cellspacing: 1px;">
+<table class="ImbaAjaxBlindTable" style="cellspacing: 1px;">
     <tr><th>Date</th><th>Module</th><th>Message</th><th>Level</th></tr>
 
     {foreach $logs as $log}

@@ -20,7 +20,7 @@
    
 </script>
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
-<!--    <table id="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
+<!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
 <i>(Registrierung von {$openid})</i>
 <hr />

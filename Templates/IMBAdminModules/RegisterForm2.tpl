@@ -16,11 +16,12 @@
         loadImbaAdminTabContent(data);
     }
     
+    function showCaptcha () {
         Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
-        }
-    );
+        });
+    }
       
 </script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
@@ -32,6 +33,8 @@
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
 <div id="ImbaReCaptcha"></div>
+
+<input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
 
 <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" />

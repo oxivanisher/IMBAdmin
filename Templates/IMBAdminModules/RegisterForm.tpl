@@ -2,11 +2,16 @@
 <script type="text/javascript">
   
     function cancleRegistration(){
-        var data = {
-            module: "Register",
-            request: "abort"
-        };
-        loadImbaAdminTabContent(data);
+          $.post(ajaxEntry, {
+              action: "logout"
+          }, function(response){
+                if (response != "Ok"){
+                   // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
+                   $.jGrowl(response, { header: 'Error' });
+                } else {
+                    $.jGrowl('Daten wurden gespeichert!', { header: 'Erfolg' });
+                }
+            });
     };
 
     function sendRegistration(){

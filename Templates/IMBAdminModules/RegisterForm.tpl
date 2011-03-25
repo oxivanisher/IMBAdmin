@@ -97,6 +97,7 @@
                 <td><input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"></td>
             </tr>
         </table>
+        <br />
         <b>Die Community Regeln:</b><br />
         <textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="9">
 Aufnahme / Voraussetzungen:

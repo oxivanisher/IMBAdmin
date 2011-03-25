@@ -103,12 +103,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $log->setMessage("Redirecting trough HTML form");
                     $managerLog->insert($log);
-                    echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
+                    
+                    $smarty = ImbaSharedFunctions::newSmarty();
+                    $smarty->assign('siteTitle', ImbaConstants::$CONTEXT_SITE_TITLE);
+                    $smarty->assign('formHtml', $formHtml);
+/*                    echo "<html><head><title>" . ImbaConstants::$CONTEXT_SITE_TITLE . " redirecting...</title></head>";
                     echo "<body onload='submitForm()'><h2>Redirecting...</h2>";
                     echo "Please submit the following form:<br />";
                     echo $formHtml;
                     echo "<script type='text/javascript'>document.openid_message.submit();</script>";
-                    echo "</body></html>";
+                    echo "</body></html>"; */
+                    $smarty->display('ImbaRedirect.tpl');
                 } else {
                     /**
                      * something went wrong. display error end exit

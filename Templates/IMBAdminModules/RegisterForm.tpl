@@ -15,7 +15,6 @@
     }
   
     function cancleRegistration(){
-        alert('w00t');
         window.location.replace('{$authPath}?logout=true');
     };
 

@@ -52,7 +52,12 @@
         });
     };
 </script>
-<i>Registrierung von {$openid} <input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" /></i>
+<table style="border: 0px;">
+    <tr>
+        <td><i>Registrierung von {$openid}</i></td>
+        <td style="text-align: right;"><input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" /></td>
+    </tr>
+</table>
 <hr />
 <div id="ImbaRegisterForm">
     <form id='imbaSsoRegisterForm' action='' method='post'>

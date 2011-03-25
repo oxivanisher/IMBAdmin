@@ -30,7 +30,7 @@
             action: "module",
             module: "Register",
             request: "checkCaptcha",
-            challenge:  $("#recaptcha_challenge_field").val(),
+            challenge: $("#recaptcha_challenge_field").val(),
             answer: $("#recaptcha_response_field").val()
                 
         }, function(response){
@@ -52,7 +52,7 @@
         }
 </script>
 <div id="ImbaRegisterForm">
-    <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
+    <form id='imbaSsoRegisterForm' action='' method='post'>
         <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
         <i>(Registrierung von {$openid})</i>

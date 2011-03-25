@@ -71,7 +71,7 @@ if (ImbaUserContext::getLoggedIn()) {
                         $newUser->setBirthmonth($birthdate[1]);
                         $newUser->setBirthyear($birthdate[2]);
                         $newUser->setOpenId($tmpOpenid);
-                        $newUser->setRole(ImbaUserContext::$CONTEXT_NEW_USER_ROLE);
+                        $newUser->setRole(ImbaConstants::$CONTEXT_NEW_USER_ROLE);
                         $managerUser->insert($newUser);
                         echo "Ok";
                     } else {

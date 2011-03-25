@@ -37,13 +37,11 @@ if (ImbaUserContext::getLoggedIn()) {
                 ImbaUserContext::getNeedToRegister(false);
                 $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
             } else {
-                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
             break;
 
         case "checkCaptcha":
-            echo $_POST["challenge"];
-            echo $_POST["answer"];  
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
                 echo $_POST["challenge"];
@@ -56,6 +54,8 @@ if (ImbaUserContext::getLoggedIn()) {
                  * Then save the user
                  */
                 $_SESSION["IUC_captchaState"] = "ok";
+            } else {
+                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
             break;
 

@@ -50,9 +50,10 @@ if (ImbaUserContext::getLoggedIn()) {
                 $resp = recaptcha_check_answer(
                         ImbaConstants::$SETTINGS["captcha_private_key"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
                 );
+                $tmpOpenid = ImbaUserContext::getOpenIdUrl();
                 if ($resp->is_valid) {
                     if ((!empty($_POST["birthday"])) &&
-                            (!empty(ImbaUserContext::getOpenIdUrl())) &&
+                            (!empty($tmpOpenid)) &&
                             (!empty($_POST["firstname"])) &&
                             (!empty($_POST["lastname"])) &&
                             (!empty($_POST["sex"])) &&
@@ -69,7 +70,7 @@ if (ImbaUserContext::getLoggedIn()) {
                         $newUser->setBirthday($birthdate[0]);
                         $newUser->setBirthmonth($birthdate[1]);
                         $newUser->setBirthyear($birthdate[2]);
-                        $newUser->setOpenId(ImbaUserContext::getOpenIdUrl());
+                        $newUser->setOpenId($tmpOpenid);
                         $managerUser->insert($newUser);
                         echo "Ok";
                     } else {

@@ -72,6 +72,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
             array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
             array_push($maintenenceJobs, array('handle' => 'backupDatabase', 'name' => 'Create Database dump'));
+            array_push($maintenenceJobs, array('handle' => 'showDatabaseBakcups', 'name' => 'Show Database backups'));
 
             $smarty->assign('jobs', $maintenenceJobs);
             $smarty->display('IMBAdminModules/MaintenanceMaintenance.tpl');

@@ -22,7 +22,6 @@
             theme: "black",
             callback: Recaptcha.focus_response_field
         });
-        alert('aaa!');
     };
       
 </script>

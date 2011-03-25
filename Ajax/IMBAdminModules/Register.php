@@ -74,10 +74,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 }
 
                 //$resp = recaptcha_check_answer(ImbaConstants::$SETTINGS["captcha_private_key"], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-                if (!empty($_POST["recaptcha_response_field"])) {
-                    $resp = recaptcha_check_answer(ImbaConstants::$SETTINGS["captcha_private_key"], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-                }
-                $smarty->assign('captchaContent', 'Could not load captcha content.');
+                $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
                 if ($_SESSION["IUC_captchaState"] == "unchecked") {
                     /**
                      * The user needs to fill out the captcha

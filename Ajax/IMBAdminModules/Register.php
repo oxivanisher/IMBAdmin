@@ -60,33 +60,37 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
         default:
             if (ImbaUserContext::getNeedToRegister()) {
+                $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+
                 /**
                  * The user needs to fill out the captcha
                  */
                 require_once('Libs/reCaptcha/recaptchalib.php');
                 ImbaConstants::loadSettings();
-                $publickey = ImbaConstants::$SETTINGS["captcha_public_key"];
-                $privatekey = ImbaConstants::$SETTINGS["captcha_private_key"];
 
+                /**
+                 * use $_SESSION["IUC_captchaState"] as control var
+                 */
+                if (empty($_SESSION["IUC_captchaState"])) {
+                    $_SESSION["IUC_captchaState"] = "unchecked";
+                }
                 $resp = null;
                 $error = null;
-                if ($_POST["recaptcha_response_field"]) {
-                    $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
+                if ($_SESSION["IUC_captchaState"] == "unchecked") {
+                    $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
+                    $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+                } else {
+
+                    $resp = recaptcha_check_answer(ImbaConstants::$SETTINGS["captcha_private_key"], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
                     if ($resp->is_valid) {
-                        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
                         $smarty->display('IMBAdminModules/RegisterForm3.tpl');
                     } else {
                         # set the error code so that we can display it
-                        $smarty->assign('captchaContent', recaptcha_get_html($publickey, $error));
-                        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+                        $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
                         $smarty->assign('return', $resp->error);
                         $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                     }
-                } else {
-                    $smarty->assign('captchaContent', recaptcha_get_html($publickey, $error));
-                    $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
-                    $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                 }
             } else {
                 /**

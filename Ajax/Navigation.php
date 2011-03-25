@@ -12,7 +12,7 @@ if (empty($_POST["context"])) {
 }
 
 
-$moduleFile = "Ajax/".$_POST["context"]."/" . $_POST["module"] . ".Navigation.php";
+$navigationFile = "Ajax/".$_POST["context"]."/" . $_POST["module"] . ".Navigation.php";
 
 function returnDefaultModule() {
     session_start();
@@ -25,11 +25,11 @@ function returnDefaultModule() {
     }
 }
 
-if (file_exists($moduleFile)) {
+if (file_exists($navigationFile)) {
     /**
      * load the module file
      */
-    require_once $moduleFile;
+    require_once $navigationFile;
 
     switch ($_POST["request"]) {
         case "nav":

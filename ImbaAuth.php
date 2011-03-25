@@ -38,6 +38,11 @@ $managerOpenId = new ImbaManagerOpenID();
 $managerLog = ImbaManagerLog::getInstance();
 
 /**
+ * Manager for users
+ */
+$managerUser = ImbaManagerUser::getInstance();
+
+/**
  * OpenID auth logic
  */
 if ($_GET["logout"] == true || $_POST["logout"] == true) {
@@ -61,13 +66,21 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if ($_GET["authDone"] != true) {
-        if (empty($_POST["openid"]) && (!empty ($_GET["openid"]))) {
+        if (empty($_POST["openid"]) && (!empty($_GET["openid"]))) {
             $_POST["openid"] = $_GET["openid"];
         }
         if (!empty($_POST["openid"])) {
             $redirectUrl = null;
             $formHtml = null;
-            $openid = $_POST["openid"];
+            /**
+             * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
+             */
+            if (ImbaSharedFunctions::isValidURL($_POST["openid"])) {
+                $openid = $_POST["openid"];
+            } else {
+                true;
+            }
+
             /**
              * try to do the first step of the openid authentication steps
              */
@@ -99,7 +112,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $log->setMessage("Redirecting trough HTML form");
                     $managerLog->insert($log);
-                    
+
                     $smarty = ImbaSharedFunctions::newSmarty();
                     $smarty->assign('siteTitle', ImbaConstants::$CONTEXT_SITE_TITLE);
                     $smarty->assign('formHtml', $formHtml);
@@ -148,8 +161,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);
 
-            $userManager = ImbaManagerUser::getInstance();
-            $currentUser = $userManager->selectByOpenId($esc_identity);
+            $currentUser = $managerUser->selectByOpenId($esc_identity);
 
             /**
              * Check the status of the user
@@ -166,7 +178,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                 ImbaUserContext::setNeedToRegister(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
-                
+
                 header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -191,7 +203,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
                 ImbaUserContext::setUserRole($currentUser->getRole());
-                $userManager->setMeOnline();
+                $managerUser->setMeOnline();
             }
 
             header("location: " . $_SERVER["PHP_SELF"]);
@@ -221,5 +233,4 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
     header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 }
-
 ?>

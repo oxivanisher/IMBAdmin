@@ -18,6 +18,7 @@
     };
     
     function showCaptcha () {
+        $("#ImbaRegisterForm").hide();
         Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
             theme: "blackglass",
             callback: Recaptcha.focus_response_field

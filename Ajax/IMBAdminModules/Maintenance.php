@@ -286,9 +286,11 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $smarty_logs = array();
             foreach ($logs as $log) {
                 if ($log->getLevel() <= 1) {
-                    $username = "Anonymous";
-                    if ($log->getUser() != "") {
+                    
+                    if (ImbaSharedFunctions::isValidURL($log->getUser())) {
                         $username = $managerUser->selectByOpenId($log->getUser())->getNickname();
+                    } else {
+                        $username = "Anonymous";
                     }
 
                     if (count($log->getMessage() > 40)) {

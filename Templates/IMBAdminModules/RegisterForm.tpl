@@ -5,12 +5,7 @@
           $.post('{$authPath}', {
               action: "logout"
           }, function(response){
-                if (response != "Ok"){
-                   // $.jGrowl('Daten wurden nicht gespeichert!', { header: 'Error' });
-                   $.jGrowl(response, { header: 'Error' });
-                } else {
-                    $.jGrowl('Daten wurden gespeichert!', { header: 'Erfolg' });
-                }
+                window.location.replace('{$indexPath}');
             });
     };
 

@@ -41,17 +41,26 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "checkCaptcha":
+            /**
+             * Do some basic tests
+             */
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
                 require_once 'Libs/reCaptcha/recaptchalib.php';
                 $resp = null;
                 $error = null;
 
+                /**
+                 * Check if the recaptcha is ok
+                 */
                 $resp = recaptcha_check_answer(
                         ImbaConstants::$SETTINGS["captcha_private_key"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
                 );
                 $tmpOpenid = ImbaUserContext::getOpenIdUrl();
                 if ($resp->is_valid) {
+                    /**
+                     * Check if all fields have content
+                     */
                     if ((!empty($_POST["birthday"])) &&
                             (!empty($tmpOpenid)) &&
                             (!empty($_POST["firstname"])) &&
@@ -61,20 +70,31 @@ if (ImbaUserContext::getLoggedIn()) {
                             (!empty($_POST["email"]))) {
 
                         $birthdate = explode(".", $_POST["birthday"]);
+
+                        /**
+                         * Set the new user
+                         */
                         $newUser = $managerUser->getNew();
-                        $newUser->setFirstname($_POST["firstname"]);
-                        $newUser->setLastname($_POST["lastname"]);
-                        $newUser->setSex($_POST["sex"]);
-                        $newUser->setNickname($_POST["nickname"]);
-                        $newUser->setEmail($_POST["email"]);
+                        $newUser->setFirstname(trim($_POST["firstname"]));
+                        $newUser->setLastname(trim($_POST["lastname"]));
+                        $newUser->setSex(trim($_POST["sex"]));
+                        $newUser->setNickname(trim($_POST["nickname"]));
+                        $newUser->setEmail(trim($_POST["email"]));
                         $newUser->setBirthday($birthdate[0]);
                         $newUser->setBirthmonth($birthdate[1]);
                         $newUser->setBirthyear($birthdate[2]);
                         $newUser->setOpenId($tmpOpenid);
                         $newUser->setRole(ImbaConstants::$CONTEXT_NEW_USER_ROLE);
+
+                        /**
+                         * Save the new user
+                         */
                         $managerUser->insert($newUser);
                         echo "Ok";
                     } else {
+                        /**
+                         * Something strange happend. Try to kick the user out of all sessions
+                         */
                         header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
                     }
                 } else {
@@ -95,6 +115,9 @@ if (ImbaUserContext::getLoggedIn()) {
                  */
                 $_SESSION["IUC_captchaState"] = "ok";
             } else {
+                /**
+                 * Something strange happend. Try to kick the user out of all sessions
+                 */
                 header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
             break;

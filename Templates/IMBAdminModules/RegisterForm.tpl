@@ -50,12 +50,14 @@
                 createCaptcha();
             } else {
                 $.jGrowl('Deine Daten wurden gespeichert!', { header: 'Erfolg' });
-                window.location.replace('{$authPath}?openid={$openid}');
-            }
-        });        
-        //send to http://www.google.com/recaptcha/api/verify
-        
-    }
+    
+                var data = {
+                    module: "Register",
+                    request: "registerme"
+                };
+                loadImbaAdminTabContent(data);
+            }   
+        }
 </script>
 <div id="ImbaRegisterForm">
     <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>

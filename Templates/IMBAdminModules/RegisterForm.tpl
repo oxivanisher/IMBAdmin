@@ -2,11 +2,7 @@
 <script type="text/javascript">
   
     function cancleRegistration(){
-          $.post('{$authPath}', {
-              action: "logout"
-          }, function(response){
-                window.location.replace('{$indexPath}');
-            });
+        window.location.replace('{$authPath}?logout=true');
     };
 
     function sendRegistration(){
@@ -32,31 +28,31 @@
     }
 </script>
 <div id="ImbaRegisterForm">
-<form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
-<!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
+    <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
+        <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-<i>(Registrierung von {$openid})</i>
-<hr />
-<b>Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.</b><br />
+        <i>(Registrierung von {$openid})</i>
+        <hr />
+        <b>Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.</b><br />
 
-Vorname: 
-<input id="regFirstname" class="regField" type="text" name="forename" onChange="validateInput('regFirstname');" title="Hans">
-<br />
-Nachname: 
-<input id="regLastname" class="regField" type="text" name="surname" onChange="validateInput('regLastname');" title="Muster">
+        Vorname: 
+        <input id="regFirstname" class="regField" type="text" name="forename" onChange="validateInput('regFirstname');" title="Hans">
+        <br />
+        Nachname: 
+        <input id="regLastname" class="regField" type="text" name="surname" onChange="validateInput('regLastname');" title="Muster">
 
 
-DATEPICKER HERE
-<br /><br />
-Geschlecht *&nbsp;&nbsp;
-<img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
-<img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M">
-<br />
-Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt."><br />
-Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"><br />
+        DATEPICKER HERE
+        <br /><br />
+        Geschlecht *&nbsp;&nbsp;
+        <img src="Images/female.png" title="Weiblich"><input class="regField" style="width:16px;" type="radio" name="sex" value="F">
+        <img src="Images/male.png" title="M&auml;nnlich"><input class="regField" type="radio" style="width:16px;" name="sex" value="M">
+        <br />
+        Nickname: <input id="regNickname" class="regField" type="text" name="nickname" onChange="validateInput('regNickname');" title="Wir als unter anderem als Namen im Forum angezeigt."><br />
+        Email :<input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"><br />
 
-<b>Die Community Regeln:</b><br />
-<textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="10">
+        <b>Die Community Regeln:</b><br />
+        <textarea id="regRules" class="regRules" name="regRules" readonly="readonly" style="border:0px; width: 100%; overflow: auto;" rows="10">
 Aufnahme / Voraussetzungen:
 Mindestalter: 18 (Die Ausnahme best&auml;tigt die Regel)
 Nach der Aufnahme wird man zuerst "Anw&auml;rter" und hat solange nur bedingtes Mitspracherecht.
@@ -80,15 +76,15 @@ Wer den Rang "Inaktiv" hat ist vor Gildenkicks durch l&auml;ngere Abwesenheit ge
 
 
 Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Ausschluss aus der Gilde zu Folge haben.
-</textarea>
-<input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
-</form>
-<hr style="clear:both;">
-<input type="submit" onClick="javascript:showCaptcha();" value="Weiter" />
+        </textarea>
+        <input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
+    </form>
+    <hr style="clear:both;">
+    <input type="submit" onClick="javascript:showCaptcha();" value="Weiter" />
 </div>
 <div id="ImbaReCaptchaContainer">
-<div id="ImbaReCaptcha"></div>
-<input type="submit" onClick="javascript:Recaptcha.showhelp();" value="Hilfe! was ist das?" />
+    <div id="ImbaReCaptcha"></div>
+    <input type="submit" onClick="javascript:Recaptcha.showhelp();" value="Hilfe! was ist das?" />
 </div>
 <input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" />
 

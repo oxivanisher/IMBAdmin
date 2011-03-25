@@ -30,10 +30,10 @@
         $("#ImbaReCaptchaContainer").show();
         $("#ImbaRegisterForm").hide();
         createCaptcha();
-        alert('test');
     };
 
     function checkCaptcha () {
+        alert('test');
         $.post(ajaxEntry, {
             action: "module",
             module: "Register",

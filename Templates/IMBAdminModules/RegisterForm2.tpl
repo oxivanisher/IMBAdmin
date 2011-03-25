@@ -18,11 +18,11 @@
     }
     */
     function showCaptcha () {
-        alert('chalärm!');
         Recaptcha.create("{$public_key}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
         });
+        alert('chalärm!');
     }
       
 </script>

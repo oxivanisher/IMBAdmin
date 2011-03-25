@@ -82,7 +82,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     $_SESSION["IUC_captchaState"] = "unchecked";
                 }
                 $_SESSION["IUC_captchaState"] = "unchecked";
-
+                $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
                 $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
                 $smarty->display('IMBAdminModules/RegisterForm.tpl');
             } else {

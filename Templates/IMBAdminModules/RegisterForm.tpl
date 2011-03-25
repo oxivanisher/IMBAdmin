@@ -2,7 +2,7 @@
 <script type="text/javascript">
   
     function cancleRegistration(){
-          $.post(ajaxEntry, {
+          $.post('{$authPath}', {
               action: "logout"
           }, function(response){
                 if (response != "Ok"){

@@ -81,7 +81,7 @@
             </tr>
             <tr>
                 <td>Geburtsdatum:</td>
-                <td><input id="regBirthday" class="regField" type="text" name="birthdate" onChange="validateInput('regBirthdate');" title="Muster"></td>
+                <td><input id="regBirthday" class="regField" type="text" name="birthdate" onChange="validateInput('regBirthdate');" title="01.01.1980"></td>
             </tr>
             <tr>
                 <td>Geschlecht</td>
@@ -94,7 +94,7 @@
             </tr>
             <tr>
                 <td>Email:</td>
-                <td><input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();"></td>
+                <td><input id="regEmail" class="regField" type="text" name="email" onChange="validateEmail();" title="Du weisst hoffentlich, wie eine Emailadresse aussieht!"></td>
             </tr>
         </table>
         <br />

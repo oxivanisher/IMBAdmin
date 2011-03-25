@@ -76,9 +76,26 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
              */
             if (ImbaSharedFunctions::isValidURL($_POST["openid"])) {
+                /**
+                 * This is a possible openid
+                 */
                 $openid = $_POST["openid"];
             } else {
-                true;
+                /**
+                 * Try to lookup the nickname
+                 */
+                $securityCounter = 0;
+                $tmpUser = null;
+                $allUsers = $managerUser->selectAll();
+                foreach ($allUsers as $user) {
+                    if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
+                        $tmpUser = $user;
+                    }
+                }
+                
+                if (($securityCounter == 1) && (!empty($tmpUser->getOpenId()))) {
+                    $openid = $tmpUser->getOpenId();
+                }
             }
 
             /**

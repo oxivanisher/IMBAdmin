@@ -15,7 +15,8 @@
     }
   
     function cancleRegistration(){
-        window.location.replace('{$authPath}?logout=true');
+        alert('w00t');
+        /*window.location.replace('{$authPath}?logout=true');*/
     };
 
     function step2 () {
@@ -33,7 +34,6 @@
     };
 
     function checkCaptcha () {
-        alert('test');
         $.post(ajaxEntry, {
             action: "module",
             module: "Register",

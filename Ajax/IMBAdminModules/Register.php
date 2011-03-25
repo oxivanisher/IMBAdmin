@@ -49,37 +49,42 @@ if (ImbaUserContext::getLoggedIn()) {
             /**
              * Put the user into the database an let him klick a button which sends him the normal login procedure
              */
-            //if all the checks are ok and the user is allowed to log in, clear
-            $_SESSION["IUC_captchaState"] = "";
-            ImbaUserContext::getNeedToRegister(false);
-            $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
+            if ($_SESSION["IUC_captchaState"] == "ok") {
+                //FIXME: insert user here into database
+                //if all the checks are ok and the user is allowed to log in, clear
+                $_SESSION["IUC_captchaState"] = "";
+                ImbaUserContext::getNeedToRegister(false);
+                $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
+            }
             break;
         default:
             if (ImbaUserContext::getNeedToRegister()) {
+                ImbaConstants::loadSettings();
                 $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
 
-                /**
-                 * The user needs to fill out the captcha
-                 */
                 require_once('Libs/reCaptcha/recaptchalib.php');
-                ImbaConstants::loadSettings();
+                $resp = null;
+                $error = null;
 
                 /**
-                 * use $_SESSION["IUC_captchaState"] as control var
+                 * use $_SESSION["IUC_captchaState"] as control variable
                  */
                 if (empty($_SESSION["IUC_captchaState"])) {
                     $_SESSION["IUC_captchaState"] = "unchecked";
                 }
-                $resp = null;
-                $error = null;
+
                 if ($_SESSION["IUC_captchaState"] == "unchecked") {
-                    $_SESSION["IUC_captchaState"] == "checking";
+                    /**
+                     * The user needs to fill out the captcha
+                     */
+                    $_SESSION["IUC_captchaState"] = "checking";
                     $smarty->assign('captchaContent', recaptcha_get_html(ImbaConstants::$SETTINGS["captcha_public_key"], $error));
                     $smarty->display('IMBAdminModules/RegisterForm2.tpl');
                 } else {
                     $resp = recaptcha_check_answer(ImbaConstants::$SETTINGS["captcha_private_key"], $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
                     if ($resp->is_valid) {
+                        $_SESSION["IUC_captchaState"] = "ok";
                         $smarty->display('IMBAdminModules/RegisterForm3.tpl');
                     } else {
                         # set the error code so that we can display it

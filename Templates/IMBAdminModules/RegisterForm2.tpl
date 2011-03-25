@@ -1,7 +1,6 @@
 <script type="text/javascript">
   
     function cancleRegistration(){
-        alert('cancle');
         var data = {
             module: "Register",
             request: "abort"
@@ -10,7 +9,6 @@
     }
 
     function sendRegistration(){
-        alert('send');
         var data = {
             module: "Register",
             request: "registerme"

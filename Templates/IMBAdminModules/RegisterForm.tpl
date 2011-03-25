@@ -52,7 +52,7 @@
         });
     };
 </script>
-<i>(Registrierung von {$openid})</i>
+<i>Registrierung von {$openid} <input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" /></i>
 <hr />
 <div id="ImbaRegisterForm">
     <form id='imbaSsoRegisterForm' action='' method='post'>
@@ -113,7 +113,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
     <input type="submit" onClick="javascript:Recaptcha.showhelp();" value="Hilfe! was ist das?" />
 </div>
 
-<input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" />
+
 
 <!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->

@@ -83,8 +83,8 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 <div id="ImbaReCaptcha"></div>
 </form>
 
-<input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
-<input type="submit" onClick="javascript:helpCaptcha();" value="helpCaptcha" />
+<input type="submit" onClick="javascript:showCaptcha();" value="Senden" />
+<input type="submit" onClick="javascript:helpCaptcha();" value="Hilfe! was ist das?" />
 <!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
 <input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->
 

@@ -90,8 +90,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $allUsers = $managerUser->selectAllUser();
                 foreach ($allUsers as $user) {
                     if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
-                         echo $user->getNickname();
-
+                        $securityCounter++;
                         $tmpOpenid = $user->getOpenId();
                     }
                 }

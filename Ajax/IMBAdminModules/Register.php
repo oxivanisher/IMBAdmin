@@ -55,7 +55,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     echo "You got it!";
                 } else {
                     # set the error code so that we can display it
-                    $error = $resp->error;
+                    echo  $resp->error;
                 }
                 /**
                  * Check fucking everything here! NEVER THRUST A USER

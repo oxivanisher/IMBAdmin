@@ -52,7 +52,7 @@
         });
     };
 </script>
-<table style="border: 0px;">
+<table class="ImbaAjaxBlindTable">
     <tr>
         <td><i>Registrierung von {$openid}</i></td>
         <td style="text-align: right;"><input type="submit" onClick="javascript:cancleRegistration();" value="Abbrechen" /></td>

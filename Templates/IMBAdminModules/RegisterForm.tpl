@@ -23,7 +23,7 @@
          * Check if all needed forms are filled out
          * -->> http://docs.jquery.com/Plugins/validation
          */
-        
+        alert('test');
         /**
          * Hide the form and show the captcha div
          */

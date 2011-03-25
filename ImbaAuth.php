@@ -70,6 +70,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $_POST["openid"] = $_GET["openid"];
         }
         if (!empty($_POST["openid"])) {
+            $_POST["openid"] = trim($_POST["openid"]);
             $redirectUrl = null;
             $formHtml = null;
             /**

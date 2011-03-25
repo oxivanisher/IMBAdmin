@@ -51,19 +51,48 @@ if (ImbaUserContext::getLoggedIn()) {
              */
             $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
             break;
-        default:
+        case "checkCaptcha":
             if (ImbaUserContext::getNeedToRegister()) {
                 /**
                  * The user needs to fill out the form
                  */
-                $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
-                $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+            }
+            break;
+        default:
+            if (ImbaUserContext::getNeedToRegister()) {
+                /**
+                 * The user needs to fill out the captcha
+                 */
+                require_once('Libs/reCaptcha/recaptchalib.php');
+                ImbaConstants::loadSettings();
+                $publickey = ImbaConstants::$SETTINGS["captcha_public_key"];
+                $privatekey = ImbaConstants::$SETTINGS["captcha_private_key"];
+
+                $resp = null;
+                $error = null;
+                if ($_POST["recaptcha_response_field"]) {
+                    $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
+
+                    if ($resp->is_valid) {
+                        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+                        $smarty->display('IMBAdminModules/RegisterForm3.tpl');
+                    } else {
+                        # set the error code so that we can display it
+                        $smarty->assign('captchaContent', recaptcha_get_html($publickey, $error));
+                        $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+                        $smarty->assign('return', $resp->error);
+                        $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+                    }
+                } else {
+                    $smarty->assign('captchaContent', recaptcha_get_html($publickey, $error));
+                    $smarty->assign('openid', ImbaUserContext::getOpenIdUrl());
+                    $smarty->display('IMBAdminModules/RegisterForm2.tpl');
+                }
             } else {
                 /**
                  * User gets the welcome screen with the openid input field
                  */
                 $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
-
                 $smarty->display('IMBAdminModules/RegisterForm1.tpl');
             }
     }

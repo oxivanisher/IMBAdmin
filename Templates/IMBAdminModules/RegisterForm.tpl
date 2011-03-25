@@ -52,12 +52,12 @@
         });
     };
 </script>
+<i>(Registrierung von {$openid})</i>
+<hr />
 <div id="ImbaRegisterForm">
     <form id='imbaSsoRegisterForm' action='' method='post'>
         <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
 
-        <i>(Registrierung von {$openid})</i>
-        <hr />
         <b>Bitte f&uuml;lle folgenden Felder wahrheitsgetreu aus.</b><br />
 
         Vorname: 

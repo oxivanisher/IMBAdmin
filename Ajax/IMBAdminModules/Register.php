@@ -68,7 +68,7 @@ if (ImbaUserContext::getLoggedIn()) {
                         $newUser->setBirthday($birthdate[0]);
                         $newUser->setBirthmonth($birthdate[1]);
                         $newUser->setBirthyear($birthdate[2]);
-                        $managerUser->insertNew($newUser);
+                        $managerUser->insert($newUser);
                         echo "Ok";
                     } else {
                         header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");

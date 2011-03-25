@@ -17,12 +17,12 @@
         loadImbaAdminTabContent(data);
     };
     
-    function showCaptcha () {
+    $(document).ready(function() {    
         Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
             theme: "black",
             callback: Recaptcha.focus_response_field
         });
-    };
+    }
       
 </script>
 

@@ -1,23 +1,29 @@
+<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script type="text/javascript">
   
     function cancleRegistration(){
-        alert('cancle');
         var data = {
             module: "Register",
             request: "abort"
         };
         loadImbaAdminTabContent(data);
-    }
+    };
 
     function sendRegistration(){
-        alert('send');
         var data = {
             module: "Register",
             request: "registerme"
         };
         loadImbaAdminTabContent(data);
-    }
-   
+    };
+    
+    function showCaptcha () {
+        Recaptcha.create("{$publicKey}", "ImbaReCaptcha", {
+            theme: "black",
+            callback: Recaptcha.focus_response_field
+        });
+    };
+      
 </script>
 <form id='imbaSsoRegisterForm' action='ImbaAuth.php' method='post'>
 <!--    <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;"> -->
@@ -70,7 +76,11 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 </textarea>
 <input id="regCheckrules" onClick="javascript:$('regRules').style.border = '0px';" class="regField" type="checkbox" name="rulesaccepted" style="width:16px;"> Ich habe die allgemeinen Gildenregeln gelesen und werde mich an sie halten.
 <hr style="clear:both;">
-<input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
-<input type="submit" onClick="javascript:sendRegistration();" value="Do it" />
+<div id="ImbaReCaptcha"></div>
+
+<input type="submit" onClick="javascript:showCaptcha();" value="showCaptcha" />
+
+<!-- <input type="submit" onClick="javascript:cancleRegistration();" value="Stop it" />
+<input type="submit" onClick="javascript:sendRegistration();" value="Do it" /> -->
 </form>
 

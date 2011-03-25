@@ -42,6 +42,7 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "checkCaptcha":
+            echo "check!!";
             if (ImbaUserContext::getNeedToRegister()) {
                 ImbaConstants::loadSettings();
                 echo $_POST["challenge"];

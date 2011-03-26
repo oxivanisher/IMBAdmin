@@ -14,9 +14,7 @@ session_start();
 $managerLog = ImbaManagerLog::getInstance();
 $log = $managerLog->getNew();
 $log->setModule("ImbaAjax.php");
-$log->setMessage("action: " . $_POST["action"] . " game: " . $_POST["game"] . " module: " . $_POST["module"]);
 $log->setLevel(2);
-$managerLog->insert($log);
 
 switch ($_POST["action"]) {
     case "messenger":
@@ -32,6 +30,7 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
+        $log->setMessage("action: " . $_POST["action"] . " game: " . $_POST["game"]);
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
@@ -53,6 +52,7 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
+        $log->setMessage("action: " . $_POST["action"] . " module: " . $_POST["module"]);
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
@@ -90,5 +90,8 @@ switch ($_POST["action"]) {
     // TODO: use default case for event polling?
     default:
         break;
+}
+if ($log->getMessage()) {
+    $managerLog->insert($log);
 }
 ?>

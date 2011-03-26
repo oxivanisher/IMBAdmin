@@ -124,7 +124,6 @@ function loadImbaGameDefaultGame(){
  * Returns the current selected tab index
  */
 function getSelectedImbaGameTabIndex(){
-    alert('getSelectedImbaGameTabIndex: ' + $('#imbaGameNav').tabs('option', 'selected'));
     return $('#imbaGameNav').tabs('option', 'selected');
 }
 

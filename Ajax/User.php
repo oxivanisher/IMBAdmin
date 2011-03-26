@@ -57,23 +57,23 @@ if (ImbaUserContext::getLoggedIn()) {
             }
         }
 
-        $hundredPercent = $msgCountMax - $msgCountMin;        
-        if ($hundredPercent == 0) $hundredPercent = $msgCountMax;
-            
+        $hundredPercent = $msgCountMax - $msgCountMin;
+        if ($hundredPercent == 0)
+            $hundredPercent = $msgCountMax;
+
         foreach ($result as $key => $user) {
             $tmpMsgCount = $user["msgCount"] - $hundredPercent;
             $tmpPercent = round(100 / $hundredPercent * $tmpMsgCount, 0);
             $result[$key]["fontsize"] = min(20, round(6 / 100 * $tmpPercent) + 8);
         }
-        
+
         // now comes the magic with the font size        
         echo json_encode($result);
     }
 
     /**
      * Gets a list of users as JSON
-     */
-    else if (isset($_POST['loaduserlist'])) {
+     */ else if (isset($_POST['loaduserlist'])) {
         $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
         $result = array();
         foreach ($users as $user) {
@@ -85,29 +85,28 @@ if (ImbaUserContext::getLoggedIn()) {
 
     /**
      * Gets a list of users as JSON, with starting like
-     */
-    else if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
-        $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
-        $result = array();
-        foreach ($users as $user) {
-            array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
-        }
+     */ else if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
+        if (trim($_POST['startwith']) != "") {
+            $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
+            $result = array();
+            foreach ($users as $user) {
+                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
+            }
 
-        echo json_encode($result);
+            echo json_encode($result);
+        }
     }
 
     /**
      * Return currently logged in User
-     */
-    else if (isset($_POST['returnmyself'])) {
+     */ else if (isset($_POST['returnmyself'])) {
         $user = $managerUser->selectMyself();
         echo json_encode(array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
     }
 
     /**
      * Returns the OpenId
-     */
-    else {
+     */ else {
         echo ImbaUserContext::getOpenIdUrl();
     }
 } elseif (ImbaUserContext::getNeedToRegister()) {

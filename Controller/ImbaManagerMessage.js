@@ -276,7 +276,8 @@ $(document).ready(function() {
         source: function( request, response ) {
             if (request.term.substr(0,2) == "/w"){
                 $.ajax({
-                    url: ajaxEntry,
+                    type: "POST",
+                    url: ajaxEntry,                    
                     dataType: "json",
                     data: {
                         action: "user",

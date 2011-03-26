@@ -208,7 +208,7 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     public function selectAllUserStartWith($openidYourself, $startingWith) {
         // Only fetch Users with role <> banned
-        $query = "SELECT * FROM %s Where openid <> '%s' And Role <> 0 And nickname like '%s%%' order by nickname;";
+        $query = "SELECT openid, nickname FROM %s Where openid <> '%s' And Role <> 0 And nickname like '%s%%' order by nickname;";
 
         $result = array();
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself, $startingWith));
@@ -218,26 +218,6 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user = new ImbaUser();
             $user->setOpenId($row["openid"]);
             $user->setNickname($row["nickname"]);
-            $user->setEmail($row["email"]);
-            $user->setFirstname($row["forename"]);
-            $user->setLastname($row["surname"]);
-            $user->setBirthday($row["dob"]);
-            $user->setBirthmonth($row["mob"]);
-            $user->setBirthyear($row["yob"]);
-            $user->setSex($row["sex"]);
-            $user->setIcq($row["icq"]);
-            $user->setMsn($row["msn"]);
-            $user->setSkype($row["skype"]);
-            $user->setUsertitle($row["usertitle"]);
-            $user->setAvatar($row["avatar"]);
-            $user->setSignature($row["signature"]);
-            $user->setWebsite($row["website"]);
-            $user->setMotto($row["motto"]);
-            $user->setAccurate($row["accurate"]);
-
-            $role = $managerRole->selectByRole($row["role"]);
-            $user->setRole($role);
-
             array_push($result, $user);
         }
 

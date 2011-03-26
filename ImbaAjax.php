@@ -4,11 +4,17 @@
  * Single point of Ajax entry
  *
  */
-
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaUserContext.php';
 
+$managerLog = ImbaManagerLog::getInstance();
+$log = $managerLog->getNew();
+$log->setModule("ImbaAjax.php");
+$log->setMessage("action: " . $_POST["action"] . " game: " . $_POST["game"] . " module: " . $_POST["module"]);
+$log->setLevel(3);
+$managerLog->insert($log);
 
 switch ($_POST["action"]) {
     case "messenger":
@@ -44,7 +50,7 @@ switch ($_POST["action"]) {
         }
 
         break;
-    
+
     case "module":
         session_start();
         if (ImbaUserContext::getLoggedIn()) {

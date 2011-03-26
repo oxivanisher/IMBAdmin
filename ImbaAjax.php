@@ -92,6 +92,6 @@ switch ($_POST["action"]) {
         break;
 }
 if ($log->getMessage() != "") {
-    $managerLog->insert($log);
+    //$managerLog->insert($log);
 }
 ?>

@@ -138,6 +138,5 @@ function getImbaGameTabIdFromTabIndex(tabIndex){
             result = "#" + tmp[1];
         }
     });
-    alert('getImbaGameTabIdFromTabIndex: ' + result);
     return result;
 }

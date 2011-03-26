@@ -2,7 +2,7 @@
  * loads the ImbaGame game in the IMBAdmin window
  */
 function loadImbaGame(gameName, gameDo, payLoad){
-    alert(gameName);
+    alert('loadImbaGame: ' + gameName);
     currentGame = gameName;
     currentGameDo = gameDo;
     
@@ -84,6 +84,7 @@ function loadImbaGame(gameName, gameDo, payLoad){
  * loads the ImbaGameTab content, depending on the data for the post request
  */
 function loadImbaGameTabContent(data, myTabId) {
+    alert('loadImbaGameTabContent: ' + data + "/" + myTabId);
     var targetIabId = null;
     if (myTabId == null) {
         targetIabId = getImbaGameTabIdFromTabIndex(getSelectedImbaGameTabIndex());

@@ -6,6 +6,8 @@ var isUserLoggedIn = false;
 var userNeedsToRegister = false;
 var currentModule = null;
 var currentModuleDo = null;
+var currentGame = null;
+var currentGameDo = null;
 var currentUserName = null;
 var currentUserOpenid = null;
 

@@ -70,7 +70,7 @@ $(document).ready(function() {
     });
     
     /*
-     * Module
+     * ImbAdmin Window Tabs Module
      */
     // Setting up the content of the Dialog as tabs
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
@@ -88,6 +88,29 @@ $(document).ready(function() {
                     request: tmp[1]
                 };
                 loadImbaAdminTabContent(data, tmpTabId); 
+            }
+        });
+    });
+    
+    /*
+     * ImbaGame Window Tabs Module
+     */
+    // Setting up the content of the Dialog as tabs
+    $("#imbaGameNav").tabs().bind("tabsselect", function(event, ui) {
+        var tmpTabId = "";
+        $.each($("#imbaGameNav a"), function (k, v) {
+            if (k == ui.index){
+                var tmp = v.toString().split("#");
+                
+                tmpTabId = "#" + tmp[1];
+                
+                var data = {
+                    action: "game",
+                    game: currentGame,
+                    gameDo: currentGameDo,
+                    request: tmp[1]
+                };
+                loadImbaGameTabContent(data, tmpTabId); 
             }
         });
     });

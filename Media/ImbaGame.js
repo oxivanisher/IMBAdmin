@@ -83,7 +83,6 @@ function loadImbaGame(gameName, gameDo, payLoad){
  * loads the ImbaGameTab content, depending on the data for the post request
  */
 function loadImbaGameTabContent(data, myTabId) {
-    alert(myTabId);
     var targetIabId = null;
     if (myTabId == null) {
         targetIabId = getImbaGameTabIdFromTabIndex(getSelectedImbaGameTabIndex());

@@ -36,5 +36,6 @@ $Navigation->setMinUserRole(0);
  * Set tabs
  */
 $Navigation->addElement("welcome", "&Uuml;bersicht der Games", "Hier siehst du eine einfache &Uml;bersicht der Games.");
+$Navigation->addElement("index", "Indexierte &Uuml;bersicht", "Hier siehst du eine komplette &Uml;bersicht der Games.");
 
 ?>

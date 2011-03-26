@@ -24,8 +24,8 @@ $Navigation->setComment("Dies ist die Willkommens Site.");
 /**
  * Set when the module should be displayed (logged in 1/0)
  */
-$Navigation->setShowLoggedIn(false);
-$Navigation->setShowLoggedOff(false);
+$Navigation->setShowLoggedIn(true);
+$Navigation->setShowLoggedOff(true);
 
 /**
  * Set the minimal user role needed to display the module

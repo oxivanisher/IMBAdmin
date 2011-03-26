@@ -13,7 +13,7 @@ $managerLog = ImbaManagerLog::getInstance();
 $log = $managerLog->getNew();
 $log->setModule("ImbaAjax.php");
 $log->setMessage("action: " . $_POST["action"] . " game: " . $_POST["game"] . " module: " . $_POST["module"]);
-$log->setLevel(3);
+$log->setLevel(2);
 $managerLog->insert($log);
 
 switch ($_POST["action"]) {

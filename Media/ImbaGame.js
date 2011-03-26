@@ -2,7 +2,6 @@
  * loads the ImbaGame game in the IMBAdmin window
  */
 function loadImbaGame(gameName, gameDo, payLoad){
-    alert('loadImbaGame: ' + gameName);
     currentGame = gameName;
     currentGameDo = gameDo;
     
@@ -92,10 +91,7 @@ function loadImbaGameTabContent(data, myTabId) {
     }
     data.action = "game";
 
-    alert('loadImbaGameTabContent: ' + data + "/" + targetIabId);
-    console.log(data);
     $.post(ajaxEntry, data, function (response){
-        alert('response: ' + response);
         if (response != ""){
             $(targetIabId).html(response);
         }

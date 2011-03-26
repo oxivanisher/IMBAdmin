@@ -9,8 +9,7 @@ $nav = array();
 
 if (empty($_POST["context"])) {
     $_POST["context"] = "IMBAdminModules";
-}
-if ($_POST["context"] == "IMBAdminGames") {
+} elseif ($_POST["context"] == "IMBAdminGames") {
     $_POST["module"] = $_POST["game"];
 }
 

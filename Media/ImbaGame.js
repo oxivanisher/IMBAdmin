@@ -94,6 +94,7 @@ function loadImbaGameTabContent(data, myTabId) {
 
     alert('loadImbaGameTabContent: ' + data + "/" + targetIabId);
     $.post(ajaxEntry, data, function (response){
+        alert('response: ' + response);
         if (response != ""){
             $(targetIabId).html(response);
         }

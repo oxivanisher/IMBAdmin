@@ -34,11 +34,11 @@ switch ($_POST["action"]) {
         /**
          * Load my module navigation
          */
-        $moduleConfigFile = "Ajax/IMBAdminGames/" . $_POST["module"] . ".Navigation.php";
+        $moduleConfigFile = "Ajax/IMBAdminGames/" . $_POST["game"] . ".Navigation.php";
         if (file_exists($moduleConfigFile)) {
             include $moduleConfigFile;
         }
-        $moduleFile = "Ajax/IMBAdminGames/" . $_POST["module"] . ".php";
+        $moduleFile = "Ajax/IMBAdminGames/" . $_POST["game"] . ".php";
         if (file_exists($moduleFile)) {
             include $moduleFile;
         }

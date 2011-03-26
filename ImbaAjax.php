@@ -9,13 +9,6 @@ require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaUserContext.php';
 
-session_start();
-
-$managerLog = ImbaManagerLog::getInstance();
-$log = $managerLog->getNew();
-$log->setModule("ImbaAjax.php");
-$log->setLevel(2);
-
 switch ($_POST["action"]) {
     case "messenger":
         include 'Ajax/Messenger.php';
@@ -30,6 +23,7 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
+        session_start();
         $log->setMessage("action: " . $_POST["action"] . " game: " . $_POST["game"]);
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
@@ -52,6 +46,7 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
+        session_start();
         $log->setMessage("action: " . $_POST["action"] . " module: " . $_POST["module"]);
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
@@ -91,7 +86,5 @@ switch ($_POST["action"]) {
     default:
         break;
 }
-if ($log->getMessage() != "") {
-    //$managerLog->insert($log);
-}
+
 ?>

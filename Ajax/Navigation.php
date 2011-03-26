@@ -12,16 +12,24 @@ if (empty($_POST["context"])) {
 }
 
 
-$navigationFile = "Ajax/".$_POST["context"]."/" . $_POST["module"] . ".Navigation.php";
+$navigationFile = "Ajax/" . $_POST["context"] . "/" . $_POST["module"] . ".Navigation.php";
 
 function returnDefaultModule() {
     session_start();
     require_once 'Controller/ImbaUserContext.php';
 
-    if (ImbaUserContext::getLoggedIn()) {
-        echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_MODULE;
-    } else {
-        echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_MODULE;
+    if ($_POST["context"] == "IMBAdminModules") {
+        if (ImbaUserContext::getLoggedIn()) {
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_MODULE;
+        } else {
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_MODULE;
+        }
+    } elseif ($_POST["context"] == "IMBAdminGames") {
+        if (ImbaUserContext::getLoggedIn()) {
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_IN_GAME;
+        } else {
+            echo ImbaConstants::$WEB_DEFAULT_LOGGED_OUT_GAME;
+        }
     }
 }
 

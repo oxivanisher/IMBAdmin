@@ -18,14 +18,14 @@ $Navigation = new ImbaContentNavigation();
 /**
  * Set module name
  */
-$Navigation->setName("");
+$Navigation->setName("Welcome");
 $Navigation->setComment("Dies ist die Willkommens Site.");
 
 /**
  * Set when the module should be displayed (logged in 1/0)
  */
-$Navigation->setShowLoggedIn(true);
-$Navigation->setShowLoggedOff(true);
+$Navigation->setShowLoggedIn(false);
+$Navigation->setShowLoggedOff(false);
 
 /**
  * Set the minimal user role needed to display the module

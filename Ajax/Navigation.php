@@ -56,16 +56,24 @@ if (file_exists($navigationFile)) {
             break;
     }
 } else {
+
+    $managerLog = ImbaManagerLog::getInstance();
+    $log = $managerLog->getNew();
+    $log->setModule("Navigation");
+    $log->setLevel(2);
+    $log->setMessage("request: " . $_POST["request"] . " file not found: " . $navigationFile);
+    $managerLog->insert($log);
+
     switch ($_POST["request"]) {
         case "nav":
-            array_push($nav, array("id" => "error", "name" => "Module not found (" . $moduleFile . ")!"));
+            array_push($nav, array("id" => "error", "name" => "Module not found (" . $navigationFile . ")!"));
             echo json_encode($nav);
             break;
         case "name":
-            echo "Module not found (" . $moduleFile . ")!";
+            echo "Module not found (" . $navigationFile . ")!";
             break;
         case "comment":
-            echo "Module not found (" . $moduleFile . ")!";
+            echo "Module not found (" . $navigationFile . ")!";
             break;
         default:
             echo returnDefaultModule();

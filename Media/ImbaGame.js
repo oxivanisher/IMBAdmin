@@ -90,7 +90,7 @@ function loadImbaGameTabContent(data, myTabId) {
         targetIabId = myTabId;
     }
     data.action = "game";
-console.log(data);
+//console.log(data);
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
             $(targetIabId).html(response);

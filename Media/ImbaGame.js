@@ -66,7 +66,6 @@ function loadImbaGame(gameName, gameDo, payLoad){
                     payLoad: payLoad
                 });
             } else if ((gameDo != null) && (gameDo != "")) {
-                alert('gamedo: ' + gameDo);
                 loadImbaGameTabContent({
                     game: gameName,
                     request: gameDo,

@@ -30,11 +30,11 @@ if (ImbaUserContext::getLoggedIn()) {
 
         case "index":
             $navOptions = array();
-            if ($handle = opendir('Ajax/IMBAdminModules/')) {
+            if ($handle = opendir('Ajax/IMBAdminGames/')) {
                 $identifiers = array();
                 while (false !== ($file = readdir($handle))) {
                     if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/IMBAdminModules/' . $file;
+                        include 'Ajax/IMBAdminGames/' . $file;
                         if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
                             $showMe = false;
                             if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
@@ -50,7 +50,7 @@ if (ImbaUserContext::getLoggedIn()) {
                                 foreach ($Navigation->getElements() as $element) {
                                     //print_r($element);
                                     array_push($modNavs, array(
-                                        "module" => $modIdentifier,
+                                        "game" => $modIdentifier,
                                         "identifier" => $element,
                                         "name" => $Navigation->getElementName($element),
                                         "comment" => $Navigation->getElementComment($element),
@@ -71,7 +71,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 closedir($handle);
             }
             $smarty->assign('topnavs', $navOptions);
-            $smarty->display('IMBAdminModules/WelcomeIndex.tpl');
+            $smarty->display('IMBAdminGames/WelcomeIndex.tpl');
             break;
 
         default:

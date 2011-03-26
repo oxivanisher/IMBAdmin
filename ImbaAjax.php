@@ -9,6 +9,8 @@ require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaUserContext.php';
 
+session_start();
+
 $managerLog = ImbaManagerLog::getInstance();
 $log = $managerLog->getNew();
 $log->setModule("ImbaAjax.php");
@@ -30,7 +32,6 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
-        session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
@@ -52,7 +53,6 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
-        session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();

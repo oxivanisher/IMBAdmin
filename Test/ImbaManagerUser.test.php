@@ -107,6 +107,18 @@ try {
     $output.= "Error at delete.\n";
 }
 
+/**
+ * User starts with
+ */
+try {
+    $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), "Aggra");
+    
+    var_dump($users);
+    
+    $output.= "Usermanager starts with working.\n";
+} catch (Exception $e) {
+    $output.= "Error at delete.\n";
+}
 
 echo "<pre>ImbaManagerUser Test:\n" . $output . "</pre>";
 ?>

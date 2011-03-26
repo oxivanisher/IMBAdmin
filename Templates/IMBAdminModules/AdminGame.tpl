@@ -27,21 +27,15 @@
         });
         
         $("#ImbaAddGameOK").click( function() {
-            if ((ImbaAddGameName.value.valueOf() != "")
-                && (ImbaAddGameComment.value.valueOf() != "")
-                && (ImbaAddGameIcon.value.valueOf() != "")
-                && (ImbaAddGameUrl.value.valueOf() != "")
-                && (ImbaAddGameForumlink.value.valueOf() != "")) {
+            if ((ImbaAddGameName.value.valueOf() != "")              
+                && (ImbaAddGameIcon.value.valueOf() != "")) {
                 
                 $.post(ajaxEntry, {
                     action: "module",
                     module: "Admin",
                     request: "addgame",
                     name: ImbaAddGameName.value.valueOf(),
-                    icon: ImbaAddGameIcon.value.valueOf(),
-                    url: ImbaAddGameUrl.value.valueOf(),
-                    comment: ImbaAddGameComment.value.valueOf(),
-                    forumlink: ImbaAddGameForumlink.value.valueOf()
+                    icon: ImbaAddGameIcon.value.valueOf()                    
                 });
 
                 var data = {
@@ -70,11 +64,8 @@
 <table id="ImbaAjaxAdminGameTable" class="dataTableDisplay">
     <thead>
         <tr>
-            <th title="Name">Name</th>
-            <th title="Comment">Comment</th>
             <th title="Icon">Icon</th>
-            <th title="Url">Url</th>
-            <th title="Forumlink">Forumlink</th>
+            <th title="Name">Name</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -82,22 +73,16 @@
 
         {foreach $games as $game}
         <tr id="gameid_{$game.id}">
-            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.name}</td>
-            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.comment}</td>
-            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.icon}</td>
-            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.url}</td>
-            <td editable="true" onclick="javascript: showGameDetail('{$game.id}');">{$game.forumlink}</td>
-            <td editable="false" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
+            <td style="width: 15%" onclick="javascript: showGameDetail('{$game.id}');"><img src="{$game.icon}" alt="{$game.name}" title="{$game.name}" height="60" /></td>
+            <td style="width: 75%" onclick="javascript: showGameDetail('{$game.id}');">{$game.name}</td>
+            <td style="width: 10%" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>
         {/foreach}
     </tbody>
     <tfoot>
         <tr>
-            <td><input id="ImbaAddGameName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input id="ImbaAddGameComment" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td><input id="ImbaAddGameIcon" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input id="ImbaAddGameUrl" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
-            <td><input id="ImbaAddGameForumlink" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
+            <td><input id="ImbaAddGameName" type="text" style="width: 100%; overflow: auto; height: 24px;"></td>
             <td id="ImbaAddGameOK" style="cursor: pointer;"><b>OK</b></td>
         </tr>
     </tfoot>

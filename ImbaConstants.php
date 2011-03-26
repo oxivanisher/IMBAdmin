@@ -24,6 +24,7 @@ class ImbaConstants extends ImbaConfig {
      * Files and Folders
      */
     public static $WEB_SITE_PATH = "/IMBAdmin";
+    public static $IMAGES_PATH = "/Images";
     public static $WEB_AJAX_ENTRY_FILE = "/IMBAdmin/ImbaAjax.php";
     public static $WEB_OPENID_AUTH_PATH = "ImbaAuth.php";
     public static $WEB_ENTRY_INDEX_FILE = "index.html";

@@ -101,7 +101,7 @@
             <td><input id="myGameForumlink" type="text" name="forumlink" value="{$forumlink}" /></td>
         </tr>
         <tr>
-            <td> style="vertical-align: top;">Kategorien</td>
+            <td style="vertical-align: top;">Kategorien</td>
             <td>
                 <select id="myGameCategories" size="5" multiple="true" style="width: 100%; overflow: auto;">
                     {foreach $categories as $category}

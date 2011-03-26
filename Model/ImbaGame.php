@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Model/ImbaBase.php';
+require_once 'ImbaConstants.php';
 
 /**
  * Class for all Games managed by the IMBAdmin
@@ -40,7 +41,7 @@ class ImbaGame extends ImbaBase {
     public function getCategories() {
         return $this->categories;
     }
-    
+
     public function addCategory($category) {
         array_push($this->categories, $category);
     }
@@ -52,7 +53,7 @@ class ImbaGame extends ImbaBase {
     public function getProperties() {
         return $this->properties;
     }
-    
+
     public function addProperty($property) {
         array_push($this->properties, $property);
     }
@@ -70,7 +71,11 @@ class ImbaGame extends ImbaBase {
     }
 
     public function getIcon() {
-        return $this->icon;
+        if ($this->icon == null || $this->icon == "") {
+            return ImbaConstants::$WEB_SITE_PATH . ImbaConstants::$IMAGES_PATH . "/noicon.png";
+        } else {
+            return $this->icon;
+        }
     }
 
     public function setIcon($icon) {

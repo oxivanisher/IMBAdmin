@@ -59,6 +59,7 @@ function loadImbaGame(gameName, gameDo, payLoad){
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaGameNav").tabs("add", "#" + value.id, value.name);
+                console.log('gameDo: ' + gameDo);
             if ((key == 0) && (gameDo == null || gameDo == "")) {
                 loadImbaGameTabContent({
                     game: gameName,

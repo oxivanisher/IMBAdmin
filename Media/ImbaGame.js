@@ -84,16 +84,15 @@ function loadImbaGame(gameName, gameDo, payLoad){
  * loads the ImbaGameTab content, depending on the data for the post request
  */
 function loadImbaGameTabContent(data, myTabId) {
-    alert('loadImbaGameTabContent: ' + data + "/" + myTabId);
     var targetIabId = null;
     if (myTabId == null) {
         targetIabId = getImbaGameTabIdFromTabIndex(getSelectedImbaGameTabIndex());
     } else {
         targetIabId = myTabId;
     }
-
     data.action = "game";
 
+    alert('loadImbaGameTabContent: ' + data + "/" + targetIabId);
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
             $(targetIabId).html(response);

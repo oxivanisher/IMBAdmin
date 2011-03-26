@@ -90,7 +90,7 @@ function loadImbaGameTabContent(data, myTabId) {
         targetIabId = myTabId;
     }
     data.action = "game";
-//console.log(data);
+
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
             $(targetIabId).html(response);
@@ -124,6 +124,7 @@ function loadImbaGameDefaultGame(){
  * Returns the current selected tab index
  */
 function getSelectedImbaGameTabIndex(){
+    alert('getSelectedImbaGameTabIndex: ' + $('#imbaGameNav').tabs('option', 'selected'));
     return $('#imbaGameNav').tabs('option', 'selected');
 }
 
@@ -138,6 +139,6 @@ function getImbaGameTabIdFromTabIndex(tabIndex){
             result = "#" + tmp[1];
         }
     });
-
+    alert('getImbaGameTabIdFromTabIndex: ' + result);
     return result;
 }

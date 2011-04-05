@@ -4,9 +4,21 @@
     gamesIPlayIds.push("#mygamesplaying_{$game.id}");
     {/foreach}
 
+    function showAddGameProperty(gameId, propertyId, propertyName){
+        $("#ImbaAjaxUsersMyGamesModalPropertyName").html(propertyName);
+        $("#ImbaAjaxUsersMyGamesModalProperty").dialog('open');
+    }
+
     $(function() {
         // Set up the accordion
         $("#MyGamesTab").accordion();
+
+        // Set up modal window
+        $("#ImbaAjaxUsersMyGamesModalProperty").dialog({ modal: true, autoOpen: false  });
+
+        $("#ImbaAjaxUsersMyGamesModalPropertyOk").click(function(){
+            $("#ImbaAjaxUsersMyGamesModalProperty").dialog('close');
+        });
 
         // User submits the ImbaAjaxUsersMyGamesForm
         $("#ImbaAjaxUsersMyGamesFormSubmit").click(function(){
@@ -35,6 +47,12 @@
         });
     });
 </script>
+
+<div id="ImbaAjaxUsersMyGamesModalProperty">
+    <div id="ImbaAjaxUsersMyGamesModalPropertyName" style="float: left;"></div>&nbsp; eingeben: <input type="text"><input id="ImbaAjaxUsersMyGamesModalPropertyOk" type="button" value="Speichern">
+
+</div>
+
 <form id="ImbaAjaxUsersMyGamesForm" action="post">
     <div id="MyGamesTab">
         {foreach $games as $game}
@@ -43,13 +61,20 @@
             <p>
                 <input id="mygamesplaying_{$game.id}" type="checkbox" {if $game.selected == 'true'}checked{/if}> Ja, ich spiele {$game.name}
             </p>
-            Eigenschaften zu {$game.name}:<br />
 
-            <table class="ImbaAjaxBlindTable" style="cellspacing: 1px;">
+            <ul>
                 {foreach $game.properties as $property}
-                <tr><td>{$property.property}: </td><td><input id="mygamesplaying_{$game.id}_{$property.id}"></td></tr>
+                <li>{$property.property} <span onclick="javascript: showAddGameProperty('{$game.id}', '{$property.id}', '{$property.property}');" style="cursor: pointer;"><b>hinzufügen</b></span></li>
                 {/foreach}
-            </table>
+            </ul>
+
+            Meine Daten zu {$game.name}:
+            <ul>
+                <li>MyProperty1</li>
+                <li>MyProperty2</li>
+                <li>MyProperty3</li>
+
+            </ul>
         </div>
         {/foreach}
 

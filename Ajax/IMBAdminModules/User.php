@@ -178,8 +178,10 @@ if (ImbaUserContext::getLoggedIn()) {
             foreach ($games as $game) {
                 $selected = "false";
                 foreach ($user->getGames() as $usrGame) {
-                    if ($usrGame->getId() == $game->getId()) {
-                        $selected = "true";
+                    if ($usrGame != null) {
+                        if ($usrGame->getId() == $game->getId()) {
+                            $selected = "true";
+                        }
                     }
                 }
 

@@ -8,6 +8,7 @@ require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
+require_once 'Controller/ImbaManagerGame.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -25,6 +26,7 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $managerUser = ImbaManagerUser::getInstance();
     $roleManager = ImbaManagerUserRole::getInstance();
+    $gameManager = ImbaManagerGame::getInstance();
 
     switch ($_POST["request"]) {
         case "editmyprofile":
@@ -120,7 +122,7 @@ if (ImbaUserContext::getLoggedIn()) {
             }
 
             $role = $roleManager->selectByRole($user->getRole());
-            
+
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
@@ -168,6 +170,59 @@ if (ImbaUserContext::getLoggedIn()) {
             $smarty->display('IMBAdminModules/UserViewprofile.tpl');
             break;
 
+        case "editmygames":
+            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+            $games = $gameManager->selectAll();
+
+            $smarty_games = array();
+            foreach ($games as $game) {
+                $selected = "false";
+                foreach ($user->getGames() as $usrGame) {
+                    if ($usrGame->getId() == $game->getId()) {
+                        $selected = "true";
+                    }
+                }
+
+                $properties = array();
+                foreach ($game->getProperties() as $property) {
+                    array_push($properties, array(
+                        'id' => $property->getId(),
+                        'property' => $property->getProperty(),
+                        'value' => "value"
+                    ));
+                }
+
+                array_push($smarty_games, array(
+                    'id' => $game->getId(),
+                    'name' => $game->getName(),
+                    'selected' => $selected,
+                    'properties' => $properties
+                ));
+            }
+            $smarty->assign('games', $smarty_games);
+
+            $smarty->display('IMBAdminModules/UserMyGames.tpl');
+            break;
+
+        case "updatemygames":
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+            $user->setGames(array());
+            foreach ($_POST["gamesIPlay"] as $gameIPlay) {
+                if ($gameIPlay["checked"] == "true") {
+                    $game = $gameManager->selectById($gameIPlay["gameid"]);
+                    $user->addGame($game);
+                }
+            }
+
+            try {
+                $managerUser->update($user);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            break;
+
         default:
             $users = $managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl());
 
@@ -178,7 +233,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     'openid' => $user->getOpenID(),
                     'lastonline' => ImbaSharedFunctions::getNiceAge($user->getLastonline()),
                     'jabber' => "",
-                    'games' => "W E R"
+                    'games' => $user->getGamesStr()
                 ));
             }
             $smarty->assign('susers', $smarty_users);

@@ -4,6 +4,7 @@ require_once 'Model/ImbaUser.php';
 require_once 'Controller/ImbaManagerBase.php';
 require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';
+require_once 'Controller/ImbaManagerGame.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
@@ -62,11 +63,11 @@ class ImbaManagerUser extends ImbaManagerBase {
             $result = array();
 
             if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() >= 9) {
-                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid order by p.nickname;";                
+                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid order by p.nickname;";
             } else {
                 $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid Where p.role <> 0 order by p.nickname;";
             }
-            
+
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE));
 
             while ($row = $this->database->fetchRow()) {
@@ -92,6 +93,20 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setLastonline($row["timestamp"]);
                 $user->setRole($row["role"]);
                 array_push($result, $user);
+            }
+
+            // cache all games
+            ImbaManagerGame::getInstance()->selectAll();
+
+            // fetch games for user
+            foreach ($result as $user) {
+                $query = "SELECT * FROM %s WHERE openid = '%s';";
+                $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId()));
+
+                while ($row = $this->database->fetchRow()) {
+                    $game = ImbaManagerGame::getInstance()->selectById($row["gameid"]);
+                    $user->addGame($game);
+                }
             }
 
             $this->usersCachedTimestamp = time();
@@ -165,6 +180,15 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getRole(),
             $user->getOpenId()
         ));
+
+        // Games updaten
+        $query = "DELETE FROM %s WHERE openid = '%s'";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId()));
+
+        foreach ($user->getGames() as $game) {
+            $query = "INSERT INTO %s (openid, gameid) VALUES ('%s', '%s')";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId(), $game->getId()));
+        }
 
         $this->usersCached = null;
         $this->usersCachedTimestamp = null;
@@ -243,6 +267,7 @@ class ImbaManagerUser extends ImbaManagerBase {
     public function getNew() {
         return new ImbaUser();
     }
+
 }
 
 ?>

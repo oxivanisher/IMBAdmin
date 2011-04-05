@@ -3,7 +3,7 @@
 require_once 'Model/ImbaBase.php';
 
 /**
- * Chat Channels
+ * Chat Channel
  */
 class ImbaChatChannel extends ImbaBase {
 

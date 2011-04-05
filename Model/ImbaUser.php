@@ -32,6 +32,7 @@ class ImbaUser extends ImbaBase {
     protected $role = null;
     protected $lastonline = null;
     // deleted protected $armorychars; oxi, 25.02.2011
+    protected $games = array();
 
     /**
      * Properties
@@ -78,7 +79,7 @@ class ImbaUser extends ImbaBase {
 
     public function getBirthday() {
         if (strlen($this->birthday) == 1)
-                $this->birthday = "0" . $this->birthday;
+            $this->birthday = "0" . $this->birthday;
         return $this->birthday;
     }
 
@@ -88,7 +89,7 @@ class ImbaUser extends ImbaBase {
 
     public function getBirthmonth() {
         if (strlen($this->birthmonth) == 1)
-                $this->birthmonth = "0" . $this->birthmonth;
+            $this->birthmonth = "0" . $this->birthmonth;
         return $this->birthmonth;
     }
 
@@ -198,6 +199,33 @@ class ImbaUser extends ImbaBase {
 
     public function setLastonline($lastonline) {
         $this->lastonline = $lastonline;
+    }
+
+    public function getGames() {
+        return $this->games;
+    }
+
+    public function setGames($games) {
+        $this->games = $games;
+    }
+
+    public function addGame($game) {
+        array_push($this->games, $game);
+    }
+
+    public function getGamesStr() {
+        $result = "";
+        for ($i = 0; $i < count($this->games); $i++) {
+            $game = $this->games[$i];
+            if ($game != null) {
+                $result .= $game->getName();
+
+                if ($i < count($this->games) - 1){
+                    $result .= ", ";
+                }
+            }
+        }
+        return $result;
     }
 
 }

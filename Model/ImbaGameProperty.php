@@ -12,6 +12,7 @@ class ImbaGameProperty extends ImbaBase {
      */
     protected $gameId = null;
     protected $property = null;
+ 
 
     /**
      * Properties

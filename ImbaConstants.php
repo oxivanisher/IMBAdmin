@@ -56,6 +56,7 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES = "oom_openid_multig_game_properties";
     public static $DATABASE_TABLES_SYS_MULTIGAMING_CATEGORIES = "oom_openid_multig_category";
     public static $DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY = "oom_openid_multig_int_games_cat";
+    public static $DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY = "oom_openid_multig_int_user_gameproperties";
     public static $DATABASE_TABLES_SYS_USER_PROFILES = "oom_openid_user_profiles";
     public static $DATABASE_TABLES_SYS_LASTONLINE = "oom_openid_lastonline";
     public static $DATABASE_TABLES_USR_MESSAGES = "oom_openid_messages";

@@ -9,6 +9,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaManagerGame.php';
+require_once 'Controller/ImbaManagerGameProperty.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
@@ -27,6 +28,7 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = ImbaManagerUser::getInstance();
     $roleManager = ImbaManagerUserRole::getInstance();
     $gameManager = ImbaManagerGame::getInstance();
+    $gamepropertyManager = ImbaManagerGameProperty::getInstance();
 
     switch ($_POST["request"]) {
         case "editmyprofile":
@@ -176,6 +178,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $smarty_games = array();
             foreach ($games as $game) {
+                // fetch the games
                 $selected = "false";
                 foreach ($user->getGames() as $usrGame) {
                     if ($usrGame != null) {
@@ -185,25 +188,58 @@ if (ImbaUserContext::getLoggedIn()) {
                     }
                 }
 
+                // fetch all available properties
                 $properties = array();
                 foreach ($game->getProperties() as $property) {
                     array_push($properties, array(
                         'id' => $property->getId(),
-                        'property' => $property->getProperty(),
-                        'value' => "value"
+                        'property' => $property->getProperty()
                     ));
+                }
+
+                // fetch all properties with value
+                $propertyValues = array();
+                foreach ($user->getGamesPropertyValues() as $property) {
+                    if ($property != null) {
+                        if ($game->getId() == $property->getProperty()->getGameId())
+                            array_push($propertyValues, array(
+                                'id' => $property->getId(),
+                                'property' => $property->getProperty()->getProperty(),
+                                'value' => $property->getValue()
+                            ));
+                    }
                 }
 
                 array_push($smarty_games, array(
                     'id' => $game->getId(),
                     'name' => $game->getName(),
                     'selected' => $selected,
-                    'properties' => $properties
+                    'properties' => $properties,
+                    'propertyValues' => $propertyValues
                 ));
             }
             $smarty->assign('games', $smarty_games);
 
             $smarty->display('IMBAdminModules/UserMyGames.tpl');
+            break;
+
+        case "addpropertytomygames":
+            $user = new ImbaUser();
+            $user = $managerUser->selectByOpenId(ImbaUserContext::getOpenIdUrl());
+
+            $gamesPropertyValue = new ImbaGamePropertyValue();
+            $gamesPropertyValue->setProperty($gamepropertyManager->selectById($_POST["propertyid"]));
+            $gamesPropertyValue->setUser($user);
+            $gamesPropertyValue->setValue($_POST["propertyvalue"]);
+
+            $user->addGamesPropertyValues($gamesPropertyValue);
+
+            try {
+                $managerUser->update($user);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
             break;
 
         case "updatemygames":

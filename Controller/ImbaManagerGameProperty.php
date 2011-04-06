@@ -10,6 +10,10 @@ require_once 'Model/ImbaGameProperty.php';
 class ImbaManagerGameProperty extends ImbaManagerBase {
 
     /**
+     * Fields
+     */
+    protected $propertiesCached = null;
+    /**
      * Singleton implementation
      */
     private static $instance = null;
@@ -69,23 +73,39 @@ class ImbaManagerGameProperty extends ImbaManagerBase {
     }
 
     /**
+     * Select all properties
+     */
+    public function selectAll() {
+        if ($this->propertiesCached == null) {
+            $result = array();
+
+            $query = "SELECT * FROM %s order by property ASC;";
+
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES));
+            while ($row = $this->database->fetchRow()) {
+                $property = new ImbaGameProperty();
+                $property->setId($row["id"]);
+                $property->setGameId($row["game_id"]);
+                $property->setProperty($row["property"]);
+
+                array_push($result, $property);
+            }
+            $this->propertiesCached = $result;
+        }
+
+        return $this->propertiesCached;
+    }
+
+    /**
      * Select all properties of a game
      */
     public function selectAllByGameId($gameId) {
-        $result = array();
-
-        $query = "SELECT * FROM %s WHERE game_id = '%s' ORDER BY property ASC;";
-
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES_PROPERTIES, $gameId));
-        while ($row = $this->database->fetchRow()) {
-            $property = new ImbaGameProperty();
-            $property->setId($row["id"]);
-            $property->setGameId($gameId);
-            $property->setProperty($row["property"]);
-
-            array_push($result, $property);
+        $result = array();        
+        foreach ($this->selectAll() as $property) {
+            if ($property->getGameId() == $gameId) {
+                array_push($result, $property);
+            }
         }
-        
         return $result;
     }
 

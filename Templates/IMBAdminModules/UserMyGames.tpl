@@ -5,20 +5,62 @@
     {/foreach}
 
     function showAddGameProperty(gameId, propertyId, propertyName){
-        $("#ImbaAjaxUsersMyGamesModalPropertyName").html(propertyName);
+        $("#ImbaAjaxUsersMyGamesModalPropertyName").html(propertyName + " eingeben:");
+        $("#ImbaAjaxUsersMyGamesModalPropertyId").val(propertyId);
+        $("#ImbaAjaxUsersMyGamesModalPropertyValue").val("");
+        
         $("#ImbaAjaxUsersMyGamesModalProperty").dialog('open');
     }
 
-    $(function() {
+    $(document).ready(function() {
         // Set up the accordion
         $("#MyGamesTab").accordion();
 
         // Set up modal window
-        $("#ImbaAjaxUsersMyGamesModalProperty").dialog({ modal: true, autoOpen: false  });
+        $("#ImbaAjaxUsersMyGamesModalProperty").dialog(
+        {
+            modal: true,
+            autoOpen: false, buttons:
+                [
+                {
+                    text: "Ok",
+                    click: function() {
+                        // submit the change
+                        $.post(ajaxEntry, {
+                            action: "module",
+                            module: "User",
+                            request: "addpropertytomygames",
+                            propertyid: $("#ImbaAjaxUsersMyGamesModalPropertyId").val(),
+                            propertyvalue: $("#ImbaAjaxUsersMyGamesModalPropertyValue").val()
+                        }, function(response){
+                            if (response != "Ok"){
+                                $.jGrowl(response, { header: 'Error' });
+                            } else {
+                                $.jGrowl('Daten wurden gespeichert!', { header: 'Erfolg' });
+                            }
+                        });
 
-        $("#ImbaAjaxUsersMyGamesModalPropertyOk").click(function(){
-            $("#ImbaAjaxUsersMyGamesModalProperty").dialog('close');
+                        //reload page
+                        var data = {
+                            action: "module",
+                            module: "User",
+                            request: "editmygames",
+                            hasActiveGame: "true",
+                            activeGame: $("#MyGamesTab").accordion( "option", "active" )
+                        };
+                        loadImbaAdminTabContent(data);
+                        $(this).dialog("close");
+                    }
+                },
+                {
+                    text: "Abbrechen",
+                    click: function() {
+                        $(this).dialog("close");
+                    }
+                }
+            ]
         });
+
 
         // User submits the ImbaAjaxUsersMyGamesForm
         $("#ImbaAjaxUsersMyGamesFormSubmit").click(function(){
@@ -48,10 +90,27 @@
     });
 </script>
 
-<div id="ImbaAjaxUsersMyGamesModalProperty">
-    <div id="ImbaAjaxUsersMyGamesModalPropertyName" style="float: left;"></div>&nbsp; eingeben: <input type="text"><input id="ImbaAjaxUsersMyGamesModalPropertyOk" type="button" value="Speichern">
-
+<div id="ImbaAjaxUsersMyGamesModalProperty" title="Eigenschaft hinzufügen">
+    <table cellpadding="0" cellspacing="0" class="ImbaAjaxBlindTable">
+        <tr>
+            <td><div id="ImbaAjaxUsersMyGamesModalPropertyName"></div></td>
+        </tr>
+        <tr>
+            <td><input id="ImbaAjaxUsersMyGamesModalPropertyValue" type="text"></td>
+        </tr>
+        <tr>
+            <td><input id="ImbaAjaxUsersMyGamesModalPropertyId" type="hidden" /></td>
+        </tr>
+    </table>
 </div>
+
+{if $smarty.post.hasActiveGame == 'true'}
+<script>
+    $(function() {		
+        $("#MyGamesTab").accordion("option", "active", {$smarty.post.activeGame});
+    });
+</script>
+{/if}
 
 <form id="ImbaAjaxUsersMyGamesForm" action="post">
     <div id="MyGamesTab">
@@ -69,19 +128,16 @@
             </ul>
 
             Meine Daten zu {$game.name}:
+            {foreach $game.propertyValues as $propertyValue}
             <ul>
-                <li>MyProperty1</li>
-                <li>MyProperty2</li>
-                <li>MyProperty3</li>
-
+                <li><b>{$propertyValue.property}</b>: {$propertyValue.value}</li>
             </ul>
+            {/foreach}
         </div>
         {/foreach}
 
     </div>
 
-    <br />
-    <small>Bisher wird nur gespeichert was ich spiele, keine Properties!</small>
     <br />
     <input id="ImbaAjaxUsersMyGamesFormSubmit" type="submit" value="Speichern" />
 

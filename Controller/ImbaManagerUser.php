@@ -5,11 +5,17 @@ require_once 'Controller/ImbaManagerBase.php';
 require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaManagerGame.php';
+require_once 'Controller/ImbaManagerGameProperty.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  *  Controller / Manager for User
  *  - insert, update, delete Users
+ * CREATE TABLE IF NOT EXISTS `oom_openid_multig_int_user_gameproperties` (
+  `openid` varchar(200) NOT NULL,
+  `property_id` int(11) NOT NULL,
+  `value` varchar(255) NOT NULL
+  );
  */
 class ImbaManagerUser extends ImbaManagerBase {
 
@@ -97,15 +103,31 @@ class ImbaManagerUser extends ImbaManagerBase {
 
             // cache all games
             ImbaManagerGame::getInstance()->selectAll();
+            ImbaManagerGameProperty::getInstance()->selectAll();
 
-            // fetch games for user
             foreach ($result as $user) {
+                // fetch games for user
                 $query = "SELECT * FROM %s WHERE openid = '%s';";
                 $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId()));
 
                 while ($row = $this->database->fetchRow()) {
                     $game = ImbaManagerGame::getInstance()->selectById($row["gameid"]);
                     $user->addGame($game);
+                }
+
+                // fetch games properties for user if it is me
+                if ($user->getOpenId() == ImbaUserContext::getOpenIdUrl() && ImbaUserContext::getLoggedIn()) {
+                    $query = "SELECT * FROM %s WHERE openid = '%s';";
+                    $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId()));
+                    
+                    while ($row = $this->database->fetchRow()) {
+                        $value = new ImbaGamePropertyValue();
+                        $value->setId($row["id"]);
+                        $value->setUser($user);
+                        $value->setValue($row["value"]);
+                        $value->setProperty(ImbaManagerGameProperty::getInstance()->selectById($row["property_id"]));
+                        $user->addGamesPropertyValues($value);
+                    }
                 }
             }
 
@@ -188,6 +210,15 @@ class ImbaManagerUser extends ImbaManagerBase {
         foreach ($user->getGames() as $game) {
             $query = "INSERT INTO %s (openid, gameid) VALUES ('%s', '%s')";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId(), $game->getId()));
+        }
+
+        // Game PropertyValues updaten
+        $query = "DELETE FROM %s WHERE openid = '%s'";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId()));
+
+        foreach ($user->getGamesPropertyValues() as $gamePropertyValue) {
+            $query = "INSERT INTO %s (openid, property_id, value) VALUES ('%s', '%s', '%s')";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId(), $gamePropertyValue->getProperty()->getId(), $gamePropertyValue->getValue()));
         }
 
         $this->usersCached = null;

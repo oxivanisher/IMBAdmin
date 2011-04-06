@@ -2,6 +2,8 @@
 
 require_once 'ImbaConstants.php';
 require_once 'Model/ImbaBase.php';
+require_once 'Model/ImbaGame.php';
+require_once 'Model/ImbaGamePropertyValue.php';
 
 /**
  *  Class for all Users
@@ -31,8 +33,8 @@ class ImbaUser extends ImbaBase {
     protected $accurate = null;
     protected $role = null;
     protected $lastonline = null;
-    // deleted protected $armorychars; oxi, 25.02.2011
     protected $games = array();
+    protected $gamesPropertyValues = array();
 
     /**
      * Properties
@@ -220,12 +222,24 @@ class ImbaUser extends ImbaBase {
             if ($game != null) {
                 $result .= $game->getName();
 
-                if ($i < count($this->games) - 1){
+                if ($i < count($this->games) - 1) {
                     $result .= ", ";
                 }
             }
         }
         return $result;
+    }
+
+    public function getGamesPropertyValues() {
+        return $this->gamesPropertyValues;
+    }
+
+    public function addGamesPropertyValues($gamesPropertyValue) {
+        array_push($this->gamesPropertyValues, $gamesPropertyValue);
+    }
+
+    public function setGamesPropertyValues($gamesPropertyValues) {
+        $this->gamesPropertyValues = $gamesPropertyValues;
     }
 
 }

@@ -53,7 +53,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 if ($msgCount < $msgCountMin || $msgCountMin == -1)
                     $msgCountMin = $msgCount;
 
-                array_push($result, array("name" => $user->getNickname() + "($msgCount)", "openid" => $user->getOpenId(), "fontsize" => "8", "color" => $color, "msgCount" => $msgCount));
+                $nicknameTmp = $user->getNickname() . "($msgCount)";
+                array_push($result, array("name" => $nicknameTmp, "openid" => $user->getOpenId(), "fontsize" => "8", "color" => $color, "msgCount" => $msgCount));
             }
         }
 

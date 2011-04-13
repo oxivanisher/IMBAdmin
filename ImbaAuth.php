@@ -20,17 +20,20 @@ require_once 'Model/ImbaUserRole.php';
 /**
  * PAPE policy URIs
  */
+/* delete me
 global $pape_policy_uris;
 $pape_policy_uris = array(
         //PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
         //PAPE_AUTH_MULTI_FACTOR,
         //PAPE_AUTH_PHISHING_RESISTANT
 );
+*/
 
 /**
- * Prepare variables and objects
+ * Load OpenID Manager
  */
 $managerOpenId = new ImbaManagerOpenID();
+
 
 /**
  * Load the logger
@@ -97,6 +100,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                 if (($securityCounter == 1) && (!empty($tmpOpenid))) {
                     $openid = $tmpOpenid;
+                } else {
+                    throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                 }
             }
 
@@ -113,7 +118,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $log->setModule("Auth");
 
             try {
-                $managerOpenId->openidAuth($openid, $pape_policy_uris, $redirectUrl, $formHtml);
+                $redirectUrl = $managerOpenId->openidAuth($openid);
 
                 if (!empty($redirectUrl)) {
                     /**
@@ -123,6 +128,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setMessage("Redirecting to: " . $redirectUrl);
                     $managerLog->insert($log);
                     header("Location: " . $redirectUrl);
+
+                    /**
+                     * can probably be deleted with new openid lib
+                     */
                 } elseif (!empty($formHtml)) {
                     /**
                      * we get a html form as answer. display it
@@ -136,6 +145,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $smarty->assign('siteTitle', ImbaConstants::$CONTEXT_SITE_TITLE);
                     $smarty->assign('formHtml', $formHtml);
                     $smarty->display('ImbaRedirect.tpl');
+                    /**
+                     * deleshun till here
+                     */
                 } else {
                     /**
                      * something went wrong. display error end exit

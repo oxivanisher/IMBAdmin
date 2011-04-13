@@ -1,5 +1,9 @@
 <script type="text/javascript">
-  
+
+    $(document).ready(function() {
+        $("#imbaMaintenanceLogViewdetailBack").button();
+    });
+    
     function showLogDetail(id){
         var data = {
             module: "Maintenance",
@@ -36,4 +40,4 @@
     {/foreach}
 </table>
 <br />
-<a href="javascript:void(0)" onclick="javascript: backToLogOverview();">Back to Log Overview</a>
+<a id="imbaMaintenanceLogViewdetailBack" href="javascript:void(0)" onclick="javascript: backToLogOverview();">Back to Log Overview</a>

@@ -1,5 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#ImbaAdminViewEditUserBack").button();
+        
         // set the datepicker
         $("#myProfileBirthday").datepicker({ 
             dateFormat: 'dd.mm.yy', 
@@ -111,4 +113,4 @@
     </table>
 </form>
 <br />
-<a href="javascript:void(0)" onclick="javascript: backToUserOverview();">Back to User Overview</a>
+<a id="ImbaAdminViewEditUserBack" href="javascript:void(0)" onclick="javascript: backToUserOverview();">Back to User Overview</a>

@@ -1,4 +1,8 @@
 <script type="text/javascript">
+    $(document).ready(function() {
+        $("#imbaUserViewProfileBack").button();
+    });
+    
     function backToUserOverview(){
         var data = {
             module: "User",
@@ -62,5 +66,6 @@
     </tbody>
 </table>
 {if $myownprofile != true}
-<br /><a href="javascript:void(0)" onclick="javascript: backToUserOverview();">back</a>
+<br />
+<a id="imbaUserViewProfileBack" href="javascript:void(0)" onclick="javascript: backToUserOverview();">back</a>
 {/if}

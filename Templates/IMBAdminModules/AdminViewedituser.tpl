@@ -7,6 +7,7 @@
             changeYear: true });
         
         // User submits the ImbaAjaxUsersViewprofileForm
+        $("#ImbaAjaxUsersViewprofileFormSubmit").button();
         $("#ImbaAjaxUsersViewprofileFormSubmit").click(function(){
             // submit the change
             // hier fehlt noch einiges

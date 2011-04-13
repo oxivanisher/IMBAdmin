@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         // User submits the ImbaAjaxUsersViewprofileForm
+        $("#ImbaAjaxUsersViewprofileFormSubmit").button();
         $("#ImbaAjaxUsersViewprofileFormSubmit").click(function(){
             // submit the change
             $.post(ajaxEntry, {

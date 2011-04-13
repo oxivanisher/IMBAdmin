@@ -18,6 +18,10 @@ setInterval('refreshUsersOnline()', 10000);
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {    
+    $("#imbaSsoOpenIdSubmit").button();
+    $("#imbaSsoOpenIdSubmitLogout").button();
+    $("#imbaMessageTextSubmit").button();
+    
     // setting old openid
     var oldOpenId = unescape(decodeURIComponent(readCookie("ImbaSsoLastLoginName")));
     if (oldOpenId != null && oldOpenId != "null" && oldOpenId != ""){

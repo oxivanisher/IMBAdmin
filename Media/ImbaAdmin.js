@@ -4,7 +4,7 @@
 function loadImbaAdminModule(moduleName, moduleDo, payLoad){
     currentModule = moduleName;
     currentModuleDo = moduleDo;
-    
+
     /**
      * fill currentUserName and currentUserOpenid
      */

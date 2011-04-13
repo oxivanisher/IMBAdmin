@@ -63,6 +63,7 @@
 
 
         // User submits the ImbaAjaxUsersMyGamesForm
+        $("#ImbaAjaxUsersMyGamesFormSubmit").button();
         $("#ImbaAjaxUsersMyGamesFormSubmit").click(function(){
             var gamesIPlay = new Array();
             $.each(gamesIPlayIds, function(index, value) {

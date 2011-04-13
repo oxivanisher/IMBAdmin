@@ -269,10 +269,6 @@ function showTabsWithNewMessage(){
  * jQuery DOM-Document has been loaded
  */
 $(document).ready(function() {
-    $.ajaxSetup({
-        async:true
-    });
-
     // autocomplete for Chat
     $("#imbaMessageText").autocomplete({
         source: function( request, response ) {

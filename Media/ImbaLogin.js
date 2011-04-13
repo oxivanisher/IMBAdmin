@@ -30,7 +30,7 @@ $(document).ready(function() {
     
     // Checking if user is online
     $.ajaxSetup({
-        async: false
+        async: true
     });
     
     $.post(ajaxEntry, {

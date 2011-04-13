@@ -5,6 +5,26 @@
 /* jQuery dataTabled css include */
 /* @import url('Libs/DataTables/media/css/demo_table.css') all; */
 
+/* input boxen anpassen 
+imbaContentDialog
+imbaGameDialog
+imbaMessagesDialog
+imbaSsoLoginBorder
+*/
+#imbaContentDialog input[type=text],
+#imbaContentDialog textarea,
+#imbaGameDialog input[type=text],
+#imbaGameDialog textarea,
+#imbaMessagesDialog input[type=text],
+#imbaMessagesDialog textarea,
+#imbaSsoLoginBorder input[type=text],
+#imbaSsoLoginBorder textarea
+{
+    background-color: #222222;
+    border: 1px solid #999999;
+    color: #FFFFFF;
+}
+
 /* IMBAdmin error message */
 #ImbaErrorMsg {
     color: red;
@@ -92,11 +112,13 @@
     cursor: pointer;
 }
 
+/*
 #imbaMessageText {
     background-color: #222222;
     border: 1px solid #999999;
     color: #FFFFFF;
 }
+*/
 
 #imbaChatConversation{
     /*overflow-y: scroll;*/

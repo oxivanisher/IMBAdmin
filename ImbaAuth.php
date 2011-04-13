@@ -26,9 +26,9 @@ require_once 'Model/ImbaUserRole.php';
 $tmpPath = getcwd();
 $managerOpenId = new ImbaManagerOpenID();
 
-//chdir("Libs/Zend/");
+chdir("Libs/");
 //require_once "Oauth.php";
-require_once "Libs/Zend/Oauth/Consumer.php";
+require_once "Zend/Oauth/Consumer.php";
 
 chdir($tmpPath);
 

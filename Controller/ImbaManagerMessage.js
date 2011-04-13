@@ -202,7 +202,7 @@ function loadChatWindowContent(tabIndex) {
 /**
  * Sends a message to a reciver
  */
-function sendChatWindowMessage(msgReciver, msgText) {
+function sendChatWindowMessage(msgReciver, msgText, currentTabIndex) {
     $.post(ajaxEntry, {
         reciever: msgReciver,
         message: msgText,
@@ -212,6 +212,8 @@ function sendChatWindowMessage(msgReciver, msgText) {
             alert(response);
         }
     });
+
+    loadChatWindowContent(currentTabIndex);
 }
 
 /**
@@ -345,8 +347,8 @@ $(document).ready(function() {
         var msgReciver = getOpenIdFromTabIndex(currentTabIndex);
         var msgText = $("#imbaMessageText").val();
 
-        sendChatWindowMessage(msgReciver, msgText);
-        loadChatWindowContent(currentTabIndex);
+        sendChatWindowMessage(msgReciver, msgText, currentTabIndex);
+        
 
         $("#imbaMessageText").attr("value", "");
         return false;

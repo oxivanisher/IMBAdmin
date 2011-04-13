@@ -1,21 +1,7 @@
 <?php
 
 /**
- * There is a major rewrite going on here!
- */
-/**
- * load the needed classes for OpenID operations
- */
-/* tmp
-  $tmpPath = getcwd();
-  chdir("Libs/php-openid/");
-  require_once "Auth/OpenID/Consumer.php";
-  require_once "Auth/OpenID/FileStore.php";
-  require_once "Auth/OpenID/SReg.php";
-  require_once "Auth/OpenID/PAPE.php";
-  // test oxi: require_once "Auth/OpenID.php";
-
-  chdir($tmpPath);
+ * Loading required libs
  */
 require_once "Libs/lightopenid/openid.php";
 
@@ -24,19 +10,6 @@ require_once "Controller/ImbaManagerDatabase.php";
 require_once "Controller/ImbaManagerUser.php";
 require_once "Model/ImbaUser.php";
 require_once "ImbaConstants.php";
-
-/**
- * set the requested PAPE policies
- */
-/* tmp
-  global $pape_policy_uris;
-  $pape_policy_uris = array(
-  PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
-  PAPE_AUTH_MULTI_FACTOR,
-  PAPE_AUTH_PHISHING_RESISTANT
-  );
- *
- */
 
 /**
  * Description of ImbaManagerOpenID

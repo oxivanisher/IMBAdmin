@@ -62,7 +62,9 @@ openauth pdf doc http://tools.ietf.org/pdf/draft-ietf-oauth-v2-12.pdf
 WOW Armory URL:
 =================
 http://eu.battle.net/wow/de/character/Realm/CharacterName/
-
+more nice info:
+https://eu.battle.net/login/de/?app=armory&ref=http%3A%2F%2Feu.wowarmory.com%2Fvault%2Fgettoken.html&msg=1
+FB token cernu: 1d75f4fdefd64611a9ae969196e6ae6d
 
 XMPP Lib:
 =================

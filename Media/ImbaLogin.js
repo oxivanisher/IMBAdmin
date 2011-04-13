@@ -58,7 +58,18 @@ $(document).ready(function() {
         }else {
             subNav.slideUp('fast').show();
         }
-    }); 
+    });
+
+    $("ul.topnav li ul li").click(function() {
+        var subNav = $(this).parent();
+        if (subNav.is(":hidden")){
+            subNav.slideDown('fast').show();
+        }else {
+            subNav.slideUp('fast').show();
+        }
+    });
+
+
     var menuIsThere = true;
     $("#imbaSsoLogo").click(function() {
         if (!menuIsThere){

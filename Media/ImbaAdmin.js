@@ -75,7 +75,6 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         });
     });
     
-    
     $("#imbaContentDialog").dialog("open");
 }
 

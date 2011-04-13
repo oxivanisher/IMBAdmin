@@ -161,6 +161,38 @@ class ImbaSharedFunctions {
         // unset smf cookie
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
     }
+    
+        /**
+     *
+     * get Scheme
+     */
+    public function getScheme() {
+        $scheme = 'http';
+        if (isset($_SERVER['HTTPS']) and $_SERVER['HTTPS'] == 'on') {
+            $scheme .= 's';
+        }
+        return $scheme;
+    }
+
+    /**
+     *
+     * get ReturnTo Address
+     */
+    public function getReturnTo() {
+        // this sould be like that, if the webserver would be set up correctly
+        // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s/%s/ImbaAuth.php?authDone=true", ImbaSharedFunctions::getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
+    }
+
+    /**
+     *
+     * get the trust root
+     */
+    public function getTrustRoot() {
+        // this sould be like that, if the webserver would be set up correctly
+        // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return sprintf("%s://%s/%s/", ImbaSharedFunctions::getScheme(), $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']));
+    }
 
    
     /*    public static function writeToLog($message) {

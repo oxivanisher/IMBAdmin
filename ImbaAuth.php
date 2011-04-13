@@ -17,22 +17,61 @@ require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaUserRole.php';
 
+
 /**
- * PAPE policy URIs
+ * Load Auth Managers
+ * - OpenID
+ * - OAuth
  */
-/* delete me
-global $pape_policy_uris;
-$pape_policy_uris = array(
-        //PAPE_AUTH_MULTI_FACTOR_PHYSICAL,
-        //PAPE_AUTH_MULTI_FACTOR,
-        //PAPE_AUTH_PHISHING_RESISTANT
+$tmpPath = getcwd();
+$managerOpenId = new ImbaManagerOpenID();
+
+//chdir("Libs/Zend/");
+//require_once "Oauth.php";
+require_once "Libs/Zend/Oauth/Consumer.php";
+
+chdir($tmpPath);
+
+/**
+ * TMP Space
+ */
+/*
+$consumerKey='xxxxxxxxxxxxxxxxxx';
+$consumerSecret='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+$config=array(
+	'callbackUrl'=>'http://yourdomain.com/callback.php',
+	'siteUrl' => 'http://twitter.com/oauth',
+	'consumerKey'=>$consumerKey,
+	'consumerSecret'=>$consumerSecret
 );
+
+// creat oauth object
+$oauth=new Zend_Oauth_Consumer($config);
+// get request token
+try{
+$request_token = $oauth->getRequestToken();
+}
+catch(Exception $e)
+{
+echo 'Error: '.$e->getMessage();
+exit (1);
+}
+// store request token in session
+$_SESSION['request_token']=serialize($request_token);
+
+// explode request token to extract oauth token
+$exploded_request_token=explode('=',str_replace('&','=',$request_token));
+// get oauth token from exploded request token
+$oauth_token=$exploded_request_token[1];
+// show sign in with twitter button
+echo "<a href='http://twitter.com/oauth/authorize?oauth_token={$oauth_token}'><img src='sign-in-with-twitter-button.png' alt='Twitter button' /></a>";
+
 */
 
 /**
- * Load OpenID Manager
+ * END TMP Space
  */
-$managerOpenId = new ImbaManagerOpenID();
 
 
 /**
@@ -128,26 +167,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setMessage("Redirecting to: " . $redirectUrl);
                     $managerLog->insert($log);
                     header("Location: " . $redirectUrl);
-
-                    /**
-                     * can probably be deleted with new openid lib
-                     */
-                } elseif (!empty($formHtml)) {
-                    /**
-                     * we get a html form as answer. display it
-                     * TODO: make it autosubmit
-                     */
-                    $log->setLevel(2);
-                    $log->setMessage("Redirecting trough HTML form");
-                    $managerLog->insert($log);
-
-                    $smarty = ImbaSharedFunctions::newSmarty();
-                    $smarty->assign('siteTitle', ImbaConstants::$CONTEXT_SITE_TITLE);
-                    $smarty->assign('formHtml', $formHtml);
-                    $smarty->display('ImbaRedirect.tpl');
-                    /**
-                     * deleshun till here
-                     */
+                    
                 } else {
                     /**
                      * something went wrong. display error end exit

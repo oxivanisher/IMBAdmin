@@ -10,51 +10,53 @@ setInterval('refreshChat()', 2000);
 /**
  * Refreshs the current chatwindow
  */
-function refreshChat() {    
-    $.post(ajaxEntry, {
-        gotnewmessages: "true", 
-        action: "messenger"
-    },  function(response) {
-        // reset gotNewMessages
-        var gotNewMessages = 0;
-        var selectedTab = getSelectedTabIndex();
+function refreshChat() {
+    if (isUserLoggedIn){
+        $.post(ajaxEntry, {
+            gotnewmessages: "true",
+            action: "messenger"
+        },  function(response) {
+            // reset gotNewMessages
+            var gotNewMessages = 0;
+            var selectedTab = getSelectedTabIndex();
 
-        $.each($.parseJSON(response), function(key, newMessageFrom) {
-            // look in Chats if there is an open window with val            
-            var foundTab = false;
-            $.each($("#imbaMessages a"), function (tabIndex, tabString) {
-                // FIXME: das problem ist wenn ein tab offen ist, der dialog zugemacht wird, dann eine nachricht kommt blinkt
-                // der message dings nur einmal :/
-                if (tabIndex == selectedTab && ($("#imbaMessagesDialog").is(':hidden')) == false) {
-                    loadChatWindowContent(tabIndex);                                        
-                } else {
-                    var tmp = tabString.toString().split("#");
-                    tmp = "#" + tmp[1];
-                    var openid = $(tmp).data("openid");
-                    if (openid == newMessageFrom.openid){                  
-                        showStarChatWindowTitle(tmp, true);
-                        foundTab = true;
+            $.each($.parseJSON(response), function(key, newMessageFrom) {
+                // look in Chats if there is an open window with val
+                var foundTab = false;
+                $.each($("#imbaMessages a"), function (tabIndex, tabString) {
+                    // FIXME: das problem ist wenn ein tab offen ist, der dialog zugemacht wird, dann eine nachricht kommt blinkt
+                    // der message dings nur einmal :/
+                    if (tabIndex == selectedTab && ($("#imbaMessagesDialog").is(':hidden')) == false) {
+                        loadChatWindowContent(tabIndex);
+                    } else {
+                        var tmp = tabString.toString().split("#");
+                        tmp = "#" + tmp[1];
+                        var openid = $(tmp).data("openid");
+                        if (openid == newMessageFrom.openid){
+                            showStarChatWindowTitle(tmp, true);
+                            foundTab = true;
+                        }
                     }
+                });
+            
+                // show got new messages
+                if (!foundTab){
+                    gotNewMessages++;
                 }
             });
-            
-            // show got new messages
-            if (!foundTab){
-                gotNewMessages++;
+
+            // show icon for new message
+            if (gotNewMessages > 0){
+                $("#imbaGotMessage").effect("pulsate", {
+                    times:3
+                }, 2000);
+            } else {
+                $("#imbaGotMessage").hide();
             }
         });
+    }
 
-        // show icon for new message
-        if (gotNewMessages > 0){
-            $("#imbaGotMessage").effect("pulsate", {
-                times:3
-            }, 2000);
-        } else {
-            $("#imbaGotMessage").hide();
-        }
-    });
-
-    $("#test").html(Math.random());
+    $("#test").html("Logged in: " + isUserLoggedIn);
 }
 
 /**

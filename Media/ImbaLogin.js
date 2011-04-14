@@ -152,7 +152,7 @@ $(document).ready(function() {
      * If the user needs to register, show the IMBAdmin windows
      */
     if (userNeedsToRegister == true) {
-            loadImbaAdminDefaultModule();
+        loadImbaAdminDefaultModule();
     }
 
     // Firsttime show users online
@@ -163,32 +163,32 @@ $(document).ready(function() {
  * refreshing the users online tag cloud
  */ 
 function refreshUsersOnline(){
-    $.post(ajaxEntry, {
-        action: "user",
-        loadusersonlinelist : "true"
-    }, function (response){
-        //create list for tag links
-        $("#imbaUsersOnline").html("");
-        $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
+    if (isUserLoggedIn){
+        $.post(ajaxEntry, {
+            action: "user",
+            loadusersonlinelist : "true"
+        }, function (response){
+            //create list for tag links
+            $("#imbaUsersOnline").html("");
+            $("<ul>").attr("id", "imbaUsersOnlineTagList").appendTo("#imbaUsersOnline");
                 
-        //create tags
-        $.each($.parseJSON(response), function(key, value){
-            //create item
-            var li = $("<li>");            
-            li.text(value.name);
-            li.appendTo("#imbaUsersOnlineTagList");
-            li.css("fontSize", value.fontsize);
-            li.css("color", value.color);
-            li.attr("title", "Start Chat with " + value.name);
+            //create tags
+            $.each($.parseJSON(response), function(key, value){
+                //create item
+                var li = $("<li>");
+                li.text(value.name);
+                li.appendTo("#imbaUsersOnlineTagList");
+                li.css("fontSize", value.fontsize);
+                li.css("color", value.color);
+                li.attr("title", "Start Chat with " + value.name);
             
-            li.click(function (){
-                createChatWindow(value.name, value.openid);
-            });            
+                li.click(function (){
+                    createChatWindow(value.name, value.openid);
+                });
 
-        });        
-    });    
-    
-        
+            });
+        });
+    }
 }
 
 /**

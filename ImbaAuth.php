@@ -28,11 +28,11 @@ require_once 'Model/ImbaUserRole.php';
 $managerOpenId = new ImbaManagerOpenID();
 $managerOauth = new ImbaManagerOauth();
 
-/*chdir("Libs/");
-//require_once "Oauth.php";
-require_once "Zend/Oauth/Consumer.php";
+/* chdir("Libs/");
+  //require_once "Oauth.php";
+  require_once "Zend/Oauth/Consumer.php";
 
-chdir($tmpPath);*/
+  chdir($tmpPath); */
 
 /**
  * Load the logger
@@ -64,97 +64,115 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 } elseif (!ImbaUserContext::getLoggedIn()) {
+
     /**
      * we are NOT logged in
      */
     if ($_GET["authDone"] != true) {
-        if (empty($_POST["openid"]) && (!empty($_GET["openid"]))) {
-            $_POST["openid"] = $_GET["openid"];
-        }
-        if (!empty($_POST["openid"])) {
-            $_POST["openid"] = trim($_POST["openid"]);
-            $redirectUrl = null;
-            $formHtml = null;
-            /**
-             * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
-             */
-            if (ImbaSharedFunctions::isValidURL($_POST["openid"])) {
-                /**
-                 * This is a possible openid
-                 */
-                $openid = $_POST["openid"];
-            } else {
-                /**
-                 * Try to lookup the nickname
-                 */
-                $securityCounter = 0;
-                $tmpOpenid = null;
-                $allUsers = $managerUser->selectAllUser();
-                foreach ($allUsers as $user) {
-                    if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
-                        $securityCounter++;
-                        $tmpOpenid = $user->getOpenId();
+        /**
+         * Determine Authentication method
+         */
+        $authMethod = "openid";
+        
+        /**
+         * Do the Authentication
+         */
+        switch ($authMethod) {
+            case "openid":
+                if (empty($_POST["openid"]) && (!empty($_GET["openid"]))) {
+                    $_POST["openid"] = $_GET["openid"];
+                }
+                if (!empty($_POST["openid"])) {
+                    $_POST["openid"] = trim($_POST["openid"]);
+                    $redirectUrl = null;
+                    $formHtml = null;
+                    /**
+                     * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
+                     */
+                    if (ImbaSharedFunctions::isValidURL($_POST["openid"])) {
+                        /**
+                         * This is a possible openid
+                         */
+                        $openid = $_POST["openid"];
+                    } else {
+                        /**
+                         * Try to lookup the nickname
+                         */
+                        $securityCounter = 0;
+                        $tmpOpenid = null;
+                        $allUsers = $managerUser->selectAllUser();
+                        foreach ($allUsers as $user) {
+                            if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
+                                $securityCounter++;
+                                $tmpOpenid = $user->getOpenId();
+                            }
+                        }
+
+                        if (($securityCounter == 1) && (!empty($tmpOpenid))) {
+                            $openid = $tmpOpenid;
+                        } else {
+                            throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
+                        }
                     }
-                }
 
-                if (($securityCounter == 1) && (!empty($tmpOpenid))) {
-                    $openid = $tmpOpenid;
+                    /**
+                     * try to do the first step of the openid authentication steps
+                     */
+                    $log = $managerLog->getNew();
+                    $log->setModule("Auth");
+                    $log->setMessage("Determing Auth style for " . $openid);
+                    $log->setLevel(2);
+                    $managerLog->insert($log);
+
+                    $log = $managerLog->getNew();
+                    $log->setModule("Auth");
+
+                    try {
+                        $redirectUrl = $managerOpenId->openidAuth($openid);
+
+                        if (!empty($redirectUrl)) {
+                            /**
+                             * we got a redirection url as answer. go there now!
+                             */
+                            $log->setLevel(2);
+                            $log->setMessage("Redirecting to: " . $redirectUrl);
+                            $managerLog->insert($log);
+                            header("Location: " . $redirectUrl);
+                        } else {
+                            /**
+                             * something went wrong. display error end exit
+                             */
+                            $log->setLevel(0);
+                            $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
+                            $managerLog->insert($log);
+                            exit;
+                        }
+                    } catch (Exception $ex) {
+                        $log->setLevel(1);
+                        $log->setMessage("openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")");
+                        $managerLog->insert($log);
+                        echo $log->getMessage();
+                    }
                 } else {
-                    throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
+                    $log = $managerLog->getNew();
+                    $log->setModule("Auth");
+                    $log->setMessage("No OpenId submitted");
+                    $log->setLevel(2);
+                    $managerLog->insert($log);
+
+                    header("location: index.html");
                 }
-            }
+                break;
 
             /**
-             * try to do the first step of the openid authentication steps
+             * Default auth type
              */
-            $log = $managerLog->getNew();
-            $log->setModule("Auth");
-            $log->setMessage("Determing Auth style for " . $openid);
-            $log->setLevel(2);
-            $managerLog->insert($log);
-
-            $log = $managerLog->getNew();
-            $log->setModule("Auth");
-
-            try {
-                $redirectUrl = $managerOpenId->openidAuth($openid);
-
-                if (!empty($redirectUrl)) {
-                    /**
-                     * we got a redirection url as answer. go there now!
-                     */
-                    $log->setLevel(2);
-                    $log->setMessage("Redirecting to: " . $redirectUrl);
-                    $managerLog->insert($log);
-                    header("Location: " . $redirectUrl);
-                    
-                } else {
-                    /**
-                     * something went wrong. display error end exit
-                     */
-                    $log->setLevel(0);
-                    $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
-                    $managerLog->insert($log);
-                    exit;
-                }
-            } catch (Exception $ex) {
-                $log->setLevel(1);
-                $log->setMessage("openidAuth ERROR: " . $ex->getMessage() . " (" . $openid . ")");
-                $managerLog->insert($log);
-                echo $log->getMessage();
-            }
-        } else {
-            $log = $managerLog->getNew();
-            $log->setModule("Auth");
-            $log->setMessage("No OpenId submitted");
-            $log->setLevel(2);
-            $managerLog->insert($log);
-
-            header("location: index.html");
+            default:
+                true;
         }
     } else {
         /**
-         * first step completed. do the verification
+         * first step completed. do the verification and actual login
          */
         $log = $managerLog->getNew();
         $log->setModule("Auth");

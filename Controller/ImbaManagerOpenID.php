@@ -12,7 +12,7 @@ require_once "ImbaConstants.php";
 
 $tmpPath = getcwd();
 chdir("Libs/");
-require_once "/lightopenid/openid.php";
+require_once "lightopenid/openid.php";
 require_once "Zend/Oauth/Consumer.php";
 chdir($tmpPath);
 

@@ -49,7 +49,7 @@ switch ($_GET["load"]) {
              */
             include 'Imba.Navigation.php';
 
-            echo "\nhtmlContent = \" \\\n";
+            echo "\nhtmlContent = \"<div id='imbaAdminContainerWorld'> \\\n";
             echo "<div id='imbaMenu'><ul class='topnav'>";
 
             /**
@@ -137,12 +137,12 @@ switch ($_GET["load"]) {
             /**
              * Generate HTML construct (divs)
              */
-            echo "\nhtmlContent = \" \\\n";
+            echo "\nhtmlContent = \"\\\n";
             $file_array = file($IMBAdminIndexTemplate);
             foreach ($file_array as $line) {
                 echo trim($line) . " \\\n";
             }
-            echo "\";\ndocument.write(htmlContent);\n\n";
+            echo "</div>\";\ndocument.write(htmlContent);\n\n";
         } else {
             echo 'alert("FATAL ERROR: File not found: ' . $IMBAdminIndexTemplate . '");';
         }

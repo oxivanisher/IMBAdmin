@@ -1,16 +1,17 @@
 /* jQuery css include */
 @import url('/IMBAdmin/Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css') all;
 @import url('/IMBAdmin/Libs/jgrowl/jquery.jgrowl.css') all;
+@import url('/IMBAdmin/Media/ImbaAdmin.css') all;
 
 /* jQuery dataTabled css include */
 /* @import url('Libs/DataTables/media/css/demo_table.css') all; */
 
-/* input boxen anpassen 
-imbaContentDialog
-imbaGameDialog
-imbaMessagesDialog
-imbaSsoLoginBorder
-*/
+#imbaAdminContainerWorld {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 12px !important;
+}
+
+/* input boxen anpassen */
 #imbaContentDialog input[type=text],
 #imbaContentDialog textarea,
 #imbaGameDialog input[type=text],

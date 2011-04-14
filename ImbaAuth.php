@@ -26,7 +26,7 @@ require_once 'Model/ImbaUserRole.php';
  */
 //$tmpPath = getcwd();
 $managerOpenId = new ImbaManagerOpenID();
-$managerOauth = new ImbaManagerOauth();
+//$managerOauth = new ImbaManagerOauth();
 
 /* chdir("Libs/");
   //require_once "Oauth.php";

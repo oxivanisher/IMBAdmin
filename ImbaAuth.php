@@ -11,6 +11,7 @@ session_start();
 require_once "ImbaConstants.php";
 require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerOpenID.php';
+require_once 'Controller/ImbaManagerOauth.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
@@ -23,56 +24,15 @@ require_once 'Model/ImbaUserRole.php';
  * - OpenID
  * - OAuth
  */
-$tmpPath = getcwd();
+//$tmpPath = getcwd();
 $managerOpenId = new ImbaManagerOpenID();
+$managerOauth = new ImbaManagerOauth();
 
-chdir("Libs/");
+/*chdir("Libs/");
 //require_once "Oauth.php";
 require_once "Zend/Oauth/Consumer.php";
 
-chdir($tmpPath);
-
-/**
- * TMP Space
- */
-/*
-$consumerKey='xxxxxxxxxxxxxxxxxx';
-$consumerSecret='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
-
-$config=array(
-	'callbackUrl'=>'http://yourdomain.com/callback.php',
-	'siteUrl' => 'http://twitter.com/oauth',
-	'consumerKey'=>$consumerKey,
-	'consumerSecret'=>$consumerSecret
-);
-
-// creat oauth object
-$oauth=new Zend_Oauth_Consumer($config);
-// get request token
-try{
-$request_token = $oauth->getRequestToken();
-}
-catch(Exception $e)
-{
-echo 'Error: '.$e->getMessage();
-exit (1);
-}
-// store request token in session
-$_SESSION['request_token']=serialize($request_token);
-
-// explode request token to extract oauth token
-$exploded_request_token=explode('=',str_replace('&','=',$request_token));
-// get oauth token from exploded request token
-$oauth_token=$exploded_request_token[1];
-// show sign in with twitter button
-echo "<a href='http://twitter.com/oauth/authorize?oauth_token={$oauth_token}'><img src='sign-in-with-twitter-button.png' alt='Twitter button' /></a>";
-
-*/
-
-/**
- * END TMP Space
- */
-
+chdir($tmpPath);*/
 
 /**
  * Load the logger

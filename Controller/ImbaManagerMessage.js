@@ -1,5 +1,5 @@
 /* 
- * The ImbaManagerMessenger is the Controller Javascript for the Frontend
+ * The ImbaManagerMessenger is the Controller Javascript for the Frontend for Messenging and chatting
  */
 // Stores how many tabs have already been opend
 var chatsCount = 0;
@@ -107,7 +107,7 @@ function getTabIdFromTabIndex(tabIndex){
 /**
  * Return the openid of a tab from a tabIndex
  */
-function getOpenIdFromTabIndex(tabIndex){
+function getTabDataFromTabIndex(tabIndex){
     var result = "";
     $.each($("#imbaMessages a"), function (k, v) {
         if (k == tabIndex){
@@ -122,7 +122,7 @@ function getOpenIdFromTabIndex(tabIndex){
 /**
  * Creats a chatwindow
  */
-function createChatWindow(name, openid) {
+function createChatWindow(name, data) {
     // Run through open chats and check if its not already opend,
     // if so => select that
     var found = false;
@@ -136,7 +136,7 @@ function createChatWindow(name, openid) {
         var tmpId = v.toString().split("#");
         var tmpOpenId = $("#" + tmpId[1]).data("openid");
         
-        if (tmpOpenId == openid) {
+        if (tmpOpenId == data) {
             // Select the clicked window
             $('#imbaMessages').tabs("select", k);
             found = true;
@@ -147,17 +147,9 @@ function createChatWindow(name, openid) {
 
     if (!found){
         // Create new Window
-        $("#imbaMessages")
-        .tabs("add", "#imbaMessagesTab_" + chatsCount, name)
-        // Sortable (making it to complex)
-        /*.find(".ui-tabs-nav")
-        .sortable({
-            axis: "x"
-        })
-         */
-        ;
+        $("#imbaMessages").tabs("add", "#imbaMessagesTab_" + chatsCount, name);
 
-        $("#imbaMessagesTab_" + chatsCount).data("openid", openid);
+        $("#imbaMessagesTab_" + chatsCount).data("openid", data);
         $('#imbaMessages').tabs("select", countOpenChats);
         loadChatWindowContent(countOpenChats);
 
@@ -169,8 +161,8 @@ function createChatWindow(name, openid) {
  * Refreshs a special chatwindow
  */
 function loadChatWindowContent(tabIndex) {    
-    if (getOpenIdFromTabIndex(tabIndex) != "") {
-        var tabReciever = getOpenIdFromTabIndex(tabIndex)
+    if (getTabDataFromTabIndex(tabIndex) != "") {
+        var tabReciever = getTabDataFromTabIndex(tabIndex)
         // load chat
         $.post(ajaxEntry, {
             reciever: tabReciever,
@@ -205,15 +197,21 @@ function loadChatWindowContent(tabIndex) {
  * Sends a message to a reciver
  */
 function sendChatWindowMessage(msgReciver, msgText, currentTabIndex) {
-    $.post(ajaxEntry, {
-        reciever: msgReciver,
-        message: msgText,
-        action: "messenger"
-    }, function(response) {
-        if (response != "Message sent"){
-            alert(response);
-        }
-    });
+    var tabData = getTabDataFromTabIndex(currentTabIndex);
+
+    if (tabData.substr(0, 1) == "#"){
+        alert("Chat is not yet implemented.");
+    } else {
+        $.post(ajaxEntry, {
+            reciever: msgReciver,
+            message: msgText,
+            action: "messenger"
+        }, function(response) {
+            if (response != "Message sent"){
+                alert(response);
+            }
+        });
+    }
 
     loadChatWindowContent(currentTabIndex);
 }
@@ -289,7 +287,30 @@ $(document).ready(function() {
                             return {
                                 label: item.name,
                                 value: "/w " + item.name,
-                                data: item.openid
+                                data: item.openid,
+                                user: item.user
+                            }
+                        }));
+
+                    }
+                });
+            }
+            if (request.term.substr(0,2) == "/j") {
+                $.ajax({
+                    type: "POST",
+                    url: ajaxEntry,
+                    dataType: "json",
+                    data: {
+                        action: "messenger",
+                        loadchannels: "true"
+                    },
+                    success: function( data ) {
+                        response( $.map( data, function( item ) {
+                            return {
+                                label: "Join Channel: " + item.channel,
+                                value: "/j " + item.channel,
+                                data: item.channel,
+                                user: item.user
                             }
                         }));
 
@@ -299,7 +320,11 @@ $(document).ready(function() {
         },
         minLength: 0,
         select: function( event, ui ) {
-            createChatWindow(ui.item.label, ui.item.data);
+            if (ui.item.user == true){
+                createChatWindow(ui.item.label, ui.item.data);
+            } else if (ui.item.user == false){
+                createChatWindow("#" + ui.item.data, "#"+ui.item.data);
+            }
         },
         close: function() {
             $("#imbaMessageText").attr("value", "");
@@ -342,11 +367,10 @@ $(document).ready(function() {
     // User submits the textbox
     $("#imbaMessageTextSubmit").click(function(){
         var currentTabIndex = getSelectedTabIndex();
-        var msgReciver = getOpenIdFromTabIndex(currentTabIndex);
+        var msgReciver = getTabDataFromTabIndex(currentTabIndex);
         var msgText = $("#imbaMessageText").val();
 
         sendChatWindowMessage(msgReciver, msgText, currentTabIndex);
-        
 
         $("#imbaMessageText").attr("value", "");
         return false;
@@ -354,7 +378,7 @@ $(document).ready(function() {
 
     // Setting a Template for the tabs, making them closeable
     $msgTabs.tabs({
-        tabTemplate: "<li><a href='#{href}'>#{label}</a><div class='ui-icon ui-icon-info' style='cursor: pointer; float: left;'>Userinfo</div><div class='ui-icon ui-icon-close'>Remove Tab</div></li>"
+        tabTemplate: "<li><a href='#{href}'>#{label}</a><div class='ui-icon ui-icon-info' style='cursor: pointer; float: left;'>Info</div><div class='ui-icon ui-icon-close'>Remove Tab</div></li>"
     });
 
     // close icon: removing the tab on click
@@ -365,7 +389,12 @@ $(document).ready(function() {
     // info icon: showing the ImbAdmin module
     $("#imbaMessages div.ui-icon-info").live("click", function() {
         var index = $("li", $msgTabs).index($(this).parent());
-        showUserProfile(getOpenIdFromTabIndex(index));
+        var tabData = getTabDataFromTabIndex(index);
+        if (tabData.substr(0, 1) == "#"){
+            alert("Chat is not yet implemented.");
+        } else {
+            showUserProfile(getTabDataFromTabIndex(index));
+        }
     });
         
 });

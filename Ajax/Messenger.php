@@ -6,6 +6,7 @@ session_start();
 require_once 'Model/ImbaMessage.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerMessage.php';
+require_once 'Controller/ImbaManagerChatChannel.php';
 require_once 'Controller/ImbaUserContext.php';
 
 /**
@@ -13,6 +14,7 @@ require_once 'Controller/ImbaUserContext.php';
  */
 if (ImbaUserContext::getLoggedIn()) {
     $managerMessage = ImbaManagerMessage::getInstance();
+    $managerChatChannel = ImbaManagerChatChannel::getInstance();
     $managerUser = ImbaManagerUser::getInstance();
 
     /**
@@ -25,15 +27,13 @@ if (ImbaUserContext::getLoggedIn()) {
 
     /**
      * Got something new for user?
-     */
-    else if (isset($_POST['gotnewmessages'])) {
+     */ else if (isset($_POST['gotnewmessages'])) {
         echo $managerMessage->selectNewMessagesByOpenid(ImbaUserContext::getOpenIdUrl());
     }
 
     /**
      * Send a Message
-     */
-    else if (isset($_POST['message']) && isset($_POST['reciever'])) {
+     */ else if (isset($_POST['message']) && isset($_POST['reciever'])) {
         $message = new ImbaMessage();
         $message->setSender(ImbaUserContext::getOpenIdUrl());
         $message->setReceiver($_POST['reciever']);
@@ -55,15 +55,13 @@ if (ImbaUserContext::getLoggedIn()) {
 
     /**
      * Set read for a message
-     */
-    else if (isset($_POST['reciever']) && isset($_POST['setread'])) {
+     */ else if (isset($_POST['reciever']) && isset($_POST['setread'])) {
         $managerMessage->setMessageRead(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
     }
 
     /**
      * Recieve Messages
-     */
-    else if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
+     */ else if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
             $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 10);
 
@@ -88,6 +86,16 @@ if (ImbaUserContext::getLoggedIn()) {
         } catch (Exception $ex) {
             echo "Error: " . $ex->getMessage();
         }
+    }
+    /**
+     * Load the Channels
+     */ else if (isset($_POST['loadchannels'])) {
+        $result = array();
+
+        foreach ($managerChatChannel->selectAll() as $channel) {
+            array_push($result, array("user" => false, "channel" => $channel->getName()));
+        }
+        echo json_encode($result);
     }
 } else {
     echo "Not logged in!";

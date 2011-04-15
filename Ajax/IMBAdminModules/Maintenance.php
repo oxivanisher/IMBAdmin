@@ -16,7 +16,7 @@ require_once 'Model/ImbaUserRole.php';
 /**
  * are we logged in?
  */
-if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
+if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
     /**
      * create a new smarty object
      */

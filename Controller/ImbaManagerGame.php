@@ -135,7 +135,7 @@ class ImbaManagerGame extends ImbaManagerBase {
     }
 
     /**
-     * Select all roles
+     * Select all Games
      */
     public function selectAll() {
         if ($this->gamesCached == null) {

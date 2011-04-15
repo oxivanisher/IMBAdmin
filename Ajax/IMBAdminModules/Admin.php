@@ -20,7 +20,7 @@ require_once 'Model/ImbaUserRole.php';
 /**
  * are we logged in?
  */
-if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
+if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
     /**
      * create a new smarty object
      */
@@ -184,7 +184,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 echo $e->getMessage();
             }
             break;
-        
+
         case "deletegameproperty":
             try {
                 ImbaManagerGameProperty::getInstance()->delete($_POST["gamepropertyid"]);
@@ -340,11 +340,12 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
                 $smarty->assign('sex', '');
             }
 
-            $role = $managerRole->selectByRole($user->getRole());
-
-            $smarty->assign('role', $role->getName());
-            $smarty->assign('roleIcon', $role->getIcon());
-
+            $allroles = array();
+            foreach ($managerRole->selectAll() as $role) {
+                array_push($allroles, array("id" => $role->getId(), "name" => $role->getName(), "role" => $role->getRole()));
+            }
+            $smarty->assign('allroles', $allroles);
+            $smarty->assign('role', $user->getRole());
 
             $smarty->display('IMBAdminModules/AdminViewedituser.tpl');
             break;
@@ -368,6 +369,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 9) {
             $user->setBirthday($birthdate[0]);
             $user->setBirthmonth($birthdate[1]);
             $user->setBirthyear($birthdate[2]);
+
+            $user->setRole($_POST["myProfileRole"]);
 
             try {
                 $managerUser->update($user);

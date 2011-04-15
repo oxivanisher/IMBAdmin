@@ -91,7 +91,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
             $result = array();
             foreach ($users as $user) {
-                array_push($result, array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
+                array_push($result, array("user" => true, "name" => $user->getNickname(), "openid" => $user->getOpenId()));
             }
 
             echo json_encode($result);

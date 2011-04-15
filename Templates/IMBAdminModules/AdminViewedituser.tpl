@@ -28,7 +28,8 @@
                 myProfileIcq: $("#myProfileIcq").val(),
                 myProfileMsn: $("#myProfileMsn").val(),
                 myProfileBirthday: $("#myProfileBirthday").val(),
-                myProfileSignature: $("#myProfileSignature").val()
+                myProfileSignature: $("#myProfileSignature").val(),
+                myProfileRole: $("#myProfileRole").val()
             }, function(response){
                 if (response != "Ok"){
                     $.jGrowl(response, { header: 'Error' });
@@ -104,6 +105,16 @@
         <tr>
             <td>Signatur:</td>
             <td colspan="2"><textarea id="myProfileSignature" name="signature" rows="4" cols="50">{$signature}</textarea></td>
+        </tr>
+        <tr>
+            <td>Rolle</td>
+            <td colspan="2">
+                <select id="myProfileRole">
+                    {foreach $allroles as $current_role}
+                    <option value="{$current_role.role}" {if $current_role.role == $role}selected{/if}>{$current_role.name}</option>
+                    {/foreach}
+                </select>
+            </td>
         </tr>
         <tr>
             <td>&nbsp;</td>

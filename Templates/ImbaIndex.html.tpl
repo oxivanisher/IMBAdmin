@@ -1,7 +1,7 @@
 
 <div id='test' style='position: absolute; left: 0; top: 0;'></div>
 <div id='imbaSsoLoginBorder' class='ui-widget-content ui-corner-all'>
-    <div id='imbaSsoLogin' class='imbaFont'>
+    <div id='imbaSsoLogin'>
         <img id='imbaSsoLogo' src='/IMBAdmin/Images/guild_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
             <form id='imbaSsoLoginForm' action='/IMBAdmin/ImbaAuth.php' method='post'>
@@ -22,7 +22,7 @@
         <div id='imbaGotMessage' class='ui-icon ui-icon-mail-closed' title='Open Messaging' >M</div>
     </div>
 </div>
-<div id='imbaMessagesDialog' title='IMBA Messaging' class='imbaFont' style='padding: 3px;'>
+<div id='imbaMessagesDialog' title='IMBA Messaging' style='padding: 3px;'>
     <div id='imbaMessages' style='height: 97%; overflow: auto;'>
         <ul></ul>
         <div id='imbaMessageTextDiv'>
@@ -33,12 +33,12 @@
         </div>
     </div>
 </div>
-<div id='imbaContentDialog' title='IMBAdmin' class='imbaFont' style='padding: 3px;'>
+<div id='imbaContentDialog' title='IMBAdmin' style='padding: 3px;'>
     <div id='imbaContentNav' style='height: 98%; overflow: auto;'>
         <ul></ul>
     </div>
 </div>
-<div id='imbaGameDialog' title='IMBAGame' class='imbaFont' style='padding: 3px;'>
+<div id='imbaGameDialog' title='IMBAGame' style='padding: 3px;'>
     <div id='imbaGameNav' style='height: 98%; overflow: auto;'>
         <ul></ul>
     </div>

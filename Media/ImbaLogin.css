@@ -6,9 +6,10 @@
 /* jQuery dataTabled css include */
 /* @import url('Libs/DataTables/media/css/demo_table.css') all; */
 
-#imbaAdminContainerWorld {
-    font-family: "Trebuchet MS", sans-serif;
-    font-size: 12px !important;
+body {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    line-height: normal;
 }
 
 /* input boxen anpassen */
@@ -19,11 +20,22 @@
 #imbaMessagesDialog input[type=text],
 #imbaMessagesDialog textarea,
 #imbaSsoLoginBorder input[type=text],
-#imbaSsoLoginBorder textarea
-{
+#imbaSsoLoginBorder textarea {
     background-color: #222222;
     border: 1px solid #999999;
     color: #FFFFFF;
+
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+    line-height: normal;
+}
+
+#imbaSsoLoginBorder input[type=submit] {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    line-height: normal;
 }
 
 /* IMBAdmin error message */

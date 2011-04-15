@@ -14,7 +14,7 @@
 
     $(document).ready(function() {
         // Set up the accordion
-        $("#MyGamesTab").accordion();
+        $("#MyGamesTab").accordion({ autoHeight: false });
 
         // Set up modal window
         $("#ImbaAjaxUsersMyGamesModalProperty").dialog(

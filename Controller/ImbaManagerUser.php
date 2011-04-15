@@ -68,7 +68,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             // Only fetch Users with role <> banned
             $result = array();
 
-            if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() >= 9) {
+            if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() == 3) {
                 $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid order by p.nickname;";
             } else {
                 $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid Where p.role <> 0 order by p.nickname;";

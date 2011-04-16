@@ -32,8 +32,6 @@ switch ($_GET["load"]) {
             /**
              * Generate TopNavigation
              */
-            session_start();
-
             require_once 'Model/ImbaUser.php';
             require_once 'ImbaConstants.php';
             require_once 'Controller/ImbaManagerDatabase.php';

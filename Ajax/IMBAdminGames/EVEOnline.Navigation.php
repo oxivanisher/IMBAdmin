@@ -38,5 +38,6 @@ $Navigation->setMinUserRole(0);
  */
 $Navigation->addElement("overview", "First", "Standart Ansicht");
 $Navigation->addElement("settings", "Seccond", "Zweites Tab");
+$Navigation->addElement("lintel", "lintel", "Dritter Tab");
 
 ?>

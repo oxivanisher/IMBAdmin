@@ -70,6 +70,7 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_WOW_ARMORY_CHARCACHE = "oom_openid_armory_charcache";
     public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
     public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
+    public static $DATABASE_TABLES_GAME_EVE_CHARS = "oom_game_eve_chars";
     /**
      * Support for loading settings from database
      */

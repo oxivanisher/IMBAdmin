@@ -6,14 +6,18 @@ require_once 'ImbaConstants.php';
  * This file returns the available navigation options for the modules ($_POST["module"])
  */
 $nav = array();
+$tmpFile = "";
 
 if (empty($_POST["context"])) {
-    $_POST["context"] = "IMBAdminModules";
+    echo "NoContext";
+    exit;
+} elseif ($_POST["context"] == "IMBAdminModules") {
+    $tmpFile = "IMBAdminModules/" . $_POST["module"];
 } elseif ($_POST["context"] == "IMBAdminGames") {
-    $_POST["module"] = $_POST["game"];
+    $tmpFile = "IMBAdminGames/" . $_POST["game"];
 }
 
-$navigationFile = "Ajax/" . $_POST["context"] . "/" . $_POST["module"] . ".Navigation.php";
+$navigationFile = "Ajax/" . $tmpFile . ".Navigation.php";
 
 function returnDefaultModule() {
     session_start();

@@ -81,19 +81,19 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
 /**
  * loads the ImbaAdminTab content, depending on the data for the post request
  */
-function loadImbaAdminTabContent(data, myTabId) {
-    var targetIabId = null;
-    if (myTabId == null) {
-        targetIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());
+function loadImbaAdminTabContent(data, myModuleTabId) {
+    var targetModuleIabId = null;
+    if (myModuleTabId == null) {
+        targetModuleIabId = getImbaAdminTabIdFromTabIndex(getSelectedImbaAdminTabIndex());
     } else {
-        targetIabId = myTabId;
+        targetModuleIabId = myModuleTabId;
     }
 
     data.action = "module";
 
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
-            $(targetIabId).html(response);
+            $(targetModuleIabId).html(response);
         }
     });
 }
@@ -136,14 +136,14 @@ function getSelectedImbaAdminTabIndex(){
 /**
  * Return the Id of a tab from a tabIndex
  */
-function getImbaAdminTabIdFromTabIndex(tabIndex){
-    var result = "";
+function getImbaAdminTabIdFromTabIndex(tabModuleIndex){
+    var moduleResult = "";
     $.each($("#imbaContentNav a"), function (k, v) {
-        if (k == tabIndex){
-            var tmp = v.toString().split("#");
-            result = "#" + tmp[1];
+        if (k == tabModuleIndex){
+            var moduleTmp = v.toString().split("#");
+            moduleResult = "#" + moduleTmp[1];
         }
     });
 
-    return result;
+    return moduleResult;
 }

@@ -31,7 +31,7 @@ class ImbaConstants extends ImbaConfig {
     public static $WEB_BASE_TEMPLATE = "Templates/ImbaIndex.html.tpl";
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";
     public static $WEB_DEFAULT_LOGGED_OUT_MODULE = "Register";
-    public static $WEB_DEFAULT_GAME = "Welcome";
+    public static $WEB_DEFAULT_GAME = "Index";
     /**
      * Error Codes
      */

@@ -82,18 +82,18 @@ function loadImbaGame(gameName, gameDo, payLoad){
 /**
  * loads the ImbaGameTab content, depending on the data for the post request
  */
-function loadImbaGameTabContent(data, myTabId) {
-    var targetIabId = null;
-    if (myTabId == null) {
-        targetIabId = getImbaGameTabIdFromTabIndex(getSelectedImbaGameTabIndex());
+function loadImbaGameTabContent(data, myGameTabId) {
+    var targetGameIabId = null;
+    if (myGameTabId == null) {
+        targetGameIabId = getImbaGameTabIdFromTabIndex(getSelectedImbaGameTabIndex());
     } else {
-        targetIabId = myTabId;
+        targetGameIabId = myGameTabId;
     }
     data.action = "game";
 
     $.post(ajaxEntry, data, function (response){
         if (response != ""){
-            $(targetIabId).html(response);
+            $(targetGameIabId).html(response);
         }
     });
 }
@@ -130,13 +130,13 @@ function getSelectedImbaGameTabIndex(){
 /**
  * Return the Id of a tab from a tabIndex
  */
-function getImbaGameTabIdFromTabIndex(tabIndex){
-    var result = "";
+function getImbaGameTabIdFromTabIndex(tabGameIndex){
+    var gameResult = "";
     $.each($("#imbaGameNav a"), function (k, v) {
-        if (k == tabIndex){
-            var tmp = v.toString().split("#");
-            result = "#" + tmp[1];
+        if (k == tabGameIndex){
+            var gameTmp = v.toString().split("#");
+            gameResult = "#" + gameTmp[1];
         }
     });
-    return result;
+    return gameResult;
 }

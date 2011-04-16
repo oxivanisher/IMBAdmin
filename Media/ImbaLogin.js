@@ -89,20 +89,20 @@ $(document).ready(function() {
      */
     // Setting up the content of the Dialog as tabs
     $("#imbaContentNav").tabs().bind("tabsselect", function(event, ui) {
-        var tmpTabId = "";
+        var tmpModuleTabId = "";
         $.each($("#imbaContentNav a"), function (k, v) {
             if (k == ui.index){
-                var tmp = v.toString().split("#");
+                var moduleTmp = v.toString().split("#");
                 
-                tmpTabId = "#" + tmp[1];
+                tmpModuleTabId = "#" + moduleTmp[1];
                 
                 var data = {
                     action: "module",
                     module: currentModule,
                     moduleDo: currentModuleDo,
-                    request: tmp[1]
+                    request: moduleTmp[1]
                 };
-                loadImbaAdminTabContent(data, tmpTabId); 
+                loadImbaAdminTabContent(data, tmpModuleTabId); 
             }
         });
     });
@@ -112,20 +112,20 @@ $(document).ready(function() {
      */
     // Setting up the content of the Dialog as tabs
     $("#imbaGameNav").tabs().bind("tabsselect", function(event, ui) {
-        var tmpTabId = "";
+        var tmpGameTabId = "";
         $.each($("#imbaGameNav a"), function (k, v) {
             if (k == ui.index){
-                var tmp = v.toString().split("#");
+                var gameTmp = v.toString().split("#");
                 
-                tmpTabId = "#" + tmp[1];
+                tmpGameTabId = "#" + gameTmp[1];
                 
                 var data = {
                     action: "game",
                     game: currentGame,
                     gameDo: currentGameDo,
-                    request: tmp[1]
+                    request: gameTmp[1]
                 };
-                loadImbaGameTabContent(data, tmpTabId); 
+                loadImbaGameTabContent(data, tmpGameTabId); 
             }
         });
     });

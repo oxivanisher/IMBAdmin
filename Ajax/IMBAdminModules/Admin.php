@@ -37,7 +37,22 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
     $managerGameProperty = ImbaManagerGameProperty::getInstance();
 
     switch ($_POST["request"]) {
+        /**
+         * Portal Management
+         */
+        case "portal";
+            
+            $smarty->display('IMBAdminModules/AdminPortalOverview.tpl');
+            break;
 
+        /**
+         * Navigation Entries Management
+         */
+         case "naventry";
+             
+            $smarty->display('IMBAdminModules/AdminNavigationEntries.tpl');
+            break;
+       
         /**
          * Role Management
          */

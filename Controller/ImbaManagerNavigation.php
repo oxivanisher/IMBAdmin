@@ -175,7 +175,6 @@ class ImbaManagerNavigation extends ImbaManagerBase {
                 break;
         }
 
-
         /**
          * Render Top Navigation Entries
          */
@@ -187,10 +186,10 @@ class ImbaManagerNavigation extends ImbaManagerBase {
     }
 
     public function renderImbaAdminNavigation() {
-        $return = "<li>";
+        $return = "<li>\\\n";
         $return .= "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaAdminDefaultModule();' title='";
-        $return .= ImbaConstants::$WEB_IMBADMIN_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBADMIN_BUTTON_NAME . "</a>";
-        $return .= "<ul class='subnav'>";
+        $return .= ImbaConstants::$WEB_IMBADMIN_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBADMIN_BUTTON_NAME . "</a>\\\n";
+        $return .= "<ul class='subnav'>\\\n";
         $contentNav = new ImbaContentNavigation();
         if ($handle = opendir('Ajax/IMBAdminModules/')) {
             $identifiers = array();
@@ -207,7 +206,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
                         if ($showMe) {
                             $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
+                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>\\\n";
                             array_push($identifiers, $modIdentifier);
                             $Navigation = null;
                         }
@@ -216,16 +215,16 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             }
             closedir($handle);
         }
-        $return .= "</ul>";
-        $return .= "</li>";
+        $return .= "</ul>\\\n";
+        $return .= "</li>\\\n";
         return $return;
     }
 
     public function renderImbaGameNavigation() {
-        $return = "<li>";
+        $return = "<li>\\\n";
         $return .= "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='";
-        $return .= ImbaConstants::$WEB_IMBAGAME_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBAGAME_BUTTON_NAME . "</a>";
-        $return .= "<ul class='subnav'>";
+        $return .= ImbaConstants::$WEB_IMBAGAME_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBAGAME_BUTTON_NAME . "</a>\\\n";
+        $return .= "<ul class='subnav'>\\\n";
         $contentNav = new ImbaContentNavigation();
         if ($handle = opendir('Ajax/IMBAdminGames/')) {
             $identifiers = array();
@@ -242,7 +241,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
                         if ($showMe) {
                             $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
+                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>\\\n";
                             array_push($identifiers, $modIdentifier);
                             $Navigation = null;
                         }
@@ -252,8 +251,8 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             closedir($handle);
         }
 
-        $return .= "</ul>";
-        $return .= "</li>";
+        $return .= "</ul>\\\n";
+        $return .= "</li>\\\n";
         return $return;
     }
 

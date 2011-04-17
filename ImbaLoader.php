@@ -5,30 +5,31 @@ $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
-        session_start();
-
-        /**
-         * load jQuery libs
-         */
-        echo file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
-        echo file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
-        echo file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
-        echo file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
-        echo file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
-
-        /**
-         * load our js scripts
-         */
-        echo "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
-        echo file_get_contents("Media/ImbaBaseMethods.js") . "\n";
-        echo file_get_contents("Media/ImbaLogin.js") . "\n";
-        echo file_get_contents("Media/ImbaAdmin.js") . "\n";
-        echo file_get_contents("Media/ImbaGame.js") . "\n";
-
         /**
          * Load IMBAdmin index template
          */
         if (file_exists($IMBAdminIndexTemplate)) {
+            session_start();
+            $tmpOut = "";
+
+            /**
+             * load static jQuery libs
+             */
+            $tmpOut .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
+            $tmpOut .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
+            $tmpOut .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
+            $tmpOut .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
+            $tmpOut .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
+
+            /**
+             * load our static js scripts
+             */
+            $tmpOut .= "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
+            $tmpOut .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
+            $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
+            $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";
+            $tmpOut .= file_get_contents("Media/ImbaGame.js") . "\n";
+
             /**
              * Generate TopNavigation
              */
@@ -43,37 +44,53 @@ switch ($_GET["load"]) {
             require_once 'Controller/ImbaSharedFunctions.php';
 
             /**
+             * Load our own JavaScript includes
+             */
+            $tmpOut .= file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
+            $tmpOut .= file_get_contents("Controller/ImbaManagerOpenID.js") . "\n";
+
+            /**
+             * Begin js/HTML injection code
+             */
+            $tmpOut .= "htmlContent = \"<div id='imbaAdminContainerWorld'>\\\n";
+
+            /**
              * Render Portal, ImbaAdmin and ImbaGames Navigation
              */
             $managerNavigation = ImbaManagerNavigation::getInstance();
-            echo "\nhtmlContent = \"<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='topnav'> \\\n";
-            echo $managerNavigation->renderPortalNavigation();
-            echo $managerNavigation->renderImbaAdminNavigation();
-            echo $managerNavigation->renderImbaGameNavigation();
-            echo "</li></ul></div>";
-            echo "\";\ndocument.write(htmlContent);\n\n";
+            $tmpOut .= "<div id='imbaMenu'><ul class='topnav'>\\\n";
+            $tmpOut .= $managerNavigation->renderPortalNavigation();
+            $tmpOut .= $managerNavigation->renderImbaAdminNavigation();
+            $tmpOut .= $managerNavigation->renderImbaGameNavigation();
+            $tmpOut .= "</ul></div>\\\n";
 
             /**
-             * Generate HTML construct (divs)
+             * Render Imba HTML div construct
              */
-            echo "\nhtmlContent = \"\\\n";
             $file_array = file($IMBAdminIndexTemplate);
             foreach ($file_array as $line) {
-                echo trim($line) . " \\\n";
+                $tmpOut .= trim($line) . "\\\n";
             }
-            echo "</div>\";\ndocument.write(htmlContent);\n\n";
+
+            /**
+             * End js/HTML injection code
+             */
+            $tmpOut .= "</div>\";\ndocument.write(htmlContent);\n\n";
+
+            /**
+             * Write all informations at once (should be much faster than echo
+             */
+            echo $tmpOut;
         } else {
-            echo 'alert("FATAL ERROR: File not found: ' . $IMBAdminIndexTemplate . '");';
+            echo 'alert("FATAL ERROR! File ' . $IMBAdminIndexTemplate . ' not found. Aborting...");';
         }
-
-
-        echo file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
-        echo file_get_contents("Controller/ImbaManagerOpenID.js") . "\n";
         break;
 
     case "css":
-        echo file_get_contents("Media/ImbaLogin.css");
-        echo file_get_contents("Media/ImbaAdmin.css");
+        $tmpOut = "";
+        $tmpOut .= file_get_contents("Media/ImbaLogin.css");
+        $tmpOut .= file_get_contents("Media/ImbaAdmin.css");
+        echo $tmpOut;
         break;
 
     default:

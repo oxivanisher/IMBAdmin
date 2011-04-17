@@ -35,6 +35,7 @@ switch ($_GET["load"]) {
             require_once 'Model/ImbaUser.php';
             require_once 'ImbaConstants.php';
             require_once 'Controller/ImbaManagerDatabase.php';
+            require_once 'Controller/ImbaManagerNavigation.php';
             require_once 'Controller/ImbaManagerUser.php';
             require_once 'Controller/ImbaUserContext.php';
 
@@ -42,95 +43,15 @@ switch ($_GET["load"]) {
             require_once 'Controller/ImbaSharedFunctions.php';
 
             /**
-             * FIXME: please add security to this file!
-             * FIXME: load top navigation from database
+             * Render Portal, ImbaAdmin and ImbaGames Navigation
              */
-            include 'Imba.Navigation.php';
-
-            echo "\nhtmlContent = \"<div id='imbaAdminContainerWorld'> \\\n";
-            echo "<div id='imbaMenu'><ul class='topnav'>";
-
-            /**
-             * Render Top Navigation Entries
-             */
-            foreach ($topNav->getElements() as $nav) {
-                echo "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
-            }
-
-            /**
-             * Render IMBAdmin Menu Point
-             */
-            echo "<li>";
-            echo "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaAdminDefaultModule();' title='IMBAdmin &ouml;ffnen'>Auf zum Atem!</a>";
-            echo "<ul class='subnav'>";
-            $contentNav = new ImbaContentNavigation();
-            if ($handle = opendir('Ajax/IMBAdminModules/')) {
-                $identifiers = array();
-                while (false !== ($file = readdir($handle))) {
-                    if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/IMBAdminModules/' . $file;
-                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
-                            $showMe = false;
-                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
-                                $showMe = true;
-                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
-                                $showMe = true;
-                            }
-
-                            if ($showMe) {
-                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
-                                array_push($identifiers, $modIdentifier);
-                                $Navigation = null;
-                            }
-                        }
-                    }
-                }
-                closedir($handle);
-            }
-            echo "</ul>";
-            echo "</li>";
-
-            /**
-             * Render Games Menu Point
-             */
-            echo "<li>";
-            echo "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='IMBA Games &ouml;ffnen'>IMBA Games</a>";
-            echo "<ul class='subnav'>";
-            $contentNav = new ImbaContentNavigation();
-            if ($handle = opendir('Ajax/IMBAdminGames/')) {
-                $identifiers = array();
-                while (false !== ($file = readdir($handle))) {
-                    if (strrpos($file, ".Navigation.php") > 0) {
-                        include 'Ajax/IMBAdminGames/' . $file;
-                        if (ImbaUserContext::getUserRole() >= $Navigation->getMinUserRole()) {
-                            $showMe = false;
-                            if (ImbaUserContext::getLoggedIn() && $Navigation->getShowLoggedIn()) {
-                                $showMe = true;
-                            } elseif ((!ImbaUserContext::getLoggedIn()) && $Navigation->getShowLoggedOff()) {
-                                $showMe = true;
-                            }
-
-                            if ($showMe) {
-                                $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                                echo "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
-                                array_push($identifiers, $modIdentifier);
-                                $Navigation = null;
-                            }
-                        }
-                    }
-                }
-                closedir($handle);
-            }
-
-            echo "</ul>";
-            echo "</li>";
-            
-            
-            
+            $managerNavigation = ImbaManagerNavigation::getInstance();
+            echo "\nhtmlContent = \"<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='topnav'> \\\n";
+            echo $managerNavigation->renderPortalNavigation();
+            echo $managerNavigation->renderImbaAdminNavigation();
+            echo $managerNavigation->renderImbaGameNavigation();
             echo "</li></ul></div>";
             echo "\";\ndocument.write(htmlContent);\n\n";
-
 
             /**
              * Generate HTML construct (divs)

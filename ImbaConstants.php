@@ -32,6 +32,10 @@ class ImbaConstants extends ImbaConfig {
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";
     public static $WEB_DEFAULT_LOGGED_OUT_MODULE = "Register";
     public static $WEB_DEFAULT_GAME = "Index";
+    public static $WEB_IMBADMIN_BUTTON_NAME = "Auf zum Atem!";
+    public static $WEB_IMBADMIN_BUTTON_COMMENT = "IMBAdmin &ouml;ffnen";
+    public static $WEB_IMBAGAME_BUTTON_NAME = "IMBA Games";
+    public static $WEB_IMBAGAME_BUTTON_COMMENT = "IMBA Games &ouml;ffnen";
     /**
      * Error Codes
      */
@@ -45,6 +49,8 @@ class ImbaConstants extends ImbaConfig {
     /**
      * Database - Tables
      */
+    public static $DATABASE_TABLES_SYS_PORTALS = "oom_openid_portals";
+    public static $DATABASE_TABLES_SYS_NAVITEMS = "oom_openid_navigation_items";
     public static $DATABASE_TABLES_SYS_PROFILES = "oom_openid_profiles";
     public static $DATABASE_TABLES_SYS_REQUEST_LOG = "oom_openid_request_log";
     public static $DATABASE_TABLES_SYS_SESSION = "oom_openid_session";

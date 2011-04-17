@@ -63,12 +63,12 @@ class ImbaUserContext {
         $_SESSION["IUC_NeedToRegister"] = $needToRegister;
     }
 
-    public static function getGameContext() {
-        return $_SESSION["IUC_GameContext"];
+    public static function getPortalContext() {
+        return $_SESSION["IUC_PortalContext"];
     }
 
-    public static function setGameContext($GameContext) {
-        $_SESSION["IUC_GameContext"] = $GameContext;
+    public static function setGameContext($PortalContext) {
+        $_SESSION["IUC_PortalContext"] = $PortalContext;
     }
 }
 

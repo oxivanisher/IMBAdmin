@@ -26,7 +26,7 @@
     <tbody>
 
         {foreach $channels as $channel}
-        <tr onclick="javascript: loadChatHistory('{$channel.id}');">
+        <tr onclick="javascript: loadChatHistory('{$channel.id}');" style="cursor: pointer;">
             <td>{$channel.name}</td>
             <td>{$channel.lastmessagestr}</td>
             <td>{$channel.nummessages}</td>

@@ -42,4 +42,4 @@
 
     </tbody>
 </table>
-<a id="imbaMessagingViewMessageOverview" href="javascript:void(0)" onclick="javascript: backToMessageOverview();">back</a>
+<a id="imbaMessagingViewMessageOverview" href="javascript:void(0)" onclick="javascript: backToMessageOverview();">Zur&uuml;ck</a>

@@ -32,7 +32,7 @@
     <tbody>
 
         {foreach $users as $user}
-        <tr onclick="javascript: loadMessageHistory('{$user.openid}');">
+        <tr onclick="javascript: loadMessageHistory('{$user.openid}');" style="cursor: pointer;">
             <td>{$user.nickname}</td>
             <td><span title="{$user.lastmessagets}">{$user.lastmessagestr}</span></td>
             <td>{$user.nummessages}</td>

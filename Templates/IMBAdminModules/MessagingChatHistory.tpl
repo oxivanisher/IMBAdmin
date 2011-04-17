@@ -39,4 +39,4 @@
 
     </tbody>
 </table>
-<a id="imbaMessagingViewChatOverview" href="javascript:void(0)" onclick="javascript: backToChatOverview();">back</a>
+<a id="imbaMessagingViewChatOverview" href="javascript:void(0)" onclick="javascript: backToChatOverview();">Zur&uuml;ck</a>

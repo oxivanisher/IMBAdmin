@@ -153,6 +153,24 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     $smarty->assign('message', 'Messages cleared!<br />');
                     break;
 
+                case "showDatabaseBackups":
+                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/Backup/";
+
+                    $tmpOut = "<h4>Files in ".$backupPath.":</h4>";
+                    if ($handle = opendir($backupPath)) {
+                        /* This is the correct way to loop over the directory. */
+                        while (false !== ($file = readdir($handle))) {
+                            if ($file != "." && $file != ".." && $file != ".htaccess"  && $file != ".gitignore") {
+                                $tmpOut .= '<a href="Backup/' . $file . '">' . $file . '</a><br />';
+                            }
+                        }
+                        closedir($handle);
+                    }
+
+                    $smarty->assign('name', 'Show Database backups');
+                    $smarty->assign('message', $tmpOut);
+                    break;
+
                 case "backupDatabase":
                     $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/Backup/";
                     $backupFile = ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';

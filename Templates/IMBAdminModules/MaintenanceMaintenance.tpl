@@ -8,11 +8,16 @@
         };
         loadImbaAdminTabContent(data);
     }
-   
+
+    $(document).ready(function() {
+        {foreach $jobs as $job}
+        $("#imbaMaintenanceJob{$job.handle}").button();
+        {/foreach}
+    });
+    
 </script>
 <h3>Maintenance Jobs</h3>
-<ul>
-    {foreach $jobs as $job}
-    <li onclick="javascript: startMaintenanceJob('{$job.handle}');" style="cursor: pointer;">{$job.name}</a></li>
-    {/foreach}
-</ul>
+
+{foreach $jobs as $job}
+<a id="imbaMaintenanceJob{$job.handle}" href="javascript:void(0)" onclick="javascript: startMaintenanceJob('{$job.handle}');">{$job.name}</a><br /><br />
+{/foreach}

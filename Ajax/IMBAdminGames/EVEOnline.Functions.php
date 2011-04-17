@@ -13,13 +13,13 @@ require_once 'Controller/ImbaSharedFunctions.php';
 
 function IGBAcces() {
     
-    //$host_url = "http://".$_SERVER[SERVER_NAME]."/*";
+    $host_url = "http://".$_SERVER[SERVER_NAME]."/*";
 
 
     if ($_SERVER['HTTP_EVE_TRUSTED'] == "No") {
         echo '<h3>hi stranger!</h3>';
         echo 'To run this tool, please trust this page.';
-        echo "<button type=\"button\" onclick=\"CCPEVE.requestTrust('" . ImbaSharedFunctions::getTrustRoot() . "')\">Trust Me!</button>";
+        echo "<button type=\"button\" onclick=\"CCPEVE.requestTrust('" . $host_url . "')\">Trust Me!</button>";
 
         return 'untrusted';
     } else {

@@ -12,10 +12,10 @@ require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Ajax/IMBAdminGames/EVEOnline.Functions.php';
 
 /*
-include 'Libs/pheal/Pheal.php';
-spl_autoload_register('Pheal::classload');
-$pheal = new Pheal("7495716", "8D2AFBE8E0FE4122A62F976E1A2A0DBAF1D2935A0B994436BDD125D4ADC478AB");
-*/
+  include 'Libs/pheal/Pheal.php';
+  spl_autoload_register('Pheal::classload');
+  $pheal = new Pheal("7495716", "8D2AFBE8E0FE4122A62F976E1A2A0DBAF1D2935A0B994436BDD125D4ADC478AB");
+ */
 
 /*
  * are we logged in?
@@ -40,15 +40,26 @@ if (ImbaUserContext::getLoggedIn()) {
 //----------------------------------------
         case "lintel":
             $test = IGBAcces();
+            if ($test == "untrusted") {
+                //RELOAD <<<<-----------
+            }
+
+
+
             break;
 //----------------------------------------
+
+        case "update":
+            //UPDATE <<<<-----------
+            break;
+
         default:
             echo "overview";
-            
-            
-            //$result = $pheal->Characters();
-            //foreach ($result->characters as $character)
-             //   echo $character->name;
+
+
+        //$result = $pheal->Characters();
+        //foreach ($result->characters as $character)
+        //   echo $character->name;
     }
     //$smarty->assign('test', true);
     //$smarty->display('IMBAdminGames/WelcomeIndex.tpl');

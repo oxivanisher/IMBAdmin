@@ -13,7 +13,7 @@ $topNav = new ImbaTopNavigation();
 $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
 $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
 */
-switch ($_SERVER[SERVER_NAME]) {
+switch ($_SERVER[HTTP_HOST]) {
     	#OOM
 	case "www.oom.ch"||"oom.ch":
                 $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");

@@ -1,8 +1,5 @@
 nbproject/
-.gitignore
 Tools/imbadmin.sql.zip
-Logs/*
-Backup/*
 *.log
 Libs/jgrowl/.hg/
 Libs/jgrowl/.hgtags

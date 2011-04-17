@@ -26,7 +26,7 @@ if (ImbaUserContext::getLoggedIn()) {
      * Load the database
      */
     $managerUser = ImbaManagerUser::getInstance();
-    $roleManager = ImbaManagerUserRole::getInstance();
+    $managerRole = ImbaManagerUserRole::getInstance();
     $gameManager = ImbaManagerGame::getInstance();
     $gamepropertyManager = ImbaManagerGameProperty::getInstance();
 
@@ -61,7 +61,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $role = $roleManager->selectByRole($user->getRole());
+            $role = $managerRole->selectByRole($user->getRole());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());
@@ -123,7 +123,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $role = $roleManager->selectByRole($user->getRole());
+            $role = $managerRole->selectByRole($user->getRole());
 
 
             $smarty->assign('role', $role->getName());
@@ -163,7 +163,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 $smarty->assign('sex', '');
             }
 
-            $role = $roleManager->selectByRole($user->getRole());
+            $role = $managerRole->selectByRole($user->getRole());
 
             $smarty->assign('role', $role->getName());
             $smarty->assign('roleIcon', $role->getIcon());

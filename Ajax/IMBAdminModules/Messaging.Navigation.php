@@ -35,6 +35,6 @@ $Navigation->setMinUserRole(1);
 /**
  * Set tabs
  */
-$Navigation->addElement("historyoverview", "Nachrichtenverlauf ansehen", "Hier kannst vergangene Konversationen ansehen.");
-//$Navigation->addElement("channels", "Chat Kan&auml;le", "Hier kannst du deine Chat Kan&auml;le einstellen.");
+$Navigation->addElement("viewmessageoverview", "Nachrichten &Uuml;bersicht", "Hier kannst vergangene Konversationen ansehen.");
+$Navigation->addElement("viewchatoverview", "Chat &Uuml;bersicht", "Hier kannst du vergangene Chats ansehen.");
 ?>

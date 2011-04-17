@@ -3,7 +3,6 @@
  */
 // Storring if user is logged in
 var isUserLoggedIn = false;
-var userNeedsToRegister = false;
 var currentModule = null;
 var currentModuleDo = null;
 var currentGame = null;
@@ -36,11 +35,11 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
-        if (response == "Not logged in"){
+        if (response == "Need to register") {
             setLoggedIn(false);
-        } else if (response == "Need to register") {
+            loadImbaAdminDefaultModule();
+        } else if (response == "Not logged in"){
             setLoggedIn(false);
-            userNeedsToRegister = true;
         } else {
             setLoggedIn(true);
             $("#imbaSsoShowOpenId").val(response);
@@ -147,13 +146,6 @@ $(document).ready(function() {
     })
     .dialog("option", "width", 800)
     .dialog("option", "height", 700);
-
-    /**
-     * If the user needs to register, show the IMBAdmin windows
-     */
-    if (userNeedsToRegister == true) {
-        loadImbaAdminDefaultModule();
-    }
 
     // Firsttime show users online
     refreshUsersOnline();

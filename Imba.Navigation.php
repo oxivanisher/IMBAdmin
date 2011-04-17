@@ -8,7 +8,7 @@ $topNav = new ImbaTopNavigation();
  * Set up the top navigation
  */
 
-#PROTOTYPE CODE START - please replace with superior solution. esc
+#PROTOTYPE CODE START - please replace with superior solution. all flames to esc
 /* 
 $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
 $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
@@ -33,6 +33,6 @@ switch ($_SERVER[SERVER_NAME]) {
 	default:
 		echo $_SERVER[SERVER_NAME];
 }
-
+#PROTOTYPE CODE END
 
 ?>

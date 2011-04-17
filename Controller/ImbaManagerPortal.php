@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Controller/ImbaManagerBase.php';
+require_once 'Controller/ImbaManagerPortalEntry.php';
 require_once 'Model/ImbaPortal.php';
 require_once 'Model/ImbaPortalEntry.php';
 

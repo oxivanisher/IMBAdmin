@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Controller/ImbaManagerBase.php';
+require_once 'Controller/ImbaManagerPortal.php';
 require_once 'Model/ImbaNavigation.php';
 
 /**
@@ -157,22 +158,50 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         /**
          * Set up the portal navigation
          */
-        switch ($_SERVER[HTTP_HOST]) {
-            case "www.oom.ch": //OOM
-            case "oom.ch":
-                $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");
-                $topNav->addElement("wiki", "Wiki", "_top", "https://oom.ch/wiki/", "OOM Wiki");
-                break;
-            case "b.oom.ch": //EVE
-                $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
-                $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");
-                break;
-            case "www.alptroeim.ch": //WOW
-            case "alptroeim.ch":
-            default:
-                $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
-                $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
-                break;
+        /**
+         * New Portal Code
+         */
+        $loadPortalContext = ImbaConstants::$WEB_DEFAULT_PORTAL_ID;
+        $managerPortal = ImbaManagerPortal::getInstance();
+        if (ImbaUserContext::getPortalContext()) {
+            $loadPortalContext = ImbaUserContext::getPortalContext();
+        } else {
+            foreach ($managerPortal->selectAll() as $tmpPortal) {
+                foreach ($tmpPortal->getAliases() as $tmpAlias) {
+                    if ($_SERVER[HTTP_HOST] == $tmpAlias) {
+                        $loadPortalContext = $tmpPortal->getId();
+                    }
+                }
+            }
+        }
+        if ($managerPortal->selectById($loadPortalContext) != null) {
+            $portal = $managerPortal->selectById($loadPortalContext);
+            foreach ($portal->getNavitems() as $navElement) {
+                $topNav->addElement($navElement->getHandle(), $navElement->getName(), $navElement->getTarget(), $navElement->getUrl(), $navElement->getComment());
+            }
+        }
+
+        /**
+         * Workaround. delete after protal magic
+         */
+        if (count($topNav->getElements()) == 0) {
+            switch ($_SERVER[HTTP_HOST]) {
+                case "www.oom.ch": //OOM
+                case "oom.ch":
+                    $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");
+                    $topNav->addElement("wiki", "Wiki", "_top", "https://oom.ch/wiki/", "OOM Wiki");
+                    break;
+                case "b.oom.ch": //EVE
+                    $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
+                    $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");
+                    break;
+                case "www.alptroeim.ch": //WOW
+                case "alptroeim.ch":
+                default:
+                    $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
+                    $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
+                    break;
+            }
         }
 
         /**

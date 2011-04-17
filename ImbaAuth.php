@@ -73,7 +73,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          * Determine Authentication method
          */
         $authMethod = "openid";
-        
+
         /**
          * Do the Authentication
          */
@@ -191,11 +191,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $managerLog->insert($log);
 
             $currentUser = $managerUser->selectByOpenId($esc_identity);
-
             /**
              * Check the status of the user
              */
-            if ($currentUser == null) {
+            if (empty($currentUser)) {
                 /**
                  * This is a new user. let him register
                  */
@@ -205,9 +204,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $log->setLevel(2);
                 $managerLog->insert($log);
 
-                ImbaUserContext::setNeedToRegister(true);
-                ImbaUserContext::setOpenIdUrl($esc_identity);
-
+                if (!empty($esc_identity)) {
+                    ImbaUserContext::setNeedToRegister(true);
+                    ImbaUserContext::setOpenIdUrl($esc_identity);
+                }
                 header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
             } elseif ($currentUser->getRole() == 0) {
                 /**

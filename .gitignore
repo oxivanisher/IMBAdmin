@@ -4,6 +4,5 @@ Tools/imbadmin.sql.zip
 Logs/*
 Backup/*
 *.log
-Libs/smarty/templates_c/*
 Libs/jgrowl/.hg/
 Libs/jgrowl/.hgtags

@@ -12,6 +12,8 @@ require_once 'Controller/ImbaManagerUserRole.php';
 require_once 'Controller/ImbaManagerGame.php';
 require_once 'Controller/ImbaManagerGameCategory.php';
 require_once 'Controller/ImbaManagerGameProperty.php';
+require_once 'Controller/ImbaManagerPortal.php';
+require_once 'Controller/ImbaManagerPortalEntry.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -35,6 +37,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
     $managerGame = ImbaManagerGame::getInstance();
     $managerGameCategory = ImbaManagerGameCategory::getInstance();
     $managerGameProperty = ImbaManagerGameProperty::getInstance();
+    $managerPortal = ImbaManagerPortal::getInstance();
+    $managerPortalEntry = ImbaManagerPortalEntry::getInstance();
 
     switch ($_POST["request"]) {
         /**

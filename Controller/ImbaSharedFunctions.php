@@ -37,21 +37,22 @@ class ImbaSharedFunctions {
     public static function getNiceAge($timestamp) {
         $ageOfMsg = time() - $timestamp;
         if ($timestamp == 0) {
-            $ageOfMsgReturn = "noch nie";
+            $ageOfMsgReturn = "Noch nie";
         } elseif ($ageOfMsg < '60') {
-            $ageOfMsgReturn = "vor " . $ageOfMsg . " Sek";
+            $ageOfMsgReturn = "Vor " . $ageOfMsg . " Sekunden";
         } elseif ($ageOfMsg < '3600') {
             $ageOfMsg = round(($ageOfMsg / 60), 1);
-            $ageOfMsgReturn = "vor " . $ageOfMsg . " Min";
-        } elseif ($ageOfMsg <= '86400') {
-            $ageOfMsgReturn = strftime("um %H:%M Uhr", $timestamp);
+            $ageOfMsgReturn = "Vor " . $ageOfMsg . " Minuten";
+        } elseif ($timestamp > strtotime(date('n').'/'.date('j').'/'.date('Y'))) {
+            $ageOfMsgReturn = strftime("Heute um %H:%M Uhr", $timestamp);
+        } elseif ($timestamp > strtotime(date('m/d/y', mktime(0, 0, 0, date("m") , date("d") - 1, date("Y"))))) {
+            $ageOfMsgReturn = strftime("Gestern um %H:%M Uhr", $timestamp);
         } elseif ($ageOfMsg <= '604800') {
-            $ageOfMsgReturn = strftime("am %A", $timestamp);
-        } elseif ($ageOfMsg <= '2419200') {
-            $ageOfMsgReturn = strftime("im %B", $timestamp);
+            $ageOfMsgReturn = strftime("Letzten %A", $timestamp);
+        } elseif ($timestamp > strtotime('1/1/'.date('Y'))) {
+            $ageOfMsgReturn = strftime("Am %d. %B", $timestamp);
         } else {
-            $ageOfMsg = round(($ageOfMsg / 31449600), 1);
-            $ageOfMsgReturn = strftime("anno %Y", $timestamp);
+            $ageOfMsgReturn = strftime("Am %d. %b. %Y", $timestamp);
         }
         return $ageOfMsgReturn;
     }
@@ -137,9 +138,9 @@ class ImbaSharedFunctions {
         }
     }
 
-/*    public static function genAjaxWebLink($action, $tabId, $module) {
-        return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
-    } */
+    /*    public static function genAjaxWebLink($action, $tabId, $module) {
+      return sprintf("?action=%s&tabId=%s&module=%s", $action, $tabId, $module);
+      } */
 
     public static function newSmarty() {
         require_once('Libs/smarty/libs/Smarty.class.php');
@@ -153,7 +154,7 @@ class ImbaSharedFunctions {
         $smarty->setCompileDir('Libs/smarty/templates_c');
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
-        
+
         return $smarty;
     }
 
@@ -161,8 +162,8 @@ class ImbaSharedFunctions {
         // unset smf cookie
         //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
     }
-    
-        /**
+
+    /**
      *
      * get Scheme
      */
@@ -194,58 +195,57 @@ class ImbaSharedFunctions {
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));
     }
 
-   
     /*    public static function writeToLog($message) {
-        $myFile = "Logs/ImbaLog.log";
-        if ($fh = fopen($myFile, 'a+')) {
-            $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
-            fwrite($fh, $stringData);
-            fclose($fh);
-        }
-    } */
+      $myFile = "Logs/ImbaLog.log";
+      if ($fh = fopen($myFile, 'a+')) {
+      $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
+      fwrite($fh, $stringData);
+      fclose($fh);
+      }
+      } */
 
     /* import from functions.inc.php ! BIG
      *
 
-    public static function sysmsg($msg, $lvl =2, $user ="", $subject ="") {
-        switch ($lvl) {
-            case 0 :
-                $rmsg = "ERROR: ";
-                break;
+      public static function sysmsg($msg, $lvl =2, $user ="", $subject ="") {
+      switch ($lvl) {
+      case 0 :
+      $rmsg = "ERROR: ";
+      break;
 
-            case 1 :
-                $rmsg = "WARNING: ";
-                break;
+      case 1 :
+      $rmsg = "WARNING: ";
+      break;
 
-            case 2 :
-                $rmsg = "INFO: ";
-                break;
+      case 2 :
+      $rmsg = "INFO: ";
+      break;
 
-            default :
-                $rmsg = "UNSET: ";
-        }
+      default :
+      $rmsg = "UNSET: ";
+      }
 
-        if ($GLOBALS[bot]) {
-            $thash = $subject;
-            $tmodule = "xmpp_daemon";
-            $tuser = $user;
-            $tip = "XMPP";
-        } else {
-            $thash = $_SESSION[hash];
-            $tmodule = $_POST[module];
-            $tuser = $_SESSION[openid_identifier];
-            $tip = getIP();
-        }
+      if ($GLOBALS[bot]) {
+      $thash = $subject;
+      $tmodule = "xmpp_daemon";
+      $tuser = $user;
+      $tip = "XMPP";
+      } else {
+      $thash = $_SESSION[hash];
+      $tmodule = $_POST[module];
+      $tuser = $_SESSION[openid_identifier];
+      $tip = getIP();
+      }
 
-        if ($lvl <= $GLOBALS[sysmsglvl])
-            $sqlsysmsg = mysql_query("INSERT INTO " . $GLOBALS[cfg][systemmsgsdb] . " (timestamp,user,ip,module,session,msg,lvl) VALUES " . "('" . time() . "', '" . $tuser . "', '" . $tip . "', '" . $tmodule . "', '" . $thash . "', '" . $msg . "', '" . $lvl . "');");
+      if ($lvl <= $GLOBALS[sysmsglvl])
+      $sqlsysmsg = mysql_query("INSERT INTO " . $GLOBALS[cfg][systemmsgsdb] . " (timestamp,user,ip,module,session,msg,lvl) VALUES " . "('" . time() . "', '" . $tuser . "', '" . $tip . "', '" . $tmodule . "', '" . $thash . "', '" . $msg . "', '" . $lvl . "');");
 
-        if ($lvl < 2)
-            $GLOBALS[html] .= "<b>" . $msg . "</b>";
+      if ($lvl < 2)
+      $GLOBALS[html] .= "<b>" . $msg . "</b>";
 
-        if ($lvl == 0)
-            alert($rmsg . $msg, $tuser);
-    } 
+      if ($lvl == 0)
+      alert($rmsg . $msg, $tuser);
+      }
 
 
 

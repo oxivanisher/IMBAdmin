@@ -54,13 +54,17 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewmessagehistory":
 
             $smartyMessages = array();
-            //->selectConversation();
-            array_push($smartyMessages, array(
-                "openid" => "",
-                "nickname" => "",
-                "timestamp" => "",
-                "message" => ""
-            ));
+            foreach ($managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['openid'], 0) as $myMessage) {
+                $myTimestamp = $myMessage->getTimestamp();
+                $myTimestring = ImbaSharedFunctions::getNiceAge($myTimestamp);
+                array_push($smartyMessages, array(
+                    "openid" => $myMessage->getSender(),
+                    "nickname" => $managerUser->selectByOpenId($myMessage->getSender())->getNickname(),
+                    "timestamp" => $myTimestamp,
+                    "timestring" => $myTimestring,
+                    "message" => $myMessage->getMessage()
+                ));
+            }
 
             $smarty->assign("messages", $smartyMessages);
             $smarty->display('IMBAdminModules/MessagingMessageHistory.tpl');
@@ -88,19 +92,20 @@ if (ImbaUserContext::getLoggedIn()) {
             foreach ($managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl()) as $user) {
                 $timestamp = $managerMessage->selectLastMessageTimestamp(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
                 $oponentOpenId = $user->getOpenId();
-                array_push($newList, array($timestamp => $oponentOpenId));
+                array_push($newList, array("timestamp" => $timestamp, "openid" => $oponentOpenId));
             }
-            ksort($newList);
+            //ksort($newList);
 
             $smartyConversations = array();
-            foreach ($newList as $timestamp => $openid) {
-
+            foreach ($newList as $item) {
+                $tmpUser = $managerUser->selectByOpenId($item['openid']);
+                $tmpNickname = $tmpUser->getNickname();
                 array_push($smartyConversations, array(
-                    "openid" => $openid,
-                    "nickname" => $managerUser->selectByOpenId($openid)->getNickname(),
-                    "lastmessage" => $timestamp,
-                    "nummessages" => $managerMessage->selectMessagesCount($openid),
-                    "numnewmessages" => $managerMessage->selectNewMessagesByOpenid($openid)
+                    "openid" => $item['openid'],
+                    "nickname" => $tmpNickname,
+                    "lastmessagets" => $item['timestamp'],
+                    "lastmessagestr" => ImbaSharedFunctions::getNiceAge($item['timestamp']),
+                    "nummessages" => $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $item['openid'])
                 ));
             }
 

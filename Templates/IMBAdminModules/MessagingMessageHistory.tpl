@@ -1,7 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#ImbaAjaxChatHistoryTable').dataTable( {
-            "iDisplayLength": 16,
+            "aoColumns": [
+                null,
+                { "sType": "title-numeric" },
+                null
+            ],             "iDisplayLength": 16,
             "bFilter": true,
             "sPaginationType": "two_button",
             "bJQueryUI": true,
@@ -31,7 +35,7 @@
         {foreach $messages as $message}
         <tr>
             <td><a href="javascript:void();" onclick="javascript:createChatWindow('{$message.nickname}', '{$message.openid}');">{$message.nickname}</td>
-            <td>{$message.timestamp}</td>
+            <td><nobr><span title="{$message.timestamp}">{$message.timestring}</span></nobr></td>
             <td>{$message.message}</td>
         </tr>
         {/foreach}

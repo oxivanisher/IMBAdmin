@@ -6,8 +6,13 @@
         };
         loadImbaAdminTabContent(data);
     }
-   
+    
+    $(document).ready(function() {
+        $("#imbaMaintenanceBackToJobOverview").button();
+    });
+       
 </script><h3>Job <i>"{$name}"</i> output:</h3>
 {$message}
 <br />
-<a href="javascript:void(0)" onclick="javascript: backToMaintenance();">Back to Maintenance Overview</a>
+<br />
+<a id="imbaMaintenanceBackToJobOverview" href="javascript:void(0)" onclick="javascript: backToMaintenance();">Back to Maintenance Overview</a>

@@ -21,12 +21,16 @@
 </script>
 <table id="ImbaAjaxChathistoryOverviewTable" class="dataTableDisplay">
     <thead>
-        <tr><th>Name</th><th>Letzte Nachricht</th><th>Anzahl Nachrichten</th></tr>
+        <tr><th>Name</th><th>Letzte Nachricht</th><th>Nachrichten</th></tr>
     </thead>
     <tbody>
 
         {foreach $channels as $channel}
-        <tr onclick="javascript: loadChatHistory('{$channel.id}');"><td>{$channel.name}</td><td>{$channel.lastmessage}</td><td>{$channel.nummessages}</td></tr>
+        <tr onclick="javascript: loadChatHistory('{$channel.id}');">
+            <td>{$channel.name}</td>
+            <td>{$channel.lastmessagestr}</td>
+            <td>{$channel.nummessages}</td>
+        </tr>
         {/foreach}
 
     </tbody>

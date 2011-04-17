@@ -114,14 +114,20 @@ class ImbaManagerMessage extends ImbaManagerBase {
      * Selects a complete Conversation between two OpenIds
      */
     public function selectConversation($openidMe, $openidOpponent, $lines = 10) {
-        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC, id DESC LIMIT 0, %s;";
+        /**
+         * if $lines is 0, return all messages
+         */
+        $tmpLimit = "";
+        if ($lines != 0) {
+            $tmpLimit = " LIMIT 0, ".$lines;
+        }
+        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC, id DESC".$tmpLimit.";";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openidMe,
             $openidOpponent,
             $openidOpponent,
-            $openidMe,
-            $lines
+            $openidMe
         ));
 
         $result = new ArrayObject();
@@ -204,13 +210,15 @@ class ImbaManagerMessage extends ImbaManagerBase {
      */
     public function selectLastMessageTimestamp($openidMe, $openidOpponent) {
         $return = 0;
-        $query = "SELECT timestamp FROM %s Where (`receiver` = '%s' and sender = `%s`) OR (`receiver` = '%s' and sender = `%s`) ORDER BY timestamp DESC LIMIT 0,1;";
+        $query = "SELECT timestamp FROM %s Where (receiver = '%s' and sender = '%s') OR (receiver = '%s' and sender = '%s') ORDER BY timestamp DESC LIMIT 0,1;";
+
+        //echo $this->database->getQuery($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidMe, $openidOpponent, $openidOpponent, $openidMe));
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidMe, $openidOpponent, $openidOpponent, $openidMe));
 
         while ($row = $this->database->fetchRow()) {
             $return = $row['timestamp'];
         }
-        
+
         return $return;
     }
 

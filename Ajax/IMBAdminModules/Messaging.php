@@ -7,7 +7,7 @@ session_start();
 //require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
-require_once 'Controller/ImbaManagerUserRole.php';
+require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerChatChannel.php';
 require_once 'Controller/ImbaManagerChatMessage.php';
 require_once 'Controller/ImbaUserContext.php';
@@ -27,6 +27,7 @@ if (ImbaUserContext::getLoggedIn()) {
      */
     $managerUser = ImbaManagerUser::getInstance();
     $managerRole = ImbaManagerUserRole::getInstance();
+    $managerMessage = ImbaManagerMessage::getInstance();
     $managerChatChannel = ImbaManagerChatChannel::getInstance();
     $managerChatMessage = ImbaManagerChatMessage::getInstance();
 
@@ -53,7 +54,7 @@ if (ImbaUserContext::getLoggedIn()) {
         case "viewmessagehistory":
 
             $smartyMessages = array();
-
+            //->selectConversation();
             array_push($smartyMessages, array(
                 "openid" => "",
                 "nickname" => "",
@@ -83,15 +84,25 @@ if (ImbaUserContext::getLoggedIn()) {
 
         default:
             //case viewmessageoverview
+            $newList = array();
+            foreach ($managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl()) as $user) {
+                $timestamp = $managerMessage->selectLastMessageTimestamp(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
+                $oponentOpenId = $user->getOpenId();
+                array_push($newList, array($timestamp => $oponentOpenId));
+            }
+            ksort($newList);
 
             $smartyConversations = array();
+            foreach ($newList as $timestamp => $openid) {
 
-            array_push($smartyConversations, array(
-                "openid" => "",
-                "nickname" => "",
-                "lastmessage" => "",
-                "nummessages" => ""
-            ));
+                array_push($smartyConversations, array(
+                    "openid" => $openid,
+                    "nickname" => $managerUser->selectByOpenId($openid)->getNickname(),
+                    "lastmessage" => $timestamp,
+                    "nummessages" => $managerMessage->selectMessagesCount($openid),
+                    "numnewmessages" => $managerMessage->selectNewMessagesByOpenid($openid)
+                ));
+            }
 
             $smarty->assign("users", $smartyConversations);
             $smarty->display('IMBAdminModules/MessagingMessageOverview.tpl');

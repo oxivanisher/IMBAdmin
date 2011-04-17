@@ -21,12 +21,16 @@
 </script>
 <table id="ImbaAjaxMessagehistoryOverviewTable" class="dataTableDisplay">
     <thead>
-        <tr><th>Nickname</th><th>Letzte Konversation</th><th>Anzahl Nachrichten</th></tr>
+        <tr><th>Nickname</th><th>Letzte Konversation</th><th>Anzahl (Neu)</th></tr>
     </thead>
     <tbody>
 
         {foreach $users as $user}
-        <tr onclick="javascript: loadMessageHistory('{$user.openid}');"><td>{$user.nickname}</td><td>{$user.lastmessage}</td><td>{$user.nummessages}</td></tr>
+        <tr onclick="javascript: loadMessageHistory('{$user.openid}');">
+            <td>{$user.nickname}</td>
+            <td>{$user.lastmessage}</td>
+            <td>{$user.nummessages} ({$user.numnewmessages})</td>
+        </tr>
         {/foreach}
 
     </tbody>

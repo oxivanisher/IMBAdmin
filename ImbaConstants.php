@@ -50,7 +50,6 @@ class ImbaConstants extends ImbaConfig {
      * Database - Tables
      */
     public static $DATABASE_TABLES_SYS_PORTALS = "oom_openid_portals";
-    public static $DATABASE_TABLES_SYS_NAVITEMS = "oom_openid_navigation_items";
     public static $DATABASE_TABLES_SYS_PROFILES = "oom_openid_profiles";
     public static $DATABASE_TABLES_SYS_REQUEST_LOG = "oom_openid_request_log";
     public static $DATABASE_TABLES_SYS_SESSION = "oom_openid_session";

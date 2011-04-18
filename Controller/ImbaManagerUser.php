@@ -76,11 +76,12 @@ class ImbaManagerUser extends ImbaManagerBase {
             $result = array();
 
             if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() == 3) {
-                $query = "SELECT * FROM %s order by p.nickname;";
+                $query = "SELECT * FROM %s order by nickname;";
             } else {
-                $query = "SELECT * FROM %s Where p.role <> 0 order by p.nickname;";
+                $query = "SELECT * FROM %s Where p.role <> 0 order by nickname;";
             }
 
+            echo $this->database->getQuery($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES));
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES));
 
             while ($row = $this->database->fetchRow()) {

@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         // User submits the ImbaAjaxAdminProfileForm
+        $("#ImbaAjaxAdminProfileBackToOverview").button();
         $("#ImbaAjaxAdminProfileSave").button();
         $("#ImbaAjaxAdminProfileSave").click(function(){
             // submit the change
@@ -24,6 +25,15 @@
             return false;
         });
     } );   
+    
+    function backToPortalOverview(){
+        var data = {
+            module: "Admin",
+            request: "portaloverview"
+        };
+        loadImbaAdminTabContent(data);
+    }
+    
 </script>
 <form id="ImbaAjaxAdminProfileForm" action="post">
     <input id="myPortalId" type="hidden" name="id" value="{$id}" />
@@ -59,7 +69,7 @@
             </tr>
 
             <tr>
-                <td>&nbsp;</td>
+                <td><a id="ImbaAjaxAdminProfileBackToOverview" href="javascript:void(0)" onclick="javascript: backToPortalOverview();">Back</a></td>
                 <td><input id="ImbaAjaxAdminProfileSave" type="submit" value="Save" /></td>
             </tr>
         </tbody>

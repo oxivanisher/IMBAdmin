@@ -159,7 +159,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     $tmpOut = "<h4>Files in ".$backupPath.":</h4>";
                     if ($handle = opendir($backupPath)) {
                         /* This is the correct way to loop over the directory. */
-                        while (false !== ($file = readdir($handle))) {
+                        while (false !== ($file = sort(readdir($handle)))) {
                             if ($file != "." && $file != ".." && $file != ".htaccess"  && $file != ".gitignore") {
                                 $tmpOut .= '<a href="Backup/' . $file . '">' . $file . '</a><br />';
                             }

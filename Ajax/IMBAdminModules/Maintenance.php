@@ -166,9 +166,16 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                             }
                         }
                         closedir($handle);
-                        sort($filesArray);
+                        rsort($filesArray);
+                        $firstBool = true;
                         foreach ($filesArray as $file) {
+                            if ($firstBool)
+                                $tmpOut .= "<b>";
                             $tmpOut .= $file;
+                            if ($firstBool) {
+                                $tmpOut .= "</b> &lt;-- latest";
+                                $firstBool = false;
+                            }
                         }
                     }
 

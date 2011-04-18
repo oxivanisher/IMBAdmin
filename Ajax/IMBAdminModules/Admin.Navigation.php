@@ -40,7 +40,7 @@ $Navigation->addElement("user", "Users", "Edit user roles and user details");
 $Navigation->addElement("role", "Roles", "Manage Roles");
 $Navigation->addElement("game", "Games", "Manage Games");
 $Navigation->addElement("gamecategory", "Game Categories", "Manage Game Categories");
-$Navigation->addElement("portal", "Portals", "Manage Portal (Site URL)");
+$Navigation->addElement("portaloverview", "Portals", "Manage Portal (Site URL)");
 $Navigation->addElement("naventry", "Navigation Entries", "Manage Navigation Entries");
 
 ?>

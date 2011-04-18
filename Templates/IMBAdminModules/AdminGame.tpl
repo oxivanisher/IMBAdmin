@@ -72,8 +72,8 @@
     <tbody>
 
         {foreach $games as $game}
-        <tr id="gameid_{$game.id}">
-            <td style="width: 15%" onclick="javascript: showGameDetail('{$game.id}');"><img src="{$game.icon}" alt="{$game.name}" title="{$game.name}" height="60" /></td>
+        <tr id="gameid_{$game.id}" style="cursor: pointer;">
+            <td style="width: 15%" onclick="javascript: showGameDetail('{$game.id}');"><img src="{$game.icon}" alt="{$game.name}" title="{$game.name}" height="48" /></td>
             <td style="width: 75%" onclick="javascript: showGameDetail('{$game.id}');">{$game.name}</td>
             <td style="width: 10%" class="ui-state-error"><span class="ui-icon ui-icon-closethick">X</span></td>
         </tr>

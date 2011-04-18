@@ -18,6 +18,7 @@ require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaUserRole.php';
+require_once 'Model/ImbaPortal.php';
 
 /**
  * are we logged in?
@@ -44,19 +45,90 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
         /**
          * Portal Management
          */
-        case "portal";
-            
+        case "portaloverview";
+            /*
+              protected $name = null;
+              protected $aliases = null;
+              protected $navitems = null;
+              protected $comment = null;
+              $id;
+             */
+            $smartyPortals = array();
+            foreach ($managerPortal->selectAll() as $tmpPortal) {
+                array_push($smartyPortals, array(
+                    "id" => $tmpPortal->getId(),
+                    "name" => $tmpPortal->getName(),
+                    "icon" => $tmpPortal->getIcon(),
+                    "comment" => $tmpPortal->getComment()
+                ));
+            }
+            $smarty->assign("portals", $smartyPortals);
+
             $smarty->display('IMBAdminModules/AdminPortalOverview.tpl');
+            break;
+
+        case "addportal":
+            $newPortal = new ImbaPortal();
+            $newPortal->setIcon($_POST['icon']);
+            $newPortal->setName($_POST['name']);
+            $newPortal->setComment($_POST['comment']);
+            if ($managerPortal->insert($newPortal)) {
+                echo "Ok";
+            }
+            break;
+
+        case "deleteportal":
+            $managerPortal->delete($_POST['portalid']);
+            echo "Ok";
+            break;
+
+        case "viewportaldetail":
+            $portal = $managerPortal->selectById($_POST['portalid']);
+
+            /*
+              protected $name = null;
+              protected $icon = null;
+              protected $aliases = null;
+              protected $navitems = null;
+              protected $comment = null;
+              $id
+             */
+            $smarty->assign("id", $portal->getId());
+            $smarty->assign("name", $portal->getName());
+            $smarty->assign("comment", $portal->getComment());
+            $smarty->assign("icon", $portal->getIcon());
+
+            $smartyPortalEntries = array();
+            if (count($portal->getNavitems())) {
+                foreach ($portal->getNavitems() as $navitem) {
+                    //FIXME: i don't work
+                    var_dump($navitem);
+                    array_push($smartyPortalEntries, $navitem);
+                }
+            }
+            $smarty->assign("navitems", $smartyPortalEntries);
+            
+            $smartyPortalAliases = array();
+            if (count($portal->getAliases())) {
+                foreach ($portal->getAliases() as $alias) {
+                    //FIXME: i don't work
+                    var_dump($alias);
+                    array_push($smartyPortalAliases, $alias);
+                }
+            }
+            $smarty->assign("aliases", $smartyPortalAliases);
+            
+            $smarty->display('IMBAdminModules/AdminPortalDetail.tpl');
             break;
 
         /**
          * Navigation Entries Management
          */
-         case "naventry";
-             
+        case "naventry";
+
             $smarty->display('IMBAdminModules/AdminNavigationEntries.tpl');
             break;
-       
+
         /**
          * Role Management
          */

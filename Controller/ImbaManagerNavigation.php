@@ -153,7 +153,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
      * Render Portal Navigation
      */
     public function renderPortalNavigation() {
-        $topNav = new ImbaTopNavigation();
+        $return = "";
 
         /**
          * Set up the portal navigation
@@ -167,9 +167,11 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             $loadPortalContext = ImbaUserContext::getPortalContext();
         } else {
             foreach ($managerPortal->selectAll() as $tmpPortal) {
-                foreach ($tmpPortal->getAliases() as $tmpAlias) {
-                    if ($_SERVER[HTTP_HOST] == $tmpAlias) {
-                        $loadPortalContext = $tmpPortal->getId();
+                if (count($tmpPortal->getAliases())) {
+                    foreach ($tmpPortal->getAliases() as $tmpAlias) {
+                        if ($_SERVER[HTTP_HOST] == $tmpAlias) {
+                            $loadPortalContext = $tmpPortal->getId();
+                        }
                     }
                 }
             }
@@ -177,14 +179,15 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         if ($managerPortal->selectById($loadPortalContext) != null) {
             $portal = $managerPortal->selectById($loadPortalContext);
             foreach ($portal->getNavitems() as $navElement) {
-                $topNav->addElement($navElement->getHandle(), $navElement->getName(), $navElement->getTarget(), $navElement->getUrl(), $navElement->getComment());
+                $return .= "<li><a href='" . $navElement->getUrl() . "' title='" . $navElement->getComment() . "'>" . $navElement->getName() . "</a></li>\\\n";
             }
         }
 
         /**
-         * Workaround. delete after protal magic
+         * Workaround. delete after protal magic works
          */
-        if (count($topNav->getElements()) == 0) {
+        if (empty($return)) {
+            $topNav = new ImbaTopNavigation();
             switch ($_SERVER[HTTP_HOST]) {
                 case "www.oom.ch": //OOM
                 case "oom.ch":
@@ -202,14 +205,12 @@ class ImbaManagerNavigation extends ImbaManagerBase {
                     $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
                     break;
             }
-        }
-
-        /**
-         * Render Top Navigation Entries
-         */
-        $return = "";
-        foreach ($topNav->getElements() as $nav) {
-            $return .= "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
+            /**
+             * Render Top Navigation Entries
+             */
+            foreach ($topNav->getElements() as $nav) {
+                $return .= "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>\\\n";
+            }
         }
         return $return;
     }

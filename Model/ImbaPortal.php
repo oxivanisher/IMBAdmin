@@ -9,16 +9,25 @@ require_once 'Controller/ImbaUserContext.php';
 class ImbaPortal extends ImbaBase {
 
     protected $name = null;
+    protected $icon = null;
     protected $aliases = null;
     protected $navitems = null;
     protected $comment = null;
-    
+
     public function getName() {
         return $this->name;
     }
 
     public function setName($name) {
         $this->name = $name;
+    }
+
+    public function getIcon() {
+        return $this->icon;
+    }
+
+    public function setIcon($icon) {
+        $this->icon = $icon;
     }
 
     public function getAliases() {
@@ -36,7 +45,7 @@ class ImbaPortal extends ImbaBase {
     public function setNavitems($navitems) {
         $this->navitems = $navitems;
     }
-    
+
     public function getComment() {
         return $this->comment;
     }
@@ -44,6 +53,7 @@ class ImbaPortal extends ImbaBase {
     public function setComment($comment) {
         $this->comment = $comment;
     }
+
 }
 
 ?>

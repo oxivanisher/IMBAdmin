@@ -55,11 +55,13 @@ class ImbaManagerPortal extends ImbaManagerBase {
     /**
      * Inserts a portal into the Database
      */
-    public function insert($name) {
-        $query = "INSERT INTO %s (name) VALUES ('%s');";
+    public function insert(ImbaPortal $portal) {
+        $query = "INSERT INTO %s (icon, name, comment) VALUES ('%s', '%s', '%s');";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_PORTALS,
-            $name
+            $portal->getIcon(),
+            $portal->getName(),
+            $portal->getComment()
         ));
 
         $query = "SELECT LAST_INSERT_ID() as LastId;";
@@ -145,22 +147,38 @@ class ImbaManagerPortal extends ImbaManagerBase {
                 $portal->setId($row["id"]);
                 $portal->setName($row["name"]);
                 $portal->setComment($row["comment"]);
+                $portal->setIcon($row["icon"]);
 
-                $portal->setAliases(json_decode($row["aliases"]));
+                $tmpAliases = array();
+                if (count(json_decode($row["aliases"]))) {
+                    foreach (json_decode($row["aliases"]) as $alias) {
+                        array_push($tmpAliases, $alias);
+                    }
+                }
+                $portal->setAliases($tmpAliases);
 
                 $tmpEntries = array();
-                foreach (json_decode($row["navitems"]) as $navItemId) {
-                    array_push($tmpEntries, $managerPortalEntries->selectById($navItemId));
+                if (count(json_decode($row["navitems"]))) {
+                    foreach (json_decode($row["navitems"]) as $navItemId) {
+                        array_push($tmpEntries, $managerPortalEntries->selectById($navItemId));
+                    }
                 }
                 $portal->setNavitems($tmpEntries);
-                
+
                 array_push($result, $portal);
             }
 
             $this->portalsCached = $result;
         }
-
         return $this->portalsCached;
+    }
+
+    /**
+     * Get a new Portal
+     */
+    public function getNew() {
+        $portal = new ImbaManagerPortal();
+        return $portal;
     }
 
     /**

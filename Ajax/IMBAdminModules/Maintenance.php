@@ -162,7 +162,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                         $filesArray = array();
                         while (false !== ($file = readdir($handle))) {
                             if ($file != "." && $file != ".." && $file != ".htaccess"  && $file != ".gitignore") {
-                                array_push($filesArray, '<a href="Backup/' . $file . '">' . $file . '</a><br />');
+                                array_push($filesArray, '<a href="Backup/' . $file . '">' . $file . '</a>');
                             }
                         }
                         closedir($handle);
@@ -176,6 +176,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                                 $tmpOut .= "</b> &lt;-- latest";
                                 $firstBool = false;
                             }
+                            $tmpOut .= "<br />";
                         }
                     }
 

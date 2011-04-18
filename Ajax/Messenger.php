@@ -91,7 +91,6 @@ if (ImbaUserContext::getLoggedIn()) {
      * Load the Channels
      */ else if (isset($_POST['loadchannels'])) {
         $result = array();
-
         foreach ($managerChatChannel->selectAll() as $channel) {
             array_push($result, array("user" => false, "channel" => $channel->getName()));
         }

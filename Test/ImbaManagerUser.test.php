@@ -94,7 +94,8 @@ try {
  * Role update test
  */
 try {
-    $role = $managerRole->selectById(1);
+    $rolesAll = $managerRole->selectAll();
+    $role = $rolesAll[0];
 
     $roleOldName = $role->getName();
     $role->setName($role->getName() . " Test");
@@ -111,9 +112,7 @@ try {
  * User starts with
  */
 try {
-    $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), "Aggra");
-    
-    var_dump($users);
+    $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), "Ana");    
     
     $output.= "Usermanager starts with working.\n";
 } catch (Exception $e) {

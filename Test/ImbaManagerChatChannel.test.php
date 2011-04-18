@@ -63,7 +63,7 @@ try {
     $channels = $managerChatChannel->selectAll();
 
     if (count($channels) == 2) {
-        $output.= "ImbaManagerChatChannel selectAll working.\n";
+        $output.= "ImbaManagerChatChannel selectAll (" . count($channels) . ")  working.\n";
     } else {
         $output.= "ImbaManagerChatChannel selectAll not (" . count($channels) . ") working.\n";
     }

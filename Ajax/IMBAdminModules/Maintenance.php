@@ -172,7 +172,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                             if ($firstBool)
                                 $tmpOut .= "&gt; <b>";
                             else
-                                $tmpOut .= "&nbsp;&nbsp;";
+                                $tmpOut .= "&nbsp;&nbsp;&nbsp;";
                             $tmpOut .= $file;
                             if ($firstBool) {
                                 $tmpOut .= "</b> &lt;";

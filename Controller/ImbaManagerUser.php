@@ -76,12 +76,12 @@ class ImbaManagerUser extends ImbaManagerBase {
             $result = array();
 
             if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() == 3) {
-                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.id = l.id order by p.nickname;";
+                $query = "SELECT * FROM %s order by p.nickname;";
             } else {
-                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.id = l.id Where p.role <> 0 order by p.nickname;";
+                $query = "SELECT * FROM %s Where p.role <> 0 order by p.nickname;";
             }
 
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE));
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES));
 
             while ($row = $this->database->fetchRow()) {
                 $user = new ImbaUser();
@@ -127,7 +127,7 @@ class ImbaManagerUser extends ImbaManagerBase {
                 if ($user->getOpenId() == ImbaUserContext::getOpenIdUrl() && ImbaUserContext::getLoggedIn()) {
                     $query = "SELECT * FROM %s WHERE openid = '%s';";
                     $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId()));
-                    
+
                     while ($row = $this->database->fetchRow()) {
                         $value = new ImbaGamePropertyValue();
                         $value->setId($row["id"]);
@@ -307,8 +307,11 @@ class ImbaManagerUser extends ImbaManagerBase {
                 ImbaUserContext::getUserId() &&
                 ImbaUserContext::getUserLastOnline() < (time() - 10)) {
             ImbaUserContext::setUserLastOnline();
-            $query = "UPDATE %s SET timestamp='%s' WHERE id='%s';";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getUserId()));
+            $query = "UPDATE %s SET lastonline='%s' WHERE id='%s';";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, 
+                ImbaUserContext::getUserLastOnline(),
+                ImbaUserContext::getOpenIdUrl()));
         }
     }
 

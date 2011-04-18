@@ -170,10 +170,12 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                         $firstBool = true;
                         foreach ($filesArray as $file) {
                             if ($firstBool)
-                                $tmpOut .= "<b>";
+                                $tmpOut .= "&gt; <b>";
+                            else
+                                $tmpOut .= "&nbsp;&nbsp;";
                             $tmpOut .= $file;
                             if ($firstBool) {
-                                $tmpOut .= "</b> &lt;-- latest";
+                                $tmpOut .= "</b> &lt;";
                                 $firstBool = false;
                             }
                             $tmpOut .= "<br />";

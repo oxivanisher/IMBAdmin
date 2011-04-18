@@ -104,7 +104,7 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setWebsite($row["website"]);
                 $user->setMotto($row["motto"]);
                 $user->setAccurate($row["accurate"]);
-                $user->setLastonline($row["timestamp"]);
+                $user->setLastonline($row["lastonline"]);
                 $user->setRole($row["role"]);
                 array_push($result, $user);
             }

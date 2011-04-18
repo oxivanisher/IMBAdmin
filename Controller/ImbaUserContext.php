@@ -35,8 +35,16 @@ class ImbaUserContext {
         return $_SESSION["IUC_openIdUrl"];
     }
 
-    public static function setOpenIdUrl($UserRole) {
-        $_SESSION["IUC_openIdUrl"] = $UserRole;
+    public static function setOpenIdUrl($openid) {
+        $_SESSION["IUC_openIdUrl"] = $openid;
+    }
+
+    public static function getUserId() {
+        return $_SESSION["IUC_UserId"];
+    }
+
+    public static function setUserId($id) {
+        $_SESSION["IUC_UserId"] = $id;
     }
 
     public static function getUserRole() {

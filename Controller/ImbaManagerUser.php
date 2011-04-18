@@ -61,6 +61,13 @@ class ImbaManagerUser extends ImbaManagerBase {
     }
 
     /**
+     * Refers to function selectAllUser()
+     */
+    public function selectAll() {
+        return $this->selectAllUser();
+    }
+
+    /**
      * Selects a list of Users into an array w/o yourself
      */
     public function selectAllUser() {
@@ -78,6 +85,7 @@ class ImbaManagerUser extends ImbaManagerBase {
 
             while ($row = $this->database->fetchRow()) {
                 $user = new ImbaUser();
+                $user->setId($row["id"]);
                 $user->setOpenId($row["openid"]);
                 $user->setNickname($row["nickname"]);
                 $user->setEmail($row["email"]);
@@ -243,6 +251,18 @@ class ImbaManagerUser extends ImbaManagerBase {
         $result = null;
         foreach ($this->selectAllUser()as $user) {
             if ($openId == $user->getOpenId())
+                $result = $user;
+        }
+        return $result;
+    }
+
+    /**
+     * Select one User by Id
+     */
+    public function selectById($id) {
+        $result = null;
+        foreach ($this->selectAll()as $user) {
+            if ($id == $user->getId())
                 $result = $user;
         }
         return $result;

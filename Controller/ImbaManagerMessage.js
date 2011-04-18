@@ -160,36 +160,58 @@ function createChatWindow(name, data) {
 /**
  * Refreshs a special chatwindow
  */
-function loadChatWindowContent(tabIndex) {    
+function loadChatWindowContent(tabIndex) {
     if (getTabDataFromTabIndex(tabIndex) != "") {
         var tabReciever = getTabDataFromTabIndex(tabIndex)
-        // load chat
-        $.post(ajaxEntry, {
-            reciever: tabReciever,
-            loadMessages: "true",
-            action: "messenger"
-        },
-        function(response) {
-            var htmlConversation = "<div id='imbaChatConversation'>";
+
+        // is it a chat or a message?
+        if (tabReciever.substr(0, 1) == "#"){
+            // load chat
+            $.post(ajaxEntry, {
+                action: "messenger",
+                loadchat: "true",
+                channelid: tabReciever.substring(1)
+            },
+            function(response) {
+                var htmlConversation = "<div id='imbaChatConversation'>";
+
+                $.each($.parseJSON(response), function(key, val) {
+                    htmlConversation += "<div>" + val.time + " " + val.nickname + ": " + val.message + "</div>";
+                });
+
+                htmlConversation += "</div>";
+
+                $(getTabIdFromTabIndex(tabIndex)).html(htmlConversation);
+            });
+        } else {        
+            // load messenger
+            $.post(ajaxEntry, {
+                reciever: tabReciever,
+                loadMessages: "true",
+                action: "messenger"
+            },
+            function(response) {
+                var htmlConversation = "<div id='imbaChatConversation'>";
             
-            $.each($.parseJSON(response), function(key, val) {
-                htmlConversation += "<div>" + val.time + " " + val.sender + ": " + val.message + "</div>";
+                $.each($.parseJSON(response), function(key, val) {
+                    htmlConversation += "<div>" + val.time + " " + val.sender + ": " + val.message + "</div>";
+                });
+
+                htmlConversation += "</div>";
+
+                $(getTabIdFromTabIndex(tabIndex)).html(htmlConversation);
             });
-
-            htmlConversation += "</div>";
-
-            $(getTabIdFromTabIndex(tabIndex)).html(htmlConversation);
-        });
         
-        // mark as read
-        $.post(ajaxEntry, {
-            reciever: tabReciever,
-            action: "messenger",
-            setread: "true"
-        },
-        function(response) {
-            // nothing to do here            
-            });
+            // mark as read
+            $.post(ajaxEntry, {
+                reciever: tabReciever,
+                action: "messenger",
+                setread: "true"
+            },
+            function(response) {
+                // nothing to do here
+                });
+        }
     }
 }
 
@@ -200,7 +222,15 @@ function sendChatWindowMessage(msgReciver, msgText, currentTabIndex) {
     var tabData = getTabDataFromTabIndex(currentTabIndex);
 
     if (tabData.substr(0, 1) == "#"){
-        alert("Chat is not yet implemented.");
+        $.post(ajaxEntry, {
+            action: "messenger",
+            channelid: msgReciver.substring(1),
+            message: msgText
+        }, function(response) {
+            if (response != "Message sent"){
+                alert(response);
+            }
+        });
     } else {
         $.post(ajaxEntry, {
             reciever: msgReciver,
@@ -310,6 +340,7 @@ $(document).ready(function() {
                                 label: "Join Channel: " + item.channel,
                                 value: "/j " + item.channel,
                                 data: item.channel,
+                                data2: item.channelId,
                                 user: item.user
                             }
                         }));
@@ -323,7 +354,7 @@ $(document).ready(function() {
             if (ui.item.user == true){
                 createChatWindow(ui.item.label, ui.item.data);
             } else if (ui.item.user == false){
-                createChatWindow("#" + ui.item.data, "#"+ui.item.data);
+                createChatWindow("#" + ui.item.data, "#"+ui.item.data2);
             }
         },
         close: function() {

@@ -4,9 +4,11 @@
 session_start();
 
 require_once 'Model/ImbaMessage.php';
+require_once 'Model/ImbaChatMessage.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerMessage.php';
 require_once 'Controller/ImbaManagerChatChannel.php';
+require_once 'Controller/ImbaManagerChatMessage.php';
 require_once 'Controller/ImbaUserContext.php';
 
 /**
@@ -15,6 +17,7 @@ require_once 'Controller/ImbaUserContext.php';
 if (ImbaUserContext::getLoggedIn()) {
     $managerMessage = ImbaManagerMessage::getInstance();
     $managerChatChannel = ImbaManagerChatChannel::getInstance();
+    $managerChatMessage = ImbaManagerChatMessage::getInstance();
     $managerUser = ImbaManagerUser::getInstance();
 
     /**
@@ -92,9 +95,34 @@ if (ImbaUserContext::getLoggedIn()) {
      */ else if (isset($_POST['loadchannels'])) {
         $result = array();
         foreach ($managerChatChannel->selectAll() as $channel) {
-            array_push($result, array("user" => false, "channel" => $channel->getName()));
+            array_push($result, array("user" => false, "channel" => $channel->getName(), "channelId" => $channel->getId()));
         }
         echo json_encode($result);
+    }
+    /**
+     * Load the ChatMessages
+     */ else if (isset($_POST['loadchat']) && isset($_POST['channelid'])) {
+        $result = array();
+        $channel = $managerChatChannel->selectById($_POST['channelid']);
+        foreach ($managerChatMessage->selectAllByChannel($channel) as $message) {
+            array_push($result, array(
+                "time" => date("m.d.y H:m:s", $message->getTimestamp()),
+                "nickname" => $message->getSender()->getNickname(),
+                "message" => $message->getMessage()
+            ));
+        }
+        echo json_encode($result);
+    }
+    /**
+     * Send a ChatMessages
+     */ else if (isset($_POST['message']) && isset($_POST['channelid'])) {
+        $channel = $managerChatChannel->selectById($_POST['channelid']);
+        $message = new ImbaChatMessage();
+        $message->setChannel($channel);
+        $message->setMessage($_POST['message']);
+
+        $managerChatMessage->insert($message);
+        echo "Message sent";
     }
 } else {
     echo "Not logged in!";

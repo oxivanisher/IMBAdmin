@@ -10,7 +10,6 @@ var currentGameDo = null;
 var currentUserName = null;
 var currentUserOpenid = null;
 
-
 // Reload Online Users every 10000 ms
 // TODO Set to 10 Sekunden
 setInterval('refreshUsersOnline()', 10000);

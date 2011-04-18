@@ -21,7 +21,10 @@ class ImbaBase {
         $this->Id = $id;
     }
 
-    public function toString() {
+    /*
+     * TODO: DELETE ME
+     * No need, delete me after 01.05.2011 ^^
+     * public function toString() {
         foreach ($this as $key => $value) {
 //            $json->$key = htmlentities ($value);
             $json->$key = $value;
@@ -36,6 +39,7 @@ class ImbaBase {
             $this->$key = $value;
         }
     }
+     */
 }
 
 ?>

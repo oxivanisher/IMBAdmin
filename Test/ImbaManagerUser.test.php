@@ -17,7 +17,8 @@ require_once 'Model/ImbaUserRole.php';
 session_start();
 ImbaUserContext::setLoggedIn(true);
 ImbaUserContext::setOpenIdUrl("http://openid-provider.appspot.com/Steffen.So@googlemail.com");
-ImbaUserContext::setUserRole(9);
+ImbaUserContext::setUserId(4);
+ImbaUserContext::setUserRole(3);
 
 /**
  * Prepare Variables
@@ -46,15 +47,6 @@ if (count($users) > 0) {
     $output.= "selectAllUser working.\n";
 } else {
     $output.= "Error at selectAllUser.\n";
-}
-
-/**
- * Check if json_encode is working in toString()
- */
-if ($user->toString() != "{}") {
-    $output .= "toString working. Json: " . $user->toString() . "\n";
-} else {
-    $output .= "Error at Json.\n";
 }
 
 /**

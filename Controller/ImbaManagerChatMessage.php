@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Controller/ImbaManagerBase.php';
+require_once 'Controller/ImbaManagerUser.php';
 require_once 'Model/ImbaChatMessage.php';
 
 // $DATABASE_TABLES_CHAT_CHATCHANNELS
@@ -37,6 +38,39 @@ class ImbaManagerChatMessage extends ImbaManagerBase {
         if (self::$instance === null)
             self::$instance = new self();
         return self::$instance;
+    }
+
+    public function selectAllByChannel(ImbaChatChannel $channel) {
+        $result = array();
+
+        $query = "SELECT * FROM %s WHERE channel = '%s'  ORDER BY timestamp, id DESC;";
+
+        // init all user
+        ImbaManagerUser::getInstance()->selectAll();
+
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_CHAT_CHATMESSAGES, $channel->getId()));
+        while ($row = $this->database->fetchRow()) {
+            $message = new ImbaChatMessage();
+            $message->setId($row["id"]);
+            $message->setMessage($row["message"]);
+            $message->setTimestamp($row["timestamp"]);
+            $message->setChannel($channel);
+            $message->setSender(ImbaManagerUser::getInstance()->selectById($row["sender"]));
+            array_push($result, $message);
+        }
+
+        return $result;
+    }
+
+    public function insert(ImbaChatMessage $message) {
+        $query = "INSERT INTO %s (sender, channel, timestamp, message) VALUES ('%s', '%s', '%s', '%s')";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_CHAT_CHATMESSAGES,
+            ImbaUserContext::getUserId(),
+            $message->getChannel()->getId(),
+            date("U"),
+            $message->getMessage()
+        ));
     }
 
 }

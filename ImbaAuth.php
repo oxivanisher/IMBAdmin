@@ -232,6 +232,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
                 ImbaUserContext::setUserRole($currentUser->getRole());
+                ImbaUserContext::setUserId($currentUser->getId());
                 $managerUser->setMeOnline();
             }
 

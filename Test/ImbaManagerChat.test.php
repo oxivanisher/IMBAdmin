@@ -2,6 +2,7 @@
 
 chdir("../");
 require_once 'Controller/ImbaManagerChatChannel.php';
+require_once 'Controller/ImbaManagerChatMessage.php';
 require_once 'Controller/ImbaManagerDatabase.php';
 require_once 'Model/ImbaChatChannel.php';
 
@@ -20,6 +21,7 @@ ImbaUserContext::setUserRole(3);
  * Prepare Variables
  */
 $managerChatChannel = ImbaManagerChatChannel::getInstance();
+$managerChatMessage = ImbaManagerChatMessage::getInstance();
 $managerDatabase = ImbaManagerDatabase::getInstance();
 $output = "";
 
@@ -68,8 +70,27 @@ try {
         $output.= "ImbaManagerChatChannel selectAll not (" . count($channels) . ") working.\n";
     }
 } catch (Exception $e) {
-    $output.= "Error at insert.\n";
+    $output.= "Error at Select All.\n";
 }
 
 echo "<pre>ImbaManagerChatChannel Test:\n" . $output . "</pre>";
+
+$output = "";
+
+/**
+ * Select All
+ */
+try {
+    $channels = $managerChatChannel->selectAll();
+    $messages = $managerChatMessage->selectAllByChannel($channels[0]);
+    if (count($messages) > 0) {
+        $output.= "ImbaManagerChatMessage selectAll working.\n";
+    } else {
+        $output.= "ImbaManagerChatMessage selectAll not working.\n";
+    }
+} catch (Exception $e) {
+    $output.= "Error at Select All.\n";
+}
+
+echo "<pre>ImbaManagerChatMessage Test:\n" . $output . "</pre>";
 ?>

@@ -159,12 +159,17 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     $tmpOut = "<h4>Files in ".$backupPath.":</h4>";
                     if ($handle = opendir($backupPath)) {
                         /* This is the correct way to loop over the directory. */
-                        while (false !== ($file = sort(readdir($handle)))) {
+                        $filesArray = array();
+                        while (false !== ($file = readdir($handle))) {
                             if ($file != "." && $file != ".." && $file != ".htaccess"  && $file != ".gitignore") {
-                                $tmpOut .= '<a href="Backup/' . $file . '">' . $file . '</a><br />';
+                                array_push($filesArray, '<a href="Backup/' . $file . '">' . $file . '</a><br />');
                             }
                         }
                         closedir($handle);
+                        sort($filesArray);
+                        foreach ($filesArray as $file) {
+                            $tmpOut .= $file;
+                        }
                     }
 
                     $smarty->assign('name', 'Show Database backups');

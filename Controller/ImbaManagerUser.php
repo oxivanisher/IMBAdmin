@@ -308,7 +308,7 @@ class ImbaManagerUser extends ImbaManagerBase {
             ImbaUserContext::setUserLastOnline();
             $query = "UPDATE %s SET lastonline='%s' WHERE id='%s';";
             $this->database->query($query, array(
-                ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, 
+                ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,
                 ImbaUserContext::getUserLastOnline(),
                 ImbaUserContext::getUserId()));
         }

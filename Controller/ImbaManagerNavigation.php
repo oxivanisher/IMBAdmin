@@ -161,7 +161,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         /**
          * New Portal Code
          */
-        $loadPortalContext = ImbaConstants::$WEB_DEFAULT_PORTAL_ID;
+        $loadPortalContext = ImbaConstants::$SETTINGS['DEFAULT_PORTAL_ID'];
         $managerPortal = ImbaManagerPortal::getInstance();
         if (ImbaUserContext::getPortalContext()) {
             $loadPortalContext = ImbaUserContext::getPortalContext();

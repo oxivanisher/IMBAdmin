@@ -36,7 +36,6 @@ class ImbaConstants extends ImbaConfig {
     public static $WEB_IMBADMIN_BUTTON_COMMENT = "IMBAdmin &ouml;ffnen";
     public static $WEB_IMBAGAME_BUTTON_NAME = "IMBA Games";
     public static $WEB_IMBAGAME_BUTTON_COMMENT = "IMBA Games &ouml;ffnen";
-    public static $WEB_DEFAULT_PORTAL_ID = 1;
     /**
      * Error Codes
      */

@@ -107,6 +107,7 @@ class ImbaSharedFunctions {
     }
 
     public static function sendMail($target, $subject, $message) {
+        //FIXME: i don't work!
         if (substr($target, 0, 4) == "http") {
             // FIXME: ich bin hässlich hard-gecodet ohne DB manager!
             $sql = "SELECT email FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE openid='" . $target . "';";

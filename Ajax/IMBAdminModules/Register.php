@@ -54,7 +54,7 @@ if (ImbaUserContext::getLoggedIn()) {
                  * Check if the recaptcha is ok
                  */
                 $resp = recaptcha_check_answer(
-                        ImbaConstants::$SETTINGS["captcha_private_key"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
+                        ImbaConstants::$SETTINGS["CAPTCHA_PRIVATE_KEY"], ImbaSharedFunctions::getIP(), $_POST["challenge"], $_POST["answer"]
                 );
                 $tmpOpenid = ImbaUserContext::getOpenIdUrl();
                 if ($resp->is_valid) {
@@ -138,7 +138,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                 $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
                 $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
-                $smarty->assign('publicKey', ImbaConstants::$SETTINGS["captcha_public_key"]);
+                $smarty->assign('publicKey', ImbaConstants::$SETTINGS["CAPTCHA_PUBLIC_KEY"]);
                 $smarty->display('IMBAdminModules/RegisterForm.tpl');
             } else {
                 /**

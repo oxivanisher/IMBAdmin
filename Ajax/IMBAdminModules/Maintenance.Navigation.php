@@ -40,6 +40,5 @@ $Navigation->addElement("log", "Log", "View and clar log");
 $Navigation->addElement("statistics", "Statistics", "Statistics");
 $Navigation->addElement("maintenance", "Maintenance Jobs", "System maintenance jobs");
 $Navigation->addElement("settings", "Settings", "System wide settings");
-$Navigation->addElement("sites", "Sites", "Multidomain Site settings");
 
 ?>

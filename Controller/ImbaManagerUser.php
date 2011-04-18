@@ -304,14 +304,13 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     public function setMeOnline() {
         if (ImbaUserContext::getLoggedIn() &&
-                ImbaUserContext::getUserId() &&
                 ImbaUserContext::getUserLastOnline() < (time() - 10)) {
             ImbaUserContext::setUserLastOnline();
             $query = "UPDATE %s SET lastonline='%s' WHERE id='%s';";
             $this->database->query($query, array(
                 ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, 
                 ImbaUserContext::getUserLastOnline(),
-                ImbaUserContext::getOpenIdUrl()));
+                ImbaUserContext::getUserId()));
         }
     }
 

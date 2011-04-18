@@ -76,9 +76,9 @@ class ImbaManagerUser extends ImbaManagerBase {
             $result = array();
 
             if (ImbaUserContext::getUserRole() != "" && ImbaUserContext::getUserRole() != null && ImbaUserContext::getUserRole() == 3) {
-                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid order by p.nickname;";
+                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.id = l.id order by p.nickname;";
             } else {
-                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.openid = l.openid Where p.role <> 0 order by p.nickname;";
+                $query = "SELECT p.* , l.timestamp FROM %s p LEFT JOIN %s l ON p.id = l.id Where p.role <> 0 order by p.nickname;";
             }
 
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE));
@@ -304,11 +304,11 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     public function setMeOnline() {
         if (ImbaUserContext::getLoggedIn() &&
-                ImbaUserContext::getOpenIdUrl() &&
+                ImbaUserContext::getUserId() &&
                 ImbaUserContext::getUserLastOnline() < (time() - 10)) {
             ImbaUserContext::setUserLastOnline();
-            $query = "UPDATE %s SET timestamp='%s' WHERE openid='%s';";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getOpenIdUrl()));
+            $query = "UPDATE %s SET timestamp='%s' WHERE id='%s';";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_LASTONLINE, time(), ImbaUserContext::getUserId()));
         }
     }
 

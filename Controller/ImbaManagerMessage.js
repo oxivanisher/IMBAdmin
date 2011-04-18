@@ -374,10 +374,11 @@ $(document).ready(function() {
 
     // Creats the Dialog around the chattabs
     $("#imbaMessagesDialog").dialog({
+        position:  ['left','bottom'] ,
         autoOpen: false,
         resizable: false,
         height: 270,
-        width: 600
+        width: 600       
     });
 
 

@@ -45,8 +45,8 @@ switch ($_GET["load"]) {
             /**
              * Load our own JavaScript includes
              */
+            //$tmpOut .= file_get_contents("Media/ImbaMessaging.js") . "\n";
             $tmpOut .= file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
-            $tmpOut .= file_get_contents("Controller/ImbaManagerOpenID.js") . "\n";
 
             /**
              * Begin js/HTML injection code

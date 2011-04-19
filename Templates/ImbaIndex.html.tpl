@@ -27,8 +27,11 @@
         <ul></ul>
         <div id='imbaMessageTextDiv'>
             <form action='' method='post'>
-                Message: <input id='imbaMessageText' type='text' autocomplete='off' />
-                <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
+                <div id='imbaChatConversation' style='float: left; width: 80%; height: 180px; overflow: auto; '></div>
+                <div id='imbaChatConversationUserlist' style='float: right; width: 19%; height: 180px; overflow: auto;'></div>
+                <div id='imbaChatConversationMessage' style='clear: both;'>
+                    Message: <input id='imbaMessageText' type='text' autocomplete='off' /> &nbsp; <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
+                </div>
             </form>
         </div>
     </div>

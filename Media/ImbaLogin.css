@@ -125,28 +125,10 @@ body {
     cursor: pointer;
 }
 
-/*
-#imbaMessageText {
-    background-color: #222222;
-    border: 1px solid #999999;
-    color: #FFFFFF;
-}
-*/
-
-#imbaChatConversation{
-    /*overflow-y: scroll;*/
-    /*height: 80%;*/
-}
-
 #imbaOpenMessaging {
     float: right;
     cursor: pointer;
 }
-
-/*#imbaMessagesDialog {
-    position: fixed;
-}*/
-
 /* IMBAdmin main content window */
 
 #imbaContent {

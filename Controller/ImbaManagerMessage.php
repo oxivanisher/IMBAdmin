@@ -171,7 +171,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
     public function selectLastConversation($openid) {
         $databaseresult = array();
 
-        $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` ASC  LIMIT 0,3;";
         $this->database->query($query1, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openid
@@ -181,7 +181,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
             array_push($databaseresult, $row["opponent"]);
         }
 
-        $query2 = "SELECT DISTINCT sender as opponent FROM %s Where `receiver` = '%s' order by `timestamp` DESC  LIMIT 0,3;";
+        $query2 = "SELECT DISTINCT sender as opponent FROM %s Where `receiver` = '%s' order by `timestamp` ASC  LIMIT 0,3;";
         $this->database->query($query2, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
             $openid

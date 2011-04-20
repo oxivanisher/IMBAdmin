@@ -23,17 +23,16 @@
     </div>
 </div>
 <div id='imbaMessagesDialog' title='IMBA Messaging' style='padding: 3px;'>
-    <div id='imbaMessages' style='height: 97%; overflow: auto;'>
+    <div id='imbaMessages'>
         <ul></ul>
-        <div id='imbaMessageTextDiv'>
-            <form action='' method='post'>
-                <div id='imbaChatConversation' style='float: left; width: 80%; height: 180px; overflow: auto; '></div>
-                <div id='imbaChatConversationUserlist' style='float: right; width: 19%; height: 180px; overflow: auto;'></div>
-                <div id='imbaChatConversationMessage' style='clear: both;'>
-                    Message: <input id='imbaMessageText' type='text' autocomplete='off' /> &nbsp; <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
-                </div>
-            </form>
-        </div>
+        <form action='' method='post'>
+            <div id='imbaChatConversation' style='float: left; width: 80%; overflow: auto;'></div>
+            <div id='imbaChatConversationUserlist' style='float: right; width: 19%; overflow: auto;'></div>
+            <div style='clear: both;' ></div>
+            <div id='imbaChatConversationMessage'>
+                Message: <input id='imbaMessageText' type='text' autocomplete='off' style='width: 70%;' /> &nbsp; <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
+            </div>
+        </form>
     </div>
 </div>
 <div id='imbaContentDialog' title='IMBAdmin' style='padding: 3px;'>

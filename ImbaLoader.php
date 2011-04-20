@@ -29,6 +29,7 @@ switch ($_GET["load"]) {
             $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaGame.js") . "\n";
+            $tmpOut .= file_get_contents("Media/ImbaMessaging.js") . "\n";
 
             /**
              * Generate TopNavigation
@@ -41,12 +42,6 @@ switch ($_GET["load"]) {
 
             require_once 'Model/ImbaNavigation.php';
             require_once 'Controller/ImbaSharedFunctions.php';
-
-            /**
-             * Load our own JavaScript includes
-             */
-            //$tmpOut .= file_get_contents("Media/ImbaMessaging.js") . "\n";
-            $tmpOut .= file_get_contents("Controller/ImbaManagerMessage.js") . "\n";
 
             /**
              * Begin js/HTML injection code

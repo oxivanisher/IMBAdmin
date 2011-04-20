@@ -85,6 +85,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
                 array_push($result, array("time" => $time, "sender" => $sender, "message" => $msg));
             }
+            $result = array_reverse($result);
             echo json_encode($result);
         } catch (Exception $ex) {
             echo "Error: " . $ex->getMessage();
@@ -116,13 +117,17 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Send a ChatMessages
      */ else if (isset($_POST['message']) && isset($_POST['channelid'])) {
-        $channel = $managerChatChannel->selectById($_POST['channelid']);
-        $message = new ImbaChatMessage();
-        $message->setChannel($channel);
-        $message->setMessage($_POST['message']);
+        if (trim($_POST['message']) != "") {
+            $channel = $managerChatChannel->selectById($_POST['channelid']);
+            $message = new ImbaChatMessage();
+            $message->setChannel($channel);
+            $message->setMessage($_POST['message']);
 
-        $managerChatMessage->insert($message);
-        echo "Message sent";
+            $managerChatMessage->insert($message);
+            echo "Message sent";
+        } else {
+            echo "No Message";
+        }
     }
 } else {
     echo "Not logged in!";

@@ -227,7 +227,7 @@ function loadChatWindowContent(tabIndex) {
         }
         else {
             // Load Info Tab
-            $("#imbaChatConversation").html("<div style='margin-left: 10px'><p>/w &lt;Username&gt; zum Chatten mit einem User</p> <p> /j zum Chatten in einem Channel</p></div>");
+            $("#imbaChatConversation").html("<div style='margin-left: 10px'><p><b>/w</b> &lt;Username&gt; zum Chatten mit einem User</p> <p> <b>/j</b> zum Chatten in einem Channel</p></div>");
             $("#imbaChatConversationUserlist").html("");
         }
     }

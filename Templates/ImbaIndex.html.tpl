@@ -30,7 +30,7 @@
             <div id='imbaChatConversationUserlist' style='float: right; width: 19%; overflow: auto;'></div>
             <div style='clear: both;' ></div>
             <div id='imbaChatConversationMessage'>
-                Message: <input id='imbaMessageText' type='text' autocomplete='off' /> &nbsp; <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
+                Message: <input id='imbaMessageText' type='text' autocomplete='off' style='width: 70%;' /> &nbsp; <input id='imbaMessageTextSubmit' type='submit' value='Send'/>
             </div>
         </form>
     </div>

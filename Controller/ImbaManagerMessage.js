@@ -381,7 +381,6 @@ $(document).ready(function() {
         width: 600       
     });
 
-
     // open messaging on click
     $("#imbaOpenMessaging").click(function(){
         $("#imbaMessagesDialog").dialog("open");

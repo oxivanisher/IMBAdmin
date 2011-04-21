@@ -62,15 +62,14 @@ function refreshChat() {
             }
         });
 
-        // Refresh chat
-        $.each($("#imbaMessages a"), function (tabIndex, tabString) {
-            var tabData = getTabDataFromTabIndex(tabIndex);
+        // Refresh if current tab is chat
+        var selectedTab = getSelectedTabIndex();
+        var tabData = getTabDataFromTabIndex(selectedTab);
 
-            // Check if its a chat
-            if (tabData.substr(0, 1) == "#" && ($("#imbaMessagesDialog").is(':hidden')) == false){
-                loadChatWindowContent(tabIndex);
-            }
-        });
+        // Check if its a chat
+        if (tabData.substr(0, 1) == "#" && ($("#imbaMessagesDialog").is(':hidden')) == false){
+            loadChatWindowContent(selectedTab);
+        
     }
 }
 

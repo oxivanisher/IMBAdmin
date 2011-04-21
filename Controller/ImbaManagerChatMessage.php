@@ -40,14 +40,33 @@ class ImbaManagerChatMessage extends ImbaManagerBase {
         return self::$instance;
     }
 
-    public function selectAllByChannel(ImbaChatChannel $channel) {
-        $result = array();
+    /**
+     * Selects all Messages in a Channel having the smalles id be $since
+     * $since > 0 => since that id
+     * $since == 0 => all Messages
+     * $since == -1 => give me the last 10 Messages
+     */
+    public function selectAllByChannel(ImbaChatChannel $channel, $since = 0) {
+        /**
+         * if $lines is 0, return all messages
+         */
+        if ($since == 0) {
+            $tmpIdSince = "";
+            $tmpLimit = "";
+        } else if ($since == -1) {
+            $tmpIdSince = "";
+            $tmpLimit = " LIMIT 0, 10 ";
+        } else {
+            $tmpIdSince = " AND id > '$since'";
+            $tmpLimit = "";
+        }
 
-        $query = "SELECT * FROM %s WHERE channel = '%s'  ORDER BY timestamp, id DESC;";
+        $query = "SELECT * FROM %s WHERE channel = '%s' " . $tmpIdSince . " ORDER BY timestamp DESC, id DESC " . $tmpLimit . ";";
 
         // init all user
         ImbaManagerUser::getInstance()->selectAll();
 
+        $result = array();
         $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_CHAT_CHATMESSAGES, $channel->getId()));
         while ($row = $this->database->fetchRow()) {
             $message = new ImbaChatMessage();
@@ -62,6 +81,9 @@ class ImbaManagerChatMessage extends ImbaManagerBase {
         return $result;
     }
 
+    /**
+     * Inserts a ImbaChatMessage into the Database
+     */
     public function insert(ImbaChatMessage $message) {
         $query = "INSERT INTO %s (sender, channel, timestamp, message) VALUES ('%s', '%s', '%s', '%s')";
         $this->database->query($query, array(

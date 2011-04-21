@@ -281,17 +281,17 @@ class ImbaManagerUser extends ImbaManagerBase {
     /**
      * Selects a list of Users into an array w/o yourself, starting with
      */
-    public function selectAllUserStartWith($openidYourself, $startingWith) {
+    public function selectAllUserStartWith($startingWith) {
         // Only fetch Users with role <> banned
-        $query = "SELECT openid, nickname FROM %s Where openid <> '%s' And Role <> 0 And nickname like '%s%%' order by nickname;";
+        $query = "SELECT id, nickname FROM %s Where id <> '%s' And Role <> 0 And nickname like '%s%%' order by nickname;";
 
         $result = array();
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openidYourself, $startingWith));
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, ImbaUserContext::getUserId(), $startingWith));
 
         $managerRole = ImbaManagerUserRole::getInstance();
         while ($row = $this->database->fetchRow()) {
             $user = new ImbaUser();
-            $user->setOpenId($row["openid"]);
+            $user->setId($row["id"]);
             $user->setNickname($row["nickname"]);
             array_push($result, $user);
         }

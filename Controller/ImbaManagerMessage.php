@@ -41,11 +41,11 @@ class ImbaManagerMessage extends ImbaManagerBase {
         if ($message->getMessage() == null || trim($message->getMessage()) == "") {
             throw new Exception("No Message!");
         }
-        if ($message->getSender() == null || trim($message->getSender()) == "") {
+        if ($message->getSender() == null ) {
             throw new Exception("No Sender!");
         }
 
-        if ($message->getReceiver() == null || trim($message->getReceiver()) == "") {
+        if ($message->getReceiver() == null) {
             throw new Exception("No Reciever!");
         }
 
@@ -55,8 +55,8 @@ class ImbaManagerMessage extends ImbaManagerBase {
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $message->getSender(),
-            $message->getReceiver(),
+            $message->getSender()->getId(),
+            $message->getReceiver()->getId(),
             $message->getTimestamp(),
             $message->getSubject(),
             $message->getMessage(),
@@ -77,30 +77,6 @@ class ImbaManagerMessage extends ImbaManagerBase {
     }
 
     /**
-     * Select one message by id
-     */
-    public function selectById($id) {
-        $query = "SELECT * FROM  %s Where id = '%s';";
-
-        $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $id
-        ));
-        $result = $this->database->fetchRow();
-
-        $message = new ImbaMessage();
-        $message->setOpenId($id);
-        $message->setSender($result["sender"]);
-        $message->setReceiver($result["receiver"]);
-        $message->setTimestamp($result["timestamp"]);
-        $message->setSubject($result["subject"]);
-        $message->setMessage($result["message"]);
-        $message->setNew($result["new"]);
-        $message->setXmpp($result["xmpp"]);
-        return $message;
-    }
-
-    /**
      * Get num of messages
      */
     public function returnNumberOfMessages() {
@@ -111,31 +87,35 @@ class ImbaManagerMessage extends ImbaManagerBase {
     }
 
     /**
-     * Selects a complete Conversation between two OpenIds
+     * Selects a complete Conversation between me and an Opponent
      */
-    public function selectConversation($openidMe, $openidOpponent, $lines = 10) {
+    public function selectAllByOpponentId($idOpponent, $lines = 10) {
+        // cachen all users
+        $managerUser = ImbaManagerUser::getInstance();
+        $managerUser->selectAll();
+
         /**
          * if $lines is 0, return all messages
          */
         $tmpLimit = "";
         if ($lines != 0) {
-            $tmpLimit = " LIMIT 0, ".$lines;
+            $tmpLimit = " LIMIT 0, " . $lines;
         }
-        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC, id DESC".$tmpLimit.";";
+        $query = "SELECT * FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') order by timestamp DESC, id DESC" . $tmpLimit . ";";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openidMe,
-            $openidOpponent,
-            $openidOpponent,
-            $openidMe
+            ImbaUserContext::getUserId(),
+            $idOpponent,
+            $idOpponent,
+            ImbaUserContext::getUserId()
         ));
 
         $result = new ArrayObject();
         while ($row = $this->database->fetchRow()) {
             $message = new ImbaMessage();
             $message->setId($row["id"]);
-            $message->setSender($row["sender"]);
-            $message->setReceiver($row["receiver"]);
+            $message->setSender($managerUser->selectById($row["sender"]));
+            $message->setReceiver($managerUser->selectById($row["receiver"]));
             $message->setTimestamp($row["timestamp"]);
             $message->setSubject($row["subject"]);
             $message->setMessage($row["message"]);
@@ -148,17 +128,17 @@ class ImbaManagerMessage extends ImbaManagerBase {
     }
 
     /**
-     * Selects the count of lines Conversation between two OpenIds
+     * Selects the count of lines Conversation between me and a userid
      */
-    public function selectMessagesCount($openidMe, $openidOpponent) {
-        // TODO: Nur die zÃ¤hlen, die in den letzten monaten geschlumpft wurden
+    public function selectMessagesCount($idOpponent) {
+        // TODO: Nur die zählen, die in den letzten monaten geschlumpft wurden
         $query = "SELECT count(*) MsgCount FROM %s Where (sender = '%s' and receiver = '%s') or (sender = '%s' and receiver = '%s') AND timestamp > (" . (time() - 4838400) . ");";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openidMe,
-            $openidOpponent,
-            $openidOpponent,
-            $openidMe
+            ImbaUserContext::getUserId(),
+            $idOpponent,
+            $idOpponent,
+            ImbaUserContext::getUserId()
         ));
 
         $row = $this->database->fetchRow();
@@ -166,54 +146,18 @@ class ImbaManagerMessage extends ImbaManagerBase {
     }
 
     /**
-     * Selects the last Conversations of an User with OpenId
+     * Selects the timestamp of the last Message in conversation between me and $idOpponent
      */
-    public function selectLastConversation($openid) {
-        $databaseresult = array();
-
-        $query1 = "SELECT DISTINCT receiver as opponent FROM %s Where `sender` = '%s' order by `timestamp` ASC  LIMIT 0,3;";
-        $this->database->query($query1, array(
-            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openid
-        ));
-
-        while ($row = $this->database->fetchRow()) {
-            array_push($databaseresult, $row["opponent"]);
-        }
-
-        $query2 = "SELECT DISTINCT sender as opponent FROM %s Where `receiver` = '%s' order by `timestamp` ASC  LIMIT 0,3;";
-        $this->database->query($query2, array(
-            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openid
-        ));
-
-        while ($row = $this->database->fetchRow()) {
-            array_push($databaseresult, $row["opponent"]);
-        }
-
-        $databaseresult = array_unique($databaseresult);
-
-        $result = array();
-        $managerUser = ImbaManagerUser::getInstance();
-        for ($i = 0; $i < 3; $i++) {
-            $value = $databaseresult[$i];
-            $user = new ImbaUser();
-            $user = $managerUser->selectByOpenId($value);
-            array_push($result, array("name" => $user->getNickname(), "openid" => $value));
-        }
-
-        return json_encode($result);
-    }
-
-    /**
-     * Selects the timestamp of the last Message in conversation between $openidMe and $openidOpponent
-     */
-    public function selectLastMessageTimestamp($openidMe, $openidOpponent) {
+    public function selectLastMessageTimestamp($idOpponent) {
         $return = 0;
         $query = "SELECT timestamp FROM %s Where (receiver = '%s' and sender = '%s') OR (receiver = '%s' and sender = '%s') ORDER BY timestamp DESC LIMIT 0,1;";
-
-        //echo $this->database->getQuery($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidMe, $openidOpponent, $openidOpponent, $openidMe));
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidMe, $openidOpponent, $openidOpponent, $openidMe));
+        
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            ImbaUserContext::getUserId(),
+            $idOpponent,
+            $idOpponent,
+            ImbaUserContext::getUserId()));
 
         while ($row = $this->database->fetchRow()) {
             $return = $row['timestamp'];
@@ -225,29 +169,36 @@ class ImbaManagerMessage extends ImbaManagerBase {
     /**
      * Selects all new Messages for a user
      */
-    public function selectNewMessagesByOpenid($openid) {
-        $query = "SELECT DISTINCT m.sender, p.nickname FROM %s m join %s p on p.openid = m.sender Where `receiver` = '%s' and new = 1";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES, $openid));
+    public function selectMyNewMessages() {
+        // cache all users
+        $managerUser = ImbaManagerUser::getInstance();
+        $managerUser->selectAll();
+
+        $query = "SELECT DISTINCT sender FROM %s Where `receiver` = '%s' and new = 1;";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
+            ImbaUserContext::getUserId()
+            ));
 
         $result = array();
         while ($row = $this->database->fetchRow()) {
-            array_push($result, array("openid" => $row["sender"], "name" => $row["nickname"]));
+            $user = $managerUser->selectById($row["sender"]);
+            array_push($result, array("name" => $user->getNickname(), "id" => $user->getId()));
         }
 
-        return json_encode($result);
+        return $result;
     }
 
     /**
      * Mark a message as read
      */
-    public function setMessageRead($openidMe, $openidOpponent) {
+    public function setMessageRead($idOpponent) {
         $query = "UPDATE %s SET new = 0 where sender = '%s' and receiver = '%s';";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_USR_MESSAGES,
-            $openidOpponent,
-            $openidMe
+            $idOpponent,
+            ImbaUserContext::getUserId()
         ));
-        //echo sprintf($query, ImbaConstants::$DATABASE_TABLES_USR_MESSAGES, $openidOpponent, $openidMe);
     }
 
 }

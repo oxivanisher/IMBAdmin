@@ -46,7 +46,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     $color = "gray";
                 }
 
-                $msgCount = $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
+                $msgCount = $managerMessage->selectMessagesCount($user->getOpenId());
 
                 if ($msgCount > $msgCountMax || $msgCountMax == -1)
                     $msgCountMax = $msgCount;
@@ -88,10 +88,10 @@ if (ImbaUserContext::getLoggedIn()) {
      * Gets a list of users as JSON, with starting like
      */ else if (isset($_POST['loaduser']) && isset($_POST['startwith'])) {
         if (trim($_POST['startwith']) != "") {
-            $users = $managerUser->selectAllUserStartWith(ImbaUserContext::getOpenIdUrl(), $_POST['startwith']);
+            $users = $managerUser->selectAllUserStartWith($_POST['startwith']);
             $result = array();
             foreach ($users as $user) {
-                array_push($result, array("user" => true, "name" => $user->getNickname(), "openid" => $user->getOpenId()));
+                array_push($result, array("user" => true, "name" => $user->getNickname(), "id" => $user->getId()));
             }
 
             echo json_encode($result);

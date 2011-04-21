@@ -21,27 +21,19 @@ if (ImbaUserContext::getLoggedIn()) {
     $managerUser = ImbaManagerUser::getInstance();
 
     /**
-     * Recieve Statup Data
-     *  - Who was I am talking to
-     */
-    if (isset($_POST['chatinit'])) {
-        echo $managerMessage->selectLastConversation(ImbaUserContext::getOpenIdUrl());
-    }
-
-    /**
      * Got something new for user?
-     */ else if (isset($_POST['gotnewmessages'])) {
-        echo $managerMessage->selectNewMessagesByOpenid(ImbaUserContext::getOpenIdUrl());
+     */ if (isset($_POST['gotnewmessages'])) {
+        echo json_encode($managerMessage->selectMyNewMessages());
     }
 
     /**
      * Send a Message
      */ else if (isset($_POST['message']) && isset($_POST['reciever'])) {
         $message = new ImbaMessage();
-        $message->setSender(ImbaUserContext::getOpenIdUrl());
-        $message->setReceiver($_POST['reciever']);
+        $message->setSender($managerUser->selectById(ImbaUserContext::getUserId()));
+        $message->setReceiver($managerUser->selectById($_POST['reciever']));
         $message->setMessage($_POST['message']);
-        $message->setTimestamp(Date("U"));
+        $message->setTimestamp(date("U"));
         $message->setXmpp(0);
         $message->setNew(1);
         $message->setSubject("AJAX GUI");
@@ -59,29 +51,20 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Set read for a message
      */ else if (isset($_POST['reciever']) && isset($_POST['setread'])) {
-        $managerMessage->setMessageRead(ImbaUserContext::getOpenIdUrl(), $_POST['reciever']);
+        $managerMessage->setMessageRead($_POST['reciever']);
     }
 
     /**
      * Recieve Messages
      */ else if (isset($_POST['loadMessages']) && isset($_POST['reciever'])) {
         try {
-            $conversation = $managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['reciever'], 10);
+            $conversation = $managerMessage->selectAllByOpponentId($_POST['reciever']);
 
             $result = array();
             foreach ($conversation as $message) {
-                $time = "";
-                $sender = "";
-                $msg = "";
-                if ($message->getSender() == ImbaUserContext::getOpenIdUrl()) {
-                    $time = date("d.m.y H:m:s", $message->getTimestamp());
-                    $sender = "You";
-                    $msg = $message->getMessage();
-                } else {
-                    $time = date("d.m.y H:m:s", $message->getTimestamp());
-                    $sender = "The other";
-                    $msg = $message->getMessage();
-                }
+                $time = date("d.m.y H:m:s", $message->getTimestamp());
+                $sender = $message->getSender()->getNickname();
+                $msg = $message->getMessage();
 
                 array_push($result, array("time" => $time, "sender" => $sender, "message" => $msg));
             }
@@ -102,16 +85,34 @@ if (ImbaUserContext::getLoggedIn()) {
     }
     /**
      * Load the ChatMessages
-     */ else if (isset($_POST['loadchat']) && isset($_POST['channelid'])) {
+     */ else if (isset($_POST['loadchat']) && isset($_POST['since']) && isset($_POST['channelid'])) {
         $result = array();
         $channel = $managerChatChannel->selectById($_POST['channelid']);
-        foreach ($managerChatMessage->selectAllByChannel($channel) as $message) {
+        foreach ($managerChatMessage->selectAllByChannel($channel, $_POST['since']) as $message) {
             array_push($result, array(
+                "id" => $message->getId(),
                 "time" => date("m.d.y H:m:s", $message->getTimestamp()),
                 "nickname" => $message->getSender()->getNickname(),
                 "message" => $message->getMessage()
             ));
         }
+        $result = array_reverse($result);
+        echo json_encode($result);
+    }
+    /**
+     * init the ChatMessages
+     */ else if (isset($_POST['initchat']) && isset($_POST['channelid'])) {
+        $result = array();
+        $channel = $managerChatChannel->selectById($_POST['channelid']);
+        foreach ($managerChatMessage->selectAllByChannel($channel, -1) as $message) {
+            array_push($result, array(
+                "id" => $message->getId(),
+                "time" => date("m.d.y H:m:s", $message->getTimestamp()),
+                "nickname" => $message->getSender()->getNickname(),
+                "message" => $message->getMessage()
+            ));
+        }
+        $result = array_reverse($result);
         echo json_encode($result);
     }
     /**

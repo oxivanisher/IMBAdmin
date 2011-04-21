@@ -65,7 +65,6 @@ function eraseCookie(name) {
     createCookie(name,"",-1);
 }
 
-
 /**
  * Datatable sort pugins from
  * http://www.datatables.net/plug-ins/sorting

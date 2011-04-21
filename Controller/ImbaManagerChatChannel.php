@@ -32,7 +32,6 @@ class ImbaManagerChatChannel extends ImbaManagerBase {
     /*
      * Singleton init
      */
-
     public static function getInstance() {
         if (self::$instance === null)
             self::$instance = new self();

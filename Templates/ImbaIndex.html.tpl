@@ -1,5 +1,3 @@
-
-<div id='test' style='position: absolute; left: 0; top: 0;'></div>
 <div id='imbaSsoLoginBorder' class='ui-widget-content ui-corner-all'>
     <div id='imbaSsoLogin'>
         <img id='imbaSsoLogo' src='/IMBAdmin/Images/guild_logo.png' alt='Guild Logo' title='Show/Hide Menu' />

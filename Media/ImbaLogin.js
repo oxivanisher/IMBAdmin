@@ -26,11 +26,11 @@ $(document).ready(function() {
         $("#imbaSsoOpenId").val(oldOpenId);
     }
     
-    // Checking if user is online
     $.ajaxSetup({
         async: true
     });
-    
+
+    // Checking if user is online
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){

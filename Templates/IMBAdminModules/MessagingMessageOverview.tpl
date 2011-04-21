@@ -15,11 +15,11 @@
         } );
     } );   
     
-    function loadMessageHistory(openid){
+    function loadMessageHistory(id){
         var data = {
             module: "Messaging",
             request: "viewmessagehistory",
-            openid: openid
+            userid: id
         };
         loadImbaAdminTabContent(data);
     }
@@ -32,7 +32,7 @@
     <tbody>
 
         {foreach $users as $user}
-        <tr onclick="javascript: loadMessageHistory('{$user.openid}');" style="cursor: pointer;">
+        <tr onclick="javascript: loadMessageHistory('{$user.id}');" style="cursor: pointer;">
             <td>{$user.nickname}</td>
             <td><span title="{$user.lastmessagets}">{$user.lastmessagestr}</span></td>
             <td>{$user.nummessages}</td>

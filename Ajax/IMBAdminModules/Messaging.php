@@ -52,7 +52,6 @@ if (ImbaUserContext::getLoggedIn()) {
             break;
 
         case "viewmessagehistory":
-
             $smartyMessages = array();
             foreach ($managerMessage->selectConversation(ImbaUserContext::getOpenIdUrl(), $_POST['openid'], 0) as $myMessage) {
                 $myTimestamp = $myMessage->getTimestamp();
@@ -90,22 +89,21 @@ if (ImbaUserContext::getLoggedIn()) {
             //case viewmessageoverview
             $newList = array();
             foreach ($managerUser->selectAllUserButme(ImbaUserContext::getOpenIdUrl()) as $user) {
-                $timestamp = $managerMessage->selectLastMessageTimestamp(ImbaUserContext::getOpenIdUrl(), $user->getOpenId());
-                $oponentOpenId = $user->getOpenId();
-                array_push($newList, array("timestamp" => $timestamp, "openid" => $oponentOpenId));
+                $timestamp = $managerMessage->selectLastMessageTimestamp($user->getOpenId());
+                array_push($newList, array("timestamp" => $timestamp, "id" => $user->getId()));
             }
             //ksort($newList);
 
             $smartyConversations = array();
             foreach ($newList as $item) {
-                $tmpUser = $managerUser->selectByOpenId($item['openid']);
+                $tmpUser = $managerUser->selectById($item['id']);
                 $tmpNickname = $tmpUser->getNickname();
                 array_push($smartyConversations, array(
-                    "openid" => $item['openid'],
+                    "id" => $item['id'],
                     "nickname" => $tmpNickname,
                     "lastmessagets" => $item['timestamp'],
                     "lastmessagestr" => ImbaSharedFunctions::getNiceAge($item['timestamp']),
-                    "nummessages" => $managerMessage->selectMessagesCount(ImbaUserContext::getOpenIdUrl(), $item['openid'])
+                    "nummessages" => $managerMessage->selectMessagesCount($item['id'])
                 ));
             }
 

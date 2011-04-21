@@ -62,7 +62,7 @@ if (ImbaUserContext::getLoggedIn()) {
 
             $result = array();
             foreach ($conversation as $message) {
-                $time = date("d.m.y H:m:s", $message->getTimestamp());
+                $time = date("d.m.y H:i:s", $message->getTimestamp());
                 $sender = $message->getSender()->getNickname();
                 $msg = $message->getMessage();
 
@@ -91,7 +91,7 @@ if (ImbaUserContext::getLoggedIn()) {
         foreach ($managerChatMessage->selectAllByChannel($channel, $_POST['since']) as $message) {
             array_push($result, array(
                 "id" => $message->getId(),
-                "time" => date("d.m.y H:m:s", $message->getTimestamp()),
+                "time" => date("d.m.y H:i:s", $message->getTimestamp()),
                 "nickname" => $message->getSender()->getNickname(),
                 "message" => $message->getMessage()
             ));
@@ -107,7 +107,7 @@ if (ImbaUserContext::getLoggedIn()) {
         foreach ($managerChatMessage->selectAllByChannel($channel, -1) as $message) {
             array_push($result, array(
                 "id" => $message->getId(),
-                "time" => date("d.m.y H:m:s", $message->getTimestamp()),
+                "time" => date("d.m.y H:i:s", $message->getTimestamp()),
                 "nickname" => $message->getSender()->getNickname(),
                 "message" => $message->getMessage()
             ));

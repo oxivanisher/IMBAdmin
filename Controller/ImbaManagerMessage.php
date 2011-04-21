@@ -59,7 +59,7 @@ class ImbaManagerMessage extends ImbaManagerBase {
             $message->getReceiver()->getId(),
             $message->getTimestamp(),
             $message->getSubject(),
-            $message->getMessage(),
+            htmlspecialchars($message->getMessage()),
             $message->getNew(),
             $message->getXmpp()
         ));

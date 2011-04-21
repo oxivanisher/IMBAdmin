@@ -91,7 +91,7 @@ class ImbaManagerChatMessage extends ImbaManagerBase {
             ImbaUserContext::getUserId(),
             $message->getChannel()->getId(),
             date("U"),
-            $message->getMessage()
+            htmlspecialchars($message->getMessage())
         ));
     }
 

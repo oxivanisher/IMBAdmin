@@ -46,7 +46,7 @@ if (ImbaUserContext::getLoggedIn()) {
                     $color = "gray";
                 }
 
-                $msgCount = $managerMessage->selectMessagesCount($user->getOpenId());
+                $msgCount = $managerMessage->selectMessagesCount($user->getId());
 
                 if ($msgCount > $msgCountMax || $msgCountMax == -1)
                     $msgCountMax = $msgCount;

@@ -44,7 +44,7 @@ if (ImbaUserContext::getLoggedIn()) {
         $message->setTimestamp(Date("U"));
         $message->setXmpp(0);
         $message->setNew(1);
-        $message->setSubject("Was soll hier rein?");
+        $message->setSubject("AJAX GUI");
 
         try {
             $managerMessage->insert($message);

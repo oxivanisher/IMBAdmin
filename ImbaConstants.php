@@ -69,7 +69,6 @@ class ImbaConstants extends ImbaConfig {
       public static $DATABASE_TABLES_USR_XMPP = "oom_openid_xmpp";
       public static $DATABASE_TABLES_SYS_SESSION = "oom_openid_session";
       public static $DATABASE_TABLES_SYS_ADMINUSERS = "oom_openid_usermanager";
-      public static $DATABASE_TABLES_USR_APPLICATIONS = "oom_openid_user_applications";
      */
     /**
      * Support for loading settings from database

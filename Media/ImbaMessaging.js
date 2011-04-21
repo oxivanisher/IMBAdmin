@@ -69,7 +69,7 @@ function refreshChat() {
         // Check if its a chat
         if (tabData.substr(0, 1) == "#" && ($("#imbaMessagesDialog").is(':hidden')) == false){
             loadChatWindowContent(selectedTab);
-        
+        }
     }
 }
 

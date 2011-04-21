@@ -6,6 +6,7 @@
 var tabCount = 0;
 var countOpenTabs = 0;
 var chatSinceIds = new Array();
+var chatCache = new Array();
 
 
 // Reload Chats every 2000 ms
@@ -236,6 +237,8 @@ function loadChatWindowContent(tabIndex) {
                     });
 
                     $("#imbaChatConversation").html(htmlConversation);
+                    chatCache[channelId] = htmlConversation;
+
                     $("#imbaChatConversation").attr({
                         scrollTop: $("#imbaChatConversation").attr("scrollHeight")
                     });
@@ -251,7 +254,7 @@ function loadChatWindowContent(tabIndex) {
                     since: chatSinceIds[channelId]
                 },
                 function(response) {
-                    var htmlConversation = $("#imbaChatConversation").html();
+                    var htmlConversation = chatCache[channelId];
 
                     $.each($.parseJSON(response), function(key, val) {
                         htmlConversation += "<div>"
@@ -263,6 +266,8 @@ function loadChatWindowContent(tabIndex) {
                     });
 
                     $("#imbaChatConversation").html(htmlConversation);
+                    chatCache[channelId] = htmlConversation;
+
                     $("#imbaChatConversation").attr({
                         scrollTop: $("#imbaChatConversation").attr("scrollHeight")
                     });

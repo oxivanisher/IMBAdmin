@@ -8,7 +8,7 @@
                 <input id='imbaSsoOpenIdSubmit' type='submit' value='Login'/>
             </form>
             <form id='imbaSsoLogoutForm' action='/IMBAdmin/ImbaAuth.php' method='post'>
-                <input type='text' id='imbaSsoShowOpenId' name='openid' readonly='readonly' />
+                <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
                 <input name='logout' value='true' type='hidden' />
                 <br />
                 <input id='imbaSsoOpenIdSubmitLogout'  type='submit' value='Logout' />

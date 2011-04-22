@@ -109,6 +109,14 @@ body {
     cursor: pointer;
 }  
 
+#imbaSsoShowNickname {
+    list-style-type:none;
+    float:left;
+    margin: 2px;
+    padding: 0px;
+    cursor: pointer;
+    font-size: 12px !important;
+}
 
 /* IMBAdmin Messeging */
 

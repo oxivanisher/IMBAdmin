@@ -108,7 +108,8 @@ if (ImbaUserContext::getLoggedIn()) {
     /**
      * Returns the OpenId
      */ else {
-        echo ImbaUserContext::getOpenIdUrl();
+        $user = $managerUser->selectMyself();
+        echo $user->getNickname();
     }
 } elseif (ImbaUserContext::getNeedToRegister()) {
     echo "Need to register";

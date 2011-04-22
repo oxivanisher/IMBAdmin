@@ -41,7 +41,7 @@ $(document).ready(function() {
             setLoggedIn(false);
         } else {
             setLoggedIn(true);
-            $("#imbaSsoShowOpenId").val(response);
+            $("#imbaSsoShowNickname").html('Hallo ' + response);
         }
     });
 
@@ -81,6 +81,7 @@ $(document).ready(function() {
         
         return false;
     });
+    
     
     /*
      * ImbAdmin Window Tabs Module

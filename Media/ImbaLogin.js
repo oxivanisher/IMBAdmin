@@ -147,6 +147,19 @@ $(document).ready(function() {
     .dialog("option", "width", 800)
     .dialog("option", "height", 700);
 
+    /**
+     * Load Portal Icon
+     */
+    // Checking if user is online
+    $.post(ajaxEntry, {
+        action: "user",
+        loadportalicon: true
+    }, function (response){
+        if (response != "") {
+            $("imbaSsoLogoImage").src(response);
+        }
+    });    
+
     // Firsttime show users online
     refreshUsersOnline();
 });

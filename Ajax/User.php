@@ -7,6 +7,7 @@ require_once 'Model/ImbaUser.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerMessage.php';
+require_once 'Controller/ImbaManagerPortal.php';
 require_once 'Controller/ImbaUserContext.php';
 
 /**
@@ -15,6 +16,7 @@ require_once 'Controller/ImbaUserContext.php';
 if (ImbaUserContext::getLoggedIn()) {
     $managerUser = ImbaManagerUser::getInstance();
     $managerMessage = ImbaManagerMessage::getInstance();
+    $managerPortal = ImbaManagerPortal::getInstance();
 
     /**
      * Gets a list of online users as JSON
@@ -110,6 +112,11 @@ if (ImbaUserContext::getLoggedIn()) {
      */ else {
         $user = $managerUser->selectMyself();
         echo $user->getNickname();
+    }
+} elseif (isset($_POST['loadportalicon'])) {
+    if (ImbaUserContext::getPortalContext() != "") {
+        $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
+        echo $portal->getIcon();
     }
 } elseif (ImbaUserContext::getNeedToRegister()) {
     echo "Need to register";

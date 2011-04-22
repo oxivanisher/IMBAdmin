@@ -1,6 +1,6 @@
 <div id='imbaSsoLoginBorder' class='ui-widget-content ui-corner-all'>
     <div id='imbaSsoLogin'>
-        <img id='imbaSsoLogo' src='/IMBAdmin/Images/comminuty_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
+        <img id='imbaSsoLogo' src='/IMBAdmin/Images/community_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
             <form id='imbaSsoLoginForm' action='/IMBAdmin/ImbaAuth.php' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />

@@ -69,7 +69,7 @@ $(document).ready(function() {
 
 
     var menuIsThere = true;
-    $("#imbaSsoLogo").click(function() {
+    $("#imbaSsoLogoImage").click(function() {
         if (!menuIsThere){
             showMenu();
             menuIsThere = true;

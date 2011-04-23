@@ -4,7 +4,6 @@ $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
-        print_r($GLOBALS); exit;
         header( 'Content-Type: application/javascript' );
         /**
          * Load IMBAdmin index template

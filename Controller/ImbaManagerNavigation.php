@@ -81,7 +81,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         if (empty($return)) {
             $topNav = new ImbaTopNavigation();
-            switch (ImbaSharedFunctions::getDomain(ImbaUserContext::getRedirectUrl())) {
+            switch (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER'])) {
                 case "www.oom.ch": //OOM
                 case "oom.ch":
                     $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");

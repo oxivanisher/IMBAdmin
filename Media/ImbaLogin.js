@@ -25,7 +25,7 @@ $(document).ready(function() {
                 header: 'Erfolg'
             });
             alert(document.URL);
-            imbaSsoOpenIdReferer.val = document.url;
+            imbaSsoOpenIdReferer.val = document.URL;
             imbaSsoLoginForm.submit();
         }
     });

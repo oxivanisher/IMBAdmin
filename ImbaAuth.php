@@ -208,8 +208,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
-                print_r($GLOBALS);
-                exit;
+
         try {
             $esc_identity = $managerOpenId->openidVerify();
 
@@ -273,7 +272,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
-    /**
+                    print_r($GLOBALS);
+                exit;
+/**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
      * - set cookie with logged in openid for autofill login box

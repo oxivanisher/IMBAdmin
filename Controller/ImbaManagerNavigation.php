@@ -81,7 +81,6 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         if (empty($return)) {
             $topNav = new ImbaTopNavigation();
-            echo $_SERVER['HTTP_REFERER']; exit;
             switch ($_SERVER['HTTP_REFERER']) {
                 case "http://www.oom.ch/": //OOM
                 case "http://oom.ch/":
@@ -89,7 +88,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
                     $topNav->addElement("wiki", "Wiki", "_top", "https://oom.ch/wiki/", "OOM Wiki");
                     break;
                 case "http://b.oom.ch/": //EVE
-                case "http://b.oom.ch/forum/":
+                case "http://b.oom.ch/forum/index.php?p=/entry/signin&amp;Target=discussions":
                 case "http://b.oom.ch/kb/":
                     $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
                     $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");

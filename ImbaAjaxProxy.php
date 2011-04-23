@@ -13,12 +13,44 @@ require_once 'ImbaConstants.php';
 //$proxy = new AjaxProxy(ImbaConstants::$WEB_AJAX_MAIN_FILE, $allowedHosts, FALSE);
 //$proxy->execute();
 
-$ch = curl_init(); 
-curl_setopt($ch, CURLOPT_URL, dirname($_SERVER['PHP_SELF']) . "/". ImbaConstants::$WEB_AJAX_MAIN_FILE); 
-curl_setopt($ch, CURLOPT_HEADER, 1); 
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-//curl_setopt($ch, CURLOPT_HTTPPROXYTUNNEL, 1); 
-$data = curl_exec($ch); 
-curl_close($ch);
-echo $data;
+$url = dirname($_SERVER['PHP_SELF']) . "/". ImbaConstants::$WEB_AJAX_MAIN_FILE;
+$url = "http://alptroeim.ch/IMBAdmin/ImbaAjax.php";
+$headers = ($_POST['headers']) ? $_POST['headers'] : $_GET['headers'];
+//$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
+//Start the Curl session
+$session = curl_init($url);
+
+// If it's a POST, put the POST data in the body
+if ($_POST) {
+ $postvars = '';
+ while ($element = current($_POST)) {
+   $postvars .= key($_POST).'='.$element.'&';
+   next($_POST);
+ }
+ curl_setopt ($session, CURLOPT_POST, true);
+ curl_setopt ($session, CURLOPT_POSTFIELDS, $postvars);
+}
+
+curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/cookieFileName");
+curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/cookieFileName");
+
+// Don't return HTTP headers. Do return the contents of the call
+curl_setopt($session, CURLOPT_HEADER, ($headers == "true") ? true : false);
+
+curl_setopt($session, CURLOPT_FOLLOWLOCATION, true); 
+//curl_setopt($ch, CURLOPT_TIMEOUT, 4); 
+curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+// Make the call
+$response = curl_exec($session);
+
+if ($mimeType != "")
+{
+// The web service returns XML. Set the Content-Type appropriately
+//header("Content-Type: ".$mimeType);
+}
+
+echo $response;
+
+curl_close($session);
 ?>

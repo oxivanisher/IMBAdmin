@@ -264,7 +264,6 @@ function showMenu() {
             direction: "up"
         });   
     }
-    
 }
 
 /**

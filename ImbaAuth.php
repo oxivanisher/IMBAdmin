@@ -205,6 +205,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
+            if (empty($esc_identity)) {
+                header("location: " .  $_SERVER['PHP_SELF']);
+                exit;
+            }
 
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
@@ -228,6 +232,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
+                
                 header("location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -256,7 +261,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
 
             }
-
             header("location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
             $log->setLevel(1);

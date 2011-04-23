@@ -18,7 +18,7 @@ function getDomain($url)
     /*** return the host domain ***/
     return $parts['scheme'].'://'.$parts['host'];
 }
-//echo getDomain($_SERVER['SERVER_NAME']) . "<>" . getDomain($_POST['imbaSsoOpenIdLoginReferer']);
+echo getDomain($_SERVER['SERVER_NAME']) . "<>" . getDomain($_POST['imbaSsoOpenIdLoginReferer']);
 
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConfig.php';

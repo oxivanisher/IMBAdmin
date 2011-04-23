@@ -47,11 +47,12 @@ $(document).ready(function() {
     $.ajaxSetup({
         async: true
     });
-
+ 
     // Checking if user is online
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
+        alert('test: '+response );
         if (response == "Proxy Error") {
             setError(response);
         } else if (response == "Need to register") {

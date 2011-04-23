@@ -129,9 +129,9 @@ function displayDebug($set) {
 }
 
 function returnError($set) {
-    echo "Proxy Error";
+    echo "Error: Proxy not working";
 }
-echo  "Proxy Error"; exit;
+echo  "Error: Proxy not working"; exit;
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {

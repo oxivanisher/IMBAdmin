@@ -33,7 +33,15 @@ switch ($_GET["load"]) {
             /**
              * load our static js scripts
              */
-            $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_ENTRY_FILE) . "';\n";
+            if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
+                $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
+                $ajaxPath = ImbaConstants::$WEB_AJAX_MAIN_FILE;
+            } else {
+                $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
+                $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_FILE;
+            }
+                        
+            $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
             $tmpOut .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";
@@ -61,8 +69,12 @@ switch ($_GET["load"]) {
              */
             $file_array = file($IMBAdminIndexTemplate);
             $thrustRoot = ImbaSharedFunctions::getTrustRoot();
+            
             foreach ($file_array as $line) {
-                $tmpOut .= str_replace("MYWEBPATHREPLACE", $thrustRoot, trim($line)) . "\\\n";
+                $tmpOut .= trim($line);
+                $tmpOut = str_replace("MYWEBPATHREPLACE", $thrustRoot, $tmpOut);
+                $tmpOut = str_replace("MYAUTHPATHREPLACE", $authPath, $tmpOut);
+                $tmpOut .= "\\\n";
             }
 
             /**

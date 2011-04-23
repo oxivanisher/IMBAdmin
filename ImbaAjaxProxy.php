@@ -5,6 +5,8 @@ session_start();
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
+$cookieFile = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID'];
+
 //FIXME: we possibly need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions
 // for accessing ourself. we can find out when to direct with $_POST['imbaSsoOpenIdLoginReferer'] is = $_SERVER['SERVER_NAME']
 // and then use curl to redirect our request
@@ -18,7 +20,7 @@ require_once 'Controller/ImbaSharedFunctions.php';
 
 /* STEP 2. visit the homepage to set the cookie properly */
 /*
-  $url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH;
+  $url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_AUTH_PROXY_PATH;
   $ch = curl_init ($url);
   curl_setopt ($ch, CURLOPT_COOKIEJAR, "/tmp/cookieFileName");
   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
@@ -44,7 +46,7 @@ if ($_POST) {
 }
 
 //curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/cookieFileName");
-curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/" . $_COOKIE['PHPSESSID']);
+curl_setopt($session, CURLOPT_COOKIEFILE, $cookieFile);
 // Don't return HTTP headers. Do return the contents of the call
 curl_setopt($session, CURLOPT_HEADER, ($headers == "true") ? true : false);
 

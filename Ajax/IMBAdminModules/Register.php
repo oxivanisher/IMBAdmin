@@ -36,8 +36,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 ImbaUserContext::getNeedToRegister(false);
                 $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
             } else {
-                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
-                header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
+                header("location: " . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
             }
             break;
 
@@ -96,8 +96,8 @@ if (ImbaUserContext::getLoggedIn()) {
                         /**
                          * Something strange happend. Try to kick the user out of all sessions
                          */
-                        //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
-                        header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                        //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
+                        header("location: " . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
                     }
                 } else {
                     # set the error code so that we can display it
@@ -120,8 +120,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 /**
                  * Something strange happend. Try to kick the user out of all sessions
                  */
-                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
-                header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
+                header("location: " . ImbaConstants::$WEB_AUTH_PROXY_PATH . "?logout=true");
             }
             break;
 
@@ -139,7 +139,7 @@ if (ImbaUserContext::getLoggedIn()) {
                  */
                 $_SESSION["IUC_captchaState"] = "unchecked";
 
-                $smarty->assign('authPath', ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                $smarty->assign('authPath', ImbaConstants::$WEB_AUTH_PROXY_PATH);
                 $smarty->assign('indexPath', ImbaConstants::$WEB_ENTRY_INDEX_FILE);
                 $smarty->assign('publicKey', ImbaConstants::$SETTINGS["CAPTCHA_PUBLIC_KEY"]);
                 $smarty->display('IMBAdminModules/RegisterForm.tpl');
@@ -147,8 +147,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 /**
                  * User gets the welcome screen with the openid input field
                  */
-                //$smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
-                $smarty->assign('registerurl', ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                //$smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_AUTH_PROXY_PATH);
+                $smarty->assign('registerurl', ImbaConstants::$WEB_AUTH_PROXY_PATH);
                 $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
             }
     }

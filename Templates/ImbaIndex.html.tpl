@@ -2,13 +2,13 @@
     <div id='imbaSsoLogin'>
         <img id='imbaSsoLogoImage' src='MYWEBPATHREPLACEImages/noicon.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
-            <form id='imbaSsoLoginForm' action='MYWEBPATHREPLACEImbaAuth.php' method='post'>
+            <form id='imbaSsoLoginForm' action='MYWEBPATHREPLACEMYAUTHPATHREPLACE' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
                 <input id='imbaSsoOpenIdLoginReferer' name='imbaSsoOpenIdLoginReferer' value='' type='hidden' />
                 <br />
                 <span id='imbaSsoOpenIdSubmit'>Login / Registrieren</span>
             </form>
-            <form id='imbaSsoLogoutForm' action='MYWEBPATHREPLACEImbaAuth.php' method='post'>
+            <form id='imbaSsoLogoutForm' action='MYWEBPATHREPLACEMYAUTHPATHREPLACE' method='post'>
                 <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
                 <input id='imbaSsoOpenIdLogoutReferer' name='imbaSsoOpenIdLogoutReferer' value='' type='hidden' />
                 <input name='logout' value='true' type='hidden' />

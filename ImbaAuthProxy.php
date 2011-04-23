@@ -5,6 +5,8 @@ session_start();
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
+$cookieFile = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID'];
+
 //FIXME: we possibly need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions
 // for accessing ourself. we can find out when to direct with $_POST['imbaSsoOpenIdLoginReferer'] is = $_SERVER['SERVER_NAME']
 // and then use curl to redirect our request
@@ -15,17 +17,23 @@ require_once 'Controller/ImbaSharedFunctions.php';
 //$proxy->execute();
 
 
+/**
+ * REMEMBER!
+ * we have to do also a logout!
+ */
+
+
 
 /* STEP 2. visit the homepage to set the cookie properly */
-/*
-  $url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH;
+
+  $url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_AJAX_PROXY_FILE;
   $ch = curl_init ($url);
-  curl_setopt ($ch, CURLOPT_COOKIEJAR, "/tmp/cookieFileName");
+  curl_setopt ($ch, CURLOPT_COOKIEJAR, );
   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
   $output = curl_exec ($ch);
-*/
-//echo ImbaSharedFunctions::getTrustRoot() . "/". ImbaConstants::$WEB_OPENID_MAIN_PATH; exit;
-$url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_OPENID_MAIN_PATH;
+
+//echo ImbaSharedFunctions::getTrustRoot() . "/". ImbaConstants::$WEB_AUTH_MAIN_PATH; exit;
+$url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_AUTH_MAIN_PATH;
 //$url = "http://alptroeim.ch/IMBAdmin/ImbaAjax.php";
 $headers = ($_POST['headers']) ? $_POST['headers'] : $_GET['headers'];
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
@@ -43,7 +51,8 @@ if ($_POST) {
     curl_setopt($session, CURLOPT_POSTFIELDS, $postvars);
 }
 
-curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/" . $_COOKIE['PHPSESSID']);
+//curl_setopt($session, CURLOPT_COOKIEJAR, ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID']);
+curl_setopt($session, CURLOPT_COOKIEFILE, $cookieFile);
 //curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/cookieFileName");
 // Don't return HTTP headers. Do return the contents of the call
 curl_setopt($session, CURLOPT_HEADER, ($headers == "true") ? true : false);
@@ -59,8 +68,14 @@ if ($mimeType != "") {
     // The web service returns XML. Set the Content-Type appropriately
     //header("Content-Type: ".$mimeType);
 }
-
+if ($response) {
 echo $response;
+} else {
+    echo "ERROR: \n<pre>";
+    echo "cookie file: " . $cookieFile . "\n";
+    print_r($GLOBALS);
+    echo "</pre>";
+}
 
 curl_close($session);
 ?>

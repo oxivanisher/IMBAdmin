@@ -90,7 +90,7 @@ class ImbaSharedFunctions {
         return preg_replace($in, $out, $url);
     }
 
-    // TODO: irgendwie ein alerting einbauen
+// TODO: irgendwie ein alerting einbauen
     public static function alert($msg, $from) {
         $alertsql = mysql_query("SELECT openid FROM " . $GLOBALS[cfg][admintablename] . " WHERE dev='1';");
         while ($alertrow = mysql_fetch_array($alertsql)) {
@@ -98,7 +98,7 @@ class ImbaSharedFunctions {
         }
     }
 
-    // TODO: irgendwie ein user alerting einbauen
+// TODO: irgendwie ein user alerting einbauen
     public static function informUsers($msg, $role) {
         $alertsql = mysql_query("SELECT openid FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE role>='" . $role . "';");
         while ($alertrow = mysql_fetch_array($alertsql)) {
@@ -107,9 +107,9 @@ class ImbaSharedFunctions {
     }
 
     public static function sendMail($target, $subject, $message) {
-        //FIXME: i don't work!
+//FIXME: i don't work!
         if (substr($target, 0, 4) == "http") {
-            // FIXME: ich bin hässlich hard-gecodet ohne DB manager!
+// FIXME: ich bin hässlich hard-gecodet ohne DB manager!
             $sql = "SELECT email FROM " . $GLOBALS[cfg][userprofiletable] . " WHERE openid='" . $target . "';";
             $sqlr = mysql_query($sql);
             while ($row = mysql_fetch_array($sqlr))
@@ -117,7 +117,7 @@ class ImbaSharedFunctions {
         } else {
             $targetaddr = $target;
         }
-        #check for correct email addr
+#check for correct email addr
         if (filter_var($targetaddr, FILTER_VALIDATE_EMAIL)) {
             if ($GLOBALS[adminemailname]) {
                 $sender = $GLOBALS[adminemailname];
@@ -125,11 +125,11 @@ class ImbaSharedFunctions {
                 $sender = "IMBA Admin @ " . $_SERVER[SERVER_NAME];
             }
 
-            // FIXME: 8ung! hier fehlt eine konstante für die admin email adresse
+// FIXME: 8ung! hier fehlt eine konstante für die admin email adresse
             $header = 'MIME-Version: 1.0' . "\n" . 'Content-type: text/plain; charset=UTF-8' . "\n" . 'From: ' . $sender . ' <' . $GLOBALS[adminemail] . ">\n";
-            // Make sure there are no bare linefeeds in the headers
+// Make sure there are no bare linefeeds in the headers
             $header = preg_replace('#(?<!\r)\n#si', "\r\n", $header);
-            // Fix any bare linefeeds in the message to make it RFC821 Compliant.
+// Fix any bare linefeeds in the message to make it RFC821 Compliant.
             $message = preg_replace("#(?<!\r)\n#si", "\r\n", $message);
 
             mail($targetaddr, $subject, $message, $header);
@@ -160,8 +160,8 @@ class ImbaSharedFunctions {
     }
 
     public static function killCookies() {
-        // unset smf cookie
-        //setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
+// unset smf cookie
+//setcookie('alpCookie', serialize(array(0, '', 0)), time() - 3600, $GLOBALS[cfg][cookiepath], $GLOBALS[cfg][cookiedomain]);
     }
 
     /**
@@ -181,9 +181,15 @@ class ImbaSharedFunctions {
      * get ReturnTo Address
      */
     public function getReturnTo() {
-        // this sould be like that, if the webserver would be set up correctly
-        // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
-        return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s?authDone=true", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), ImbaConstants::$WEB_OPENID_AUTH_PATH));
+// this sould be like that, if the webserver would be set up correctly
+// return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
+            $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH . "?authDone=true";
+        } else {
+            $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH . "&authDone=true";
+        }
+
+        return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), $authPath));
     }
 
     /**
@@ -191,8 +197,8 @@ class ImbaSharedFunctions {
      * get the trust root
      */
     public function getTrustRoot() {
-        // this sould be like that, if the webserver would be set up correctly
-        // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+// this sould be like that, if the webserver would be set up correctly
+// return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));
     }
 
@@ -216,6 +222,50 @@ class ImbaSharedFunctions {
         $parts = parse_url($url);
         /*         * * return the host domain ** */
         return $parts['scheme'] . '://' . $parts['host'];
+    }
+
+    /**
+     *
+     * function to get the tmp dir
+     */
+    public function getTmpPath() {
+        if (!function_exists('sys_get_temp_dir')) {
+
+            function sys_get_temp_dir() {
+                if ($temp = getenv('TMP'))
+                    return $temp;
+                if ($temp = getenv('TEMP'))
+                    return $temp;
+                if ($temp = getenv('TMPDIR'))
+                    return $temp;
+                $temp = tempnam(__FILE__, '');
+                if (file_exists($temp)) {
+                    unlink($temp);
+                    return dirname($temp);
+                }
+                return null;
+            }
+
+        }
+        return realpath(sys_get_temp_dir());
+    }
+
+    /**
+     *
+     * Function to parse a curl cookie file
+     */
+    public function curlParseCookiefile($file) {
+        $aCookies = array();
+        $aLines = file($file);
+        foreach ($aLines as $line) {
+            if ('#' == $line{0})
+                continue;
+            $arr = explode("\t", $line);
+            if (isset($arr[5]) && isset($arr[6]))
+                $aCookies[$arr[5]] = $arr[6];
+        }
+
+        return $aCookies;
     }
 
     /*    public static function writeToLog($message) {

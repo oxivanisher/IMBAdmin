@@ -248,7 +248,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
             }
 
-            header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
+            header("location: " . $_GET['imbaSsoOpenIdLoginReferer']);
         } catch (Exception $ex) {
             $log->setLevel(1);
             $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());

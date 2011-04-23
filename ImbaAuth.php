@@ -272,8 +272,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
-                    print_r($GLOBALS);
-                exit;
 /**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
@@ -291,6 +289,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
-    header("location: " . ImbaUserContext::getRedirectUrl());
+    header("location: " . $_SERVER["HTTP_REFERER"]);
 }
 ?>

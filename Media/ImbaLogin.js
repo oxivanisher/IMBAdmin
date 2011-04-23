@@ -232,7 +232,7 @@ function setError(message){
     $("#imbaSsoLoginForm").hide();
     $("#imbaOpenMessaging").hide();
     $("#imbaSsoLogoutForm").show();
-    imbaSsoShowNickname = message;
+    imbaSsoShowNickname.html = message;
     $("#imbaSsoOpenIdSubmitLogout").hide();
     $.jGrowl('ERROR: ' + message, {
         header: 'Error'

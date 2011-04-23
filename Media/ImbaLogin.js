@@ -238,6 +238,7 @@ function setError(message){
     $.jGrowl('ERROR: ' + message, {
         header: 'Error'
     });
+    exit;
 }
 
 /**
@@ -295,8 +296,6 @@ function loadImbaPortal(id) {
                 imbaSsoLogoImage.src = icon;
                 document.title = name + ' Portal';
             })
-        } else {
-            setError("No Answer Received");
         }
     });
 }

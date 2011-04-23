@@ -29,9 +29,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "name",
         module: moduleName
     }, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else {
+        if (checkError(response) == false) {  
             tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
             tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
             tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
@@ -61,9 +59,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "nav",
         module: moduleName
     }, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else {
+        if (checkError(response) == false) {  
             $.each($.parseJSON(response), function(key, value){
                 $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
                 if ((key == 0) && (moduleDo == null || moduleDo == "")) {
@@ -100,10 +96,10 @@ function loadImbaAdminTabContent(data, myModuleTabId) {
     data.action = "module";
 
     $.post(ajaxEntry, data, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else if (response != ""){
-            $(targetModuleIabId).html(response);
+        if (checkError(response) == false) {  
+            if (response != ""){
+                $(targetModuleIabId).html(response);
+            }
         }
     });
 }
@@ -131,9 +127,7 @@ function loadImbaAdminDefaultModule(){
         context: "IMBAdminModules",
         request: "getDefault"
     }, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else {
+        if (checkError(response) == false) {  
             // Call the loadImbaAdminModule to open the dialog         
             loadImbaAdminModule(response.toString());
         }

@@ -52,16 +52,16 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else if (response == "Need to register") {
-            setLoggedIn(false);
-            loadImbaAdminDefaultModule();
-        } else if (response == "Not logged in"){
-            setLoggedIn(false);
-        } else {
-            setLoggedIn(true);
-            $("#imbaSsoShowNickname").html('Hallo ' + response);
+        if (checkError(response) == false) {  
+            if (response == "Need to register") {
+                setLoggedIn(false);
+                loadImbaAdminDefaultModule();
+            } else if (response == "Not logged in"){
+                setLoggedIn(false);
+            } else {
+                setLoggedIn(true);
+                $("#imbaSsoShowNickname").html('Hallo ' + response);
+            }
         }
     });
 
@@ -228,15 +228,19 @@ function setLoggedIn(isLoggedIn){
 /**
  * Sets the system in error state
  */
-function setError(message){
-    imbaSsoOpenId.value = message;
-    setLoggedIn(false);
-    $("#imbaSsoLoginInner").hide();
-    $("#imbaUsersOnline").hide();
-    $.jGrowl('ERROR: ' + message, {
-        header: 'Error'
-    });
-    exit;
+function checkError(message){
+    if (message.substring(0,6) == "Error:") {
+        imbaSsoOpenId.value = message;
+        setLoggedIn(false);
+        $("#imbaSsoLoginInner").hide();
+        $("#imbaUsersOnline").hide();
+        $.jGrowl('ERROR: ' + message, {
+            header: 'Error'
+        });
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**

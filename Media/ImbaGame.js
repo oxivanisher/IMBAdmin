@@ -59,24 +59,22 @@ function loadImbaGame(gameName, gameDo, payLoad){
         request: "nav",
         game: gameName
     }, function (response){
-        if (checkError(response) == false) {  
-            $.each($.parseJSON(response), function(key, value){
-                $("#imbaGameNav").tabs("add", "#" + value.id, value.name);
-                if ((key == 0) && (gameDo == null || gameDo == "")) {
-                    loadImbaGameTabContent({
-                        game: gameName,
-                        request: value.id,
-                        payLoad: payLoad
-                    });
-                } else if ((gameDo != null) && (gameDo != "")) {
-                    loadImbaGameTabContent({
-                        game: gameName,
-                        request: gameDo,
-                        payLoad: payLoad
-                    });
-                }
-            });
-        }
+        $.each($.parseJSON(response), function(key, value){
+            $("#imbaGameNav").tabs("add", "#" + value.id, value.name);
+            if ((key == 0) && (gameDo == null || gameDo == "")) {
+                loadImbaGameTabContent({
+                    game: gameName,
+                    request: value.id,
+                    payLoad: payLoad
+                });
+            } else if ((gameDo != null) && (gameDo != "")) {
+                loadImbaGameTabContent({
+                    game: gameName,
+                    request: gameDo,
+                    payLoad: payLoad
+                });
+            }
+        });
     });
     
     if (isSystemInErrorState == false) {

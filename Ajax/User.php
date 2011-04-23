@@ -3,6 +3,23 @@
 // Extern Session start
 session_start();
 
+
+//FIXME: we need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions
+// for accessing ourself. we can find out when to direct with $_POST['imbaSsoOpenIdLoginReferer'] is = $_SERVER['SERVER_NAME']
+// and then use curl to redirect our request
+function getDomain($url)
+{
+    if(filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) === FALSE)
+    {
+        return false;
+    }
+    /*** get the url parts ***/
+    $parts = parse_url($url);
+    /*** return the host domain ***/
+    return $parts['scheme'].'://'.$parts['host'];
+}
+echo getDomain($_SERVER['SERVER_NAME']) . "<>" . getDomain($_POST['imbaSsoOpenIdLoginReferer']);
+
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConfig.php';
 require_once 'Controller/ImbaManagerUser.php';

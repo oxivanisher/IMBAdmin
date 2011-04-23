@@ -52,7 +52,9 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
-        if (response == "Need to register") {
+        if (response == "Proxy Error") {
+            setError(response);
+        } else if (response == "Need to register") {
             setLoggedIn(false);
             loadImbaAdminDefaultModule();
         } else if (response == "Not logged in"){
@@ -224,6 +226,15 @@ function setLoggedIn(isLoggedIn){
 }
 
 /**
+ * Sets the system in error state
+ */
+function setError(isLoggedIn){
+    $("#imbaSsoLoginForm").hide();
+    $("#imbaSsoLogoutForm").hide();
+    $("#imbaOpenMessaging").hide();
+}
+
+/**
  * Shows the Menu and stuff around
  */
 function showMenu() {
@@ -271,7 +282,9 @@ function loadImbaPortal(id) {
         if (response != "") {
             $.each($.parseJSON(response), function (name, icon) {
                 if (id != null) {
-                    $.jGrowl('<img src="' + icon + '" style="width: 20px; height: 20px;"> ' + name + ' geladen', { life: 200 });
+                    $.jGrowl('<img src="' + icon + '" style="width: 20px; height: 20px;"> ' + name + ' geladen', {
+                        life: 200
+                    });
                 }
                 imbaSsoLogoImage.src = icon;
                 document.title = name + ' Portal';

@@ -125,12 +125,17 @@ function displayDebug($set) {
     echo "</pre>";
 }
 
+function returnError($set) {
+    echo "Proxy Error";
+}
+
+
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {
     echo $set['response'];
 } else {
-    displayDebug($set);
+    returnError($set);
 }
 
 curl_close($session);

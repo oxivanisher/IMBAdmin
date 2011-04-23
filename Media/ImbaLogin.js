@@ -52,7 +52,6 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
-        alert('test: '+response );
         if (response == "Proxy Error") {
             setError(response);
         } else if (response == "Need to register") {
@@ -232,8 +231,10 @@ function setLoggedIn(isLoggedIn){
 function setError(message){
     alert('ERROR: ' + message);
     $("#imbaSsoLoginForm").hide();
-    $("#imbaSsoLogoutForm").hide();
     $("#imbaOpenMessaging").hide();
+    imbaSsoShowNickname = message;
+    $("#imbaSsoOpenIdSubmitLogout").hide();
+    $("#imbaSsoLogoutForm").show();
     $.jGrowl('ERROR: ' + message, {
         header: 'Error'
     });

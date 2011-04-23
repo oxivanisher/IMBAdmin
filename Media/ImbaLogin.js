@@ -276,13 +276,15 @@ function hideMenu() {
         direction: "right"
     });
 
-    $("#imbaSsoLoginInner").hide("slide", {
-        direction: "right"
-    });
+    if (isSystemInErrorState == false) {
+        $("#imbaSsoLoginInner").hide("slide", {
+            direction: "right"
+        });
 
-    $("#imbaUsersOnline").hide("slide", {
-        direction: "up"
-    });
+        $("#imbaUsersOnline").hide("slide", {
+            direction: "up"
+        });
+    }
 }
 
 /**

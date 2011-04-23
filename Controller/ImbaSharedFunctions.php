@@ -196,6 +196,14 @@ class ImbaSharedFunctions {
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));
     }
 
+    /**
+     * 
+     * fix the path of images for web display
+     */
+    public function fixImagePath($url) {
+        return ImbaSharedFunctions::getTrustRoot() . "/" . $url;
+    }
+    
     /*    public static function writeToLog($message) {
       $myFile = "Logs/ImbaLog.log";
       if ($fh = fopen($myFile, 'a+')) {

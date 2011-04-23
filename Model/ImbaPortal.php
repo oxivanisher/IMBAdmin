@@ -2,6 +2,7 @@
 
 require_once 'Model/ImbaBase.php';
 require_once 'Controller/ImbaUserContext.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  * Description of ImbaPortal
@@ -23,7 +24,11 @@ class ImbaPortal extends ImbaBase {
     }
 
     public function getIcon() {
-        return $this->icon;
+        if ($this->icon == null || $this->icon == "") {
+            return ImbaSharedFunctions::fixImagePath("Images/noicon.png");
+        } else {
+            return ImbaSharedFunctions::fixImagePath($this->icon);
+        }
     }
 
     public function setIcon($icon) {

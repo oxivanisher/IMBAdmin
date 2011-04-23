@@ -2,6 +2,7 @@
 
 require_once 'ImbaConstants.php';
 require_once 'Model/ImbaBase.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  *  Class for Userroles
@@ -63,7 +64,11 @@ class ImbaUserRole extends ImbaBase {
     }
 
     public function getIcon() {
-        return $this->icon;
+        if ($this->icon == null || $this->icon == "") {
+            return ImbaSharedFunctions::fixImagePath("Images/noicon.png");
+        } else {
+            return ImbaSharedFunctions::fixImagePath($this->icon);
+        }
     }
 
     public function setIcon($icon) {

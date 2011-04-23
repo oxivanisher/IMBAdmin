@@ -2,6 +2,7 @@
 
 require_once 'Model/ImbaBase.php';
 require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  * Class for all Games managed by the IMBAdmin
@@ -72,9 +73,9 @@ class ImbaGame extends ImbaBase {
 
     public function getIcon() {
         if ($this->icon == null || $this->icon == "") {
-            return "Images/noicon.png";
+            return ImbaSharedFunctions::fixImagePath("Images/noicon.png");
         } else {
-            return $this->icon;
+            return ImbaSharedFunctions::fixImagePath($this->icon);
         }
     }
 

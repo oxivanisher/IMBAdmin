@@ -46,7 +46,7 @@ if ($_POST) {
 curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/" . $_COOKIE['PHPSESSID']);
 //curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/cookieFileName");
 // Don't return HTTP headers. Do return the contents of the call
-curl_setopt($session, CURLOPT_HEADER, ($headers == "true") ? true : false);
+curl_setopt($session, CURLOPT_HEADER, ($headers == "false") ? true : false);
 
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);

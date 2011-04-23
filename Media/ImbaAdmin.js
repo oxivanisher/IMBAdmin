@@ -59,24 +59,22 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "nav",
         module: moduleName
     }, function (response){
-        if (checkError(response) == false) {  
-            $.each($.parseJSON(response), function(key, value){
-                $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-                if ((key == 0) && (moduleDo == null || moduleDo == "")) {
-                    loadImbaAdminTabContent({
-                        module: moduleName,
-                        request: value.id,
-                        payLoad: payLoad
-                    });
-                } else if ((moduleDo != null) && (moduleDo != "")) {
-                    loadImbaAdminTabContent({
-                        module: moduleName,
-                        request: moduleDo,
-                        payLoad: payLoad
-                    });
-                }
-            });
-        }
+        $.each($.parseJSON(response), function(key, value){
+            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+            if ((key == 0) && (moduleDo == null || moduleDo == "")) {
+                loadImbaAdminTabContent({
+                    module: moduleName,
+                    request: value.id,
+                    payLoad: payLoad
+                });
+            } else if ((moduleDo != null) && (moduleDo != "")) {
+                loadImbaAdminTabContent({
+                    module: moduleName,
+                    request: moduleDo,
+                    payLoad: payLoad
+                });
+            }
+        });
     });
         
     if (isSystemInErrorState == false) {

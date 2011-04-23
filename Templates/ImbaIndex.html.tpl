@@ -4,13 +4,14 @@
         <div id='imbaSsoLoginInner'>
             <form id='imbaSsoLoginForm' action='MYWEBPATHREPLACEImbaAuth.php' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
-                <input id='imbaSsoOpenIdReferer' name='referer' value='' type='hidden' />
+                <input id='imbaSsoOpenIdLoginReferer' name='referer' value='' type='hidden' />
                 <br />
                 <!-- <input id='imbaSsoOpenIdSubmit' type='submit' value='Login / Registrieren'/> -->
                 <span id='imbaSsoOpenIdSubmit'>Login / Registrieren</span>
             </form>
             <form id='imbaSsoLogoutForm' action='MYWEBPATHREPLACEImbaAuth.php' method='post'>
                 <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
+                <input id='imbaSsoOpenIdLogoutReferer' name='referer' value='' type='hidden' />
                 <input name='logout' value='true' type='hidden' />
                 <br />
                 <span id='imbaSsoOpenIdSubmitLogout'>Logout</span>

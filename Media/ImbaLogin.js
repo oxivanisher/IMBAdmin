@@ -24,8 +24,7 @@ $(document).ready(function() {
             $.jGrowl('Logging in...', {
                 header: 'Erfolg'
             });
-            alert(document.URL);
-            imbaSsoOpenIdReferer.value = document.URL;
+            imbaSsoOpenIdLoginReferer.value = document.URL;
             imbaSsoLoginForm.submit();
         }
     });
@@ -34,6 +33,7 @@ $(document).ready(function() {
         $.jGrowl('Logging out...', {
             header: 'Erfolg'
         });
+        imbaSsoOpenIdLogoutReferer.value = document.URL;
         imbaSsoLogoutForm.submit();
     });
     $("#imbaMessageTextSubmit").button();

@@ -5,7 +5,6 @@
  */
 session_start();
 
-print_r($_POST); exit;
 /**
  * Load dependencies
  */
@@ -63,7 +62,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     session_destroy();
     session_write_close();
 
-    header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+    header("location: " . $_POST['imbaSsoOpenIdLogoutReferer']);
 } elseif (!ImbaUserContext::getLoggedIn()) {
 
     /**
@@ -82,7 +81,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             /**
              * Send the User to the registration page
              */
-            header("location: index.html");
+            header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
         }
 
 
@@ -173,7 +172,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
 
-                    header("location: index.html");
+                    header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
                 }
                 break;
 
@@ -221,7 +220,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+                header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
@@ -249,7 +248,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
             }
 
-            header("location: " . $_SERVER["PHP_SELF"]);
+            header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
         } catch (Exception $ex) {
             $log->setLevel(1);
             $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
@@ -274,6 +273,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
-    header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+    header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
 }
 ?>

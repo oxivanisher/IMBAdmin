@@ -19,6 +19,11 @@ class ImbaManagerNavigation extends ImbaManagerBase {
      * Singleton implementation
      */
     private static $instance = null;
+    /**
+     * our portal context
+     */
+    private $loadPortalContext = null;
+    private $managerPortal = null;
 
     /**
      * Ctor
@@ -26,6 +31,23 @@ class ImbaManagerNavigation extends ImbaManagerBase {
     protected function __construct() {
         //parent::__construct();
         $this->database = ImbaManagerDatabase::getInstance();
+
+        $this->loadPortalContext = ImbaConstants::$SETTINGS['DEFAULT_PORTAL_ID'];
+        $this->managerPortal = ImbaManagerPortal::getInstance();
+
+        if (ImbaUserContext::getPortalContext()) {
+            $this->loadPortalContext = ImbaUserContext::getPortalContext();
+        } else {
+            foreach ($this->managerPortal->selectAll() as $tmpPortal) {
+                if (count($tmpPortal->getAliases())) {
+                    foreach ($tmpPortal->getAliases() as $tmpAlias) {
+                        if ($_SERVER[HTTP_HOST] == $tmpAlias) {
+                            $this->loadPortalContext = $tmpPortal->getId();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /*
@@ -47,26 +69,8 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         /**
          * Set up the portal navigation
          */
-        /**
-         * New Portal Code
-         */
-        $loadPortalContext = ImbaConstants::$SETTINGS['DEFAULT_PORTAL_ID'];
-        $managerPortal = ImbaManagerPortal::getInstance();
-        if (ImbaUserContext::getPortalContext()) {
-            $loadPortalContext = ImbaUserContext::getPortalContext();
-        } else {
-            foreach ($managerPortal->selectAll() as $tmpPortal) {
-                if (count($tmpPortal->getAliases())) {
-                    foreach ($tmpPortal->getAliases() as $tmpAlias) {
-                        if ($_SERVER[HTTP_HOST] == $tmpAlias) {
-                            $loadPortalContext = $tmpPortal->getId();
-                        }
-                    }
-                }
-            }
-        }
-        if ($managerPortal->selectById($loadPortalContext) != null) {
-            $portal = $managerPortal->selectById($loadPortalContext);
+        if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
+            $portal = $this->managerPortal->selectById($this->loadPortalContext);
             foreach ($portal->getNavitems() as $navElement) {
                 $return .= "<li><a href='" . $navElement->getUrl() . "' title='" . $navElement->getComment() . "'>" . $navElement->getName() . "</a></li>\\\n";
             }
@@ -141,7 +145,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
     public function renderImbaGameNavigation() {
         $return = "<li>\\\n";
-        $return .= "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='";
+        $return .= "<a id='imbaMenuImbaGame' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='";
         $return .= ImbaConstants::$WEB_IMBAGAME_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBAGAME_BUTTON_NAME . "</a>\\\n";
         $return .= "<ul class='subnav'>\\\n";
         $contentNav = new ImbaContentNavigation();
@@ -170,6 +174,25 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             closedir($handle);
         }
 
+        $return .= "</ul>\\\n";
+        $return .= "</li>\\\n";
+        return $return;
+    }
+
+    /**
+     * Render the Portal Chooser Dropdown
+     */
+    public function renderPortalChooser() {
+        $managerPortal = ImbaManagerPortal::getInstance();
+
+        $return = "<li>\\\n";
+        $return .= "<a id='imbaMenuImbaPortal' href='javascript:void(0)' onclick='javascript: loadImbaPortal(-1);' title=''>Portal</a>\\\n";
+        $return .= "<ul class='subnav'>\\\n";
+        foreach ($managerPortal->selectAll() as $portal) {
+            $return .= "<li style='vertical-align: middle;'><a href='javascript:void(0)' onclick='javascript: loadImbaPortal(\\\"" . $portal->getId() . "\\\");' title='" . $portal->getComment() . "'>";
+            $return .= "<img src='" . $portal->getIcon() . "' width='24px' height='24px' style='float: left;' /> " . $portal->getName();
+            $return .= "</a></li>\\\n";
+        }
         $return .= "</ul>\\\n";
         $return .= "</li>\\\n";
         return $return;

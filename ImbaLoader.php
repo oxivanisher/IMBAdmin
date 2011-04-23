@@ -56,6 +56,7 @@ switch ($_GET["load"]) {
             $tmpOut .= $managerNavigation->renderPortalNavigation();
             $tmpOut .= $managerNavigation->renderImbaAdminNavigation();
             $tmpOut .= $managerNavigation->renderImbaGameNavigation();
+            $tmpOut .= $managerNavigation->renderPortalChooser();
             $tmpOut .= "</ul></div>\\\n";
 
             /**

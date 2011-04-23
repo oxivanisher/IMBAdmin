@@ -148,17 +148,9 @@ $(document).ready(function() {
     .dialog("option", "height", 700);
 
     /**
-     * Load Portal Icon
+     * Load current active Portal
      */
-    // Checking if user is online
-    $.post(ajaxEntry, {
-        action: "user",
-        loadportalicon: true
-    }, function (response){
-        if (response != "") {
-            $("imbaSsoLogoImage").src(response);
-        }
-    });    
+    loadImbaPortal();
 
     // Firsttime show users online
     refreshUsersOnline();
@@ -247,5 +239,21 @@ function hideMenu() {
 
     $("#imbaUsersOnline").hide("slide", {
         direction: "up"
+    });
+}
+
+/**
+ * Sets the actual portal
+ */
+function loadImbaPortal(id) {
+    $.post(ajaxEntry, {
+        action: "user",
+        setportal: true,
+        id: id
+    }, function (response){
+        if (response != "") {
+            alert(response);
+            imbaSsoLogoImage.src = response;
+        }
     });
 }

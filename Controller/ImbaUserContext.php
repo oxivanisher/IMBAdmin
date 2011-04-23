@@ -75,7 +75,7 @@ class ImbaUserContext {
         return $_SESSION["IUC_PortalContext"];
     }
 
-    public static function setGameContext($PortalContext) {
+    public static function setPortalContext($PortalContext) {
         $_SESSION["IUC_PortalContext"] = $PortalContext;
     }
 }

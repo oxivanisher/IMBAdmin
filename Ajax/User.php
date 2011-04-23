@@ -55,7 +55,7 @@ if (ImbaUserContext::getLoggedIn()) {
                 if ($msgCount < $msgCountMin || $msgCountMin == -1)
                     $msgCountMin = $msgCount;
 
-                array_push($result, array("name" => $user->getNickname(),"id" => $user->getId(), "fontsize" => "8", "color" => $color, "msgCount" => $msgCount));
+                array_push($result, array("name" => $user->getNickname(), "id" => $user->getId(), "fontsize" => "8", "color" => $color, "msgCount" => $msgCount));
             }
         }
 
@@ -108,15 +108,50 @@ if (ImbaUserContext::getLoggedIn()) {
     }
 
     /**
-     * Returns the OpenId
+     * ImbaLogin.js asks us for the actual portal icon
+     */ elseif (isset($_POST['loadportalicon'])) {
+        if (ImbaUserContext::getPortalContext() != "") {
+            $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
+            echo $portal->getIcon();
+        } else {
+            echo "Images/community_logo.png";
+        }
+    }
+
+    /**
+     * ImbaLogin.js asks us to set the users actual selected portal
+     */ elseif (isset($_POST['setportal'])) {
+
+        if ($_POST['id'] == -1) {
+            /**
+             * reset current portal to default
+             */
+            ImbaUserContext::setPortalContext("");
+            echo "Images/community_logo.png";
+        } elseif (!empty($_POST['id'])) {
+            /**
+             * set current portal
+             */
+            ImbaUserContext::setPortalContext($_POST['id']);
+            $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
+            echo $portal->getIcon();
+        } else {
+            /**
+             * get current active portal
+             */
+            if ($portal = $managerPortal->selectById(ImbaUserContext::getPortalContext())) {
+                echo $portal->getIcon();
+            } else {
+                echo "Images/community_logo.png";
+             }
+        }
+    }
+
+    /**
+     * Returns the Nickname
      */ else {
         $user = $managerUser->selectMyself();
         echo $user->getNickname();
-    }
-} elseif (isset($_POST['loadportalicon'])) {
-    if (ImbaUserContext::getPortalContext() != "") {
-        $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
-        echo $portal->getIcon();
     }
 } elseif (ImbaUserContext::getNeedToRegister()) {
     echo "Need to register";

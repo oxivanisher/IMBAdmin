@@ -1,13 +1,13 @@
 <div id='imbaSsoLoginBorder' class='ui-widget-content ui-corner-all'>
     <div id='imbaSsoLogin'>
-        <img id='imbaSsoLogoImage' src='/IMBAdmin/Images/community_logo.png' alt='Guild Logo' title='Show/Hide Menu' />
+        <img id='imbaSsoLogoImage' src='Images/noicon.png' alt='Guild Logo' title='Show/Hide Menu' />
         <div id='imbaSsoLoginInner'>
-            <form id='imbaSsoLoginForm' action='/IMBAdmin/ImbaAuth.php' method='post'>
+            <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
                 <br />
                 <input id='imbaSsoOpenIdSubmit' type='submit' value='Login'/>
             </form>
-            <form id='imbaSsoLogoutForm' action='/IMBAdmin/ImbaAuth.php' method='post'>
+            <form id='imbaSsoLogoutForm' action='ImbaAuth.php' method='post'>
                 <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
                 <input name='logout' value='true' type='hidden' />
                 <br />

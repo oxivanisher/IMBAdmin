@@ -235,7 +235,8 @@ function checkError(message){
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
         $.jGrowl(message.substring(6), {
-            header: 'Error'
+            header: 'Error',
+            life: 200
         });
         return true;
     } else {

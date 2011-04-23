@@ -3,6 +3,7 @@
  */
 // Storring if user is logged in
 var isUserLoggedIn = false;
+var isSystemInErrorState = false;
 var currentModule = null;
 var currentModuleDo = null;
 var currentGame = null;
@@ -230,6 +231,7 @@ function setLoggedIn(isLoggedIn){
  */
 function checkError(message){
     if (message.substring(0,6) == "Error:") {
+        isSystemInErrorState = true;
         imbaSsoOpenId.value = message;
         setLoggedIn(false);
         $("#imbaSsoLoginInner").hide();

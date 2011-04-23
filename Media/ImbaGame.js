@@ -29,23 +29,25 @@ function loadImbaGame(gameName, gameDo, payLoad){
         request: "name",
         game: gameName
     }, function (response){
-        tmpTitle  = "<div onclick='javascript:loadImbaGameDefaultGame();' style='float: left; cursor: pointer;'>";
-        tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
-        tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
+        if (checkError(response) == false) {  
+            tmpTitle  = "<div onclick='javascript:loadImbaGameDefaultGame();' style='float: left; cursor: pointer;'>";
+            tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
+            tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
 
-        if (currentUserName != null) {
-            tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
-        }
+            if (currentUserName != null) {
+                tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
+            }
         
-        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaGameDefaultGame();'>IMBA Game&nbsp;&nbsp;&nbsp;</div>";
+            tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaGameDefaultGame();'>IMBA Game&nbsp;&nbsp;&nbsp;</div>";
 
-        if (response) {
-            tmpTitle += "<div style='float: left;'><span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";
-            tmpTitle += "<div onclick='javascript:loadImbaGame(\"" + gameName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
+            if (response) {
+                tmpTitle += "<div style='float: left;'><span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";
+                tmpTitle += "<div onclick='javascript:loadImbaGame(\"" + gameName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
+            }
+            $("#imbaGameDialog").dialog({
+                title: tmpTitle
+            });
         }
-        $("#imbaGameDialog").dialog({
-            title: tmpTitle
-        });
     });
 
     /**
@@ -57,26 +59,29 @@ function loadImbaGame(gameName, gameDo, payLoad){
         request: "nav",
         game: gameName
     }, function (response){
-        $.each($.parseJSON(response), function(key, value){
-            $("#imbaGameNav").tabs("add", "#" + value.id, value.name);
-            if ((key == 0) && (gameDo == null || gameDo == "")) {
-                loadImbaGameTabContent({
-                    game: gameName,
-                    request: value.id,
-                    payLoad: payLoad
-                });
-            } else if ((gameDo != null) && (gameDo != "")) {
-                loadImbaGameTabContent({
-                    game: gameName,
-                    request: gameDo,
-                    payLoad: payLoad
-                });
-            }
-        });
+        if (checkError(response) == false) {  
+            $.each($.parseJSON(response), function(key, value){
+                $("#imbaGameNav").tabs("add", "#" + value.id, value.name);
+                if ((key == 0) && (gameDo == null || gameDo == "")) {
+                    loadImbaGameTabContent({
+                        game: gameName,
+                        request: value.id,
+                        payLoad: payLoad
+                    });
+                } else if ((gameDo != null) && (gameDo != "")) {
+                    loadImbaGameTabContent({
+                        game: gameName,
+                        request: gameDo,
+                        payLoad: payLoad
+                    });
+                }
+            });
+        }
     });
     
-    
-    $("#imbaGameDialog").dialog("open");
+    if (isSystemInErrorState == false) {
+        $("#imbaGameDialog").dialog("open");
+    }
 }
 
 /**
@@ -92,8 +97,10 @@ function loadImbaGameTabContent(data, myGameTabId) {
     data.action = "game";
 
     $.post(ajaxEntry, data, function (response){
-        if (response != ""){
-            $(targetGameIabId).html(response);
+        if (checkError(response) == false) {  
+            if (response != ""){
+                $(targetGameIabId).html(response);
+            }
         }
     });
 }
@@ -115,8 +122,10 @@ function loadImbaGameDefaultGame(){
         context: "IMBAdminGames",
         request: "getDefault"
     }, function (response){
-        // Call the loadImbaGame to open the dialog         
-        loadImbaGame(response.toString());
+        if (checkError(response) == false) {  
+            // Call the loadImbaGame to open the dialog         
+            loadImbaGame(response.toString());
+        }
     });
 }
 

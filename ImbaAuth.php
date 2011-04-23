@@ -228,7 +228,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                echo "aaa" . ImbaUserContext::getRedirectUrl();
                 header("location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -257,7 +256,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
             }
 
-            echo "bbb" . ImbaUserContext::getRedirectUrl();
             header("location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
             $log->setLevel(1);

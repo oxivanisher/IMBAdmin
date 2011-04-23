@@ -114,7 +114,6 @@ if (ImbaUserContext::getLoggedIn()) {
 } elseif (ImbaUserContext::getNeedToRegister()) {
     echo "Need to register";
 } else {
-    print_r($GLOBALS);
     echo "Not logged in";
 }
 ?>

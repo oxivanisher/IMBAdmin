@@ -94,6 +94,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             /**
              * Send the User to the registration page
              */
+            echo "bla"; exit;
             header("location: " . ImbaUserContext::getRedirectUrl());
         }
 
@@ -289,6 +290,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
-    header("location: " . $_SERVER["HTTP_REFERER"]);
+    header("location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

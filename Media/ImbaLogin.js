@@ -229,6 +229,7 @@ function setLoggedIn(isLoggedIn){
  * Sets the system in error state
  */
 function checkError(message){
+    alert(message.substring(0,6) + " == Error:");
     if (message.substring(0,6) == "Error:") {
         imbaSsoOpenId.value = message;
         setLoggedIn(false);

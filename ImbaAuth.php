@@ -1,5 +1,5 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
  */
@@ -17,6 +17,12 @@ require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaUserRole.php';
+
+
+//FIXME: we possibly need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions
+// for accessing ourself. we can find out when to direct with $_POST['imbaSsoOpenIdLoginReferer'] is = $_SERVER['SERVER_NAME']
+// and then use curl to redirect our request
+//ImbaSharedFunctions::getDomain();
 
 /**
  * Load Auth Managers
@@ -254,6 +260,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 ImbaUserContext::setUserId($currentUser->getId());
                 $managerUser->setMeOnline();
+                print_r($GLOBALS);
+                exit;
             }
 
             header("location: " . ImbaUserContext::getRedirectUrl());

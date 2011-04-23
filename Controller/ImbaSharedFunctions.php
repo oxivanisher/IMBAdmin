@@ -43,13 +43,13 @@ class ImbaSharedFunctions {
         } elseif ($ageOfMsg < '3600') {
             $ageOfMsg = round(($ageOfMsg / 60), 1);
             $ageOfMsgReturn = "Vor " . $ageOfMsg . " Minuten";
-        } elseif ($timestamp > strtotime(date('n').'/'.date('j').'/'.date('Y'))) {
+        } elseif ($timestamp > strtotime(date('n') . '/' . date('j') . '/' . date('Y'))) {
             $ageOfMsgReturn = strftime("Heute um %H:%M Uhr", $timestamp);
-        } elseif ($timestamp > strtotime(date('m/d/y', mktime(0, 0, 0, date("m") , date("d") - 1, date("Y"))))) {
+        } elseif ($timestamp > strtotime(date('m/d/y', mktime(0, 0, 0, date("m"), date("d") - 1, date("Y"))))) {
             $ageOfMsgReturn = strftime("Gestern um %H:%M Uhr", $timestamp);
         } elseif ($ageOfMsg <= '604800') {
             $ageOfMsgReturn = strftime("Letzten %A", $timestamp);
-        } elseif ($timestamp > strtotime('1/1/'.date('Y'))) {
+        } elseif ($timestamp > strtotime('1/1/' . date('Y'))) {
             $ageOfMsgReturn = strftime("Am %d. %B", $timestamp);
         } else {
             $ageOfMsgReturn = strftime("Am %d. %b. %Y", $timestamp);
@@ -203,7 +203,21 @@ class ImbaSharedFunctions {
     public function fixWebPath($url) {
         return ImbaSharedFunctions::getTrustRoot() . "/" . $url;
     }
-    
+
+    /**
+     *
+     * Returns the Domaind of a given URL
+     */
+    public function getDomain($url) {
+        if (filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) === FALSE) {
+            return false;
+        }
+        /*         * * get the url parts ** */
+        $parts = parse_url($url);
+        /*         * * return the host domain ** */
+        return $parts['scheme'] . '://' . $parts['host'];
+    }
+
     /*    public static function writeToLog($message) {
       $myFile = "Logs/ImbaLog.log";
       if ($fh = fopen($myFile, 'a+')) {

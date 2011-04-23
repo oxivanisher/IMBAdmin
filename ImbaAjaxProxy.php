@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+print_r($GLOBALS); exit;
 //require_once 'Libs/ajax-proxy/src/proxy.php';
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';

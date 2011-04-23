@@ -234,7 +234,7 @@ function checkError(message){
         setLoggedIn(false);
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
-        $.jGrowl('ERROR: ' + message, {
+        $.jGrowl(message.substring(6), {
             header: 'Error'
         });
         return true;

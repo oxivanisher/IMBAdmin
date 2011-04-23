@@ -5,7 +5,7 @@
  */
 session_start();
 
-print_r($_SERVER); exit;
+print_r($_POST); exit;
 /**
  * Load dependencies
  */

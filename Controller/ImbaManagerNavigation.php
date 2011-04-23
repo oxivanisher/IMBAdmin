@@ -81,18 +81,19 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         if (empty($return)) {
             $topNav = new ImbaTopNavigation();
-            switch (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER'])) {
-                case "www.oom.ch": //OOM
-                case "oom.ch":
+            switch ($_SERVER['HTTP_REFERER']) {
+                case "http://www.oom.ch": //OOM
+                case "http://oom.ch":
                     $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");
                     $topNav->addElement("wiki", "Wiki", "_top", "https://oom.ch/wiki/", "OOM Wiki");
                     break;
-                case "b.oom.ch": //EVE
+                case "http://b.oom.ch": //EVE
+                case "http://b.oom.ch/kb/":
                     $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
                     $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");
                     break;
-                case "www.alptroeim.ch": //WOW
-                case "alptroeim.ch":
+                case "http://www.alptroeim.ch": //WOW
+                case "http://alptroeim.ch":
                 default:
                     $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
                     $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");

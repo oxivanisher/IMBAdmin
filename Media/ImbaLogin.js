@@ -232,6 +232,7 @@ function setError(message){
     imbaSsoOpenId.value = message;
     setLoggedIn(false);
     $("#imbaSsoLoginInner").hide();
+    $("#imbaUsersOnline").hide();
     $.jGrowl('ERROR: ' + message, {
         header: 'Error'
     });

@@ -29,23 +29,27 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "name",
         module: moduleName
     }, function (response){
-        tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
-        tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
-        tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
+        if (response == "Proxy Error") {
+            setError(response);
+        } else {
+            tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
+            tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
+            tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
 
-        if (currentUserName != null) {
-            tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
-        }
+            if (currentUserName != null) {
+                tmpTitle += "<div style='float: left;'>" + currentUserName + "&nbsp;&nbsp;&nbsp;@&nbsp;&nbsp;&nbsp;</div>";
+            }
         
-        tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaAdminDefaultModule();'>IMBAdmin&nbsp;&nbsp;&nbsp;</div>";
+            tmpTitle += "<div style='float: left; cursor: pointer;' onclick='javascript:loadImbaAdminDefaultModule();'>IMBAdmin&nbsp;&nbsp;&nbsp;</div>";
 
-        if (response) {
-            tmpTitle += "<div style='float: left;'><span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";
-            tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
+            if (response) {
+                tmpTitle += "<div style='float: left;'><span class='ui-icon ui-icon-triangle-1-e' style='float: left;' />&nbsp;&nbsp;&nbsp;</div>";
+                tmpTitle += "<div onclick='javascript:loadImbaAdminModule(\"" + moduleName + "\");' style='float: left; cursor: pointer;'>" + response + "</div>";
+            }
+            $("#imbaContentDialog").dialog({
+                title: tmpTitle
+            });
         }
-        $("#imbaContentDialog").dialog({
-            title: tmpTitle
-        });
     });
 
     /**
@@ -57,22 +61,26 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         request: "nav",
         module: moduleName
     }, function (response){
-        $.each($.parseJSON(response), function(key, value){
-            $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
-            if ((key == 0) && (moduleDo == null || moduleDo == "")) {
-                loadImbaAdminTabContent({
-                    module: moduleName,
-                    request: value.id,
-                    payLoad: payLoad
-                });
-            } else if ((moduleDo != null) && (moduleDo != "")) {
-                loadImbaAdminTabContent({
-                    module: moduleName,
-                    request: moduleDo,
-                    payLoad: payLoad
-                });
-            }
-        });
+        if (response == "Proxy Error") {
+            setError(response);
+        } else {
+            $.each($.parseJSON(response), function(key, value){
+                $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
+                if ((key == 0) && (moduleDo == null || moduleDo == "")) {
+                    loadImbaAdminTabContent({
+                        module: moduleName,
+                        request: value.id,
+                        payLoad: payLoad
+                    });
+                } else if ((moduleDo != null) && (moduleDo != "")) {
+                    loadImbaAdminTabContent({
+                        module: moduleName,
+                        request: moduleDo,
+                        payLoad: payLoad
+                    });
+                }
+            });
+        }
     });
     
     $("#imbaContentDialog").dialog("open");
@@ -92,7 +100,9 @@ function loadImbaAdminTabContent(data, myModuleTabId) {
     data.action = "module";
 
     $.post(ajaxEntry, data, function (response){
-        if (response != ""){
+        if (response == "Proxy Error") {
+            setError(response);
+        } else if (response != ""){
             $(targetModuleIabId).html(response);
         }
     });
@@ -121,8 +131,12 @@ function loadImbaAdminDefaultModule(){
         context: "IMBAdminModules",
         request: "getDefault"
     }, function (response){
-        // Call the loadImbaAdminModule to open the dialog         
-        loadImbaAdminModule(response.toString());
+        if (response == "Proxy Error") {
+            setError(response);
+        } else {
+            // Call the loadImbaAdminModule to open the dialog         
+            loadImbaAdminModule(response.toString());
+        }
     });
 }
 

@@ -52,7 +52,6 @@ $(document).ready(function() {
     $.post(ajaxEntry, {
         action: "user"
     }, function (response){
-        alert(response);
         if (response == "Proxy Error") {
             setError(response);
         } else if (response == "Need to register") {
@@ -230,13 +229,13 @@ function setLoggedIn(isLoggedIn){
  * Sets the system in error state
  */
 function setError(message){
+    alert('ERROR: ' + message);
     $("#imbaSsoLoginForm").hide();
     $("#imbaSsoLogoutForm").hide();
     $("#imbaOpenMessaging").hide();
-    $.jGrowl('ERROR: '+message, {
+    $.jGrowl('ERROR: ' + message, {
         header: 'Error'
     });
-    alert('ERROR: '+message);
 }
 
 /**

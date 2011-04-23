@@ -10,7 +10,6 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaUserContext.php';
-require_once 'Libs/ajax-proxy/src/proxy.php';
 
 
 //FIXME: we possibly need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions

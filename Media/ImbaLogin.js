@@ -228,10 +228,14 @@ function setLoggedIn(isLoggedIn){
 /**
  * Sets the system in error state
  */
-function setError(isLoggedIn){
+function setError(message){
     $("#imbaSsoLoginForm").hide();
     $("#imbaSsoLogoutForm").hide();
     $("#imbaOpenMessaging").hide();
+    $.jGrowl('ERROR: '+message, {
+        header: 'Error'
+    });
+    alert('ERROR: '+message);
 }
 
 /**

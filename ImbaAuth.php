@@ -149,6 +149,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setLevel(2);
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
+                            //saving redirection url
+                            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
                             //header("Location: " . $redirectUrl);
                             echo "redirecting to: " . $redirectUrl;
                         } else {
@@ -221,7 +223,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
+                header("location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
@@ -249,7 +251,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
             }
 
-            header("location: " . $_GET['imbaSsoOpenIdLoginReferer']);
+            header("location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
             $log->setLevel(1);
             $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
@@ -259,7 +261,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
 } else {
     /**
-     * we are logged in! everithing is ok and we have a party here
+     * we are logged in! everithing is ok, we have a running session 
+     * and we have a party here
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
@@ -274,6 +277,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
     setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
-    header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
+    header("location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

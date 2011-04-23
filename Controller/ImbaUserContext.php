@@ -65,6 +65,16 @@ class ImbaUserContext {
         $_SESSION["IUC_LastOnline"] = time();
     }
 
+    public static function getAuthReferer() {
+        $tmpReferer = $_SESSION["IUC_AuthReferer"];
+        $_SESSION["IUC_AuthReferer"] = "";
+        return $tmpReferer;
+    }
+
+    public static function setAuthReferer($url) {
+        $_SESSION["IUC_AuthReferer"] = $url;
+    }
+
     public static function getNeedToRegister() {
         return $_SESSION["IUC_NeedToRegister"];
     }

@@ -104,7 +104,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 if (!empty($_POST["openid"])) {
                     $_POST["openid"] = trim($_POST["openid"]);
                     $redirectUrl = null;
-                    $formHtml = null;
+
                     /**
                      * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
                      */
@@ -205,9 +205,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
-            if (empty($esc_identity)) {
-                header("location: " .  $_SERVER['PHP_SELF']);
-                exit;
+            
+            /**
+             * This is a strange workaround, i know
+             */
+            if (empty($esc_identity) && (!empty($_GET['openid_identity']))) {
+                $esc_identity = $_GET['openid_identity'];
             }
 
             $log->setLevel(2);

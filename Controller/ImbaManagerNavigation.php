@@ -89,6 +89,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
                     break;
                 case "http://b.oom.ch": //EVE
                 case "http://b.oom.ch/kb/":
+                case "http://b.oom.ch/forum/":
                     $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
                     $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");
                     break;

@@ -31,7 +31,7 @@ class ImbaConstants extends ImbaConfig {
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";
     public static $WEB_DEFAULT_LOGGED_OUT_MODULE = "Register";
     public static $WEB_DEFAULT_GAME = "Index";
-    public static $WEB_IMBADMIN_BUTTON_NAME = "Community";
+    public static $WEB_IMBADMIN_BUTTON_NAME = "Menu";
     public static $WEB_IMBADMIN_BUTTON_COMMENT = "IMBAdmin &ouml;ffnen";
     public static $WEB_IMBAGAME_BUTTON_NAME = "Games";
     public static $WEB_IMBAGAME_BUTTON_COMMENT = "IMBA Games &ouml;ffnen";

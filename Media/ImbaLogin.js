@@ -231,7 +231,7 @@ function setLoggedIn(isLoggedIn){
 function setError(message){
     imbaSsoOpenId.value = message;
     setLoggedIn(false);
-    $("#imbaSsoLoginInner").hide
+    $("#imbaSsoLoginInner").hide();
     $.jGrowl('ERROR: ' + message, {
         header: 'Error'
     });

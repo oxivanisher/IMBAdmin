@@ -1,11 +1,10 @@
 <?php
-//header('Access-Control-Allow-Origin: *');
-
 require_once 'ImbaConstants.php';
 $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
+        header( 'Content-Type: application/javascript' );
         /**
          * Load IMBAdmin index template
          */

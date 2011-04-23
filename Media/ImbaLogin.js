@@ -24,7 +24,7 @@ $(document).ready(function() {
             $.jGrowl('Logging in...', {
                 header: 'Erfolg'
             });
-            alert(document.url);
+            alert(document.URL);
             imbaSsoOpenIdReferer.val = document.url;
             imbaSsoLoginForm.submit();
         }

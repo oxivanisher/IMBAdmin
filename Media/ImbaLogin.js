@@ -255,13 +255,15 @@ function showMenu() {
         direction: "right"
     });
     
-    $("#imbaSsoLoginInner").show("slide", {
-        direction: "right"
-    });    
+    if (isSystemInErrorState == false) {
+        $("#imbaSsoLoginInner").show("slide", {
+            direction: "right"
+        });    
     
-    $("#imbaUsersOnline").show("slide", {
-        direction: "up"
-    });   
+        $("#imbaUsersOnline").show("slide", {
+            direction: "up"
+        });   
+    }
     
 }
 

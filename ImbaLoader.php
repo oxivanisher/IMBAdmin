@@ -12,6 +12,15 @@ switch ($_GET["load"]) {
             session_start();
             $tmpOut = "";
 
+            require_once 'Model/ImbaUser.php';
+            require_once 'Controller/ImbaManagerDatabase.php';
+            require_once 'Controller/ImbaManagerNavigation.php';
+            require_once 'Controller/ImbaManagerUser.php';
+            require_once 'Controller/ImbaUserContext.php';
+
+            require_once 'Model/ImbaNavigation.php';
+            require_once 'Controller/ImbaSharedFunctions.php';
+
             /**
              * load static jQuery libs
              */
@@ -30,18 +39,6 @@ switch ($_GET["load"]) {
             $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaGame.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaMessaging.js") . "\n";
-
-            /**
-             * Generate TopNavigation
-             */
-            require_once 'Model/ImbaUser.php';
-            require_once 'Controller/ImbaManagerDatabase.php';
-            require_once 'Controller/ImbaManagerNavigation.php';
-            require_once 'Controller/ImbaManagerUser.php';
-            require_once 'Controller/ImbaUserContext.php';
-
-            require_once 'Model/ImbaNavigation.php';
-            require_once 'Controller/ImbaSharedFunctions.php';
 
             /**
              * Begin js/HTML injection code

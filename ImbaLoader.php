@@ -63,8 +63,9 @@ switch ($_GET["load"]) {
              * Render Imba HTML div construct
              */
             $file_array = file($IMBAdminIndexTemplate);
+            $thrustRoot = ImbaSharedFunctions::getTrustRoot();
             foreach ($file_array as $line) {
-                $tmpOut .= str_replace("MYWEBPATHREPLACE", dirname($_SERVER['PHP_SELF']), trim($line)) . "\\\n";
+                $tmpOut .= str_replace("MYWEBPATHREPLACE", $thrustRoot, trim($line)) . "\\\n";
             }
 
             /**

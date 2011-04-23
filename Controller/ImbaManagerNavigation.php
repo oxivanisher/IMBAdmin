@@ -81,6 +81,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         if (empty($return)) {
             $topNav = new ImbaTopNavigation();
+            echo ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']); exit;
             switch (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER'])) {
                 case "http://www.oom.ch/": //OOM
                 case "http://oom.ch/":

@@ -78,8 +78,10 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
             });
         }
     });
-    
-    $("#imbaContentDialog").dialog("open");
+        
+    if (isSystemInErrorState == false) {
+        $("#imbaContentDialog").dialog("open");
+    }
 }
 
 /**

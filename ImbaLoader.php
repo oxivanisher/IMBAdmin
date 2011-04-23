@@ -64,7 +64,7 @@ switch ($_GET["load"]) {
              */
             $file_array = file($IMBAdminIndexTemplate);
             foreach ($file_array as $line) {
-                $tmpOut .= trim($line) . "\\\n";
+                $tmpOut .= str_replace("MYWEBPATHREPLACE", dirname($_SERVER['PHP_SELF']), trim($line)) . "\\\n";
             }
 
             /**

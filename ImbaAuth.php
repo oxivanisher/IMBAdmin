@@ -149,7 +149,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setLevel(2);
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
-                            header("Location: " . $redirectUrl);
+                            //header("Location: " . $redirectUrl);
+                            echo "redirecting to: " . $redirectUrl;
                         } else {
                             /**
                              * something went wrong. display error end exit

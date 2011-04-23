@@ -229,6 +229,7 @@ function setLoggedIn(isLoggedIn){
  * Sets the system in error state
  */
 function setError(message){
+    setLoggedIn(false);
     $("#imbaSsoLoginForm").hide();
     $("#imbaOpenMessaging").hide();
     $("#imbaSsoLogoutForm").show();

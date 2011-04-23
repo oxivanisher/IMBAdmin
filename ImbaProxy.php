@@ -102,6 +102,9 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call
 $set['response'] = curl_exec($session);
+curl_close($session);
+
+
 
 if ($mimeType != "") {
     // The web service returns XML. Set the Content-Type appropriately
@@ -129,7 +132,6 @@ function returnError($set) {
     echo "Proxy Error";
 }
 
-
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {
@@ -137,9 +139,6 @@ if ($set['debug']) {
 } else {
     returnError($set);
 }
-
-curl_close($session);
-
 
 
 

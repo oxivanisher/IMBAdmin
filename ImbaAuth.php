@@ -72,12 +72,24 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Determine Authentication method
          */
-        $authMethod = "openid";
+        if (!empty($_POST['openid'])) {
+            /**
+             * OpenID Authentification
+             */
+            $authMethod = "openid";
+        } else {
+            /**
+             * Send the User to the registration page
+             */
+            header("location: index.html");
+        }
+
 
         /**
          * Do the Authentication
          */
         switch ($authMethod) {
+
             case "openid":
                 if (empty($_POST["openid"]) && (!empty($_GET["openid"]))) {
                     $_POST["openid"] = $_GET["openid"];

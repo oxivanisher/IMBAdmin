@@ -5,13 +5,14 @@
             <form id='imbaSsoLoginForm' action='ImbaAuth.php' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
                 <br />
-                <input id='imbaSsoOpenIdSubmit' type='submit' value='Login'/>
+                <!-- <input id='imbaSsoOpenIdSubmit' type='submit' value='Login / Registrieren'/> -->
+                <span id='imbaSsoOpenIdSubmit'>Login / Registrieren</span>
             </form>
             <form id='imbaSsoLogoutForm' action='ImbaAuth.php' method='post'>
                 <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
                 <input name='logout' value='true' type='hidden' />
                 <br />
-                <input id='imbaSsoOpenIdSubmitLogout'  type='submit' value='Logout' />
+                <span id='imbaSsoOpenIdSubmitLogout'>Logout</span>
             </form>
         </div>
         <div style='clear: both;' ></div>

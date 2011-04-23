@@ -17,7 +17,23 @@ setInterval('refreshUsersOnline()', 10000);
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {    
     $("#imbaSsoOpenIdSubmit").button();
+    $("#imbaSsoOpenIdSubmit").click(function () {
+        if ($("#imbaSsoOpenId").val() == "") {
+            loadImbaAdminDefaultModule();
+        } else {
+            $.jGrowl('Logging in...', {
+                header: 'Erfolg'
+            });
+            imbaSsoLoginForm.submit();
+        }
+    });
     $("#imbaSsoOpenIdSubmitLogout").button();
+    $("#imbaSsoOpenIdSubmitLogout").click(function () {
+        $.jGrowl('Logging out...', {
+            header: 'Erfolg'
+        });
+        imbaSsoLogoutForm.submit();
+    });
     $("#imbaMessageTextSubmit").button();
     
     // setting old openid
@@ -252,6 +268,9 @@ function loadImbaPortal(id) {
     }, function (response){
         if (response != "") {
             $.each($.parseJSON(response), function (name, icon) {
+                if (id != null) {
+                    $.jGrowl('<img src="' + icon + '" style="width: 20px; height: 20px;"> ' + name + ' geladen', { life: 200 });
+                }
                 imbaSsoLogoImage.src = icon;
                 document.title = name + ' Portal';
             })

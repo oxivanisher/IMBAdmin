@@ -87,6 +87,7 @@ body {
 
 #imbaSsoLoginInner {
     float: left;
+    text-align: center;
 }
 
 #imbaUsersOnline {
@@ -110,7 +111,6 @@ body {
 }  
 
 #imbaSsoShowNickname {
-    list-style-type:none;
     float:left;
     margin: 2px;
     padding: 0px;

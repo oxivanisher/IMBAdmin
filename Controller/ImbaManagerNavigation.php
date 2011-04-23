@@ -186,7 +186,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         $managerPortal = ImbaManagerPortal::getInstance();
 
         $return = "<li>\\\n";
-        $return .= "<a id='imbaMenuImbaPortal' href='javascript:void(0)' onclick='javascript: loadImbaPortal(-1);' title=''>Portal</a>\\\n";
+        $return .= "<a id='imbaMenuImbaPortal' href='javascript:void(0)' onclick='javascript: loadImbaPortal(-1);' title='Portal Zur&uuml;cksetzen'>Portal</a>\\\n";
         $return .= "<ul class='subnav'>\\\n";
         foreach ($managerPortal->selectAll() as $portal) {
             $return .= "<li style='vertical-align: middle;'><a href='javascript:void(0)' onclick='javascript: loadImbaPortal(\\\"" . $portal->getId() . "\\\");' title='" . $portal->getComment() . "'>";

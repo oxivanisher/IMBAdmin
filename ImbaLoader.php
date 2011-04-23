@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
 $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;

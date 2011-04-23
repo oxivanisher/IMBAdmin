@@ -232,7 +232,6 @@ function setLoggedIn(isLoggedIn){
 function checkError(message){
     if (message.substring(0,6) == "Error:") {
         isSystemInErrorState = true;
-        imbaSsoOpenId.value = message;
         setLoggedIn(false);
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();

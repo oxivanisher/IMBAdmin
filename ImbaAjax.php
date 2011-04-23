@@ -1,6 +1,6 @@
 <?php
 //FIXME: allow only registred portal aliases!
-header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Origin: *');
 
 /**
  * Single point of Ajax entry

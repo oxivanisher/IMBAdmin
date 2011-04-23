@@ -4,6 +4,7 @@
         <div id='imbaSsoLoginInner'>
             <form id='imbaSsoLoginForm' action='MYWEBPATHREPLACEImbaAuth.php' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
+                <input id='imbaSsoOpenIdReferer' name='referer' value='' type='hidden' />
                 <br />
                 <!-- <input id='imbaSsoOpenIdSubmit' type='submit' value='Login / Registrieren'/> -->
                 <span id='imbaSsoOpenIdSubmit'>Login / Registrieren</span>

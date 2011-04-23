@@ -208,7 +208,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
-
+                print_r($GLOBALS);
+                exit;
         try {
             $esc_identity = $managerOpenId->openidVerify();
 
@@ -260,8 +261,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 ImbaUserContext::setUserId($currentUser->getId());
                 $managerUser->setMeOnline();
-                print_r($GLOBALS);
-                exit;
+
             }
 
             header("location: " . ImbaUserContext::getRedirectUrl());

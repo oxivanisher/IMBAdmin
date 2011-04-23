@@ -24,8 +24,8 @@ require_once 'Controller/ImbaSharedFunctions.php';
   curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
   $output = curl_exec ($ch);
 */
-//echo ImbaSharedFunctions::getTrustRoot() . "/". ImbaConstants::$WEB_AJAX_MAIN_FILE; exit;
-$url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_AJAX_MAIN_FILE;
+//echo ImbaSharedFunctions::getTrustRoot() . "/". ImbaConstants::$WEB_OPENID_MAIN_PATH; exit;
+$url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_OPENID_MAIN_PATH;
 //$url = "http://alptroeim.ch/IMBAdmin/ImbaAjax.php";
 $headers = ($_POST['headers']) ? $_POST['headers'] : $_GET['headers'];
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
@@ -43,8 +43,8 @@ if ($_POST) {
     curl_setopt($session, CURLOPT_POSTFIELDS, $postvars);
 }
 
-//curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/cookieFileName");
-curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/" . $_COOKIE['PHPSESSID']);
+curl_setopt($session, CURLOPT_COOKIEJAR, "/tmp/" . $_COOKIE['PHPSESSID']);
+//curl_setopt($session, CURLOPT_COOKIEFILE, "/tmp/cookieFileName");
 // Don't return HTTP headers. Do return the contents of the call
 curl_setopt($session, CURLOPT_HEADER, ($headers == "true") ? true : false);
 

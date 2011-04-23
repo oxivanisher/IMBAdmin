@@ -285,9 +285,7 @@ function loadImbaPortal(id) {
         action: "portal",
         id: id
     }, function (response){
-        if (response == "Proxy Error") {
-            setError(response);
-        } else if (response != "") {
+        if ((response != "") && (response != "Proxy Error")) {
             $.each($.parseJSON(response), function (name, icon) {
                 if (id != null) {
                     $.jGrowl('<img src="' + icon + '" style="width: 20px; height: 20px;"> ' + name + ' geladen', {

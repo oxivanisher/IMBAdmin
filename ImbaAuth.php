@@ -44,6 +44,13 @@ $managerLog = ImbaManagerLog::getInstance();
 $managerUser = ImbaManagerUser::getInstance();
 
 /**
+ * Save our referer to session
+ */
+if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+    ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+}
+
+/**
  * OpenID auth logic
  */
 if ($_GET["logout"] == true || $_POST["logout"] == true) {
@@ -68,6 +75,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if ($_GET["authDone"] != true) {
+
         /**
          * Determine Authentication method
          */
@@ -80,7 +88,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             /**
              * Send the User to the registration page
              */
-            header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
+            header("location: " . ImbaUserContext::getRedirectUrl());
         }
 
 
@@ -149,9 +157,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
-                            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-                            //header("Location: " . $redirectUrl);
-                            echo "redirecting to: " . $redirectUrl;
+                            header("Location: " . $redirectUrl);
                         } else {
                             /**
                              * something went wrong. display error end exit
@@ -174,7 +180,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
 
-                    header("location: " . $_POST['imbaSsoOpenIdLoginReferer']);
+                    header("location: " . ImbaUserContext::getRedirectUrl());
                 }
                 break;
 
@@ -222,6 +228,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
+                echo "aaa" . ImbaUserContext::getRedirectUrl();
                 header("location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -250,6 +257,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
             }
 
+            echo "bbb" . ImbaUserContext::getRedirectUrl();
             header("location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
             $log->setLevel(1);

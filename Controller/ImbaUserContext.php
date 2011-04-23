@@ -66,9 +66,10 @@ class ImbaUserContext {
     }
 
     public static function getAuthReferer() {
-        $tmpReferer = $_SESSION["IUC_AuthReferer"];
-        $_SESSION["IUC_AuthReferer"] = "";
-        return $tmpReferer;
+        //$tmpReferer = $_SESSION["IUC_AuthReferer"];
+        //$_SESSION["IUC_AuthReferer"] = "";
+        //return $tmpReferer;
+        return $_SESSION["IUC_AuthReferer"];
     }
 
     public static function setAuthReferer($url) {

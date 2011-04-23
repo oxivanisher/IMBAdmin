@@ -24,7 +24,7 @@ switch ($_GET["load"]) {
             /**
              * load our static js scripts
              */
-            $tmpOut .= "var ajaxEntry = '" . ImbaConstants::$WEB_AJAX_ENTRY_FILE . "';\n";
+            $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_ENTRY_FILE) . "';\n";
             $tmpOut .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";

@@ -25,9 +25,9 @@ class ImbaPortal extends ImbaBase {
 
     public function getIcon() {
         if ($this->icon == null || $this->icon == "") {
-            return ImbaSharedFunctions::fixImagePath("Images/noicon.png");
+            return ImbaSharedFunctions::fixWebPath("Images/noicon.png");
         } else {
-            return ImbaSharedFunctions::fixImagePath($this->icon);
+            return ImbaSharedFunctions::fixWebPath($this->icon);
         }
     }
 

@@ -200,7 +200,7 @@ class ImbaSharedFunctions {
      * 
      * fix the path of images for web display
      */
-    public function fixImagePath($url) {
+    public function fixWebPath($url) {
         return ImbaSharedFunctions::getTrustRoot() . "/" . $url;
     }
     

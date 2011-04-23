@@ -18,6 +18,10 @@ switch ($_POST["action"]) {
         include 'Ajax/User.php';
         break;
 
+    case "portal":
+        include 'Ajax/Portal.php';
+        break;
+
     case "navigation":
         include 'Ajax/Navigation.php';
         break;

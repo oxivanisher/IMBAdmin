@@ -4,6 +4,8 @@
  *
  * stores the user context
  */
+require_once 'ImbaConstants.php';
+
 class ImbaUserContext {
 
     //user session basics    
@@ -72,7 +74,13 @@ class ImbaUserContext {
     }
 
     public static function getPortalContext() {
-        return $_SESSION["IUC_PortalContext"];
+        //FIXME: portal magic with aliases in here plz!
+        ImbaConstants::loadSettings();
+        $tmpPortalID = ImbaConstants::$SETTINGS['DEFAULT_PORTAL_ID'];
+        if ($_SESSION["IUC_PortalContext"]) {
+            $tmpPortalID = $_SESSION["IUC_PortalContext"];
+        }
+        return $tmpPortalID;
     }
 
     public static function setPortalContext($PortalContext) {

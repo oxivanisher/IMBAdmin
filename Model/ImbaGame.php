@@ -72,7 +72,7 @@ class ImbaGame extends ImbaBase {
 
     public function getIcon() {
         if ($this->icon == null || $this->icon == "") {
-            return ImbaConstants::$WEB_SITE_PATH . ImbaConstants::$WEB_IMAGES_PATH . "/noicon.png";
+            return "Images/noicon.png";
         } else {
             return $this->icon;
         }

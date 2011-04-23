@@ -13,7 +13,6 @@ require_once 'Controller/ImbaManagerDatabase.php';
 class ImbaConstants extends ImbaConfig {
 
 //    $WEB_PATH = dirname($_SERVER["PHP_SELF"]);
-    private $WEB_PATH = "/IMBAdmin";
     /**
      * Site context settings
      */
@@ -22,18 +21,16 @@ class ImbaConstants extends ImbaConfig {
     /**
      * Files and Folders
      */
-    public static $WEB_SITE_PATH = "/IMBAdmin";
-    public static $WEB_IMAGES_PATH = "/Images";
-    public static $WEB_AJAX_ENTRY_FILE = "/IMBAdmin/ImbaAjax.php";
+    public static $WEB_AJAX_ENTRY_FILE = "ImbaAjax.php";
     public static $WEB_OPENID_AUTH_PATH = "ImbaAuth.php";
     public static $WEB_ENTRY_INDEX_FILE = "index.html";
     public static $WEB_BASE_TEMPLATE = "Templates/ImbaIndex.html.tpl";
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";
     public static $WEB_DEFAULT_LOGGED_OUT_MODULE = "Register";
     public static $WEB_DEFAULT_GAME = "Index";
-    public static $WEB_IMBADMIN_BUTTON_NAME = "Auf zum Atem!";
+    public static $WEB_IMBADMIN_BUTTON_NAME = "Community";
     public static $WEB_IMBADMIN_BUTTON_COMMENT = "IMBAdmin &ouml;ffnen";
-    public static $WEB_IMBAGAME_BUTTON_NAME = "IMBA Games";
+    public static $WEB_IMBAGAME_BUTTON_NAME = "Games";
     public static $WEB_IMBAGAME_BUTTON_COMMENT = "IMBA Games &ouml;ffnen";
     /**
      * Error Codes

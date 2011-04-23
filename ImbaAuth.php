@@ -62,7 +62,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     session_destroy();
     session_write_close();
 
-    header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
+    header("location: " . ImbaConstants::$WEB_ENTRY_INDEX_FILE);
 } elseif (!ImbaUserContext::getLoggedIn()) {
 
     /**

@@ -154,7 +154,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     break;
 
                 case "showDatabaseBackups":
-                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/Backup/";
+                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER["PHP_SELF"]) . "/Backup/";
 
                     $tmpOut = "<h4>Files in ".$backupPath.":</h4>";
                     if ($handle = opendir($backupPath)) {
@@ -186,7 +186,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     break;
 
                 case "backupDatabase":
-                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . "/" . ImbaConstants::$WEB_SITE_PATH . "/Backup/";
+                    $backupPath = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER["PHP_SELF"]) . "/Backup/";
                     $backupFile = ImbaConstants::$DATABASE_DB . "_" . date("Y-m-d-H-i-s") . '.gz';
                     $command = "mysqldump --opt" .
                             " -h " . ImbaConstants::$DATABASE_HOST .

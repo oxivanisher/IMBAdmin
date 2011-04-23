@@ -36,7 +36,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 ImbaUserContext::getNeedToRegister(false);
                 $smarty->display('IMBAdminModules/RegisterSuccess.tpl');
             } else {
-                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
             break;
 
@@ -95,7 +96,8 @@ if (ImbaUserContext::getLoggedIn()) {
                         /**
                          * Something strange happend. Try to kick the user out of all sessions
                          */
-                        header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                        //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                        header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
                     }
                 } else {
                     # set the error code so that we can display it
@@ -118,7 +120,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 /**
                  * Something strange happend. Try to kick the user out of all sessions
                  */
-                header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                //header("location: " . ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
+                header("location: " . ImbaConstants::$WEB_OPENID_AUTH_PATH . "?logout=true");
             }
             break;
 
@@ -144,7 +147,8 @@ if (ImbaUserContext::getLoggedIn()) {
                 /**
                  * User gets the welcome screen with the openid input field
                  */
-                $smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                //$smarty->assign('registerurl', ImbaConstants::$WEB_SITE_PATH . "/" . ImbaConstants::$WEB_OPENID_AUTH_PATH);
+                $smarty->assign('registerurl', ImbaConstants::$WEB_OPENID_AUTH_PATH);
                 $smarty->display('IMBAdminModules/RegisterWelcome.tpl');
             }
     }

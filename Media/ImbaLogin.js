@@ -247,13 +247,14 @@ function hideMenu() {
  */
 function loadImbaPortal(id) {
     $.post(ajaxEntry, {
-        action: "user",
-        setportal: true,
+        action: "portal",
         id: id
     }, function (response){
         if (response != "") {
-            alert(response);
-            imbaSsoLogoImage.src = response;
+            $.each($.parseJSON(response), function (name, icon) {
+                imbaSsoLogoImage.src = icon;
+                document.title = name + ' Portal';
+            })
         }
     });
 }

@@ -4,10 +4,9 @@
 session_start();
 
 require_once 'Model/ImbaUser.php';
-require_once 'ImbaConstants.php';
+require_once 'ImbaConfig.php';
 require_once 'Controller/ImbaManagerUser.php';
 require_once 'Controller/ImbaManagerMessage.php';
-require_once 'Controller/ImbaManagerPortal.php';
 require_once 'Controller/ImbaUserContext.php';
 
 /**
@@ -16,7 +15,6 @@ require_once 'Controller/ImbaUserContext.php';
 if (ImbaUserContext::getLoggedIn()) {
     $managerUser = ImbaManagerUser::getInstance();
     $managerMessage = ImbaManagerMessage::getInstance();
-    $managerPortal = ImbaManagerPortal::getInstance();
 
     /**
      * Gets a list of online users as JSON
@@ -105,46 +103,6 @@ if (ImbaUserContext::getLoggedIn()) {
      */ else if (isset($_POST['returnmyself'])) {
         $user = $managerUser->selectMyself();
         echo json_encode(array("name" => $user->getNickname(), "openid" => $user->getOpenId()));
-    }
-
-    /**
-     * ImbaLogin.js asks us for the actual portal icon
-     */ elseif (isset($_POST['loadportalicon'])) {
-        if (ImbaUserContext::getPortalContext() != "") {
-            $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
-            echo $portal->getIcon();
-        } else {
-            echo "Images/community_logo.png";
-        }
-    }
-
-    /**
-     * ImbaLogin.js asks us to set the users actual selected portal
-     */ elseif (isset($_POST['setportal'])) {
-
-        if ($_POST['id'] == -1) {
-            /**
-             * reset current portal to default
-             */
-            ImbaUserContext::setPortalContext("");
-            echo "Images/community_logo.png";
-        } elseif (!empty($_POST['id'])) {
-            /**
-             * set current portal
-             */
-            ImbaUserContext::setPortalContext($_POST['id']);
-            $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
-            echo $portal->getIcon();
-        } else {
-            /**
-             * get current active portal
-             */
-            if ($portal = $managerPortal->selectById(ImbaUserContext::getPortalContext())) {
-                echo $portal->getIcon();
-            } else {
-                echo "Images/community_logo.png";
-             }
-        }
     }
 
     /**

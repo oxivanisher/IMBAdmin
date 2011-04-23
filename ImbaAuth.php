@@ -18,7 +18,7 @@ require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
 require_once 'Model/ImbaUserRole.php';
 
-
+print_r($GLOBALS);
 /**
  * Load Auth Managers
  * - OpenID

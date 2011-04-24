@@ -23,16 +23,7 @@ switch ($_GET["load"]) {
             require_once 'Controller/ImbaSharedFunctions.php';
 
             /**
-             * load static jQuery libs
-             */
-            $tmpOut .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
-            $tmpOut .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
-            $tmpOut .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
-            $tmpOut .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
-            $tmpOut .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
-
-            /**
-             * load our static js scripts
+             * depending of proxy or not and set the js var
              */
             if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
                 $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
@@ -41,13 +32,30 @@ switch ($_GET["load"]) {
                 $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
                 $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_FILE;
             }
-
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
-            $tmpOut .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
-            $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
-            $tmpOut .= file_get_contents("Media/ImbaAdmin.js") . "\n";
-            $tmpOut .= file_get_contents("Media/ImbaGame.js") . "\n";
-            $tmpOut .= file_get_contents("Media/ImbaMessaging.js") . "\n";
+
+            if (empty($_SESSION['IUC_jsCache'])) {
+                /**
+                 * load static jQuery libs
+                 */
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
+
+                /**
+                 * load our static js scripts depending of proxy or not and set the js var
+                 */
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaLogin.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaAdmin.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaGame.js") . "\n";
+                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaMessaging.js") . "\n";
+            }
+            echo $_SESSION['IUC_jsCache'];
+
+
 
             /**
              * Begin js/HTML injection code
@@ -96,10 +104,12 @@ switch ($_GET["load"]) {
         break;
 
     case "css":
-        $tmpOut = "";
-        $tmpOut .= file_get_contents("Media/ImbaLogin.css");
-        $tmpOut .= file_get_contents("Media/ImbaAdmin.css");
-        echo $tmpOut;
+        if (empty($_SESSION['IUC_cssCache'])) {
+
+            $_SESSION['IUC_cssCache'] .= file_get_contents("Media/ImbaLogin.css");
+            $_SESSION['IUC_cssCache'] .= file_get_contents("Media/ImbaAdmin.css");
+        }
+        echo $_SESSION['IUC_cssCache'];
         break;
 
     default:

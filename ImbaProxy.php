@@ -3,7 +3,7 @@
 header('Access-Control-Allow-Origin: *');
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-print_r($GLOBALS);
+
 if ($_POST['PHPSESSID']) {
     session_name($_POST['PHPSESSID']);
 }

@@ -124,8 +124,12 @@ function displayDebug($set) {
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
     echo "facility: " . $set['facility'] . "<br />";
     echo "response:" . $set['response'] . "<br />";
-    echo "<h3>returnHeaders:</h3><pre>" . print_r($set['returnHeaders']) . "</pre><br />";
-    echo "<h3>GLOBALS:</h3><pre>" . print_r($GLOBALS) . "</pre>";
+    echo "<h3>returnHeaders:</h3><pre>";
+    print_r($set['returnHeaders']);
+    echo "</pre><br />";
+    echo "<h3>GLOBALS:</h3><pre>";
+    print_r($GLOBALS);
+    echo "</pre>";
 }
 
 function returnError($set) {

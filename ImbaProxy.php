@@ -95,14 +95,14 @@ if (empty($set['cookieSendData'])) {
 } else {
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
 }
-curl_setopt($session, CURLOPT_HEADER, false);
+curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call
-$set['response'] = curl_exec($session);
-$set['returnHeaders'] = curl_getinfo($session);
+$set['answer'] = curl_exec($session);
+//$set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
 
 if ($mimeType != "") {
@@ -113,6 +113,11 @@ if ($mimeType != "") {
 /**
  * Compute return
  */
+list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['answer'], 2);
+
+/**
+ * generate output
+ */
 function displayDebug($set) {
     echo "Error:";
     echo "<h2>Debug Info:</h2>";
@@ -122,7 +127,7 @@ function displayDebug($set) {
     echo "postvars: " . $set['postvars'] . "<br />";
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
     echo "facility: " . $set['facility'] . "<br />";
-    echo "response:" . $set['response'] . "<br />";
+    echo "response:" . $set['answer'] . "<br />";
     echo "<h3>returnHeaders:</h3><pre>";
     print_r($set['returnHeaders']);
     echo "</pre><br />";
@@ -137,9 +142,10 @@ function returnError($set) {
 
 if ($set['debug']) {
     displayDebug($set);
-} elseif ($set['response']) {
-    //echo $set['returnHeaders'];
-    echo $set['response'];
+} elseif ($set['answer']) {
+    foreach (explode("\r\n", $set['answerHeaders']) as $hdr)
+        header($hdr);
+    echo $set['answerContent'];
 } else {
     returnError($set);
 }

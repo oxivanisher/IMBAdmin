@@ -108,7 +108,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 if (!empty($_POST["openid"])) {
                     $_POST["openid"] = trim($_POST["openid"]);
                     $redirectUrl = null;
-              echo "sdf";
+
                     /**
                      * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
                      */
@@ -137,6 +137,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                         }
                     }
+              echo "sdf";
 
                     /**
                      * try to do the first step of the openid authentication steps

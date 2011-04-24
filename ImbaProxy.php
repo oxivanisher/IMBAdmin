@@ -96,7 +96,7 @@ if (empty($set['cookieSendData'])) {
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
 }
 curl_setopt($session, CURLOPT_HEADER, false);
-curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
@@ -115,6 +115,7 @@ if ($mimeType != "") {
  * Compute return
  */
 function displayDebug($set) {
+    echo "Error:";
     echo "<h2>Debug Info:</h2>";
     echo "debug: " . $set['debug'] . "<br />";
     echo "cookieFile: " . $set['cookieFile'] . "<br />";

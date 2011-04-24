@@ -302,8 +302,9 @@ function loadImbaPortal(id) {
         if ((response != "") && (tmpError == false)) {
             $.each($.parseJSON(response), function (name, icon) {
                 if (id != null) {
-                    $.jGrowl('<img src="' + icon + '" style="width: 20px; height: 20px;" align="middle">Portal geladen:<br /><b>' + name + '</b>', {
-                        life: 200
+                    $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px;" align="middle" padding="3px"> <b>' + name + '</b>', {
+                        life: 200,
+                        header: 'Portal geladen:<br /><br />'
                     });
                 }
                 imbaSsoLogoImage.src = icon;

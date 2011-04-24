@@ -20,7 +20,7 @@ if (empty($_POST['facility'])) {
 /**
  * Are we in debug mode?
  */
-$set['debug'] = false;
+$set['debug'] = true;
 if (empty($_POST['proxyDebug'])) {
     if (!empty($_GET['proxyDebug'])) {
         $set['debug'] = true;
@@ -42,13 +42,11 @@ if (empty($set['facility'])) {
     require_once 'ImbaConstants.php';
     require_once 'Controller/ImbaSharedFunctions.php';
     if ($set['facility'] == "ajax") {
-        $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_FILE;
+        $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_PATH;
     } elseif ($set['facility'] == "auth") {
         //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
     } elseif ($_GET["logout"] == true || $_POST["logout"] == true) {
-        setcookie("ImbaProxySessionId", "", (time() - 3600));
-        $set['facility'] = "auth";
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH . "?logout=true";
     } elseif ($set['facility'] == "test") {
         //$set['debug'] = true;
@@ -63,40 +61,33 @@ if (empty($_POST) && (!empty($_GET))) {
 }
 
 /**
- * Link sessins between browsers
+ * Link sessions between browsers together like magic
+ * - one cookie store file for $_COOKIE['ImbaProxySessionId']
  */
-if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
-    $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
+if (empty($_SESSION['cookieTmpString'])) {
+    if (!empty($_COOKIE['ImbaProxySessionId'])) {
+        /**
+         * rejoin authenticated session
+         */
+        $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
+    } else {
+        /**
+         * Found old or wrong session. create a new one or this is a new session
+         */
+        $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
+    }
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 }
+if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
+    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
+}
+
 /**
  * Set Cookie File Path with one session magic
  */
 if (empty($_SESSION['cookieFilePath'])) {
     $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
 }
-
-/**
- * Parse the cookie into the session if it exists
- *
-  if (file_exists($set['cookieFile'])) {
-  unset($_SESSION['IUC_cookieStore']);
-  $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
-  //unlink($set['cookieFile']);
-  }
- * 
- */
-/*
- * generate cookie data for sending
- *
-  $set['cookieSendData'] = "";
-  if (!empty($_SESSION['IUC_cookieStore'])) {
-  foreach ($_SESSION['IUC_cookieStore'] as $key => $value) {
-  $set['cookieSendData'] .= $key . "=" . $value . ";";
-  }
-  }
- * 
- */
 
 /**
  * Create Post var
@@ -139,89 +130,52 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
  * generate output
  */
 function displayDebug($set) {
-    echo "Error:";
     echo "<h2>Debug Info:</h2>";
-    echo "debug: " . $set['debug'] . "<br />";
-    echo "cookieFile: " . $_SESSION['cookieFilePath'] . "<br />";
-    echo "cookieSendData: " . $set['cookieSendData'] . "<br />";
-    echo "postvars: " . $set['postvars'] . "<br />";
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
     echo "facility: " . $set['facility'] . "<br />";
+    echo "cookieFile: " . $_SESSION['cookieFilePath'] . "<br />";
+    echo "postvars: " . $set['postvars'] . "<br />";
     echo "response:" . $set['answer'] . "<br />";
     echo "<h3>returnHeaders:</h3><pre>";
     print_r($set['returnHeaders']);
+    echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
+    echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
+    echo "Cookie File Path: " . $_SESSION['cookieFilePath'] . "<br />";
+    echo "Cookie Content:<br /><pre>" . file_get_contents($_SESSION['cookieFilePath']) . "</pre><br />";
     echo "</pre><br />";
-    echo "<h3>GLOBALS:</h3><pre>";
-    print_r($GLOBALS);
+    echo "<h3>POST:</h3><pre>";
+    print_r($_POST);
     echo "</pre>";
 }
 
-function returnError($set) {
-    echo "Error:Proxy not working";
+function returnError($message) {
+    echo "Error:Proxy: " + $message;
 }
 
-if ($set['debug']) {
-    displayDebug($set);
-} elseif ($set['facility'] == "test") {
+if ($set['facility'] == "test") {
     echo "PROXY SESSION ID: " . session_id() . "<br />";
     echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
     echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
     echo "Cookie File Path: " . $_SESSION['cookieFilePath'] . "<br />";
     echo "Cookie Content:<br /><pre>" . file_get_contents($_SESSION['cookieFilePath']) . "</pre><br />";
     echo $set['answerContent'];
+} elseif ($set['facility'] == "logout") {
+    setcookie("ImbaProxySessionId", "", (time() - 3600));
+    unset($_SESSION['cookieTmpString']);
+    setcookie(session_id(), "", time() - 3600);
+    session_destroy();
+    session_write_close();
 } elseif ($set['answer']) {
-    foreach (explode("\r\n", $set['answerHeaders']) as $hdr)
+    foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         header($hdr);
+    }
     echo $set['answerContent'];
 } else {
-    returnError($set);
+    if ($set['debug']) {
+        displayDebug($set);
+    } else {
+        returnError("No data recieved");
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * REMEMBER!
- * we have to do also a logout!
- */
-/* logout cookie and session destroy
- * 
-  setcookie(session_id(), "", time() - 3600);
-  session_destroy();
-  session_write_close();
- * 
- */
-
-//FIXME: we possibly need a routing php script here! http://stackoverflow.com/questions/2106090/cross-domain-ajax-and-php-sessions
-// for accessing ourself. we can find out when to direct with $_POST['imbaSsoOpenIdLoginReferer'] is = $_SERVER['SERVER_NAME']
-// and then use curl to redirect our request
-//ImbaSharedFunctions::getDomain();
-//FIXME: load allowed hosts from portal aliases
-//$allowedHosts = array('b.oom.ch', 'alptroeim.ch', 'localhost');
-//$proxy = new AjaxProxy(ImbaConstants::$WEB_AJAX_MAIN_FILE, $allowedHosts, FALSE);
-//$proxy->execute();
-
-
-
-
-/* STEP 2. visit the homepage to set the cookie properly */
-/*
-  $url = ImbaSharedFunctions::getTrustRoot() . "/" . ImbaConstants::$WEB_AJAX_PROXY_FILE;
-  $ch = curl_init ($url);
-  curl_setopt ($ch, CURLOPT_COOKIEJAR, );
-  curl_setopt ($ch, CURLOPT_RETURNTRANSFER, true);
-  $output = curl_exec ($ch);
- */
-//echo ImbaSharedFunctions::getTrustRoot() . "/". ImbaConstants::$WEB_AUTH_MAIN_PATH; exit;
 ?>

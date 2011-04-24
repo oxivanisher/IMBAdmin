@@ -126,9 +126,9 @@ class ImbaSharedFunctions {
      * get ReturnTo Address
      */
     public function getReturnTo() {
-    // this sould be like that, if the webserver would be set up correctly
-    // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
-        if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
+        // this sould be like that, if the webserver would be set up correctly
+        // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
             $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
         } else {
             $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
@@ -142,8 +142,8 @@ class ImbaSharedFunctions {
      * get the trust root
      */
     public function getTrustRoot() {
-    // this sould be like that, if the webserver would be set up correctly
-    // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        // this sould be like that, if the webserver would be set up correctly
+        // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF'])));
     }
 

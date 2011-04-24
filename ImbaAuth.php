@@ -274,21 +274,35 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
-                ImbaUserContext::setNickname($currentUser->getNickname());
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 ImbaUserContext::setUserId($currentUser->getId());
+
+                setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
+                setcookie("ImbaSsoLastLoginName", $currentUser->getNickname(), (time() + (60 * 60 * 24 * 30)));
+
                 $managerUser->setMeOnline();
             }
             header("Location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
-            $log->setLevel(1);
-            $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
-            $managerLog->insert($log);
-            echo $log->getMessage();
+            if ($ex->getMessage() == "id_res_not_set") {
+                ImbaUserContext::setWaitingForVerify(false);
+                $log->setLevel(1);
+                $log->setMessage("OpenID Session expired. Restarting request.");
+                $managerLog->insert($log);
+
+                header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
+            } else {
+                $log->setLevel(1);
+                $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
+                $managerLog->insert($log);
+                echo $log->getMessage();
+            }
         }
     }
 } else {
-    ImbaUserContext::setWaitingForVerify(false);
+    if (ImbaUserContext::getWaitingForVerify()) {
+        ImbaUserContext::setWaitingForVerify(false);
+    }
     /**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
@@ -304,8 +318,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setLevel(1);
     $managerLog->insert($log);
 
-    setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
-    setcookie("ImbaSsoLastLoginName", ImbaUserContext::getNickname(), (time() + (60 * 60 * 24 * 30)));
-    header("Location: " . ImbaUserContext::getRedirectUrl());
+//    header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

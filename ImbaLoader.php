@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
 $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
@@ -6,6 +7,7 @@ $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 switch ($_GET["load"]) {
     case "js":
         header('Content-Type: application/javascript');
+
         /**
          * Load IMBAdmin index template
          */
@@ -19,18 +21,19 @@ switch ($_GET["load"]) {
             require_once 'Controller/ImbaManagerUser.php';
             require_once 'Controller/ImbaUserContext.php';
 
+
             require_once 'Model/ImbaNavigation.php';
             require_once 'Controller/ImbaSharedFunctions.php';
 
             /**
              * depending of proxy or not and set the js var
              */
-            if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
+            if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
                 $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
-                $ajaxPath = ImbaConstants::$WEB_AJAX_MAIN_FILE;
+                $ajaxPath = ImbaConstants::$WEB_AJAX_MAIN_PATH;
             } else {
                 $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
-                $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_FILE;
+                $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_PATH;
             }
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
 

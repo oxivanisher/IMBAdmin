@@ -609,15 +609,18 @@ class LightOpenID {
      * @throws ErrorException
      */
     function validate() {
+
         # If the request was using immediate mode, a failure may be reported
         # by presenting user_setup_url (for 1.1) or reporting
         # mode 'setup_needed' (for 2.0). Also catching all modes other than
         # id_res, in order to avoid throwing errors.
         if (isset($this->data['openid_user_setup_url'])) {
             $this->setup_url = $this->data['openid_user_setup_url'];
+            throw new Exception("setup_url is set!");
             return false;
         }
         if ($this->mode != 'id_res') {
+            throw new Exception("id_res_not_set");
             return false;
         }
 

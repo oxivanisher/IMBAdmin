@@ -21,12 +21,12 @@ class ImbaConstants extends ImbaConfig {
     /**
      * Files and Folders
      */
-    public static $WEB_AJAX_PROXY_FILE = "ImbaProxy.php?facility=ajax";
-    public static $WEB_AJAX_MAIN_FILE = "ImbaAjax.php";
-    
     public static $WEB_AUTH_PROXY_PATH = "ImbaProxy.php?facility=auth";
+    public static $WEB_AJAX_PROXY_PATH = "ImbaProxy.php?facility=ajax";
     public static $WEB_AUTH_MAIN_PATH = "ImbaAuth.php";
-
+    public static $WEB_AJAX_MAIN_PATH = "ImbaAjax.php";
+    public static $WEB_FORCE_PROXY = false;
+    
     public static $WEB_ENTRY_INDEX_FILE = "index.html";
     public static $WEB_BASE_TEMPLATE = "Templates/ImbaIndex.html.tpl";
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";

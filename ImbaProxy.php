@@ -59,28 +59,34 @@ if (empty($_POST) && (!empty($_GET))) {
 }
 
 /**
- * Set Cookie File
+ * Set Cookie File if not done yet
  */
-$set['cookieFile'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID'];
+if (empty($_SESSION['cookieFilePath'])) {
+    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . md5($_COOKIE['PHPSESSID'].rand(1,99999999));
+}
 
 /**
  * Parse the cookie into the session if it exists
- */
+ *
 if (file_exists($set['cookieFile'])) {
     unset($_SESSION['IUC_cookieStore']);
     $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
     //unlink($set['cookieFile']);
 }
+ * 
+ */
 
 /*
  * generate cookie data for sending
- */
+ *
 $set['cookieSendData'] = "";
 if (!empty($_SESSION['IUC_cookieStore'])) {
     foreach ($_SESSION['IUC_cookieStore'] as $key => $value) {
         $set['cookieSendData'] .= $key . "=" . $value . ";";
     }
 }
+ * 
+ */
 
 /**
  * Create Post var
@@ -102,16 +108,16 @@ $session = curl_init($set['requestUrl']);
 curl_setopt($session, CURLOPT_POST, true);
 curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 
-if (empty($set['cookieSendData'])) {
-    curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFile']);
+//if (empty($set['cookieSendData'])) {
+    curl_setopt($session, CURLOPT_COOKIEJAR, $_SESSION['cookieFilePath']);
     /*
      * } else {
      * */
-    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
+    curl_setopt($session, CURLOPT_COOKIEFILE, $_SESSION['cookieFilePath']);
     /*
      * 
      */
-}
+//}
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);
@@ -139,7 +145,7 @@ function displayDebug($set) {
     echo "Error:";
     echo "<h2>Debug Info:</h2>";
     echo "debug: " . $set['debug'] . "<br />";
-    echo "cookieFile: " . $set['cookieFile'] . "<br />";
+    echo "cookieFile: " . $_SESSION['cookieFilePath'] . "<br />";
     echo "cookieSendData: " . $set['cookieSendData'] . "<br />";
     echo "postvars: " . $set['postvars'] . "<br />";
     echo "requestUrl: " . $set['requestUrl'] . "<br />";

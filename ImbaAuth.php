@@ -205,7 +205,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
-        echo "test";
         /**
          * first step completed. do the verification and actual login
          */
@@ -222,7 +221,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $esc_identity = $managerOpenId->openidVerify();
             if (empty($esc_identity)) {
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . $_GET['openid_identity']);
-                throw new Exception("openidVerify returned no OpenId");
+                true;
             }
 
             /**

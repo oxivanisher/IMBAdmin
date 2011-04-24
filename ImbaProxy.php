@@ -5,7 +5,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
 if ($_POST['PHPSESSID']) {
-    $_COOKIE['PHPSESSID'] = $_POST['PHPSESSID'];
+    session_name($_POST['PHPSESSID']);
 }
 
 session_start();

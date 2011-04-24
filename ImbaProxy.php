@@ -43,6 +43,7 @@ if (empty($set['facility'])) {
     if ($set['facility'] == "ajax") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_FILE;
     } elseif ($set['facility'] == "auth") {
+        $set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
     } else {
         echo "ERROR: Unknown facility (" . $set['facility'] . ")";
@@ -105,8 +106,6 @@ $set['response'] = curl_exec($session);
 $set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
 
-print_r($set['returnHeaders']); exit;
-
 if ($mimeType != "") {
     // The web service returns XML. Set the Content-Type appropriately
     //header("Content-Type: ".$mimeType);
@@ -125,9 +124,8 @@ function displayDebug($set) {
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
     echo "facility: " . $set['facility'] . "<br />";
     echo "response:" . $set['response'] . "<br />";
-    echo "<h3>GLOBALS:</h3><pre>";
-    print_r($GLOBALS);
-    echo "</pre>";
+    echo "<h3>returnHeaders:</h3><pre>" . print_r($set['returnHeaders']) . "</pre><br />";
+    echo "<h3>GLOBALS:</h3><pre>" . print_r($GLOBALS) . "</pre>";
 }
 
 function returnError($set) {

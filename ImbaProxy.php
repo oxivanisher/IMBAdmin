@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-$tmpLogOut = "-------------------------------------------------------";
+$tmpLogOut = "-------------------------------------------------------\n";
 
 session_start();
 //print_r($GLOBALS); exit;
@@ -16,8 +16,8 @@ if (!empty($_COOKIE['PHPSESSID'])) {
 }
 
 if ($mySession != false) {
-    $tmpLogOut .= "action: " . $_POST['action'];
-    $tmpLogOut .= "secSession: " . $mySession;
+    $tmpLogOut .= "action: " . $_POST['action'] . "\n";
+    $tmpLogOut .= "secSession: " . $mySession . "\n";
 } else {
     $mySession = false;
 }
@@ -180,11 +180,11 @@ if ($set['facility'] == "test") {
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
         //setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
-        $tmpLogOut .= "ou: " . $mySession . " (" . $set['facility'] . ")";
+        $tmpLogOut .= "ou: " . $mySession . " (" . $set['facility'] . ")\n";
     }
     echo $set['answerContent'];
 } else {
-    $tmpLogOut .= "ee: " . $mySession . " (error)";
+    $tmpLogOut .= "ee: " . $mySession . " (error)\n";
     if ($set['debug']) {
         displayDebug($set);
     } else {

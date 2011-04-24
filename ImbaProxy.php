@@ -8,7 +8,7 @@ ImbaSharedFunctions::writeToLog("-----------------------------------------------
 
 session_start();
 //print_r($GLOBALS); exit;
-if ($_POST['secSession']) {
+if ($_POST['secSession'] || $_COOKIE['PHPSESSID']) {
     $mySession = $_POST['secSession'];
     ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
     ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);

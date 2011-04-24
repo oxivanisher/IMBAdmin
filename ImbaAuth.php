@@ -200,7 +200,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
-            echo "sda";
 
         /**
          * first step completed. do the verification and actual login
@@ -304,6 +303,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
+                echo "sda";
+
     if (ImbaUserContext::getWaitingForVerify()) {
         ImbaUserContext::setWaitingForVerify(false);
     }

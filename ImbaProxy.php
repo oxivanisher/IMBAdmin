@@ -44,7 +44,7 @@ if (empty($set['facility'])) {
     if ($set['facility'] == "ajax") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_FILE;
     } elseif ($set['facility'] == "auth") {
-        //$set['debug'] = true;
+        $set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
     } else {
         echo "ERROR: Unknown facility (" . $set['facility'] . ")";

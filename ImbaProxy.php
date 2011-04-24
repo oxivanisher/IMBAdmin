@@ -158,11 +158,11 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
+    echo "Set-Cookie: ImbaProxySessionId=".$_SESSION['cookieTmpString'].";";
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         echo $hdr;
-        if (strpos($hdr, "Set-Cookie")) {
-            $hdr .= " ImbaProxySessionId=".$_SESSION['cookieTmpString'].";";
-        }
+        //if (strpos($hdr, "Set-Cookie")) {
+        //}
         header($hdr);
     }
     echo $set['answerContent'];

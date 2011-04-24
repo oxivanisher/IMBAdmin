@@ -102,10 +102,11 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call
 $set['response'] = curl_exec($session);
+$set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
 
+print_r($set['returnHeaders']); exit;
 
-print_r($GLOBALS); exit;
 if ($mimeType != "") {
     // The web service returns XML. Set the Content-Type appropriately
     //header("Content-Type: ".$mimeType);

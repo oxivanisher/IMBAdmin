@@ -79,7 +79,8 @@ if (!empty($_SESSION['cookieTmpString'])) {
 if (empty($_SESSION['cookieFilePath'])) {
     $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
 }
-
+ setcookie("ImbaProxySessionId", "", (time() - 3600));
+ 
 /**
  * Create Post var
  */

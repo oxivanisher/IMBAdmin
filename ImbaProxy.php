@@ -2,6 +2,8 @@
 header('Access-Control-Allow-Origin: *');
 session_start();
 
+ImbaSharedFunctions::writeToLog(var_dump($_SESSION));
+
 /**
  * Determine which is our facility
  */

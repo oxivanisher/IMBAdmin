@@ -82,7 +82,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Determine Authentication method
          */
-        if (!empty($_POST['openid']) || !empty($_GET['openid'])) {
+        if (!empty($_POST['openid']) || (!empty($_GET['openid']))) {
             /**
              * OpenID Authentification
              */

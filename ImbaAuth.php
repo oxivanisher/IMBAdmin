@@ -149,7 +149,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
-                    echo session_id();
+                    //FIXME? echo session_id();
                     /**
                      * This replaces the old authDone=true
                      */
@@ -201,7 +201,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
-        echo "authDOne";
         /**
          * first step completed. do the verification and actual login
          */

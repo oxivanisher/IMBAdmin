@@ -53,7 +53,7 @@ $(document).ready(function() {
     alert(phpSessionID);
     $.post(ajaxEntry, {
         action: "user",
-        session: "phpSessionID"
+        secSession: "phpSessionID"
     }, function (response){
         if (checkError(response) == false) {  
             if (response == "Need to register") {
@@ -187,7 +187,7 @@ function refreshUsersOnline(){
         $.post(ajaxEntry, {
             action: "user",
             loadusersonlinelist : "true",
-            session: phpSessionID
+            secSession: "phpSessionID"
         }, function (response){
             //create list for tag links
             $("#imbaUsersOnline").html("");

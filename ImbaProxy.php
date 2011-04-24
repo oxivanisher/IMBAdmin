@@ -79,9 +79,7 @@ if (empty($_POST) && (!empty($_GET))) {
   /**
  * Set Cookie File Path with one session magic
  */
-ImbaSharedFunctions::writeToLog("my: " . session_id());
 $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . session_id();
-// setcookie("ImbaProxySessionId", "", (time() - 3600));
 
 /**
  * Create Post var
@@ -167,8 +165,8 @@ if ($set['facility'] == "test") {
             header($hdr);
         }
     }
-    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
+    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     echo $set['answerContent'];
 } else {
     if ($set['debug']) {

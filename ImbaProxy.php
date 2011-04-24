@@ -84,7 +84,7 @@ if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
     setcookie("ImbaProxySessionId", "", (time() - 3600));
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 }
-
+setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 /**
  * Set Cookie File Path with one session magic
  */

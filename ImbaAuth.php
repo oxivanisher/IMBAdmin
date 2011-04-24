@@ -79,7 +79,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
      *
      */
-    if (ImbaUserContext::setWaitingForVerify(true)) {
+    if (ImbaUserContext::getWaitingForVerify() == true) {
         ImbaUserContext::setWaitingForVerify(false);
         /**
          * Determine Authentication method

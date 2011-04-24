@@ -220,6 +220,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify();
             if (empty($esc_identity)) {
+                throw new Exception("openidVerify failed!");
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . $_GET['openid_identity']);
                 true;
             }

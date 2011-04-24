@@ -1,6 +1,6 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
-require_once 'Libs/ajax-proxy/src/proxy.php';
 session_start();
 
 /**
@@ -55,12 +55,7 @@ if (empty($_POST) && (!empty($_GET))) {
     $_POST = $_GET;
 }
 
-$proxy = new AjaxProxy($set['requestUrl']);
-$proxy->execute();
-
-exit;
-
-/**
+/*
  * generate cookie data for sending
  */
 $set['cookieSendData'] = "";

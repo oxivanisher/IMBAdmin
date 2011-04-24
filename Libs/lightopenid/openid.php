@@ -628,7 +628,6 @@ class LightOpenID {
             'openid.sig' => $this->data['openid_sig'],
         );
 
-        echo "validating...";
         if (isset($this->data['openid_ns'])) {
             # We're dealing with an OpenID 2.0 server, so let's set an ns
             # Even though we should know location of the endpoint,

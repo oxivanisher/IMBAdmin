@@ -129,9 +129,9 @@ class ImbaSharedFunctions {
     // this sould be like that, if the webserver would be set up correctly
     // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
         if ($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) {
-            $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH . "?authDone=true";
+            $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
         } else {
-            $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH . "&authDone=true";
+            $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
         }
 
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), $authPath));

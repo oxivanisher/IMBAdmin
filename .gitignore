@@ -1,3 +1,6 @@
 nbproject/
 Libs/jgrowl/.hg/
 Libs/jgrowl/.hgtags
+Libs/lightopenid/provider
+Libs/lightopenid/*
+!Libs/lightopenid/openid.php

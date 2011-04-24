@@ -8,9 +8,11 @@ ImbaSharedFunctions::writeToLog("-----------------------------------------------
 session_start();
 //print_r($GLOBALS); exit;
 if ($_POST['secSession']) {
-    session_name($_POST['secSession']);
+    $mySession = $_POST['secSession'];
     ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
     ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);
+} else {
+    $mySession = session_id( );
 }
 
 
@@ -86,7 +88,7 @@ if (empty($_POST) && (!empty($_GET))) {
   /**
  * Set Cookie File Path with one session magic
  */
-$_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . session_id();
+$_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $mySession;
 
 /**
  * Create Post var
@@ -136,7 +138,7 @@ function displayDebug($set) {
     echo "response:" . $set['answer'] . "<br />";
     echo "<h3>returnHeaders:</h3><pre>";
     print_r($set['returnHeaders']);
-    echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo "PROXY SESSION ID: " . $mySession . "<br />";
     echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
     echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
     echo "Cookie File Path: " . $_SESSION['cookieFilePath'] . "<br />";
@@ -153,7 +155,7 @@ function returnError($message) {
 
 if ($set['facility'] == "test") {
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
-    echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo "PROXY SESSION ID: " . $mySession . "<br />";
     echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
     echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
     echo "Cookie File Path: " . $_SESSION['cookieFilePath'] . "<br />";
@@ -163,7 +165,7 @@ if ($set['facility'] == "test") {
     //setcookie("ImbaProxySessionId", "", (time() - 3600));
     unlink($_SESSION['cookieFilePath']);
     unset($_SESSION['cookieTmpString']);
-    setcookie(session_id(), "", time() - 3600);
+    setcookie("PHPSESSID", "", time() - 3600);
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
@@ -175,12 +177,12 @@ if ($set['facility'] == "test") {
             $phpSessBool = true;
         }
     }
-    header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
+    header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
 //    setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
-    ImbaSharedFunctions::writeToLog("ou: " . session_id() . " (" . $set['facility'] . ")");
+    ImbaSharedFunctions::writeToLog("ou: " . $mySession . " (" . $set['facility'] . ")");
     echo $set['answerContent'];
 } else {
-    ImbaSharedFunctions::writeToLog("ou: " . session_id() . " (error)");
+    ImbaSharedFunctions::writeToLog("ou: " . $mySession . " (error)");
     if ($set['debug']) {
         displayDebug($set);
     } else {

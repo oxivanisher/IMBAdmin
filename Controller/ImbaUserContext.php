@@ -92,6 +92,14 @@ class ImbaUserContext {
         $_SESSION["IUC_WaitingForVerify"] = $waitingForVerify;
     }
 
+    public static function getNickname() {
+        return $_SESSION["IUC_Nickname"];
+    }
+
+    public static function setNickname($nickname) {
+        $_SESSION["IUC_Nickname"] = $nickname;
+    }
+
     public static function getPortalContext() {
         //FIXME: portal magic with aliases in here plz!
         ImbaConstants::loadSettings();

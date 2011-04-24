@@ -200,6 +200,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
+        echo "test";
         /**
          * first step completed. do the verification and actual login
          */
@@ -274,6 +275,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
+                ImbaUserContext::setNickname($currentUser->getNickname());
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 ImbaUserContext::setUserId($currentUser->getId());
                 $managerUser->setMeOnline();
@@ -287,6 +289,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
+    ImbaUserContext::setWaitingForVerify(false);
     /**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
@@ -303,7 +306,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $managerLog->insert($log);
 
     setcookie("ImbaSsoLastLoginName", "", (time() - 3600));
-    setcookie("ImbaSsoLastLoginName", $_SESSION["IUC_openIdUrl"], (time() + (60 * 60 * 24 * 30)));
+    setcookie("ImbaSsoLastLoginName", ImbaUserContext::getNickname(), (time() + (60 * 60 * 24 * 30)));
     header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

@@ -29,7 +29,7 @@ class ImbaManagerOpenID {
      */
     public function openidAuth($openid) {
         $this->lightOpenid = new LightOpenID;
-        $this->lightOpenid->returnUrl = urlencode(ImbaSharedFunctions::getReturnTo());
+        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 
         if (!$this->lightOpenid->mode) {
@@ -46,7 +46,7 @@ class ImbaManagerOpenID {
     public function openidVerify() {
         $this->lightOpenid = new LightOpenID;
         $this->lightOpenid->verify_peer = false;
-        $this->lightOpenid->returnUrl = urlencode(ImbaSharedFunctions::getReturnTo());
+        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 
         if ($this->lightOpenid->mode == 'cancel') {

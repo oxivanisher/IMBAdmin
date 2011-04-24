@@ -50,9 +50,6 @@ class ImbaManagerOpenID {
 
         if ($this->lightOpenid->mode == 'cancel') {
             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_CANCEL);
-            /**
-             * This is probably for the SSL certificate check
-             */
         } elseif ($this->lightOpenid->validate()) {
             return $this->lightOpenid->identity;
         } else {

@@ -1,8 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
 
-header('Access-Control-Allow-Origin: *');
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 print_r($GLOBALS); exit;

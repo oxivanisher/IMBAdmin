@@ -84,6 +84,14 @@ class ImbaUserContext {
         $_SESSION["IUC_NeedToRegister"] = $needToRegister;
     }
 
+    public static function getWaitingForVerify() {
+        return $_SESSION["IUC_WaitingForVerify"];
+    }
+
+    public static function setWaitingForVerify($waitingForVerify) {
+        $_SESSION["IUC_WaitingForVerify"] = $waitingForVerify;
+    }
+
     public static function getPortalContext() {
         //FIXME: portal magic with aliases in here plz!
         ImbaConstants::loadSettings();

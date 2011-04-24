@@ -73,10 +73,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
+    /*
     if ($_POST["authDone"] == true) {
         $_GET["authDone"] = true;
     }
-    if ($_GET["authDone"] != true) {
+     *
+     */
+    if (ImbaUserContext::setWaitingForVerify(true)) {
+        ImbaUserContext::setWaitingForVerify(false);
         /**
          * Determine Authentication method
          */
@@ -147,6 +151,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
 
+                    /**
+                     * This replaces the old authDone=true
+                     */
+                    ImbaUserContext::setWaitingForVerify(true);
+                    
                     try {
                         $redirectUrl = $managerOpenId->openidAuth($openid);
 

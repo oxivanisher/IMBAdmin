@@ -478,6 +478,7 @@ $(document).ready(function() {
                     dataType: "json",
                     data: {
                         action: "user",
+                        session: phpSessionID,
                         loaduser: "true",
                         startwith: request.term.substr(3 ,request.term.length)
                     },

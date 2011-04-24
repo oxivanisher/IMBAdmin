@@ -186,7 +186,8 @@ function refreshUsersOnline(){
     if (isUserLoggedIn){
         $.post(ajaxEntry, {
             action: "user",
-            loadusersonlinelist : "true"
+            loadusersonlinelist : "true",
+            session: phpSessionID
         }, function (response){
             //create list for tag links
             $("#imbaUsersOnline").html("");

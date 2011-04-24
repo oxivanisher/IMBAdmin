@@ -19,7 +19,8 @@ function refreshChat() {
     if (isUserLoggedIn){
         $.post(ajaxEntry, {
             action: "messenger",
-            gotnewmessages: "true"
+            gotnewmessages: "true",
+            secSession: phpSessionID
         },  function(response) {
             // reset gotNewMessages
             var gotNewMessages = 0;
@@ -221,7 +222,8 @@ function loadChatWindowContent(tabIndex) {
                 $.post(ajaxEntry, {
                     action: "messenger",
                     initchat: "true",
-                    channelid: channelId
+                    channelid: channelId,
+                    secSession: phpSessionID
                 },
                 function(response) {
                     var htmlConversation = "";
@@ -250,7 +252,8 @@ function loadChatWindowContent(tabIndex) {
                     action: "messenger",
                     loadchat: "true",
                     channelid: channelId,
-                    since: chatSinceIds[channelId]
+                    since: chatSinceIds[channelId],
+                    secSession: phpSessionID
                 },
                 function(response) {
                     var htmlConversation = chatCache[channelId];
@@ -279,7 +282,8 @@ function loadChatWindowContent(tabIndex) {
             $.post(ajaxEntry, {
                 reciever: tabData,
                 loadMessages: "true",
-                action: "messenger"
+                action: "messenger",
+                secSession: phpSessionID
             },
             function(response) {
                 var htmlConversation = "";
@@ -303,7 +307,8 @@ function loadChatWindowContent(tabIndex) {
             $.post(ajaxEntry, {
                 reciever: tabData,
                 action: "messenger",
-                setread: "true"
+                setread: "true",
+                secSession: phpSessionID
             },
             function(response) {
                 // nothing to do here
@@ -327,13 +332,15 @@ function sendChatWindowMessage(msgText, tabIndex) {
         httpPostData = {
             action: "messenger",
             channelid: tabData.substring(1),
-            message: msgText
+            message: msgText,
+            secSession: phpSessionID
         };
     } else {
         httpPostData = {
             action: "messenger",
             reciever: tabData,
-            message: msgText
+            message: msgText,
+            secSession: phpSessionID
         };
     }
 
@@ -357,7 +364,8 @@ function sendChatWindowMessage(msgText, tabIndex) {
 function showTabsWithNewMessage(){
     $.post(ajaxEntry, {
         gotnewmessages: "true",
-        action: "messenger"
+        action: "messenger",
+        secSession: phpSessionID
     },  function(response) {
         $.each($.parseJSON(response), function(key, newMessageFrom) {
             // look in Chats if there is an open window with val

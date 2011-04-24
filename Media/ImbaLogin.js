@@ -293,7 +293,8 @@ function hideMenu() {
 function loadImbaPortal(id) {
     $.post(ajaxEntry, {
         action: "portal",
-        id: id
+        id: id,
+        secSession: phpSessionID
     }, function (response){
         var tmpError = true;
         if (id != null) {

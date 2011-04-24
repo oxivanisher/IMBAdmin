@@ -27,7 +27,8 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         action: "navigation",
         context: "IMBAdminModules",
         request: "name",
-        module: moduleName
+        module: moduleName,
+        secSession: phpSessionID
     }, function (response){
         if (checkError(response) == false) {  
             tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
@@ -57,7 +58,8 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         action: "navigation",
         context: "IMBAdminModules",
         request: "nav",
-        module: moduleName
+        module: moduleName,
+        secSession: phpSessionID
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             $("#imbaContentNav").tabs("add", "#" + value.id, value.name);
@@ -94,6 +96,7 @@ function loadImbaAdminTabContent(data, myModuleTabId) {
     }
 
     data.action = "module";
+    data.secSession = phpSessionID;
 
     $.post(ajaxEntry, data, function (response){
         if (checkError(response) == false) {  
@@ -125,7 +128,8 @@ function loadImbaAdminDefaultModule(){
     $.post(ajaxEntry, {
         action: "navigation",
         context: "IMBAdminModules",
-        request: "getDefault"
+        request: "getDefault",
+        secSession: phpSessionID
     }, function (response){
         if (checkError(response) == false) {  
             // Call the loadImbaAdminModule to open the dialog         

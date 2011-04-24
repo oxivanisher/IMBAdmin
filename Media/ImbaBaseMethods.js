@@ -5,7 +5,8 @@ function loadMyImbaUser() {
     var tmpReturn = null;
     $.post(ajaxEntry, {
         action: "user",
-        returnmyself: true
+        returnmyself: true,
+        secSession: phpSessionID
     }, function (response){
         $.each($.parseJSON(response), function(key, value){
             if (key == "name") {

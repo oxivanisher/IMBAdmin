@@ -205,11 +205,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
+    print_r($GLOBALS); exit;
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
 
-    print_r($GLOBALS); exit;
             /**
              * This is a strange workaround, i know
              */

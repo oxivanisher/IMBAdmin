@@ -207,16 +207,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
-            echo "--".$esc_identity."--";
+            if (empty($esc_identity)) {
+                throw new Exception("Authentification failed!");
+            }
 
             /**
              * This is probably a login-greencard. so DONT ACTIVATE!1!11!einself
              *
-            if (empty($esc_identity) && (!empty($_GET['openid_identity']))) {
-                $esc_identity = $_GET['openid_identity'];
-            }
+              if (empty($esc_identity) && (!empty($_GET['openid_identity']))) {
+              $esc_identity = $_GET['openid_identity'];
+              }
              */
-
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);

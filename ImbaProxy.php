@@ -163,7 +163,7 @@ if ($set['facility'] == "test") {
 } elseif ($set['answer']) {
     ImbaSharedFunctions::writeToLog("ou: " . session_id());
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        if (strpos($hdr, "PHPSESSID")) {
+        if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
         } else {
             ImbaSharedFunctions::writeToLog("hd: " . $hdr);

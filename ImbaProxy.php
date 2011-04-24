@@ -165,13 +165,12 @@ if ($set['facility'] == "test") {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
         } else {
-            ImbaSharedFunctions::writeToLog("hd: " . $hdr);
             $phpSessBool = true;
         }
     }
-    header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/");
-    setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
-//    ImbaSharedFunctions::writeToLog("ou: " . session_id());
+    header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
+//    setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
+    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     echo $set['answerContent'];
 } else {
     if ($set['debug']) {

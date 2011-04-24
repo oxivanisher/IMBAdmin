@@ -166,7 +166,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
-                                          echo $redirectUrl;
 
                             header("Location: " . $redirectUrl);
                         } else {

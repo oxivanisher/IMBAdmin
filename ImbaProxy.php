@@ -5,6 +5,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
 
+session_start();
 //print_r($GLOBALS); exit;
 if ($_POST['secSession']) {
     session_name($_POST['secSession']);
@@ -12,7 +13,6 @@ if ($_POST['secSession']) {
     ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);
 }
 
-session_start();
 
 /**
  * Determine which is our facility

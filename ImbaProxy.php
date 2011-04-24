@@ -1,5 +1,8 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
+require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaSharedFunctions.php';
 session_start();
 
 ImbaSharedFunctions::writeToLog(var_dump($_SESSION));
@@ -43,8 +46,6 @@ if (empty($set['facility'])) {
     echo "ERROR:No facility recieved";
     exit;
 } else {
-    require_once 'ImbaConstants.php';
-    require_once 'Controller/ImbaSharedFunctions.php';
     if ($set['facility'] == "ajax") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_PATH;
     } elseif ($set['facility'] == "auth") {
@@ -166,7 +167,7 @@ if ($set['facility'] == "test") {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
         } else {
-            header("Set-Cookie: PHPSESSID=".session_id()."; path=/ ");
+            header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
             ImbaSharedFunctions::writeToLog("hd: " . session_id());
         }
     }

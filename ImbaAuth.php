@@ -303,6 +303,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
+                echo "sda";
+
     if (ImbaUserContext::getWaitingForVerify()) {
         ImbaUserContext::setWaitingForVerify(false);
     }

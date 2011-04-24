@@ -70,7 +70,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     header("Location: " . $_POST['imbaSsoOpenIdLogoutReferer']);
 } elseif (!ImbaUserContext::getLoggedIn()) {
-
+    print_r($GLOBALS); exit;
     /**
      * we are NOT logged in
      */

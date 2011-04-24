@@ -201,7 +201,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
-
+        echo "authDOne";
         /**
          * first step completed. do the verification and actual login
          */

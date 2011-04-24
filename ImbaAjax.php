@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Access-Control-Allow-Origin: *');
 
 /**
@@ -28,7 +29,7 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
-        session_start();
+  //      session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
@@ -50,7 +51,7 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
-        session_start();
+//        session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();

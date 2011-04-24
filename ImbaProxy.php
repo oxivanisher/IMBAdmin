@@ -46,6 +46,9 @@ if (empty($set['facility'])) {
     } elseif ($set['facility'] == "auth") {
         //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
+    } elseif ($set['facility'] == "test") {
+        //$set['debug'] = true;
+        $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";
     } else {
         echo "ERROR: Unknown facility (" . $set['facility'] . ")";
         exit;
@@ -156,6 +159,9 @@ function returnError($set) {
 
 if ($set['debug']) {
     displayDebug($set);
+} elseif ($set['facility'] == "test") {
+    echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo $set['answerContent'];
 } elseif ($set['answer']) {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr)
         header($hdr);

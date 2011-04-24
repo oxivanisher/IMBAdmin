@@ -52,7 +52,7 @@ $(document).ready(function() {
     // Checking if user is online
     $.post(ajaxEntry, {
         action: "user",
-        secureSession: ":"+phpSessionID
+        secureSession: ">>" + phpSessionID
     }, function (response){
         if (checkError(response) == false) {  
             if (response == "Need to register") {

@@ -484,9 +484,9 @@ $(document).ready(function() {
                     type: "POST",
                     url: ajaxEntry,
                     dataType: "json",
+                    session: phpSessionID,
                     data: {
                         action: "user",
-                        session: phpSessionID,
                         loaduser: "true",
                         startwith: request.term.substr(3 ,request.term.length)
                     },
@@ -508,6 +508,7 @@ $(document).ready(function() {
                     type: "POST",
                     url: ajaxEntry,
                     dataType: "json",
+                    session: phpSessionID,
                     data: {
                         action: "messenger",
                         loadchannels: "true"

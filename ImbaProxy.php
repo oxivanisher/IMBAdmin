@@ -160,9 +160,14 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
+    $phpSessBool = false;
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
+            
+        } else {
+            ImbaSharedFunctions::writeToLog("hd: " . $hdr);
+            $phpSessBool = true;
         }
     }
     setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));

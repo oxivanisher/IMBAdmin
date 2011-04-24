@@ -5,7 +5,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 session_start();
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
-ImbaSharedFunctions::writeToLog("in: " . $_COOKIE['PHPSESSID']);
+ImbaSharedFunctions::writeToLog("in: " . session_id());
 
 /**
  * Determine which is our facility

@@ -36,7 +36,7 @@ switch ($_GET["load"]) {
                 $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_PATH;
             }
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
-            $tmpOut .= "var phpSession = '" . session_id() . "';\n";
+            $tmpOut .= "var phpSessionID = '" . session_id() . "';\n";
 
             if (empty($_SESSION['IUC_jsCache'])) {
                 $jsFiles = array(

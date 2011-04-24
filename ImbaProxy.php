@@ -63,18 +63,17 @@ if (empty($_POST) && (!empty($_GET))) {
 }
 
 /**
- * Set Cookie File Path if not done yet
- */
-if (empty($_SESSION['cookieFilePath'])) {
-    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . md5($_COOKIE['PHPSESSID'] . rand(1, 99999999));
-}
-
-/**
  * Link sessins between browsers
  */
-if (empty($_COOKIE['ImbaProxySessionId']) || empty($_SESSION['cookieTmpString'])) {
-    $_SESSION['cookieTmpString'] = md5($_SESSION['cookieFilePath']);
+if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
+    $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
+}
+/**
+ * Set Cookie File Path with one session magic
+ */
+if (empty($_SESSION['cookieFilePath'])) {
+    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
 }
 
 /**
@@ -167,6 +166,7 @@ if ($set['debug']) {
     echo "PROXY SESSION ID: " . session_id() . "<br />";
     echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
     echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
+    echo "Cookie File Path: " . $_SESSION['cookieFilePath'] . "<br />";
     echo "Cookie Content:<br /><pre>" . file_get_contents($_SESSION['cookieFilePath']) . "</pre><br />";
     echo $set['answerContent'];
 } elseif ($set['answer']) {

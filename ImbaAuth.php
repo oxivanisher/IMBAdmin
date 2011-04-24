@@ -45,13 +45,6 @@ $managerLog = ImbaManagerLog::getInstance();
 $managerUser = ImbaManagerUser::getInstance();
 
 /**
- * Save our referer to session
- */
-if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-    ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-}
-
-/**
  * OpenID auth logic
  */
 if ($_GET["logout"] == true || $_POST["logout"] == true) {
@@ -80,6 +73,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
+        /**
+         * Save our referer to session
+         */
+        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+        }
+
         /**
          * Determine Authentication method
          */
@@ -303,8 +303,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
-                echo "sda";
-
     if (ImbaUserContext::getWaitingForVerify()) {
         ImbaUserContext::setWaitingForVerify(false);
     }

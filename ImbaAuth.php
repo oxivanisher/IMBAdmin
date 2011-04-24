@@ -79,12 +79,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
-            echo "sdf";
+
         /**
          * Determine Authentication method
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
-            /**
+              echo "sdf";          /**
              * OpenID Authentification
              */
             $authMethod = "openid";

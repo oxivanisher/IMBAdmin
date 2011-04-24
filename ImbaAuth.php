@@ -291,8 +291,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $log->setMessage("OpenID Session expired. Restarting request.");
                 $managerLog->insert($log);
 
-                //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
-                echo "OpenID Session expired. Restarting request.";
+                header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
+                //echo "OpenID Session expired. Restarting request.";
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());

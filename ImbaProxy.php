@@ -135,7 +135,7 @@ function returnError($set) {
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {
-    echo $set['returnHeaders'];
+    //echo $set['returnHeaders'];
     echo $set['response'];
 } else {
     returnError($set);

@@ -77,12 +77,9 @@ if (!empty($_COOKIE['ImbaProxySessionId'])) {
 /**
  * Set Cookie File Path with one session magic
  */
-ImbaSharedFunctions::writeToLog(session_id());
-if ($_SESSION['cookieTmpString'] == null) {
-    $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
-}
- $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
- setcookie("ImbaProxySessionId", "", (time() - 3600));
+ImbaSharedFunctions::writeToLog("my: ".session_id());
+ $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . session_id();
+// setcookie("ImbaProxySessionId", "", (time() - 3600));
  
 /**
  * Create Post var
@@ -164,6 +161,7 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
+    ImbaSharedFunctions::writeToLog("ou: ".$_SESSION['cookieTmpString']);
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         //if (strpos($hdr, "Set-Cookie")) {

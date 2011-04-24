@@ -161,8 +161,8 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
-    ImbaSharedFunctions::writeToLog("ou: ".$_SESSION['cookieTmpString']);
-    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
+    ImbaSharedFunctions::writeToLog("ou: ".session_id());
+    setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         //if (strpos($hdr, "Set-Cookie")) {
         //}

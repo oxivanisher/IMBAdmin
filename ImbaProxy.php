@@ -1,11 +1,10 @@
 <?php
-
 header('Access-Control-Allow-Origin: *');
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 session_start();
 
-ImbaSharedFunctions::writeToLog(var_dump($_SESSION));
+ImbaSharedFunctions::writeToLog(var_dump($GLOBALS));
 
 /**
  * Determine which is our facility

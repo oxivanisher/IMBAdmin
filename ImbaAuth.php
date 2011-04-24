@@ -5,7 +5,7 @@
  * start the php session
  */
 session_start();
-
+echo "sda";
 /**
  * Load dependencies
  */

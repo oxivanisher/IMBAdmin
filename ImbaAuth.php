@@ -288,8 +288,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
-        echo "asdasd";
-
     ImbaUserContext::setWaitingForVerify(false);
     /**
      * we are logged in! everithing is ok, we have a running session 

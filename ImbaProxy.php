@@ -99,7 +99,7 @@ if (empty($set['cookieSendData'])) {
 curl_setopt($session, CURLOPT_HEADER, false);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);
-curl_setopt($session, CURLOPT_RETURNTRANSFER, false);
+curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call
 $set['response'] = curl_exec($session);

@@ -194,8 +194,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
-        print_r($GLOBALS);
-        exit;
         /**
          * first step completed. do the verification and actual login
          */
@@ -211,6 +209,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify();
 
+    print_r($GLOBALS); exit;
             /**
              * This is a strange workaround, i know
              */

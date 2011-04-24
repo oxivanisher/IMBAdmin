@@ -5,7 +5,7 @@
  * start the php session
  */
 session_start();
-echo "sdf";
+
 /**
  * Load dependencies
  */
@@ -68,6 +68,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
+    echo "sdf";
+
     /**
      * Save our referer to session
      */

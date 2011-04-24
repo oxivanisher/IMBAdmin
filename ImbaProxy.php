@@ -3,9 +3,11 @@
 header('Access-Control-Allow-Origin: *');
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
+
+
+
 session_start();
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
-ImbaSharedFunctions::writeToLog("in: " . session_id());
 
 /**
  * Determine which is our facility

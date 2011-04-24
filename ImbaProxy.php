@@ -46,6 +46,7 @@ if (empty($set['facility'])) {
     } elseif ($set['facility'] == "auth") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
     } elseif (!($_GET["logout"] == false && $_POST["logout"] == false)) {
+        $set['facility'] == "logout";
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH . "?logout=true";
     } elseif ($set['facility'] == "test") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";

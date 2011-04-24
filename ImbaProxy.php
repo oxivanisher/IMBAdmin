@@ -105,7 +105,7 @@ $set['response'] = curl_exec($session);
 curl_close($session);
 
 
-
+print_r($GLOBALS); exit;
 if ($mimeType != "") {
     // The web service returns XML. Set the Content-Type appropriately
     //header("Content-Type: ".$mimeType);

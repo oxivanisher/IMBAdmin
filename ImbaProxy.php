@@ -77,7 +77,6 @@ if (empty($_COOKIE['ImbaProxySessionId'])) {
 if (empty($_SESSION['cookieFilePath'])) {
     $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
 }
-setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 
 /**
  * Create Post var
@@ -144,6 +143,7 @@ function returnError($message) {
 }
 
 if ($set['facility'] == "test") {
+    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
     echo "PROXY SESSION ID: " . session_id() . "<br />";
     echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
     echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
@@ -158,14 +158,13 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
-    echo "h:";
+    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        //if (strpos($hdr, "Set-Cookie")) {
+        if (strpos($hdr, "Set-Cookie")) {
         //}
-        echo $hdr;
-        //header($hdr);
+        //echo $hdr;
+        header($hdr);
     }
-    echo "b:";
     echo $set['answerContent'];
 } else {
     if ($set['debug']) {

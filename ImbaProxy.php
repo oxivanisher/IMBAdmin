@@ -165,7 +165,7 @@ if ($set['facility'] == "test") {
 } elseif ($set['answer']) {
     ImbaSharedFunctions::writeToLog("ou: ".session_id());
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        //if (strpos($hdr, "Set-Cookie")) {
+        if (! strpos($hdr, "PHPSESSID")) {
         //}
         ImbaSharedFunctions::writeToLog("hd: ".$hdr);
         header($hdr);

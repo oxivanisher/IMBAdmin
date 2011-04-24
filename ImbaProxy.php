@@ -8,7 +8,14 @@ ImbaSharedFunctions::writeToLog("-----------------------------------------------
 
 session_start();
 //print_r($GLOBALS); exit;
-if ($_POST['secSession'] || $_COOKIE['PHPSESSID']) {
+$mySession = false;
+if (! empty($_COOKIE['PHPSESSID'])) {
+    $mySession = $_COOKIE['PHPSESSID'];
+} elseif (! empty($_POST['secSession'])) {
+    $mySession = $_POST['secSession'];
+}
+
+if ($mySession != false) {
     $mySession = $_POST['secSession'];
     ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
     ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);

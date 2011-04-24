@@ -96,8 +96,8 @@ if (empty($set['cookieSendData'])) {
 } else {
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
 }
-curl_setopt($session, CURLOPT_HEADER, false);
-curl_setopt($session, CURLOPT_FOLLOWLOCATION, false);
+curl_setopt($session, CURLOPT_HEADER, true);
+curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 //curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
@@ -135,6 +135,7 @@ function returnError($set) {
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {
+    echo $set['returnHeaders'];
     echo $set['response'];
 } else {
     returnError($set);

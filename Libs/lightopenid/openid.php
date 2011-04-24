@@ -642,12 +642,12 @@ class LightOpenID {
                     . 'openid.claimed_id=' . $this->claimed_id;
         }
 
+        echo $this->data['openid_return_to'] . " <> " . $this->returnUrl;
         if ($this->data['openid_return_to'] != $this->returnUrl) {
             # The return_to url must match the url of current request.
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.
             return false;
         }
-        echo "validating...";
 
         $server = $this->discover($this->claimed_id);
 

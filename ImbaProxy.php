@@ -165,7 +165,7 @@ if ($set['facility'] == "test") {
             header($hdr);
         } else {
             header("Set-Cookie: PHPSESSID=".session_id()."; path=/ ");
-            ImbaSharedFunctions::writeToLog("hd: " . $hdr);
+            ImbaSharedFunctions::writeToLog("hd: " . session_id());
         }
     }
     setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));

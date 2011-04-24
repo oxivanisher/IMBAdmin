@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
+$tmpLogOut = "-------------------------------------------------------";
 
 session_start();
 //print_r($GLOBALS); exit;
@@ -16,8 +16,8 @@ if (!empty($_COOKIE['PHPSESSID'])) {
 }
 
 if ($mySession != false) {
-    ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
-    ImbaSharedFunctions::writeToLog("secSession: " . $mySession);
+    $tmpLogOut .= "action: " . $_POST['action'];
+    $tmpLogOut .= "secSession: " . $mySession;
 } else {
     $mySession = false;
 }
@@ -180,15 +180,16 @@ if ($set['facility'] == "test") {
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
         //setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
-        ImbaSharedFunctions::writeToLog("ou: " . $mySession . " (" . $set['facility'] . ")");
+        $tmpLogOut .= "ou: " . $mySession . " (" . $set['facility'] . ")";
     }
     echo $set['answerContent'];
 } else {
-    ImbaSharedFunctions::writeToLog("ee: " . $mySession . " (error)");
+    $tmpLogOut .= "ee: " . $mySession . " (error)";
     if ($set['debug']) {
         displayDebug($set);
     } else {
         returnError("No data recieved");
     }
 }
+ImbaSharedFunctions::writeToLog($tmpLogOut);
 ?>

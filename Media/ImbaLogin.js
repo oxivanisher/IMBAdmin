@@ -302,7 +302,7 @@ function loadImbaPortal(id) {
         if ((response != "") && (tmpError == false)) {
             $.each($.parseJSON(response), function (name, icon) {
                 if (id != null) {
-                    $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; align: middle; padding: 3px;"> <big>' + name + '</big>', {
+                    $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + name + '</big>', {
                         life: 350,
                         header: 'Portal geladen:<br /><br />'
                     });

@@ -158,7 +158,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     /**
                      * This replaces the old authDone=true
                      */
-                    ImbaUserContext::setWaitingForVerify(true);
+                    ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
                     
                     try {
                         $redirectUrl = $managerOpenId->openidAuth($openid);

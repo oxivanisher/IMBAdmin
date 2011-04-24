@@ -75,7 +75,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
-    echo "sda";
 
     /**
      * we are NOT logged in
@@ -201,6 +200,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
+            echo "sda";
+
         /**
          * first step completed. do the verification and actual login
          */

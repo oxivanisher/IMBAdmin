@@ -5,7 +5,7 @@
  * start the php session
  */
 session_start();
-
+echo "sdf";
 /**
  * Load dependencies
  */
@@ -319,7 +319,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
     $log->setLevel(1);
     $managerLog->insert($log);
-    print_r($GLOBALS);
+    echo "You are logged in!";
     //header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

@@ -159,7 +159,7 @@ if ($set['facility'] == "test") {
     session_write_close();
 } elseif ($set['answer']) {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        if (strpos($hdr, "Set-Cookie=".$_SESSION['cookieTmpString']."; ")) {
+        if (strpos($hdr, " Set-Cookie=".$_SESSION['cookieTmpString'].";")) {
             $hdr .= " ImbaProxySessionId";
         }
         header($hdr);

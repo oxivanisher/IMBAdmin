@@ -50,10 +50,10 @@ $(document).ready(function() {
     });
  
     // Checking if user is online
+    alert(phpSessionID);
     $.post(ajaxEntry, {
         action: "user",
-        test: "dfsd",
-        session: ">>" + phpSessionID
+        session: phpSessionID
     }, function (response){
         if (checkError(response) == false) {  
             if (response == "Need to register") {

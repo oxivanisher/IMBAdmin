@@ -67,7 +67,6 @@ if (empty($_POST) && (!empty($_GET))) {
  */
 if (empty($_COOKIE['ImbaProxySessionId'])) {
     $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
-    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 } else if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
     $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
 }
@@ -78,6 +77,7 @@ if (empty($_COOKIE['ImbaProxySessionId'])) {
 if (empty($_SESSION['cookieFilePath'])) {
     $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
 }
+setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 
 /**
  * Create Post var
@@ -118,6 +118,7 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 /**
  * generate output
  */
+
 function displayDebug($set) {
     echo "<h2>Debug Info:</h2>";
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
@@ -151,12 +152,16 @@ if ($set['facility'] == "test") {
     echo $set['answerContent'];
 } elseif ($set['facility'] == "logout") {
     setcookie("ImbaProxySessionId", "", (time() - 3600));
+    unlink($_SESSION['cookieFilePath']);
     unset($_SESSION['cookieTmpString']);
     setcookie(session_id(), "", time() - 3600);
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
+        if (strpos($hdr, "Set-Cookie=".$_SESSION['cookieTmpString']."; ")) {
+            $hdr .= " ImbaProxySessionId";
+        }
         header($hdr);
     }
     echo $set['answerContent'];

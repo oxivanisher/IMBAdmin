@@ -166,7 +166,7 @@ if ($set['facility'] == "test") {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         //if (strpos($hdr, "Set-Cookie")) {
         //}
-        //echo $hdr;
+        ImbaSharedFunctions::writeToLog("hd: ".$hdr);
         header($hdr);
     }
     echo $set['answerContent'];

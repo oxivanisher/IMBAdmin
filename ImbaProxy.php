@@ -1,5 +1,5 @@
 <?php
-
+header('Access-Control-Allow-Origin: *');
 session_start();
 if ($_COOKIE['ImbaProxySessionId']) {
     session_id($_COOKIE['ImbaProxySessionId']);

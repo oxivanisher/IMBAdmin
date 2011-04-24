@@ -648,7 +648,7 @@ class LightOpenID {
             echo $this->data['openid_return_to'] . " <> " . $this->returnUrl;
             return false;
         }
-
+        echo "lkjl";
         $server = $this->discover($this->claimed_id);
 
         foreach (explode(',', $this->data['openid_signed']) as $item) {
@@ -667,7 +667,8 @@ class LightOpenID {
         $response = $this->request($server, 'POST', $params);
 
         echo "R:" . $response . "<br />S:" . $server . "<br />P:<br /><pre>";
-        print_r($params); exit;
+        print_r($params);
+        exit;
         return preg_match('/is_valid\s*:\s*true/i', $response);
     }
 

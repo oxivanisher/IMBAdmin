@@ -77,7 +77,7 @@ if (!empty($_COOKIE['ImbaProxySessionId'])) {
 /**
  * Set Cookie File Path with one session magic
  */
-ImbaSharedFunctions::writeToLog($_SERVER["PHPSESSID"]);
+ImbaSharedFunctions::writeToLog(session_id());
 if ($_SESSION['cookieTmpString'] == null) {
     $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
 }

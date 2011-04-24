@@ -46,6 +46,10 @@ if (empty($set['facility'])) {
     } elseif ($set['facility'] == "auth") {
         //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
+    } elseif ($_GET["logout"] == true || $_POST["logout"] == true) {
+        setcookie("ImbaProxySessionId", "", (time() - 3600));
+        $set['facility'] = "auth";
+        $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH . "?logout=true";
     } elseif ($set['facility'] == "test") {
         //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";
@@ -63,6 +67,14 @@ if (empty($_POST) && (!empty($_GET))) {
  */
 if (empty($_SESSION['cookieFilePath'])) {
     $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . md5($_COOKIE['PHPSESSID'] . rand(1, 99999999));
+}
+
+/**
+ * Link sessins between browsers
+ */
+if (empty($_COOKIE['ImbaProxySessionId']) || empty($_SESSION['cookieTmpString'])) {
+    $_SESSION['cookieTmpString'] = md5($_SESSION['cookieFilePath']);
+    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 }
 
 /**
@@ -153,7 +165,7 @@ if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['facility'] == "test") {
     echo "PROXY SESSION ID: " . session_id() . "<br />";
-    echo "Cookie Content:<br />".file_get_contents($_SESSION['cookieFilePath']) ."<br />";
+    echo "Cookie Content:<br />" . file_get_contents($_SESSION['cookieFilePath']) . "<br />";
     echo $set['answerContent'];
 } elseif ($set['answer']) {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr)

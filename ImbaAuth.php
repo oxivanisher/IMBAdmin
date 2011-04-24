@@ -320,6 +320,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
     $log->setLevel(1);
     $managerLog->insert($log);
-    header("Location: " . ImbaUserContext::getRedirectUrl());
+print_r($GLOBALS);
+    //header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

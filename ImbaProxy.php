@@ -191,5 +191,7 @@ if ($set['facility'] == "test") {
         returnError("No data recieved");
     }
 }
-ImbaSharedFunctions::writeToLog($tmpLogOut);
+foreach (explode("\n", $tmpLogOut) as $line) {
+    ImbaSharedFunctions::writeToLog($line);
+}
 ?>

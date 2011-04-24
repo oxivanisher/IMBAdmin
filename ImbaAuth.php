@@ -77,9 +77,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     if ($_POST["authDone"] == true) {
         $_GET["authDone"] = true;
     }
-        print_r($GLOBALS); exit;
     if ($_GET["authDone"] != true) {
-
         /**
          * Determine Authentication method
          */
@@ -195,6 +193,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
+        print_r($GLOBALS); exit;
         /**
          * first step completed. do the verification and actual login
          */
@@ -206,7 +205,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
-    print_r($GLOBALS); exit;
 
         try {
             $esc_identity = $managerOpenId->openidVerify();

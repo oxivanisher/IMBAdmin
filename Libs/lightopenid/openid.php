@@ -609,7 +609,6 @@ class LightOpenID {
      * @throws ErrorException
      */
     function validate() {
-        echo "validating...";
         # If the request was using immediate mode, a failure may be reported
         # by presenting user_setup_url (for 1.1) or reporting
         # mode 'setup_needed' (for 2.0). Also catching all modes other than

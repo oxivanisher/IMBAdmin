@@ -149,7 +149,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
-                    echo "jgh";
+                    echo session_id();
                     /**
                      * This replaces the old authDone=true
                      */

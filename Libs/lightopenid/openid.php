@@ -647,6 +647,7 @@ class LightOpenID {
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.
             return false;
         }
+        echo "validating...";
 
         $server = $this->discover($this->claimed_id);
 

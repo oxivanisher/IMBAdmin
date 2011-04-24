@@ -36,6 +36,9 @@ switch ($_GET["load"]) {
 
             if (empty($_SESSION['IUC_jsCache'])) {
                 $jsFiles = array(
+                    /**
+                     * These are all our needed js files
+                     */
                     "Libs/jQuery/js/jquery-1.4.4.min.js",
                     "Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js",
                     "Libs/DataTables/media/js/jquery.dataTables.min.js",
@@ -51,25 +54,6 @@ switch ($_GET["load"]) {
                 foreach ($jsFiles as $jsFile) {
                     $_SESSION['IUC_jsCache'] .= file_get_contents($jsFile) . "\n" . "\n";
                 }
-
-                /**
-                 * load static jQuery libs
-                 *
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
-                 */
-                /**
-                 * load our static js scripts
-                 *
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaLogin.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaAdmin.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaGame.js") . "\n";
-                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaMessaging.js") . "\n";
-                 */
             }
             $tmpOut .= $_SESSION['IUC_jsCache'];
 

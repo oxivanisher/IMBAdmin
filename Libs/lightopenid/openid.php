@@ -665,8 +665,8 @@ class LightOpenID {
 
         $response = $this->request($server, 'POST', $params);
 
-        //echo "R:" . $response . "<br />S:" . $server . "<br />P:<br /><pre>";
-        //print_r($params); exit;
+        echo "R:" . $response . "<br />S:" . $server . "<br />P:<br /><pre>";
+        print_r($params); exit;
         return preg_match('/is_valid\s*:\s*true/i', $response);
     }
 

@@ -82,7 +82,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Determine Authentication method
          */
-        if (!empty($_POST['openid']) || (!empty($_GET['openid']))) {
+        if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
             /**
              * OpenID Authentification
              */
@@ -153,7 +153,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                      * This replaces the old authDone=true
                      */
                     ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
-                    
+
                     try {
                         $redirectUrl = $managerOpenId->openidAuth($openid);
 
@@ -227,7 +227,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
               }
              */
             ImbaUserContext::setWaitingForVerify(false);
-            
+
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);

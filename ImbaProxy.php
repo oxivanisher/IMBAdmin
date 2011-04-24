@@ -180,6 +180,7 @@ if ($set['facility'] == "test") {
     ImbaSharedFunctions::writeToLog("ou: " . session_id() . " (" . $set['facility'] . ")");
     echo $set['answerContent'];
 } else {
+    ImbaSharedFunctions::writeToLog("ou: " . session_id() . " (error)");
     if ($set['debug']) {
         displayDebug($set);
     } else {

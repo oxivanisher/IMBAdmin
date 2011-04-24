@@ -153,6 +153,7 @@ if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['facility'] == "test") {
     echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo "Cookie Content:<br />".file_get_contents($_SESSION['cookieFilePath']) ."<br />";
     echo $set['answerContent'];
 } elseif ($set['answer']) {
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr)

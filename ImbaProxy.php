@@ -110,7 +110,7 @@ curl_setopt($session, CURLOPT_COOKIEJAR, $_SESSION['cookieFilePath']);
 curl_setopt($session, CURLOPT_COOKIEFILE, $_SESSION['cookieFilePath']);
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+//curl_setopt($session, CURLOPT_TIMEOUT, 5);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call

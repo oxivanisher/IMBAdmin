@@ -75,6 +75,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
+    echo "asdasd";
     /**
      * we are NOT logged in
      */

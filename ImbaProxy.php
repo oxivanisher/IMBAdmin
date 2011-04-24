@@ -36,7 +36,7 @@ if (empty($_POST['proxyDebug'])) {
  */
 $set['requestUrl'] = "";
 if (empty($set['facility'])) {
-    echo "ERROR: No facility recieved";
+    echo "ERROR:No facility recieved";
     exit;
 } else {
     require_once 'ImbaConstants.php';
@@ -50,7 +50,7 @@ if (empty($set['facility'])) {
         //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";
     } else {
-        echo "ERROR: Unknown facility (" . $set['facility'] . ")";
+        echo "Error:Unknown facility (" . $set['facility'] . ")";
         exit;
     }
 }
@@ -59,32 +59,31 @@ if (empty($_POST) && (!empty($_GET))) {
 }
 
 /**
- * Set Cookie File if not done yet
+ * Set Cookie File Path if not done yet
  */
 if (empty($_SESSION['cookieFilePath'])) {
-    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . md5($_COOKIE['PHPSESSID'].rand(1,99999999));
+    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . md5($_COOKIE['PHPSESSID'] . rand(1, 99999999));
 }
 
 /**
  * Parse the cookie into the session if it exists
  *
-if (file_exists($set['cookieFile'])) {
-    unset($_SESSION['IUC_cookieStore']);
-    $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
-    //unlink($set['cookieFile']);
-}
+  if (file_exists($set['cookieFile'])) {
+  unset($_SESSION['IUC_cookieStore']);
+  $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
+  //unlink($set['cookieFile']);
+  }
  * 
  */
-
 /*
  * generate cookie data for sending
  *
-$set['cookieSendData'] = "";
-if (!empty($_SESSION['IUC_cookieStore'])) {
-    foreach ($_SESSION['IUC_cookieStore'] as $key => $value) {
-        $set['cookieSendData'] .= $key . "=" . $value . ";";
-    }
-}
+  $set['cookieSendData'] = "";
+  if (!empty($_SESSION['IUC_cookieStore'])) {
+  foreach ($_SESSION['IUC_cookieStore'] as $key => $value) {
+  $set['cookieSendData'] .= $key . "=" . $value . ";";
+  }
+  }
  * 
  */
 
@@ -107,20 +106,11 @@ $session = curl_init($set['requestUrl']);
 
 curl_setopt($session, CURLOPT_POST, true);
 curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
-
-//if (empty($set['cookieSendData'])) {
-    curl_setopt($session, CURLOPT_COOKIEJAR, $_SESSION['cookieFilePath']);
-    /*
-     * } else {
-     * */
-    curl_setopt($session, CURLOPT_COOKIEFILE, $_SESSION['cookieFilePath']);
-    /*
-     * 
-     */
-//}
+curl_setopt($session, CURLOPT_COOKIEJAR, $_SESSION['cookieFilePath']);
+curl_setopt($session, CURLOPT_COOKIEFILE, $_SESSION['cookieFilePath']);
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
-//curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+curl_setopt($ch, CURLOPT_TIMEOUT, 5);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 // Make the call
@@ -128,10 +118,6 @@ $set['answer'] = curl_exec($session);
 //$set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
 
-if ($mimeType != "") {
-    // The web service returns XML. Set the Content-Type appropriately
-    //header("Content-Type: ".$mimeType);
-}
 
 /**
  * Compute return

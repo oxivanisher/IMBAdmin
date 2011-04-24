@@ -35,25 +35,43 @@ switch ($_GET["load"]) {
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
 
             if (empty($_SESSION['IUC_jsCache'])) {
-                /**
-                 * load static jQuery libs
-                 */
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
+                $jsFiles = array(
+                    "Libs/jQuery/js/jquery-1.4.4.min.js",
+                    "Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js",
+                    "Libs/DataTables/media/js/jquery.dataTables.min.js",
+                    "Libs/jquery_jeditable/jquery.jeditable.js",
+                    "Libs/jgrowl/jquery.jgrowl_compressed.js",
+                    "Media/ImbaBaseMethods.js",
+                    "Media/ImbaLogin.js",
+                    "Media/ImbaAdmin.js",
+                    "Media/ImbaGame.js",
+                    "Media/ImbaMessaging.js"
+                );
+                $_SESSION['IUC_jsCache'] = "";
+                foreach ($jsFiles as $jsFile) {
+                    $_SESSION['IUC_jsCache'] .= file_get_contents($jsFile) . "\n" . "\n";
+                }
 
                 /**
-                 * load our static js scripts depending of proxy or not and set the js var
+                 * load static jQuery libs
+                 *
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-1.4.4.min.js") . "\n" . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/DataTables/media/js/jquery.dataTables.min.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jquery_jeditable/jquery.jeditable.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Libs/jgrowl/jquery.jgrowl_compressed.js") . "\n";
                  */
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaLogin.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaAdmin.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaGame.js") . "\n";
-                $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaMessaging.js") . "\n";
+                /**
+                 * load our static js scripts
+                 *
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaLogin.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaAdmin.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaGame.js") . "\n";
+                  $_SESSION['IUC_jsCache'] .= file_get_contents("Media/ImbaMessaging.js") . "\n";
+                 */
             }
-            echo $_SESSION['IUC_jsCache'];
+            $tmpOut .= $_SESSION['IUC_jsCache'];
 
 
 
@@ -79,9 +97,13 @@ switch ($_GET["load"]) {
             $file_array = file($IMBAdminIndexTemplate);
             $thrustRoot = ImbaSharedFunctions::getTrustRoot();
             foreach ($file_array as $line) {
-                $tmpOut .= trim($line);
-                $tmpOut .= "\\\n";
+                $tmpOut .= trim($line) . "\\\n";
             }
+
+            /**
+             * End js/HTML injection code
+             */
+            $tmpOut .= "</div>\";\ndocument.write(htmlContent);\n\n";
 
             /**
              * Some replace magic
@@ -90,12 +112,7 @@ switch ($_GET["load"]) {
             $tmpOut = str_replace("MYAUTHPATHREPLACE", $authPath, $tmpOut);
 
             /**
-             * End js/HTML injection code
-             */
-            $tmpOut .= "</div>\";\ndocument.write(htmlContent);\n\n";
-
-            /**
-             * Write all informations at once (should be much faster than echo
+             * Write the stuff
              */
             echo $tmpOut;
         } else {

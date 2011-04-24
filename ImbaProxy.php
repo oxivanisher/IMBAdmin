@@ -6,9 +6,9 @@ require_once 'Controller/ImbaSharedFunctions.php';
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
 
 //print_r($GLOBALS); exit;
-if ($_POST['secSession']) {
-    session_name($_POST['secSession']);
-    ImbaSharedFunctions::writeToLog("ad: " . $_POST['secSession']);
+if ($_POST['action']) {
+    //session_name($_POST['secSession']);
+    ImbaSharedFunctions::writeToLog("ad: " . $_POST['action']);
 }
 
 session_start();

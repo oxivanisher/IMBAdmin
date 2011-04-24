@@ -55,6 +55,20 @@ if (empty($_POST) && (!empty($_GET))) {
     $_POST = $_GET;
 }
 
+/**
+ * Set Cookie File
+ */
+$set['cookieFile'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID'];
+
+/**
+ * Parse the cookie into the session if it exists
+ */
+if (file_exists($set['cookieFile'])) {
+    unset($_SESSION['IUC_cookieStore']);
+    $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
+    unlink ($set['cookieFile']);
+}
+
 /*
  * generate cookie data for sending
  */
@@ -64,11 +78,6 @@ if (!empty($_SESSION['IUC_cookieStore'])) {
         $set['cookieSendData'] .= $key . "=" . $value . ";";
     }
 }
-
-/**
- * Set Cookie File
- */
-$set['cookieFile'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOKIE['PHPSESSID'];
 
 /**
  * Create Post var
@@ -92,8 +101,11 @@ curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 
 if (empty($set['cookieSendData'])) {
     curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFile']);
-} else {
-    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
+/*
+ * } else {
+    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']); 
+ * 
+ */
 }
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);

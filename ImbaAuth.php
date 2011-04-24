@@ -74,6 +74,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
+    if ($_POST["authDone"] == true) {
+        $_GET["authDone"] = true;
+    }
     if ($_GET["authDone"] != true) {
 
         /**

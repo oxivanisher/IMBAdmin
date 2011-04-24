@@ -9,9 +9,9 @@ ImbaSharedFunctions::writeToLog("-----------------------------------------------
 session_start();
 //print_r($GLOBALS); exit;
 $mySession = false;
-if (! empty($_COOKIE['PHPSESSID'])) {
+if (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
-} elseif (! empty($_POST['secSession'])) {
+} elseif (!empty($_POST['secSession'])) {
     $mySession = $_POST['secSession'];
 }
 
@@ -80,19 +80,6 @@ if (empty($_POST) && (!empty($_GET))) {
 }
 
 /**
- * Link sessions between browsers together like magic
- * - one cookie store file for $_COOKIE['ImbaProxySessionId']
- */
-/*
-  if (!empty($_COOKIE['ImbaProxySessionId'])) {
-  $set['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
-  } else if (empty($_COOKIE['ImbaProxySessionId'])) {
-  $set['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
-  } else if ($_COOKIE['ImbaProxySessionId'] != $set['cookieTmpString']) {
-  $set['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
-  }
-
-  /**
  * Set Cookie File Path with one session magic
  */
 if ($mySession != false) {
@@ -178,13 +165,16 @@ if ($set['facility'] == "test") {
     setcookie("PHPSESSID", "", time() - 3600);
     session_destroy();
     session_write_close();
-} elseif ($set['answer']) {
-    $phpSessBool = false;
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
-        } else {
-            $phpSessBool = true;
+        }
+    }
+    echo $set['answerContent'];
+} elseif ($set['answer']) {
+    foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
+        if (strpos($hdr, "PHPSESSID") == false) {
+            header($hdr);
         }
     }
     if ($mySession != false) {

@@ -82,7 +82,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Determine Authentication method
          */
-        if (!empty($_POST['openid'])) {
+        if (!empty($_POST['openid']) || !empty($_GET['openid'])) {
             /**
              * OpenID Authentification
              */
@@ -165,7 +165,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
-                            echo "asdasd"; exit;
                             header("Location: " . $redirectUrl);
                         } else {
                             /**

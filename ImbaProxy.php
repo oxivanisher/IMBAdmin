@@ -165,6 +165,8 @@ if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['facility'] == "test") {
     echo "PROXY SESSION ID: " . session_id() . "<br />";
+    echo "Client cookie ImbaProxySessionId: " . $_COOKIE['ImbaProxySessionId'] . "<br />";
+    echo "Client session cookieTmpString: " . $_SESSION['cookieTmpString'] . "<br />";
     echo "Cookie Content:<br /><pre>" . file_get_contents($_SESSION['cookieFilePath']) . "</pre><br />";
     echo $set['answerContent'];
 } elseif ($set['answer']) {

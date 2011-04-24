@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 if ($_COOKIE['ImbaProxySessionId']) {
     session_id($_COOKIE['ImbaProxySessionId']);
@@ -66,21 +67,21 @@ if (empty($_POST) && (!empty($_GET))) {
  * - one cookie store file for $_COOKIE['ImbaProxySessionId']
  */
 /*
-if (!empty($_COOKIE['ImbaProxySessionId'])) {
-    $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
-} else if (empty($_COOKIE['ImbaProxySessionId'])) {
-    $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
-} else if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
-    $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
-}
+  if (!empty($_COOKIE['ImbaProxySessionId'])) {
+  $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
+  } else if (empty($_COOKIE['ImbaProxySessionId'])) {
+  $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
+  } else if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
+  $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
+  }
 
-/**
+  /**
  * Set Cookie File Path with one session magic
  */
-ImbaSharedFunctions::writeToLog("my: ".session_id());
- $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . session_id();
+ImbaSharedFunctions::writeToLog("my: " . session_id());
+$_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . session_id();
 // setcookie("ImbaProxySessionId", "", (time() - 3600));
- 
+
 /**
  * Create Post var
  */
@@ -120,7 +121,6 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 /**
  * generate output
  */
-
 function displayDebug($set) {
     echo "<h2>Debug Info:</h2>";
     echo "requestUrl: " . $set['requestUrl'] . "<br />";
@@ -161,15 +161,16 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
-    ImbaSharedFunctions::writeToLog("ou: ".session_id());
+    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     header('Access-Control-Allow-Origin: *');
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID")) {
-        //}
-      
-        header($hdr);
-    } else {
-          ImbaSharedFunctions::writeToLog("hd: ".$hdr);
+            //}
+
+            header($hdr);
+        } else {
+            ImbaSharedFunctions::writeToLog("hd: " . $hdr);
+        }
     }
     setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));
     echo $set['answerContent'];

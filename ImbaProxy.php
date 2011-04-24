@@ -1,5 +1,4 @@
 <?php
-
 header('Access-Control-Allow-Origin: *');
 session_start();
 if ($_COOKIE['ImbaProxySessionId']) {
@@ -165,7 +164,7 @@ if ($set['facility'] == "test") {
 } elseif ($set['answer']) {
     ImbaSharedFunctions::writeToLog("ou: ".session_id());
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        if (! strpos($hdr, "PHPSESSID")) {
+        if (strpos($hdr, "PHPSESSID")) {
         //}
         ImbaSharedFunctions::writeToLog("hd: ".$hdr);
         header($hdr);

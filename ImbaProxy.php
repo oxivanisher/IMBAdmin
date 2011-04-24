@@ -66,7 +66,7 @@ $set['cookieFile'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession" . $_COOK
 if (file_exists($set['cookieFile'])) {
     unset($_SESSION['IUC_cookieStore']);
     $_SESSION['IUC_cookieStore'] = ImbaSharedFunctions::curlParseCookiefile($set['cookieFile']);
-    unlink ($set['cookieFile']);
+    //unlink($set['cookieFile']);
 }
 
 /*
@@ -101,11 +101,13 @@ curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 
 if (empty($set['cookieSendData'])) {
     curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFile']);
-/*
- * } else {
-    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']); 
- * 
- */
+    /*
+     * } else {
+     * */
+    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFile']);
+    /*
+     * 
+     */
 }
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);

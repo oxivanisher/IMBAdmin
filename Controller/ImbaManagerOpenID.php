@@ -45,6 +45,7 @@ class ImbaManagerOpenID {
      */
     public function openidVerify() {
         $this->lightOpenid = new LightOpenID;
+        $this->lightOpenid->verify_peer = false;
         $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 

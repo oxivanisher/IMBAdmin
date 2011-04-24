@@ -154,7 +154,7 @@ if ($set['facility'] == "test") {
     echo "Cookie Content:<br /><pre>" . file_get_contents($_SESSION['cookieFilePath']) . "</pre><br />";
     echo $set['answerContent'];
 } elseif ($set['facility'] == "logout") {
-    setcookie("ImbaProxySessionId", "", (time() - 3600));
+    //setcookie("ImbaProxySessionId", "", (time() - 3600));
     unlink($_SESSION['cookieFilePath']);
     unset($_SESSION['cookieTmpString']);
     setcookie(session_id(), "", time() - 3600);
@@ -166,11 +166,12 @@ if ($set['facility'] == "test") {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
         } else {
-            header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
+            //header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
+            
             ImbaSharedFunctions::writeToLog("hd: " . session_id());
         }
     }
-    setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));
+    setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
     echo $set['answerContent'];
 } else {
     if ($set['debug']) {

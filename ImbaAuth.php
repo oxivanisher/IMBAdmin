@@ -68,8 +68,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
-    echo "sdf";
-
     /**
      * Save our referer to session
      */
@@ -81,6 +79,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * we are NOT logged in
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
+            echo "sdf";
         /**
          * Determine Authentication method
          */

@@ -68,7 +68,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     session_destroy();
     session_write_close();
 
-    header("Location: " . $_POST['imbaSsoOpenIdLogoutReferer']);
+    if (empty($_POST['imbaSsoOpenIdLogoutReferer'])) {
+        $targetUrl = ImbaSharedFunctions::getTrustRoot();
+    } else {
+        $targetUrl = $_POST['imbaSsoOpenIdLogoutReferer'];
+    }
+    header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
      * we are NOT logged in

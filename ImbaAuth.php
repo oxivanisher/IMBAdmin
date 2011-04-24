@@ -207,7 +207,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
-            echo $esc_identity;
+            echo "--".$esc_identity."--";
 
             /**
              * This is probably a login-greencard. so DONT ACTIVATE!1!11!einself

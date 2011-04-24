@@ -33,6 +33,7 @@
                 action: "module",
                 module: "Maintenance",
                 request: "deletesetting",
+                secSession: "{$secSession}",
                 settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
             });
                 
@@ -50,6 +51,7 @@
                 action: "module",
                 module: "Maintenance",
                 request: "addsetting",
+                secSession: "{$secSession}",
                 name: ImbaAddSettingName.value.valueOf(),
                 value: ImbaAddSettingValue.value.valueOf()
             });

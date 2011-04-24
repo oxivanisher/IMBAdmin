@@ -33,6 +33,7 @@
                     action: "module",
                     module: "Admin",
                     request: "deleterole",
+                    secSession: "{$secSession}",
                     roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
                 });
 
@@ -56,6 +57,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addrole",
+                    secSession: "{$secSession}",
                     role: ImbaAddRoleRole.value.valueOf(),
                     handle: ImbaAddRoleHandle.value.valueOf(),
                     name: ImbaAddRoleName.value.valueOf(),

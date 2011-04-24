@@ -17,6 +17,7 @@
                 action: "module",
                 module: "Admin",
                 request: "updateuserprofile",
+                secSession: "{$secSession}",
                 myProfileOpenId: "{$openid}",
                 myProfileMotto: $("#myProfileMotto").val(),
                 myProfileUsertitle: $("#myProfileUsertitle").val(),

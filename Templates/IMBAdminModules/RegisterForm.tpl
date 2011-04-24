@@ -38,6 +38,7 @@
             action: "module",
             module: "Register",
             request: "checkCaptcha",
+            secSession: "{$secSession}",
             challenge: $("#recaptcha_challenge_field").val(),
             answer: $("#recaptcha_response_field").val(),
             firstname: $("#regFirstname").val(),

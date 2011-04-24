@@ -30,6 +30,7 @@
                             action: "module",
                             module: "User",
                             request: "addpropertytomygames",
+                            secSession: "{$secSession}",
                             propertyid: $("#ImbaAjaxUsersMyGamesModalPropertyId").val(),
                             propertyvalue: $("#ImbaAjaxUsersMyGamesModalPropertyValue").val()
                         }, function(response){
@@ -77,6 +78,7 @@
                 action: "module",
                 module: "User",
                 request: "updatemygames",
+                secSession: "{$secSession}",
                 gamesIPlay: gamesIPlay
             }, function(response){
                 if (response != "Ok"){                    

@@ -7,6 +7,7 @@
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
+                secSession: {$secSession},
                 request: "updategame",
                 gameid: "{$id}",
                 name: $("#myGameName").val(),
@@ -33,6 +34,7 @@
                     action: "module",
                     module: "Admin",
                     request: "deletegameproperty",
+                    secSession: "{$secSession}",
                     gamepropertyid: this.parentNode.parentNode.getAttribute('id').substr(15)
                 }, function(response){
                     if (response != "Ok"){
@@ -52,6 +54,7 @@
                     module: "Admin",
                     request: "addpropertytogame",
                     gameid: "{$id}",
+                    secSession: "{$secSession}",
                     property: $("#myGameAddProperty").val()
                 }, function(response){
                     if (response != "Ok"){

@@ -33,6 +33,7 @@
                 action: "module",
                 module: "Admin",
                 request: "deletegamecategory",
+                secSession: "{$secSession}",
                 categoryid: this.parentNode.parentNode.getAttribute('id').substr(11)
             });
                 
@@ -50,6 +51,7 @@
                 action: "module",
                 module: "Admin",
                 request: "addgamecategory",
+                secSession: {$secSession},
                 name: ImbaAddCategoryName.value.valueOf()
             });
 

@@ -15,6 +15,7 @@
                     action: "module",
                     module: "Admin",
                     request: "deleteportal",
+                    secSession: "{$secSession}",
                     portalid: this.parentNode.parentNode.getAttribute('id').substr(9)
                 }, function(response){
                     var data = {
@@ -37,6 +38,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addportal",
+                    secSession: "{$secSession}",
                     name: ImbaAddPortalName.value.valueOf(),
                     comment: ImbaAddPortalComment.value.valueOf(),
                     icon: ImbaAddPortalIcon.value.valueOf()                    

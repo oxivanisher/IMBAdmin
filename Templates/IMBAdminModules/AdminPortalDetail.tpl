@@ -8,6 +8,7 @@
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
+                secSession: "{$secSession}",
                 request: "updateportal",
                 portalid: $("#myPortalId").val(),
                 name: $("#myPortalName").val(),

@@ -8,6 +8,7 @@
                 action: "module",
                 module: "User",
                 request: "updatemyprofile",
+                secSession: "{$secSession}",
                 myProfileOpenId: "{$openid}",
                 myProfileMotto: $("#myProfileMotto").val(),
                 myProfileUsertitle: $("#myProfileUsertitle").val(),

@@ -14,6 +14,7 @@
                 $.post(ajaxEntry, {
                     action: "module",
                     module: "Admin",
+                    secSession: "{$secSession}",
                     request: "deletegame",
                     gameid: this.parentNode.parentNode.getAttribute('id').substr(7)
                 });
@@ -34,6 +35,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addgame",
+                    secSession: "{$secSession}",
                     name: ImbaAddGameName.value.valueOf(),
                     icon: ImbaAddGameIcon.value.valueOf()                    
                 });

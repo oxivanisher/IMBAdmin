@@ -78,12 +78,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
-    /*
-    if ($_POST["authDone"] == true) {
-        $_GET["authDone"] = true;
-    }
-     *
-     */
     if (ImbaUserContext::getWaitingForVerify() != true) {
         /**
          * Determine Authentication method
@@ -171,6 +165,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
+                            echo "asdasd"; exit;
                             header("Location: " . $redirectUrl);
                         } else {
                             /**

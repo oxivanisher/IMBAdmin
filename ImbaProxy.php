@@ -77,9 +77,11 @@ if (empty($_SESSION['cookieTmpString'])) {
          */
         $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
     }
+    setcookie("ImbaProxySessionId", "", (time() - 3600));
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 }
 if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
+    setcookie("ImbaProxySessionId", "", (time() - 3600));
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
 }
 

@@ -1,9 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 session_start();
-if ($_COOKIE['ImbaProxySessionId']) {
-    session_id($_COOKIE['ImbaProxySessionId']);
-}
+
 /**
  * Determine which is our facility
  */
@@ -166,6 +164,7 @@ if ($set['facility'] == "test") {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
         } else {
+            header("Set-Cookie: PHPSESSID=".session_id()."; path=/ ");
             ImbaSharedFunctions::writeToLog("hd: " . $hdr);
         }
     }

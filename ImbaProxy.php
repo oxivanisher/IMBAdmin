@@ -65,26 +65,13 @@ if (empty($_POST) && (!empty($_GET))) {
  * Link sessions between browsers together like magic
  * - one cookie store file for $_COOKIE['ImbaProxySessionId']
  */
-if (empty($_SESSION['cookieTmpString'])) {
-    if (!empty($_COOKIE['ImbaProxySessionId'])) {
-        /**
-         * rejoin authenticated session
-         */
-        $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
-    } else {
-        /**
-         * Found old or wrong session. create a new one or this is a new session
-         */
-        $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
-    }
-    setcookie("ImbaProxySessionId", "", (time() - 3600));
+if (empty($_COOKIE['ImbaProxySessionId'])) {
+    $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
+} else if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
+    $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
 }
-if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {
-    setcookie("ImbaProxySessionId", "", (time() - 3600));
-    setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
-}
-setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
+
 /**
  * Set Cookie File Path with one session magic
  */

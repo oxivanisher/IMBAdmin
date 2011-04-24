@@ -16,9 +16,8 @@ if (! empty($_COOKIE['PHPSESSID'])) {
 }
 
 if ($mySession != false) {
-    $mySession = $_POST['secSession'];
     ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
-    ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);
+    ImbaSharedFunctions::writeToLog("secSession: " . $mySession);
 } else {
     $mySession = false;
 }

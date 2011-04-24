@@ -162,11 +162,8 @@ if ($set['facility'] == "test") {
     session_write_close();
 } elseif ($set['answer']) {
     ImbaSharedFunctions::writeToLog("ou: " . session_id());
-    header('Access-Control-Allow-Origin: *');
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID")) {
-            //}
-
             header($hdr);
         } else {
             ImbaSharedFunctions::writeToLog("hd: " . $hdr);

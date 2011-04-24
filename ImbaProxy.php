@@ -2,7 +2,9 @@
 
 header('Access-Control-Allow-Origin: *');
 session_start();
-
+if ($_COOKIE['ImbaProxySessionId']) {
+    session_id($_COOKIE['ImbaProxySessionId']);
+}
 /**
  * Determine which is our facility
  */
@@ -162,13 +164,13 @@ if ($set['facility'] == "test") {
     session_write_close();
 } elseif ($set['answer']) {
     ImbaSharedFunctions::writeToLog("ou: ".session_id());
-    setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         //if (strpos($hdr, "Set-Cookie")) {
         //}
         ImbaSharedFunctions::writeToLog("hd: ".$hdr);
         header($hdr);
     }
+    setcookie("ImbaProxySessionId", session_id(), (time() + (60 * 60 * 24 * 30)));
     echo $set['answerContent'];
 } else {
     if ($set['debug']) {

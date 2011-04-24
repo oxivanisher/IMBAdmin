@@ -5,7 +5,7 @@
  * start the php session
  */
 session_start();
-echo "sda";
+
 /**
  * Load dependencies
  */
@@ -75,6 +75,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
+    echo "sda";
+
     /**
      * we are NOT logged in
      */

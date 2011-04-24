@@ -76,9 +76,7 @@ if (!empty($_SESSION['cookieTmpString'])) {
 /**
  * Set Cookie File Path with one session magic
  */
-if (empty($_SESSION['cookieFilePath'])) {
-    $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
-}
+ $_SESSION['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $_SESSION['cookieTmpString'];
  setcookie("ImbaProxySessionId", "", (time() - 3600));
  
 /**

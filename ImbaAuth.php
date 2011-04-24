@@ -79,8 +79,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
      *
      */
-    if (ImbaUserContext::getWaitingForVerify() == true) {
-        ImbaUserContext::setWaitingForVerify(false);
+    if (ImbaUserContext::getWaitingForVerify() != true) {
         /**
          * Determine Authentication method
          */
@@ -216,8 +215,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify();
             if (empty($esc_identity)) {
-                header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . $_GET['openid_identity']);
-                throw new Exception("Authentification failed!");
+                //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . $_GET['openid_identity']);
+                throw new Exception("OpenId Verification failed!");
             }
 
             /**
@@ -227,6 +226,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
               $esc_identity = $_GET['openid_identity'];
               }
              */
+            ImbaSharedFunctions::setWaitingForVerify(false);
+            
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);

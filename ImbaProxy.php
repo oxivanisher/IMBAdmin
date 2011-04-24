@@ -1,10 +1,10 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 
-ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
-
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
+ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
+
 print_r($GLOBALS); exit;
 if ($_POST['PHPSESSID']) {
     session_name($_POST['PHPSESSID']);

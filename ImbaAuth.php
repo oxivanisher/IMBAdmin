@@ -84,7 +84,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          * Determine Authentication method
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
-              echo "sdf";          /**
+          /**
              * OpenID Authentification
              */
             $authMethod = "openid";
@@ -108,7 +108,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 if (!empty($_POST["openid"])) {
                     $_POST["openid"] = trim($_POST["openid"]);
                     $redirectUrl = null;
-
+              echo "sdf";
                     /**
                      * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
                      */

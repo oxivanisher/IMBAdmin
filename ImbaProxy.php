@@ -20,7 +20,7 @@ if (empty($_POST['facility'])) {
 /**
  * Are we in debug mode?
  */
-$set['debug'] = true;
+$set['debug'] = false;
 if (empty($_POST['proxyDebug'])) {
     if (!empty($_GET['proxyDebug'])) {
         $set['debug'] = true;
@@ -44,12 +44,10 @@ if (empty($set['facility'])) {
     if ($set['facility'] == "ajax") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_PATH;
     } elseif ($set['facility'] == "auth") {
-        //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
     } elseif ($_GET["logout"] == true || $_POST["logout"] == true) {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH . "?logout=true";
     } elseif ($set['facility'] == "test") {
-        //$set['debug'] = true;
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";
     } else {
         echo "Error:Unknown facility (" . $set['facility'] . ")";
@@ -119,7 +117,6 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 $set['answer'] = curl_exec($session);
 //$set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
-
 
 /**
  * Compute return

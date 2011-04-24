@@ -68,18 +68,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     }
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
+    /**
+     * Save our referer to session
+     */
+    if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+        ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+    }
 
     /**
      * we are NOT logged in
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
-        /**
-         * Save our referer to session
-         */
-        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-        }
-
         /**
          * Determine Authentication method
          */
@@ -320,7 +319,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setMessage("Final redirection (Logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
     $log->setLevel(1);
     $managerLog->insert($log);
-print_r($GLOBALS);
+    print_r($GLOBALS);
     //header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ?>

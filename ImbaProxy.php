@@ -113,7 +113,7 @@ if ($mimeType != "") {
 /**
  * Compute return
  */
-list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['answer'], 2);
+list($set['answerContent'], $set['answerHeaders']) = explode("\r\n\r\n", $set['answer'], 2);
 echo $set['answerContent']; exit;
 /**
  * generate output

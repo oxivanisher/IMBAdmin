@@ -65,8 +65,8 @@ if (empty($_POST) && (!empty($_GET))) {
  * Link sessions between browsers together like magic
  * - one cookie store file for $_COOKIE['ImbaProxySessionId']
  */
-if (!empty($_SESSION['cookieTmpString'])) {
-    true;
+if (!empty($_COOKIE['ImbaProxySessionId'])) {
+    $_SESSION['cookieTmpString'] = $_COOKIE['ImbaProxySessionId'];
 } else if (empty($_COOKIE['ImbaProxySessionId'])) {
     $_SESSION['cookieTmpString'] = md5($_COOKIE['PHPSESSID'] . time() . rand(1, 9999999999));
 } else if ($_COOKIE['ImbaProxySessionId'] != $_SESSION['cookieTmpString']) {

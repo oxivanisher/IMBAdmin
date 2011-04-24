@@ -160,7 +160,7 @@ if ($set['facility'] == "test") {
 } elseif ($set['answer']) {
     setcookie("ImbaProxySessionId", $_SESSION['cookieTmpString'], (time() + (60 * 60 * 24 * 30)));
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        if (strpos($hdr, "Set-Cookie")) {
+        //if (strpos($hdr, "Set-Cookie")) {
         //}
         //echo $hdr;
         header($hdr);

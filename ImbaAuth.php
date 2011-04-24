@@ -137,7 +137,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                         }
                     }
-              echo "sdf";
 
                     /**
                      * try to do the first step of the openid authentication steps
@@ -167,6 +166,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
+                                          echo "sdf";
+
                             header("Location: " . $redirectUrl);
                         } else {
                             /**

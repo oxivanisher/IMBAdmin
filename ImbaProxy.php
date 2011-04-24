@@ -131,7 +131,7 @@ function displayDebug($set) {
 function returnError($set) {
     echo "Error:Proxy not working";
 }
-echo  "Error:Proxy not working"; exit;
+
 if ($set['debug']) {
     displayDebug($set);
 } elseif ($set['response']) {

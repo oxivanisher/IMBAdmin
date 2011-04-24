@@ -1,10 +1,11 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 session_start();
 ImbaSharedFunctions::writeToLog("-------------------------------------------------------");
-ImbaSharedFunctions::writeToLog("in: " .$_COOKIE['PHPSESSID']);
+ImbaSharedFunctions::writeToLog("in: " . $_COOKIE['PHPSESSID']);
 
 /**
  * Determine which is our facility
@@ -161,16 +162,12 @@ if ($set['facility'] == "test") {
     session_destroy();
     session_write_close();
 } elseif ($set['answer']) {
-    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
-        } else {
-            //header("Set-Cookie: PHPSESSID=" . session_id() . "; path=/ ");
-            
-            ImbaSharedFunctions::writeToLog("hd: " . session_id());
         }
     }
+    ImbaSharedFunctions::writeToLog("ou: " . session_id());
     setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
     echo $set['answerContent'];
 } else {

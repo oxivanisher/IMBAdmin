@@ -34,6 +34,9 @@ if (empty($_POST['proxyDebug'])) {
 /**
  * Determine which file is our target $requestUrl
  */
+if (!($_GET["logout"] == false && $_POST["logout"] == false)) {
+    $set['facility'] = "logout";
+}
 $set['requestUrl'] = "";
 if (empty($set['facility'])) {
     echo "ERROR:No facility recieved";
@@ -45,8 +48,7 @@ if (empty($set['facility'])) {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AJAX_MAIN_PATH;
     } elseif ($set['facility'] == "auth") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH;
-    } elseif (!($_GET["logout"] == false && $_POST["logout"] == false)) {
-        $set['facility'] == "logout";
+    } elseif ($set['facility'] == "logout") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . ImbaConstants::$WEB_AUTH_MAIN_PATH . "?logout=true";
     } elseif ($set['facility'] == "test") {
         $set['requestUrl'] = ImbaSharedFunctions::getTrustRoot() . "Tools/ProxySessionTest.php";

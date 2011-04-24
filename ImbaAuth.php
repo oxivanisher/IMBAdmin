@@ -1,4 +1,5 @@
 <?php
+
 //header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
@@ -70,7 +71,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
     header("Location: " . $_POST['imbaSsoOpenIdLogoutReferer']);
 } elseif (!ImbaUserContext::getLoggedIn()) {
-    print_r($GLOBALS); exit;
     /**
      * we are NOT logged in
      */
@@ -194,6 +194,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 true;
         }
     } else {
+        print_r($GLOBALS);
+        exit;
         /**
          * first step completed. do the verification and actual login
          */
@@ -208,7 +210,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         try {
             $esc_identity = $managerOpenId->openidVerify();
-            
+
             /**
              * This is a strange workaround, i know
              */
@@ -238,7 +240,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                
+
                 header("Location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -265,7 +267,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setUserRole($currentUser->getRole());
                 ImbaUserContext::setUserId($currentUser->getId());
                 $managerUser->setMeOnline();
-
             }
             header("Location: " . ImbaUserContext::getRedirectUrl());
         } catch (Exception $ex) {
@@ -276,7 +277,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
     }
 } else {
-/**
+    /**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
      * - set cookie with logged in openid for autofill login box

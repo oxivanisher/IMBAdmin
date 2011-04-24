@@ -77,6 +77,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     if ($_POST["authDone"] == true) {
         $_GET["authDone"] = true;
     }
+        print_r($GLOBALS); exit;
     if ($_GET["authDone"] != true) {
 
         /**

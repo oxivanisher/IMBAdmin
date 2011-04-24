@@ -52,9 +52,8 @@ $(document).ready(function() {
     // Checking if user is online
     $.post(ajaxEntry, {
         action: "user",
-        secSession: "phpSessionID"
+        secSession: phpSessionID
     }, function (response){
-        alert('asd');
         if (checkError(response) == false) {  
             if (response == "Need to register") {
                 setLoggedIn(false);

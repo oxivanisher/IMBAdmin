@@ -50,7 +50,7 @@ $(document).ready(function() {
     });
  
     // Checking if user is online
-    alert('asd' + phpSessionID);
+    alert('asd');
     $.post(ajaxEntry, {
         action: "user",
         secSession: "phpSessionID"
@@ -187,7 +187,7 @@ function refreshUsersOnline(){
         $.post(ajaxEntry, {
             action: "user",
             loadusersonlinelist : "true",
-            secSession: "phpSessionID"
+            secSession: phpSessionID
         }, function (response){
             //create list for tag links
             $("#imbaUsersOnline").html("");

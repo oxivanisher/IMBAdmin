@@ -8,7 +8,8 @@ ImbaSharedFunctions::writeToLog("-----------------------------------------------
 //print_r($GLOBALS); exit;
 if ($_POST['action']) {
     //session_name($_POST['secSession']);
-    ImbaSharedFunctions::writeToLog("ad: " . $_POST['action']);
+    ImbaSharedFunctions::writeToLog("action: " . $_POST['action']);
+    ImbaSharedFunctions::writeToLog("secSession: " . $_POST['secSession']);
 }
 
 session_start();

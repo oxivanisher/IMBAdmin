@@ -50,11 +50,11 @@ $(document).ready(function() {
     });
  
     // Checking if user is online
-    alert('asd');
     $.post(ajaxEntry, {
         action: "user",
         secSession: "phpSessionID"
     }, function (response){
+        alert('asd');
         if (checkError(response) == false) {  
             if (response == "Need to register") {
                 setLoggedIn(false);

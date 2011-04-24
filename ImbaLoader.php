@@ -1,10 +1,11 @@
 <?php
+
 require_once 'ImbaConstants.php';
 $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
-        header( 'Content-Type: application/javascript' );
+        header('Content-Type: application/javascript');
         /**
          * Load IMBAdmin index template
          */
@@ -40,7 +41,7 @@ switch ($_GET["load"]) {
                 $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
                 $ajaxPath = ImbaConstants::$WEB_AJAX_PROXY_FILE;
             }
-                        
+
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
             $tmpOut .= file_get_contents("Media/ImbaBaseMethods.js") . "\n";
             $tmpOut .= file_get_contents("Media/ImbaLogin.js") . "\n";
@@ -69,13 +70,16 @@ switch ($_GET["load"]) {
              */
             $file_array = file($IMBAdminIndexTemplate);
             $thrustRoot = ImbaSharedFunctions::getTrustRoot();
-            
             foreach ($file_array as $line) {
                 $tmpOut .= trim($line);
-                $tmpOut = str_replace("MYWEBPATHREPLACE", $thrustRoot, $tmpOut);
-                $tmpOut = str_replace("MYAUTHPATHREPLACE", $authPath, $tmpOut);
                 $tmpOut .= "\\\n";
             }
+
+            /**
+             * Some replace magic
+             */
+            $tmpOut = str_replace("MYWEBPATHREPLACE", $thrustRoot, $tmpOut);
+            $tmpOut = str_replace("MYAUTHPATHREPLACE", $authPath, $tmpOut);
 
             /**
              * End js/HTML injection code

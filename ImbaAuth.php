@@ -226,7 +226,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
               $esc_identity = $_GET['openid_identity'];
               }
              */
-            ImbaSharedFunctions::setWaitingForVerify(false);
+            ImbaUserContext::setWaitingForVerify(false);
             
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");

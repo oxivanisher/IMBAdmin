@@ -50,7 +50,7 @@ $(document).ready(function() {
     });
  
     // Checking if user is online
-    alert(phpSessionID);
+    alert('asd' + phpSessionID);
     $.post(ajaxEntry, {
         action: "user",
         secSession: "phpSessionID"

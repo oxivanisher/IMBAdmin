@@ -204,7 +204,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("No Authtype included");
                 true;
         }
-        ImbaUserContext::setImbaErrorMessage("The other end of the World also!");
+        //ImbaUserContext::setImbaErrorMessage("The other end of the World also!");
     } else {
         /**
          * first step completed. do the verification and actual login

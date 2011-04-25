@@ -77,9 +77,7 @@ class ImbaUserContext {
     }
 
     public static function getImbaErrorMessage() {
-        $tmpMsg = $_SESSION["IUC_ImbaErrorMessage"];
-        $_SESSION["IUC_ImbaErrorMessage"] = "";
-        return $tmpMsg;
+        return $_SESSION["IUC_ImbaErrorMessage"];
     }
 
     public static function setImbaErrorMessage($imbaErrorMessage) {

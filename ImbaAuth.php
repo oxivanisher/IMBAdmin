@@ -89,12 +89,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
 
         /**
-         * Save our referer to session
+         * Save our referer to session if there is none safed till now
          */
-        /*        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-          ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-          } */
-        //ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+        if (empty(ImbaUserContext::getRedirectUrl())) {
+            ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+        }
 
         /**
          * Do the Authentication

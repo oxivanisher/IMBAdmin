@@ -36,7 +36,9 @@ switch ($_GET["load"]) {
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());
         $smarty->assign("PortalChooser", $managerNavigation->renderPortalChooser());
-        $smarty->assign("imbaErrorMessage", ImbaUserContext::getImbaErrorMessage());
+        $tmpImbaErrorMsgs = ImbaUserContext::getImbaErrorMessage();
+        ImbaUserContext::setImbaErrorMessage("");
+        $smarty->assign("imbaErrorMessage", $tmpImbaErrorMsgs);
         ImbaConstants::loadSettings();
         if (empty(ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'])) {
             $tmpJsDebug = "false";

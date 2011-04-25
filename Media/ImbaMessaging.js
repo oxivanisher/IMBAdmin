@@ -19,6 +19,7 @@ function refreshChat() {
     if (isUserLoggedIn){
         $.post(ajaxEntry, {
             action: "messenger",
+            request: "gotnewmessages",
             gotnewmessages: "true",
             secSession: phpSessionID
         },  function(response) {
@@ -222,6 +223,7 @@ function loadChatWindowContent(tabIndex) {
                 $.post(ajaxEntry, {
                     action: "messenger",
                     initchat: "true",
+                    request: "initchat",
                     channelid: channelId,
                     secSession: phpSessionID
                 },
@@ -250,6 +252,7 @@ function loadChatWindowContent(tabIndex) {
                 // update chat
                 $.post(ajaxEntry, {
                     action: "messenger",
+                    request: "loadchat",
                     loadchat: "true",
                     channelid: channelId,
                     since: chatSinceIds[channelId],
@@ -282,6 +285,7 @@ function loadChatWindowContent(tabIndex) {
             $.post(ajaxEntry, {
                 reciever: tabData,
                 loadMessages: "true",
+                request: "loadMessages",
                 action: "messenger",
                 secSession: phpSessionID
             },
@@ -307,6 +311,7 @@ function loadChatWindowContent(tabIndex) {
             $.post(ajaxEntry, {
                 reciever: tabData,
                 action: "messenger",
+                request: "setread",
                 setread: "true",
                 secSession: phpSessionID
             },
@@ -331,6 +336,7 @@ function sendChatWindowMessage(msgText, tabIndex) {
     if (tabData.substr(0, 1) == "#"){
         httpPostData = {
             action: "messenger",
+            request: "sendchat",
             channelid: tabData.substring(1),
             message: msgText,
             secSession: phpSessionID
@@ -338,6 +344,7 @@ function sendChatWindowMessage(msgText, tabIndex) {
     } else {
         httpPostData = {
             action: "messenger",
+            request: "sendchat",
             reciever: tabData,
             message: msgText,
             secSession: phpSessionID

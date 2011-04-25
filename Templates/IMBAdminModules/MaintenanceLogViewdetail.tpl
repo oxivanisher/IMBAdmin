@@ -8,6 +8,7 @@
         var data = {
             module: "Maintenance",
             request: "viewlogdetail",
+            secSession: "{$secSession}",
             id: id
         };
         loadImbaAdminTabContent(data);
@@ -16,7 +17,8 @@
     function backToLogOverview(){
         var data = {
             module: "Maintenance",
-            request: "log"
+            request: "log",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }

@@ -122,6 +122,7 @@ $(document).ready(function() {
                     action: "module",
                     module: currentModule,
                     moduleDo: currentModuleDo,
+                    secSession: phpSessionID,
                     request: moduleTmp[1]
                 };
                 loadImbaAdminTabContent(data, tmpModuleTabId); 
@@ -145,6 +146,7 @@ $(document).ready(function() {
                     action: "game",
                     game: currentGame,
                     gameDo: currentGameDo,
+                    secSession: phpSessionID,
                     request: gameTmp[1]
                 };
                 loadImbaGameTabContent(data, tmpGameTabId); 

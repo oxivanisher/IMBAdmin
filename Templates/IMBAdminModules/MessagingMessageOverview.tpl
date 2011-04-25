@@ -19,6 +19,7 @@
         var data = {
             module: "Messaging",
             request: "viewmessagehistory",
+            secSession: "{$secSession}",
             userid: id
         };
         loadImbaAdminTabContent(data);

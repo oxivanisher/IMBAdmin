@@ -22,6 +22,7 @@
         var data = {
             module: "Maintenance",
             request: "viewlogdetail",
+            secSession: "{$secSession}",
             id: id
         };
         loadImbaAdminTabContent(data);

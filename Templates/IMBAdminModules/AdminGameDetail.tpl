@@ -43,7 +43,7 @@
                         $.jGrowl('Daten wurden gespeichert! Eigenschaft geloescht.', { header: 'Erfolg' });
                     }
                 });               
-               reloadGameDetail();
+                reloadGameDetail();
             }            
         });
                      
@@ -63,7 +63,7 @@
                         $.jGrowl('Daten wurden gespeichert! Eigenschaft hinzugefüt.', { header: 'Erfolg' });
                     }
                 });               
-               reloadGameDetail();
+                reloadGameDetail();
             } else {
                 alert('Bitte Eigenschaft eintragen');
             }
@@ -76,6 +76,7 @@
         var data = {
             module: "Admin",
             request: "viewgamedetail",
+            secSession: "{$secSession}",
             id:  "{$id}"
         };
         loadImbaAdminTabContent(data);

@@ -21,7 +21,8 @@
 
                 var data = {
                     module: "Admin",
-                    request: "game"
+                    request: "game",
+                    secSession: "{$secSession}"
                 };
                 loadImbaAdminTabContent(data);
             }            
@@ -42,7 +43,8 @@
 
                 var data = {
                     module: "Admin",
-                    request: "game"
+                    request: "game",
+                    secSession: "{$secSession}"
                 };
                 loadImbaAdminTabContent(data);
                 
@@ -57,6 +59,7 @@
         var data = {
             module: "Admin",
             request: "viewgamedetail",
+            secSession: "{$secSession}",
             id: id
         };
         loadImbaAdminTabContent(data);

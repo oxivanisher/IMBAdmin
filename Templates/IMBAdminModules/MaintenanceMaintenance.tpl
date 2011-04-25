@@ -4,6 +4,7 @@
         var data = {
             module: "Maintenance",
             request: "runMaintenanceJob",
+            secSession: "{$secSession}",
             jobHandle: handle
         };
         loadImbaAdminTabContent(data);

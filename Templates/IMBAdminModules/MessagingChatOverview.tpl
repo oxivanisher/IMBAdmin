@@ -13,6 +13,7 @@
         var data = {
             module: "Messaging",
             request: "viewchathistory",
+            secSession: "{$secSession}",
             channelId: channelId
         };
         loadImbaAdminTabContent(data);

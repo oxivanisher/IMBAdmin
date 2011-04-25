@@ -17,7 +17,8 @@
     function backToChatOverview(){
         var data = {
             module: "Messaging",
-            request: "viewchatoverview"
+            request: "viewchatoverview",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }
@@ -34,7 +35,7 @@
             <td><a href="javascript:void();" onclick="javascript:createChatWindow('{$message.nickname}', '{$message.openid}');">{$message.nickname}</td>
             <td>{$message.timestamp}</td>
             <td>{$message.message}</td>
-            </tr>
+        </tr>
         {/foreach}
 
     </tbody>

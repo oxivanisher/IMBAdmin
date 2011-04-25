@@ -2,7 +2,8 @@
     function backToMaintenance(){
         var data = {
             module: "Maintenance",
-            request: "maintenance"
+            request: "maintenance",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }

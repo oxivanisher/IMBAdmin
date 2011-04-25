@@ -51,7 +51,8 @@
                     }
                     var data = {
                         module: "Admin",
-                        request: "viewportaldetail"
+                        request: "viewportaldetail",
+                        secSession: "{$secSession}"
                     };
                     loadImbaAdminTabContent(data);
                 });
@@ -67,6 +68,7 @@
         var data = {
             module: "Admin",
             request: "viewportaldetail",
+            secSession: "{$secSession}",
             portalid: portalid
         };
         loadImbaAdminTabContent(data);

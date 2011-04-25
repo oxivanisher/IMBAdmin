@@ -6,7 +6,8 @@
     function backToUserOverview(){
         var data = {
             module: "User",
-            request: "overview"
+            request: "overview",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }

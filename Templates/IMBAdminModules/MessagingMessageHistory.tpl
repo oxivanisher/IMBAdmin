@@ -20,7 +20,8 @@
     function backToMessageOverview(){
         var data = {
             module: "Messaging",
-            request: "viewmessageoverview"
+            request: "viewmessageoverview",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }
@@ -36,10 +37,10 @@
         <tr>
             <td><a href="javascript:void();" onclick="javascript:createChatWindow('{$message.nickname}', '{$message.openid}');">{$message.nickname}</td>
             <td><nobr><span title="{$message.timestamp}">{$message.timestring}</span></nobr></td>
-            <td>{$message.message}</td>
-        </tr>
-        {/foreach}
+<td>{$message.message}</td>
+</tr>
+{/foreach}
 
-    </tbody>
+</tbody>
 </table>
 <a id="imbaMessagingViewMessageOverview" href="javascript:void(0)" onclick="javascript: backToMessageOverview();">Zur&uuml;ck</a>

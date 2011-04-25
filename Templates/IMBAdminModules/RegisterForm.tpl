@@ -60,7 +60,8 @@
     
                 var data = {
                     module: "Register",
-                    request: "registerme"
+                    request: "registerme",
+                    secSession: "{$secSession}"
                 };
                 loadImbaAdminTabContent(data);
             }   

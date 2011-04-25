@@ -13,6 +13,7 @@
         var data = {
             module: "User",
             request: "viewprofile",
+            secSession: "{$secSession}",
             openid: openid
         };
         loadImbaAdminTabContent(data);

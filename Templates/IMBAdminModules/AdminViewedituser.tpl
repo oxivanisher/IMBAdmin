@@ -46,7 +46,8 @@
     function backToUserOverview(){
         var data = {
             module: "Admin",
-            request: ""
+            secSession: "{$secSession}",
+            request: "backtooverview"
         };
         loadImbaAdminTabContent(data);
     }
@@ -69,7 +70,7 @@
             </tr>
             <tr>
                 <td><nobr>Aktuelles Motto:</nobr></td>
-                <td><input id="myProfileMotto" type="text" name="motto" value="{$motto}" /></td>
+        <td><input id="myProfileMotto" type="text" name="motto" value="{$motto}" /></td>
         </tr>
         <tr>
             <td>Avatar URL:</td>

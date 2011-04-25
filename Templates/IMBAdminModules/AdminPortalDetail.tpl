@@ -30,7 +30,8 @@
     function backToPortalOverview(){
         var data = {
             module: "Admin",
-            request: "portaloverview"
+            request: "portaloverview",
+            secSession: "{$secSession}"
         };
         loadImbaAdminTabContent(data);
     }

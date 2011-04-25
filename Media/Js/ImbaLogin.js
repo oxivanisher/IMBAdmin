@@ -17,16 +17,22 @@ setInterval('refreshUsersOnline()', 10000);
 
 // Test if user is online, if then show chat, else hide
 $(document).ready(function() {    
+    $.ajaxSetup({
+        async: true
+    });
+ 
     $("#imbaSsoOpenIdSubmit").button();
     $("#imbaSsoOpenIdSubmit").click(function () {
         if ($("#imbaSsoOpenId").val() == "") {
             loadImbaAdminDefaultModule();
+            return true;
         } else {
             $.jGrowl('Logging in...', {
                 header: 'Erfolg'
             });
             $("#imbaSsoOpenIdLoginReferer").attr('value', $("#document").attr('URL'));
             $("#imbaSsoLoginForm").submit();
+            return true;
         }
     });
     $("#imbaSsoOpenIdSubmitLogout").button();
@@ -45,17 +51,13 @@ $(document).ready(function() {
         $("#imbaSsoOpenId").val(oldOpenId);
     }
     
-    $.ajaxSetup({
-        async: true
-    });
- 
     // Checking if user is online
     $.post(ajaxEntry, {
         action: "user",
         request: "onlinecheck",
         secSession: phpSessionID
     }, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             if (response == "Need to register") {
                 setLoggedIn(false);
                 loadImbaAdminDefaultModule();
@@ -235,18 +237,29 @@ function setLoggedIn(isLoggedIn){
 /**
  * Sets the system in error state
  */
-function checkError(message){
-    if (message.substring(0,6) == "Error:") {
+function checkReturn(returnData){
+    if (returnData.substring(0,6) == "Error:") {
         isSystemInErrorState = true;
         setLoggedIn(false);
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
-        $.jGrowl(message.substring(6), {
+        $.jGrowl(returnData.substring(6), {
             header: 'Error',
-            life: 200
+            life: 1000,
+            sticky: true
         });
         return true;
+    } else if (returnData.length == 0) {
+        $.jGrowl("Keine Daten erhalten", {
+            header: 'Warning',
+            life: 700
+        });
+        return false;
     } else {
+        $.jGrowl("Daten geladen:<br />" + returnData, {
+            header: 'Info',
+            life: 300
+        });
         return false;
     }
 }
@@ -303,7 +316,7 @@ function loadImbaPortal(id) {
     }, function (response){
         var tmpError = true;
         if (id != null) {
-            tmpError = checkError(response);
+            tmpError = checkReturn(response);
         } else {
             tmpError = false;
         }

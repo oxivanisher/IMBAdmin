@@ -47,12 +47,10 @@ if (file_exists($navigationFile)) {
             echo json_encode($nav);
             break;
         case "name":
-            $myName = (string) $Navigation->getName();
-            echo $myName;
+            echo $Navigation->getName();
             break;
         case "comment":
-            $myComment = (string) $Navigation->getComment();
-            echo $myComment;
+            echo $Navigation->getComment();
             break;
         default:
             echo returnDefaultModule();

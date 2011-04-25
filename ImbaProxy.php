@@ -1,4 +1,5 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
@@ -143,6 +144,15 @@ function returnError($message) {
     echo "Error:Proxy: " + $message;
 }
 
+/**
+ * Setting up log output
+ */
+$tmpLogOut = "-------------------------------------------------------\n";
+$tmpLogOut .= "facility: " . $set['facility'] . "\n";
+$tmpLogOut .= "module: " . $_POST['action'] . "\n";
+$tmpLogOut .= "request: " . $_POST['request'] . "\n";
+$tmpLogOut .= "cookie: " . $mySession . "\n";
+
 if ($set['facility'] == "test") {
     header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     echo "PROXY SESSION ID: " . $mySession . "<br />";
@@ -171,19 +181,15 @@ if ($set['facility'] == "test") {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
     if ($mySession != false) {
-        $tmpLogOut = "-------------------------------------------------------\n";
-        $tmpLogOut .= "facility: " . $set['facility'] . "\n";
-        $tmpLogOut .= "module: " . $_POST['action'] . "\n";
-        $tmpLogOut .= "request: " . $_POST['request'] . "\n";
-        $tmpLogOut .= "cookie: " . $mySession . "\n";
-
+        //write requests without session to log
         foreach (explode("\n", $tmpLogOut) as $line) {
             ImbaSharedFunctions::writeToLog($line);
         }
     }
     echo $set['answerContent'];
 } else {
-    $tmpLogOut .= "ee: " . $mySession . " (error)\n";
+    $tmpLogOut .= "ee: no return given (error)\n";
+    ImbaSharedFunctions::writeToLog($tmpLogOut);
     if ($set['debug']) {
         displayDebug($set);
     } else {

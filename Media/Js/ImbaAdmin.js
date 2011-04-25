@@ -30,7 +30,7 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
         module: moduleName,
         secSession: phpSessionID
     }, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             tmpTitle  = "<div onclick='javascript:loadImbaAdminDefaultModule();' style='float: left; cursor: pointer;'>";
             tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
             tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
@@ -100,7 +100,7 @@ function loadImbaAdminTabContent(data, myModuleTabId) {
     data.secSession = phpSessionID;
 
     $.post(ajaxEntry, data, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             if (response != ""){
                 $(targetModuleIabId).html(response);
             }
@@ -132,7 +132,7 @@ function loadImbaAdminDefaultModule(){
         request: "getDefault",
         secSession: phpSessionID
     }, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             // Call the loadImbaAdminModule to open the dialog         
             loadImbaAdminModule(response.toString());
         }

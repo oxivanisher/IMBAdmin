@@ -30,7 +30,7 @@ function loadImbaGame(gameName, gameDo, payLoad){
         game: gameName,
         secSession: phpSessionID
     }, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             tmpTitle  = "<div onclick='javascript:loadImbaGameDefaultGame();' style='float: left; cursor: pointer;'>";
             tmpTitle += "<span class='ui-icon ui-icon-home' style='float: left;' /></div>";
             tmpTitle += "<div style='float: left;'>&nbsp;&nbsp;&nbsp;</div>";
@@ -94,12 +94,12 @@ function loadImbaGameTabContent(data, myGameTabId) {
     } else {
         targetGameIabId = myGameTabId;
     }
-    data.action = "game";
-    data.request = "loadtabcontent";
+    //data.action = "game";
+    //data.request = "loadtabcontent";
     data.secSession = phpSessionID;
 
     $.post(ajaxEntry, data, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             if (response != ""){
                 $(targetGameIabId).html(response);
             }
@@ -125,7 +125,7 @@ function loadImbaGameDefaultGame(){
         request: "getDefault",
         secSession: phpSessionID
     }, function (response){
-        if (checkError(response) == false) {  
+        if (checkReturn(response) == false) {  
             // Call the loadImbaGame to open the dialog         
             loadImbaGame(response.toString());
         }

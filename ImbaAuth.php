@@ -328,7 +328,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $managerLog->insert($log);
     //echo "You are logged in!";
     ImbaUserContext::setImbaErrorMessage("Already logged in");
-    header("Location: " . $_SERVER['HTTP_REFERER']);
+    header("Location: " . ImbaUserContext::getRedirectUrl());
 }
 ImbaUserContext::setImbaErrorMessage("WTF? We reached the end of the world!");
 header("Location: " . ImbaUserContext::getRedirectUrl());

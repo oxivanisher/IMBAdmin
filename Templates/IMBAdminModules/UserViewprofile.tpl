@@ -7,7 +7,7 @@
         var data = {
             module: "User",
             request: "overview",
-            secSession: "{$secSession}"
+            secSession: phpSessionID
         };
         loadImbaAdminTabContent(data);
     }

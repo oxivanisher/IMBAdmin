@@ -17,7 +17,7 @@
                 action: "module",
                 module: "Admin",
                 request: "updateuserprofile",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 myProfileOpenId: "{$openid}",
                 myProfileMotto: $("#myProfileMotto").val(),
                 myProfileUsertitle: $("#myProfileUsertitle").val(),
@@ -46,7 +46,7 @@
     function backToUserOverview(){
         var data = {
             module: "Admin",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             request: "backtooverview"
         };
         loadImbaAdminTabContent(data);

@@ -33,14 +33,14 @@
                 action: "module",
                 module: "Maintenance",
                 request: "deletesetting",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
             });
                 
             var data = {
                 module: "Maintenance",
                 request: "settings",
-                secSession: "{$secSession}"
+                secSession: phpSessionID
             };
             loadImbaAdminTabContent(data);
         }            
@@ -52,7 +52,7 @@
                 action: "module",
                 module: "Maintenance",
                 request: "addsetting",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 name: ImbaAddSettingName.value.valueOf(),
                 value: ImbaAddSettingValue.value.valueOf()
             });
@@ -60,7 +60,7 @@
             var data = {
                 module: "Maintenance",
                 request: "settings",
-                secSession: "{$secSession}"
+                secSession: phpSessionID
             };
             loadImbaAdminTabContent(data);
                 

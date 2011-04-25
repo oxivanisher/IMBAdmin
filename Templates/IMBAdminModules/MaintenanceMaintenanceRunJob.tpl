@@ -3,7 +3,7 @@
         var data = {
             module: "Maintenance",
             request: "maintenance",
-            secSession: "{$secSession}"
+            secSession: phpSessionID
         };
         loadImbaAdminTabContent(data);
     }

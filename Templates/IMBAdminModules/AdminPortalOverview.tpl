@@ -15,13 +15,13 @@
                     action: "module",
                     module: "Admin",
                     request: "deleteportal",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     portalid: this.parentNode.parentNode.getAttribute('id').substr(9)
                 }, function(response){
                     var data = {
                         module: "Admin",
                         request: "viewportaldetail",
-                        secSession: "{$secSession}"
+                        secSession: phpSessionID
                     };
                     loadImbaAdminTabContent(data);
                 });
@@ -39,7 +39,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addportal",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     name: ImbaAddPortalName.value.valueOf(),
                     comment: ImbaAddPortalComment.value.valueOf(),
                     icon: ImbaAddPortalIcon.value.valueOf()                    
@@ -52,7 +52,7 @@
                     var data = {
                         module: "Admin",
                         request: "viewportaldetail",
-                        secSession: "{$secSession}"
+                        secSession: phpSessionID
                     };
                     loadImbaAdminTabContent(data);
                 });
@@ -68,7 +68,7 @@
         var data = {
             module: "Admin",
             request: "viewportaldetail",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             portalid: portalid
         };
         loadImbaAdminTabContent(data);

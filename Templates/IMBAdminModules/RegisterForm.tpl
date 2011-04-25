@@ -38,7 +38,7 @@
             action: "module",
             module: "Register",
             request: "checkCaptcha",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             challenge: $("#recaptcha_challenge_field").val(),
             answer: $("#recaptcha_response_field").val(),
             firstname: $("#regFirstname").val(),
@@ -61,7 +61,7 @@
                 var data = {
                     module: "Register",
                     request: "registerme",
-                    secSession: "{$secSession}"
+                    secSession: phpSessionID
                 };
                 loadImbaAdminTabContent(data);
             }   
@@ -145,7 +145,7 @@ Der Verstoss gegen die Allgemeinen Gildenregeln kann eine Verwarnung oder den Au
 <div id="ImbaReCaptchaContainer" style="display: none;">
     <b>Bitte beweise, dass du aus Fleisch und Blut bist.</b><br />
     Mit dem Abschreiben der Zeichen unten auf dem Bild zeigst du uns, dass du kein Programm bist dass unsere Communitysite zuspammen will. :)<br />
-    Zus&auml;tzlich hilfst du so, alte Dokumente und B&uuml;cher für die Nachwelt zu digitalisieren.
+    Zus&auml;tzlich hilfst du so, alte Dokumente und B&uuml;cher fÃƒÂ¼r die Nachwelt zu digitalisieren.
     <br />
     <br />
     <div id="ImbaReCaptcha"></div>

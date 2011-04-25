@@ -9,8 +9,6 @@ var phpSessionID = '{$phpSessionID}';
 
     include library javascript files
     
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
 *}
 {fetch file='Libs/jQuery/js/jquery-1.4.4.min.js'}
 {fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}

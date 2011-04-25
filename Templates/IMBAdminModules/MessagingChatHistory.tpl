@@ -18,7 +18,7 @@
         var data = {
             module: "Messaging",
             request: "viewchatoverview",
-            secSession: "{$secSession}"
+            secSession: phpSessionID
         };
         loadImbaAdminTabContent(data);
     }

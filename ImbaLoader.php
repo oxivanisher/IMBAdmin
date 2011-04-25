@@ -28,7 +28,7 @@ switch ($_GET["load"]) {
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
         }
 
-        $smarty->assign("phpSessionID", session_id());
+        $smarty->assign(phpSessionID, session_id());
         $smarty->assign("PortalNavigation", $managerNavigation->renderPortalNavigation());
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());

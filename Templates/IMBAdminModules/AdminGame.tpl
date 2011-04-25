@@ -14,7 +14,7 @@
                 $.post(ajaxEntry, {
                     action: "module",
                     module: "Admin",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     request: "deletegame",
                     gameid: this.parentNode.parentNode.getAttribute('id').substr(7)
                 });
@@ -22,7 +22,7 @@
                 var data = {
                     module: "Admin",
                     request: "game",
-                    secSession: "{$secSession}"
+                    secSession: phpSessionID
                 };
                 loadImbaAdminTabContent(data);
             }            
@@ -36,7 +36,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addgame",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     name: ImbaAddGameName.value.valueOf(),
                     icon: ImbaAddGameIcon.value.valueOf()                    
                 });
@@ -44,7 +44,7 @@
                 var data = {
                     module: "Admin",
                     request: "game",
-                    secSession: "{$secSession}"
+                    secSession: phpSessionID
                 };
                 loadImbaAdminTabContent(data);
                 
@@ -59,7 +59,7 @@
         var data = {
             module: "Admin",
             request: "viewgamedetail",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             id: id
         };
         loadImbaAdminTabContent(data);

@@ -30,7 +30,7 @@
                             action: "module",
                             module: "User",
                             request: "addpropertytomygames",
-                            secSession: "{$secSession}",
+                            secSession: phpSessionID,
                             propertyid: $("#ImbaAjaxUsersMyGamesModalPropertyId").val(),
                             propertyvalue: $("#ImbaAjaxUsersMyGamesModalPropertyValue").val()
                         }, function(response){
@@ -47,7 +47,7 @@
                             module: "User",
                             request: "editmygames",
                             hasActiveGame: "true",
-                            secSession: "{$secSession}",
+                            secSession: phpSessionID,
                             activeGame: $("#MyGamesTab").accordion( "option", "active" )
                         };
                         loadImbaAdminTabContent(data);
@@ -79,7 +79,7 @@
                 action: "module",
                 module: "User",
                 request: "updatemygames",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 gamesIPlay: gamesIPlay
             }, function(response){
                 if (response != "Ok"){                    
@@ -94,7 +94,7 @@
     });
 </script>
 
-<div id="ImbaAjaxUsersMyGamesModalProperty" title="Eigenschaft hinzufügen">
+<div id="ImbaAjaxUsersMyGamesModalProperty" title="Eigenschaft hinzufÃƒÂ¼gen">
     <table cellpadding="0" cellspacing="0" class="ImbaAjaxBlindTable">
         <tr>
             <td><div id="ImbaAjaxUsersMyGamesModalPropertyName"></div></td>
@@ -127,7 +127,7 @@
 
             <ul>
                 {foreach $game.properties as $property}
-                <li>{$property.property} <span onclick="javascript: showAddGameProperty('{$game.id}', '{$property.id}', '{$property.property}');" style="cursor: pointer;"><b>hinzufügen</b></span></li>
+                <li>{$property.property} <span onclick="javascript: showAddGameProperty('{$game.id}', '{$property.id}', '{$property.property}');" style="cursor: pointer;"><b>hinzufÃƒÂ¼gen</b></span></li>
                 {/foreach}
             </ul>
 

@@ -7,7 +7,7 @@
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 request: "updategame",
                 gameid: "{$id}",
                 name: $("#myGameName").val(),
@@ -34,7 +34,7 @@
                     action: "module",
                     module: "Admin",
                     request: "deletegameproperty",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     gamepropertyid: this.parentNode.parentNode.getAttribute('id').substr(15)
                 }, function(response){
                     if (response != "Ok"){
@@ -54,7 +54,7 @@
                     module: "Admin",
                     request: "addpropertytogame",
                     gameid: "{$id}",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     property: $("#myGameAddProperty").val()
                 }, function(response){
                     if (response != "Ok"){
@@ -76,7 +76,7 @@
         var data = {
             module: "Admin",
             request: "viewgamedetail",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             id:  "{$id}"
         };
         loadImbaAdminTabContent(data);

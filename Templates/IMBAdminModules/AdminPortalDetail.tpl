@@ -8,7 +8,7 @@
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 request: "updateportal",
                 portalid: $("#myPortalId").val(),
                 name: $("#myPortalName").val(),
@@ -31,7 +31,7 @@
         var data = {
             module: "Admin",
             request: "portaloverview",
-            secSession: "{$secSession}"
+            secSession: phpSessionID
         };
         loadImbaAdminTabContent(data);
     }

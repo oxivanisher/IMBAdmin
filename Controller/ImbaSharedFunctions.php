@@ -105,7 +105,6 @@ class ImbaSharedFunctions {
         $smarty->setCompileDir('Libs/smarty/templates_c');
         $smarty->setCacheDir('Libs/smarty/cache');
         $smarty->setConfigDir('Libs/smarty/configs');
-        $smarty->assign("secSession", session_id());
         return $smarty;
     }
 

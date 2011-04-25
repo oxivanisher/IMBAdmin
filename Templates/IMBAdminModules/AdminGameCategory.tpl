@@ -33,14 +33,14 @@
                 action: "module",
                 module: "Admin",
                 request: "deletegamecategory",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 categoryid: this.parentNode.parentNode.getAttribute('id').substr(11)
             });
                 
             var data = {
                 module: "Admin",
                 request: "gamecategory",
-                secSession: "{$secSession}"
+                secSession: phpSessionID
             };
             loadImbaAdminTabContent(data);
         }            
@@ -52,14 +52,14 @@
                 action: "module",
                 module: "Admin",
                 request: "addgamecategory",
-                secSession: "{$secSession}",
+                secSession: phpSessionID,
                 name: ImbaAddCategoryName.value.valueOf()
             });
 
             var data = {
                 module: "Admin",
                 request: "gamecategory",
-                secSession: "{$secSession}"
+                secSession: phpSessionID
             };
             loadImbaAdminTabContent(data);
                 

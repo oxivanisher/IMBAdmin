@@ -33,14 +33,14 @@
                     action: "module",
                     module: "Admin",
                     request: "deleterole",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     roleid: this.parentNode.parentNode.getAttribute('id').substr(7)
                 });
 
                 var data = {
                     module: "Admin",
                     request: "role",
-                    secSession: "{$secSession}"
+                    secSession: phpSessionID
                 };
                 loadImbaAdminTabContent(data);
             }            
@@ -58,7 +58,7 @@
                     action: "module",
                     module: "Admin",
                     request: "addrole",
-                    secSession: "{$secSession}",
+                    secSession: phpSessionID,
                     role: ImbaAddRoleRole.value.valueOf(),
                     handle: ImbaAddRoleHandle.value.valueOf(),
                     name: ImbaAddRoleName.value.valueOf(),
@@ -70,7 +70,7 @@
                 var data = {
                     module: "Admin",
                     request: "role",
-                    secSession: "{$secSession}"
+                    secSession: phpSessionID
                 };
                 loadImbaAdminTabContent(data);
                 

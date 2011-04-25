@@ -13,7 +13,7 @@
         var data = {
             module: "Messaging",
             request: "viewchathistory",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             channelId: channelId
         };
         loadImbaAdminTabContent(data);

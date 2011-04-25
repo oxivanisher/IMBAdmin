@@ -165,6 +165,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Redirecting to: " . $redirectUrl);
                             $managerLog->insert($log);
                             //saving redirection url
+                            ImbaUserContext::setAuthReferer($redirectUrl);
+                            ImbaUserContext::setImbaErrorMessage($log->getMessage());
 
                             header("Location: " . $redirectUrl);
                         } else {

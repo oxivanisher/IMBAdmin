@@ -154,8 +154,8 @@ $tmpLogOut .= "module    : " . $_POST['module'] . "\n";
 $tmpLogOut .= "game      : " . $_POST['game'] . "\n";
 $tmpLogOut .= "request   : " . $_POST['request'] . "\n";
 $tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
-$tmpLogOut .= "header    : " . $set['answerHeaders'] . "\n";
-$tmpLogOut .= "body      : " . $set['answerContent'] . "\n";
+$tmpLogOut .= "header:\n" . $set['answerHeaders'] . "\n";
+$tmpLogOut .= "body:\n" . $set['answerContent'] . "\n";
 
 if ($set['facility'] == "test") {
     header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");

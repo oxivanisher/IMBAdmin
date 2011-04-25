@@ -38,21 +38,16 @@ switch ($_GET["load"]) {
             $tmpOut .= "var ajaxEntry = '" . ImbaSharedFunctions::fixWebPath($ajaxPath) . "';\n";
             $tmpOut .= "var phpSessionID = '" . session_id() . "';\n";
 
+            /**
+             * Load static libs from session
+             */
             if (empty($_SESSION['IUC_jsCache'])) {
                 $jsFiles = array(
-                    /**
-                     * These are all our needed js files
-                     */
                     "Libs/jQuery/js/jquery-1.4.4.min.js",
                     "Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js",
                     "Libs/DataTables/media/js/jquery.dataTables.min.js",
                     "Libs/jquery_jeditable/jquery.jeditable.js",
-                    "Libs/jgrowl/jquery.jgrowl_compressed.js",
-                    "Media/ImbaBaseMethods.js",
-                    "Media/ImbaLogin.js",
-                    "Media/ImbaAdmin.js",
-                    "Media/ImbaGame.js",
-                    "Media/ImbaMessaging.js"
+                    "Libs/jgrowl/jquery.jgrowl_compressed.js"
                 );
                 $_SESSION['IUC_jsCache'] = "";
                 foreach ($jsFiles as $jsFile) {
@@ -60,8 +55,22 @@ switch ($_GET["load"]) {
                 }
             }
             $tmpOut .= $_SESSION['IUC_jsCache'];
-
-
+            
+            /**
+             * Load dynamic libs
+             */
+                $jsFiles = array(
+                    "Media/ImbaBaseMethods.js",
+                    "Media/ImbaLogin.js",
+                    "Media/ImbaAdmin.js",
+                    "Media/ImbaGame.js",
+                    "Media/ImbaMessaging.js"
+                );
+                foreach ($jsFiles as $jsFile) {
+                    $tmpOut .= file_get_contents($jsFile) . "\n" . "\n";
+                }
+            }
+            
 
             /**
              * Begin js/HTML injection code

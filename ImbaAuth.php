@@ -91,7 +91,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Save our referer to session if there is none safed till now
          */
-        if (empty(ImbaUserContext::getRedirectUrl())) {
+        if (empty($_SESSION["IUC_redirectUrl"])) {
             ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
         }
 

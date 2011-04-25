@@ -1,0 +1,236 @@
+/* ImbaLogin.css */
+
+body {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    line-height: normal;
+}
+
+/* input boxen anpassen */
+#imbaContentDialog input[type=text],
+#imbaContentDialog textarea,
+#imbaGameDialog input[type=text],
+#imbaGameDialog textarea,
+#imbaMessagesDialog input[type=text],
+#imbaMessagesDialog textarea,
+#imbaSsoLoginBorder input[type=text],
+#imbaSsoLoginBorder textarea {
+    background-color: #222222;
+    border: 1px solid #999999;
+    color: #FFFFFF;
+
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+    line-height: normal;
+}
+
+#imbaSsoLoginBorder input[type=submit] {
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 11px !important;
+    line-height: normal;
+}
+
+/* IMBAdmin error message */
+#ImbaErrorMsg {
+    color: red;
+}
+
+#jGrowl {
+    position: fixed;
+    top: 1px;
+    left: 1px;
+}
+
+.imbaFont {
+    line-height: normal !important;
+    font-size: 0.8em;
+}
+
+/* IMBAdmin login window */
+#imbaSsoLoginBorder {
+    position: fixed;
+    right: 2px;
+    top: 2px;
+    z-index: 9999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#imbaSsoLogoImage {
+    float: left;
+    width: 48px;
+    width: 48px;
+    cursor: pointer;
+}
+
+.imbaInput {
+    font-family: Arial, sans-serif !important;
+    font-size: 12px !important;
+    background-color: white;
+    border: 0px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-bottom: 2px !important;
+    color: black !important;
+    height: 20px !important;
+}
+
+#imbaSsoLoginInner {
+    float: left;
+    text-align: center;
+}
+
+#imbaUsersOnline {
+    width: 150px;
+    float: left;
+    margin: 0px; 
+    padding: 0px;
+}
+
+#imbaUsersOnline ul {  
+    margin: 0px; 
+    padding: 0px;
+}  
+
+#imbaUsersOnline li {  
+    list-style-type:none;
+    float:left; 
+    margin-right: 2px; 
+    padding: 0px;
+    cursor: pointer;
+}  
+
+#imbaSsoShowNickname {
+    float:left;
+    margin: 2px;
+    padding: 0px;
+    cursor: pointer;
+    font-size: 12px !important;
+}
+
+/* IMBAdmin Messeging */
+
+#imbaMessages {
+}
+
+#imbaGotMessage{
+    float: right;
+    cursor: pointer;
+}
+
+#imbaMessages li .ui-icon-close { 
+    float: left;
+    cursor: pointer;
+}
+
+#imbaOpenMessaging {
+    float: right;
+    cursor: pointer;
+}
+/* IMBAdmin main content window */
+
+#imbaContent {
+}
+
+#imbaContent li .ui-icon-close { 
+    float: left;
+    cursor: pointer;
+}
+
+#imbaMenu {
+    position: fixed;
+    right: 10px;
+    top: 12px;
+    z-index: 9999;
+}
+
+.ImbaAjaxBlindTable {
+    color: #999999;
+    font-size: 1.1em;
+}
+
+/* IMAdmin Menu */
+
+#imbaMenu ul.topnav {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+    float: left;
+    width: 550px;
+    background: #505050;
+}
+
+#imbaMenu ul.topnav li {
+    float: left;
+    margin: 0;
+    padding: 0 15px 0 0;
+    position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+
+#imbaMenu ul.topnav li a {
+    padding: 10px 5px;
+    color: #fff;
+    display: block;
+    text-decoration: none;
+    float: left;
+}
+
+#imbaMenu ul.topnav li span { 
+    width: 17px;
+    height: 35px;
+    float: left;
+    cursor: pointer;
+    background: url('/IMBAdmin/Images/subnav_btn.gif') no-repeat;
+}
+
+#imbaMenu ul.topnav li span.subhover {
+    cursor: pointer;
+}
+
+#imbaMenu ul.topnav li ul.subnav {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 39px;
+    background: #505050;
+    margin: 0;
+    padding: 0;
+    display: none;
+    float: left;
+    width: 170px;
+}
+
+#imbaMenu ul.topnav li ul.subnav li {
+    margin: 0; padding: 0;
+    clear: both;
+    width: 170px;
+}
+
+#imbaMenu html ul.topnav li ul.subnav li a {
+    float: left;
+    width: 145px;
+    background: #333;
+    padding-left: 20px;
+}
+
+#imbaMenu html ul.topnav li ul.subnav li a:hover { 
+    /*--Hover effect for subnav links--*/
+    background: #222;
+}
+
+/* IMBAdmin Content */
+#imbaContentNav {
+    background-image: url('/IMBAdmin/Images/Logo/community_logo_transparent.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/* jQuery Fixes */
+.ui-state-error {
+    background: transparent !important; 
+    border: 0px !important;
+}

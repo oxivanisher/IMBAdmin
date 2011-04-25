@@ -594,3 +594,22 @@ table.display tr.gradeU {
 .css_left {
     float: left;
 }
+
+
+
+/*
+* make nice sourcecode class
+*/
+.imbaSourceCode {
+   display:block;
+   font: 1em 'Courier New', Courier, Fixed, monospace;
+   font-size : 100%;
+   float: left;
+   /*overflow : auto;*/
+   text-align:left;
+   border : 1px solid #777777;
+   padding : 10px 20px 10px 30px;
+   margin:1em 0 1em 0;
+   line-height:17px;
+   font-weight:normal!important;
+}

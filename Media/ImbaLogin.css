@@ -1,10 +1,4 @@
-/* jQuery css include */
-@import url('/IMBAdmin/Libs/jQuery/css/ui-darkness/jquery-ui-1.8.10.custom.css') all;
-@import url('/IMBAdmin/Libs/jgrowl/jquery.jgrowl.css') all;
-@import url('/IMBAdmin/Media/ImbaAdmin.css') all;
-
-/* jQuery dataTabled css include */
-/* @import url('Libs/DataTables/media/css/demo_table.css') all; */
+/* ImbaLogin.css */
 
 body {
     font-family: Arial, Helvetica, sans-serif !important;

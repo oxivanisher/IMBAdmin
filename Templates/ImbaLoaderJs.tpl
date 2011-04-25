@@ -17,7 +17,7 @@ var phpSessionID = '{$phpSessionID}';
 {fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}
 {* 
 
-    include our javascript files
+    include imba javascript files
 
 *}
 {fetch file='Media/ImbaBaseMethods.js'}
@@ -37,7 +37,7 @@ htmlContent = "<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='t
 {$ImbaGameNavigation}
 {$PortalChooser}
 {/strip}</ul> \
-</div>{include file="ImbaIndex.tpl"}</div>";
+</div>{include file="ImbaLoaderDivConstruct.tpl"}</div>";
 {* 
 
     and inject it into the page

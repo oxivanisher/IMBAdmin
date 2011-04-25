@@ -1,4 +1,5 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
@@ -68,22 +69,22 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     header("Location: " . $targetUrl);
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
-     * Save our referer to session
-     */
-    if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-        ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-    }
-
-    /**
      * we are NOT logged in
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
+        /**
+         * Save our referer to session
+         */
+        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+        }
+
 
         /**
          * Determine Authentication method
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
-          /**
+            /**
              * OpenID Authentification
              */
             $authMethod = "openid";

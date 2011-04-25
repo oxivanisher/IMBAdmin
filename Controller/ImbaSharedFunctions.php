@@ -151,8 +151,12 @@ class ImbaSharedFunctions {
      * 
      * fix the path of images for web display
      */
-    public function fixWebPath($url) {
-        return ImbaSharedFunctions::getTrustRoot() . "/" . $url;
+    public function fixWebPath($file) {
+        $returnedPath = ImbaSharedFunctions::getTrustRoot();
+        if (substr($returnedPath, -1) != "/") {
+            $returnedPath .= "/";
+        }
+        return $returnedPath . $file;
     }
 
     /**

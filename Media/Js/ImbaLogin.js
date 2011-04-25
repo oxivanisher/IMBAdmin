@@ -238,7 +238,7 @@ function setLoggedIn(isLoggedIn){
  * Sets the system in error state
  */
 function checkReturn(returnData){
-    if (imbaJsDebug == false) {
+    if (imbaJsDebug == 'false') {
         if (returnData.substring(0,6) == "Error:") {
             isSystemInErrorState = true;
             setLoggedIn(false);
@@ -250,6 +250,7 @@ function checkReturn(returnData){
             });
             return true;
         }
+        return false;
     } else {
         if (returnData.substring(0,6) == "Error:") {
             $.jGrowl(returnData.substring(6), {
@@ -269,8 +270,8 @@ function checkReturn(returnData){
                 header: 'Info',
                 life: 300
             });
-            return false;
         }
+        return false;
     }
 }
 /**

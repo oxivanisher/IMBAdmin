@@ -180,7 +180,7 @@ if ($set['facility'] == "test") {
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
-    if ($mySession != false) {
+    if ($set['facility'] == "auth") {
         //write requests without session to log
         foreach (explode("\n", $tmpLogOut) as $line) {
             ImbaSharedFunctions::writeToLog($line);
@@ -188,7 +188,7 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } else {
-    $tmpLogOut .= "ee: no return given (error)\n";
+    $tmpLogOut .= "ee: no return received (error)\n";
     ImbaSharedFunctions::writeToLog($tmpLogOut);
     if ($set['debug']) {
         displayDebug($set);

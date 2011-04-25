@@ -365,6 +365,7 @@ function showTabsWithNewMessage(){
     $.post(ajaxEntry, {
         gotnewmessages: "true",
         action: "messenger",
+        request: "gotnewmessages",
         secSession: phpSessionID
     },  function(response) {
         $.each($.parseJSON(response), function(key, newMessageFrom) {
@@ -487,6 +488,7 @@ $(document).ready(function() {
                     data: {
                         action: "user",
                         loaduser: "true",
+                        request: "loaduser",
                         secSession: phpSessionID,
                         startwith: request.term.substr(3 ,request.term.length)
                     },
@@ -510,6 +512,7 @@ $(document).ready(function() {
                     dataType: "json",
                     data: {
                         action: "messenger",
+                        request: "loadchannels",
                         secSession: phpSessionID,
                         loadchannels: "true"
                     },

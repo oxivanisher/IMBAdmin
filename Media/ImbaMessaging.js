@@ -484,11 +484,11 @@ $(document).ready(function() {
                     type: "POST",
                     url: ajaxEntry,
                     dataType: "json",
-                    session: phpSessionID,
+                    secSession: phpSessionID,
                     data: {
                         action: "user",
                         loaduser: "true",
-                        session: phpSessionID,
+                        secSession: phpSessionID,
                         startwith: request.term.substr(3 ,request.term.length)
                     },
                     success: function( data ) {
@@ -509,10 +509,10 @@ $(document).ready(function() {
                     type: "POST",
                     url: ajaxEntry,
                     dataType: "json",
-                    session: phpSessionID,
+                    secSession: phpSessionID,
                     data: {
                         action: "messenger",
-                        session: phpSessionID,
+                        secSession: phpSessionID,
                         loadchannels: "true"
                     },
                     success: function( data ) {

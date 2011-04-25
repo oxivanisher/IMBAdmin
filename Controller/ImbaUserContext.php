@@ -76,6 +76,16 @@ class ImbaUserContext {
         $_SESSION["IUC_AuthReferer"] = $url;
     }
 
+    public static function getImbaErrorMessage() {
+        $tmpMsg = $_SESSION["IUC_ImbaErrorMessage"];
+        $_SESSION["IUC_ImbaErrorMessage"] = "";
+        return $tmpMsg;
+    }
+
+    public static function setImbaErrorMessage($imbaErrorMessage) {
+        $_SESSION["IUC_ImbaErrorMessage"] = $imbaErrorMessage;
+    }
+
     public static function getNeedToRegister() {
         return $_SESSION["IUC_NeedToRegister"];
     }

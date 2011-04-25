@@ -181,6 +181,16 @@ $(document).ready(function() {
 
     // Firsttime show users online
     refreshUsersOnline();
+    
+    //Display potential Error Message
+    if (imbaErrorMessage.length > 0) {
+        $.jGrowl(imbaErrorMessage, {
+            header: 'Information:',
+            life: 1000,
+            sticky: true
+        });
+    }
+
 });
    
 /**

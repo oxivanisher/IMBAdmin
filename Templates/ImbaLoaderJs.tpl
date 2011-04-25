@@ -5,7 +5,7 @@
 *}
 var ajaxEntry = '{$ajaxPath}';
 var phpSessionID = '{$phpSessionID}';
-var imbaJsDebug = {$jsDebug};
+var imbaJsDebug = '{$jsDebug}';
 {* 
 
     include library javascript files
@@ -31,7 +31,7 @@ var imbaJsDebug = {$jsDebug};
     fill our imbaAdminContainerWorld container with ImbaIndex.tpl
     
 *}
-htmlContent = "<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='topnav'> \
+imbaHtmlContent = "<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='topnav'> \
 {strip}
 {$PortalNavigation}
 {$ImbaAdminNavigation}
@@ -44,4 +44,4 @@ htmlContent = "<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='t
     and inject it into the page
     
 *}
-document.write(htmlContent);
+document.write(imbaHtmlContent);

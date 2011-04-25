@@ -8,7 +8,9 @@ require_once 'Controller/ImbaSharedFunctions.php';
 session_start();
 //print_r($GLOBALS); exit;
 $mySession = false;
-if (!empty($_COOKIE['PHPSESSID'])) {
+if (!empty($_COOKIE['secSession'])) {
+    $mySession = $_COOKIE['secSession'];
+} elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
 } elseif (!empty($_POST['secSession'])) {
     $mySession = $_POST['secSession'];

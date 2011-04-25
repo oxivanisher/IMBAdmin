@@ -5,7 +5,6 @@ session_start();
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-ImbaUserContext::setRedirectUrl(ImbaSharedFunctions::getTrustRoot());
 
 $smarty = ImbaSharedFunctions::newSmarty();
 $smarty->assign("thrustRoot", ImbaSharedFunctions::getTrustRoot());
@@ -21,6 +20,7 @@ switch ($_GET["load"]) {
         require_once 'Controller/ImbaManagerNavigation.php';
         require_once 'Controller/ImbaManagerUser.php';
         require_once 'Controller/ImbaUserContext.php';
+        ImbaUserContext::setRedirectUrl(ImbaSharedFunctions::getTrustRoot());
 
         $managerNavigation = ImbaManagerNavigation::getInstance();
 
@@ -44,7 +44,7 @@ switch ($_GET["load"]) {
             $tmpJsDebug = ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'];
         }
         $smarty->assign("jsDebug", $tmpJsDebug);
-        
+
         $smarty->display('ImbaLoaderJs.tpl');
         break;
 

@@ -1,5 +1,7 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
+session_start();
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
@@ -11,7 +13,6 @@ switch ($_GET["load"]) {
     case "js":
         header('Content-Type: application/javascript');
 
-        session_start();
         require_once 'Model/ImbaUser.php';
         require_once 'Model/ImbaNavigation.php';
         require_once 'Controller/ImbaManagerDatabase.php';

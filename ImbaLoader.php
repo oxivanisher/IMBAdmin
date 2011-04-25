@@ -5,6 +5,8 @@ session_start();
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
+ImbaUserContext::setRedirectUrl(ImbaSharedFunctions::getTrustRoot());
+
 $smarty = ImbaSharedFunctions::newSmarty();
 $smarty->assign("thrustRoot", ImbaSharedFunctions::getTrustRoot());
 $smarty->assign("phpSessionID", session_id());

@@ -94,7 +94,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /*        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
           ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
           } */
-        ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+        //ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
 
         /**
          * Do the Authentication

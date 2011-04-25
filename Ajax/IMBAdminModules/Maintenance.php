@@ -66,15 +66,19 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
          */
         case "maintenance":
             $maintenenceJobs = array();
-
+            
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
-            array_push($maintenenceJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
             array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
-            array_push($maintenenceJobs, array('handle' => 'backupDatabase', 'name' => 'Create Database dump'));
-            array_push($maintenenceJobs, array('handle' => 'showDatabaseBackups', 'name' => 'Show Database backups'));
+            array_push($dbJobs, array('handle' => 'backupDatabase', 'name' => 'Create Database dump'));
+            array_push($dbJobs, array('handle' => 'showDatabaseBackups', 'name' => 'Show Database backups'));
+            array_push($userJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
+            array_push($userJobs, array('handle' => 'fakeUsersOnline', 'name' => 'Fake some Users online status'));
+            array_push($userJobs, array('handle' => 'kickAllOffline', 'name' => 'Kick ass Users offline status'));
 
-            $smarty->assign('jobs', $maintenenceJobs);
+            $smarty->assign('maintenanceJobs', $maintenenceJobs);
+            $smarty->assign('dbJobs', $dbJobs);
+            $smarty->assign('userJobs', $userJobs);
             $smarty->display('IMBAdminModules/MaintenanceMaintenance.tpl');
             break;
 

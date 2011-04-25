@@ -5,6 +5,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 $smarty = ImbaSharedFunctions::newSmarty();
 $smarty->assign("thrustRoot", ImbaSharedFunctions::getTrustRoot());
+$smarty->assign("phpSessionID", session_id());
 
 switch ($_GET["load"]) {
     case "js":
@@ -28,7 +29,6 @@ switch ($_GET["load"]) {
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
         }
 
-        $smarty->assign(phpSessionID, session_id());
         $smarty->assign("PortalNavigation", $managerNavigation->renderPortalNavigation());
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());

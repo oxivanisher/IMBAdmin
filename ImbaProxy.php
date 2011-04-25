@@ -178,7 +178,7 @@ if ($set['facility'] == "test") {
     if ($set['proxyDebug'] == "true") {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
-    if ($set['facility'] == "auth") {
+    if ($mySession != false) {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
 } else {

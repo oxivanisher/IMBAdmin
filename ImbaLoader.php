@@ -1,4 +1,5 @@
 <?php
+
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
@@ -55,22 +56,20 @@ switch ($_GET["load"]) {
                 }
             }
             $tmpOut .= $_SESSION['IUC_jsCache'];
-            
+
             /**
              * Load dynamic libs
              */
-                $jsFiles = array(
-                    "Media/ImbaBaseMethods.js",
-                    "Media/ImbaLogin.js",
-                    "Media/ImbaAdmin.js",
-                    "Media/ImbaGame.js",
-                    "Media/ImbaMessaging.js"
-                );
-                foreach ($jsFiles as $jsFile) {
-                    $tmpOut .= file_get_contents($jsFile) . "\n" . "\n";
-                }
+            $jsFiles = array(
+                "Media/ImbaBaseMethods.js",
+                "Media/ImbaLogin.js",
+                "Media/ImbaAdmin.js",
+                "Media/ImbaGame.js",
+                "Media/ImbaMessaging.js"
+            );
+            foreach ($jsFiles as $jsFile) {
+                $tmpOut .= file_get_contents($jsFile) . "\n" . "\n";
             }
-            
 
             /**
              * Begin js/HTML injection code

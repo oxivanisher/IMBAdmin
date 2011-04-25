@@ -19,7 +19,6 @@ if (empty($_POST["context"])) {
 $navigationFile = "Ajax/" . $tmpFile . ".Navigation.php";
 
 function returnDefaultModule() {
-    session_start();
     require_once 'Controller/ImbaUserContext.php';
 
     if ($_POST["context"] == "IMBAdminModules") {

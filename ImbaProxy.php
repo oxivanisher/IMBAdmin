@@ -170,7 +170,8 @@ if ($set['facility'] == "test") {
     }
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
-    } else {
+    }
+    if ($set['facility'] == "auth") {
         $tmpLogOut = "-------------------------------------------------------\n";
         $tmpLogOut .= "facility: " . $set['facility'] . "\n";
         $tmpLogOut .= "module: " . $_POST['action'] . "\n";

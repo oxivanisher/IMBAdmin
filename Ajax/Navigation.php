@@ -51,7 +51,8 @@ if (file_exists($navigationFile)) {
             echo "test";
             break;
         case "comment":
-            echo $Navigation->getComment();
+            echo "test2";
+            //echo $Navigation->getComment();
             break;
         default:
             echo returnDefaultModule();

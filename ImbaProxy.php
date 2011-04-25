@@ -147,11 +147,13 @@ function returnError($message) {
 /**
  * Setting up log output
  */
-$tmpLogOut = "-------------------------------------------------------\n";
+$tmpLogOut = "secSession: " . $mySession . "\n";
 $tmpLogOut .= "facility: " . $set['facility'] . "\n";
-$tmpLogOut .= "module: " . $_POST['action'] . "\n";
+$tmpLogOut .= "action: " . $_POST['action'] . "\n";
+$tmpLogOut .= "module: " . $_POST['module'] . "\n";
+$tmpLogOut .= "game: " . $_POST['game'] . "\n";
 $tmpLogOut .= "request: " . $_POST['request'] . "\n";
-$tmpLogOut .= "cookie: " . $mySession . "\n";
+$tmpLogOut .= "openid: " . $_POST['openid'] . "\n";
 
 if ($set['facility'] == "test") {
     header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
@@ -172,6 +174,12 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
+    if ($set['facility'] == "auth") {
+        //write requests without session to log
+        foreach (explode("\n", $tmpLogOut) as $line) {
+            ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+        }
+    }
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
@@ -179,12 +187,6 @@ if ($set['facility'] == "test") {
     }
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
-    }
-    if ($set['facility'] == "auth") {
-        //write requests without session to log
-        foreach (explode("\n", $tmpLogOut) as $line) {
-            ImbaSharedFunctions::writeProxyLog($line);
-        }
     }
     echo $set['answerContent'];
 } else {

@@ -333,4 +333,5 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 }
 ImbaUserContext::setImbaErrorMessage("WTF? We reached the end of the world!");
 header("Location: " . ImbaUserContext::getRedirectUrl());
+echo "WTF? We reached the end of the world!";
 ?>

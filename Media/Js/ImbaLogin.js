@@ -238,100 +238,109 @@ function setLoggedIn(isLoggedIn){
  * Sets the system in error state
  */
 function checkReturn(returnData){
-    if (returnData.substring(0,6) == "Error:") {
-        isSystemInErrorState = true;
-        setLoggedIn(false);
-        $("#imbaSsoLoginInner").hide();
-        $("#imbaUsersOnline").hide();
-        $.jGrowl(returnData.substring(6), {
-            header: 'Error',
-            life: 1000,
-            sticky: true
-        });
-        return true;
-    } else if (returnData.length == 0) {
-        $.jGrowl("Keine Daten erhalten", {
-            header: 'Warning',
-            life: 700
-        });
-        return false;
+    if (imbaJsDebug == false) {
+        if (returnData.substring(0,6) == "Error:") {
+            isSystemInErrorState = true;
+            setLoggedIn(false);
+            $("#imbaSsoLoginInner").hide();
+            $("#imbaUsersOnline").hide();
+            $.jGrowl(returnData.substring(6), {
+                header: 'Error',
+                life: 200
+            });
+            return true;
+        }
     } else {
-        $.jGrowl("Daten geladen:<br />" + returnData, {
-            header: 'Info',
-            life: 300
-        });
-        return false;
+        if (returnData.substring(0,6) == "Error:") {
+            $.jGrowl(returnData.substring(6), {
+                header: 'Error',
+                life: 1000,
+                sticky: true
+            });
+            return true;
+        } else if (returnData.length == 0) {
+            $.jGrowl("Keine Daten erhalten", {
+                header: 'Warning',
+                life: 700
+            });
+            return false;
+        } else {
+            $.jGrowl("Daten geladen:<br />" + returnData, {
+                header: 'Info',
+                life: 300
+            });
+            return false;
+        }
     }
-}
 
-/**
+    /**
  * Shows the Menu and stuff around
  */
-function showMenu() {
-    // run the effect
-    $("#imbaMenu").show("slide", {
-        direction: "right"
-    });
-    
-    if (isSystemInErrorState == false) {
-        $("#imbaSsoLoginInner").show("slide", {
+    function showMenu() {
+        // run the effect
+        $("#imbaMenu").show("slide", {
             direction: "right"
-        });    
+        });
     
-        $("#imbaUsersOnline").show("slide", {
-            direction: "up"
-        });   
+        if (isSystemInErrorState == false) {
+            $("#imbaSsoLoginInner").show("slide", {
+                direction: "right"
+            });    
+    
+            $("#imbaUsersOnline").show("slide", {
+                direction: "up"
+            });   
+        }
     }
-}
 
-/**
+    /**
  * Hids the Menu and stuff around
  */
-function hideMenu() {
-    // run the effect
-    $("#imbaMenu").hide("slide", {
-        direction: "right"
-    });
-
-    if (isSystemInErrorState == false) {
-        $("#imbaSsoLoginInner").hide("slide", {
+    function hideMenu() {
+        // run the effect
+        $("#imbaMenu").hide("slide", {
             direction: "right"
         });
 
-        $("#imbaUsersOnline").hide("slide", {
-            direction: "up"
-        });
-    }
-}
+        if (isSystemInErrorState == false) {
+            $("#imbaSsoLoginInner").hide("slide", {
+                direction: "right"
+            });
 
-/**
+            $("#imbaUsersOnline").hide("slide", {
+                direction: "up"
+            });
+        }
+    }
+
+    /**
  * Sets the current portal
  */
-function loadImbaPortal(id) {
-    $.post(ajaxEntry, {
-        action: "portal",
-        request: "loadportal",
-        secSession: phpSessionID,
-        id: id
-    }, function (response){
-        var tmpError = true;
-        if (id != null) {
-            tmpError = checkReturn(response);
-        } else {
-            tmpError = false;
-        }
-        if ((response != "") && (tmpError == false)) {
-            $.each($.parseJSON(response), function (name, icon) {
-                if (id != null) {
-                    $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + name + '</big>', {
-                        life: 350,
-                        header: 'Portal geladen:<br /><br />'
-                    });
-                }
-                //AggraHelp: warsch. setze ich die hier nicht ganz standartkonform. FF bockt hier rum
-                $("#imbaSsoLogoImage").attr('src', icon);
-                $("#document").attr('title', name + ' Portal');
-            })
-        }
-    });
-}
+    function loadImbaPortal(id) {
+        $.post(ajaxEntry, {
+            action: "portal",
+            request: "loadportal",
+            secSession: phpSessionID,
+            id: id
+        }, function (response){
+            var tmpError = true;
+            if (id != null) {
+                tmpError = checkReturn(response);
+            } else {
+                tmpError = false;
+            }
+            if ((response != "") && (tmpError == false)) {
+                $.each($.parseJSON(response), function (name, icon) {
+                    if (id != null) {
+                        $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + name + '</big>', {
+                            life: 350,
+                            header: 'Portal geladen:<br /><br />'
+                        });
+                    }
+                    //AggraHelp: warsch. setze ich die hier nicht ganz standartkonform. FF bockt hier rum
+                    $("#imbaSsoLogoImage").attr('src', icon);
+                    $("#document").attr('title', name + ' Portal');
+                })
+            }
+        });
+    }

@@ -5,6 +5,7 @@
 *}
 var ajaxEntry = '{$ajaxPath}';
 var phpSessionID = '{$phpSessionID}';
+var imbaJsDebug = {$jsDebug};
 {* 
 
     include library javascript files

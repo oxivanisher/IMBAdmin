@@ -34,7 +34,8 @@ switch ($_GET["load"]) {
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());
         $smarty->assign("PortalChooser", $managerNavigation->renderPortalChooser());
-
+        ImbaConstants::loadSettings();
+        $smarty->assign("jsDebug", ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG']);
         $smarty->display('ImbaLoaderJs.tpl');
         break;
 

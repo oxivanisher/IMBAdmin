@@ -484,7 +484,6 @@ $(document).ready(function() {
                     type: "POST",
                     url: ajaxEntry,
                     dataType: "json",
-                    secSession: phpSessionID,
                     data: {
                         action: "user",
                         loaduser: "true",

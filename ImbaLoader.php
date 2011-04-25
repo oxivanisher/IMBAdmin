@@ -1,17 +1,53 @@
 <?php
-
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
-$IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
+//History: $IMBAdminIndexTemplate = ImbaConstants::$WEB_BASE_TEMPLATE;
 
 switch ($_GET["load"]) {
     case "js":
         header('Content-Type: application/javascript');
+        /**
+         * Betacode for the new js index loader
+         */
+        session_start();
+
+        require_once 'Model/ImbaUser.php';
+        require_once 'Model/ImbaNavigation.php';
+        require_once 'Controller/ImbaManagerDatabase.php';
+        require_once 'Controller/ImbaManagerNavigation.php';
+        require_once 'Controller/ImbaManagerUser.php';
+        require_once 'Controller/ImbaUserContext.php';
+        require_once 'Controller/ImbaSharedFunctions.php';
+
+        $managerNavigation = ImbaManagerNavigation::getInstance();
+
+        $smarty = ImbaSharedFunctions::newSmarty();
+        if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
+            $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_MAIN_PATH);
+            $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_MAIN_PATH));
+        } else {
+            $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_PROXY_PATH);
+            $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
+        }
+        
+        $smarty->assign("phpSessionID", session_id());
+        $smarty->assign("thrustRoot", ImbaSharedFunctions::getTrustRoot());
+        $smarty->assign("PortalNavigation", $managerNavigation->renderPortalNavigation());
+        $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
+        $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());
+        $smarty->assign("PortalChooser", $managerNavigation->renderPortalChooser());
+
+        //$smarty->register_resource("jsVarInject", DATASOURCE);
+        
+        $smarty->display('ImbaJs.tpl');
 
         /**
-         * Load IMBAdmin index template
+         * History
          */
+        /**
+         * Load IMBAdmin index template
+         *
         if (file_exists($IMBAdminIndexTemplate)) {
             session_start();
             $tmpOut = "";
@@ -28,7 +64,7 @@ switch ($_GET["load"]) {
 
             /**
              * depending of proxy or not and set the js var
-             */
+             *
             if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
                 $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
                 $ajaxPath = ImbaConstants::$WEB_AJAX_MAIN_PATH;
@@ -41,7 +77,7 @@ switch ($_GET["load"]) {
 
             /**
              * Load static libs from session
-             */
+             *
             if (empty($_SESSION['IUC_jsCache'])) {
                 $jsFiles = array(
                     "Libs/jQuery/js/jquery-1.4.4.min.js",
@@ -59,7 +95,7 @@ switch ($_GET["load"]) {
 
             /**
              * Load dynamic libs
-             */
+             *
             $jsFiles = array(
                 "Media/ImbaBaseMethods.js",
                 "Media/ImbaLogin.js",
@@ -73,12 +109,12 @@ switch ($_GET["load"]) {
 
             /**
              * Begin js/HTML injection code
-             */
+             *
             $tmpOut .= "htmlContent = \"<div id='imbaAdminContainerWorld'>\\\n";
 
             /**
              * Render Portal, ImbaAdmin and ImbaGames Navigation
-             */
+             *
             $managerNavigation = ImbaManagerNavigation::getInstance();
             $tmpOut .= "<div id='imbaMenu'><ul class='topnav'>\\\n";
             $tmpOut .= $managerNavigation->renderPortalNavigation();
@@ -89,7 +125,7 @@ switch ($_GET["load"]) {
 
             /**
              * Render Imba HTML div construct
-             */
+             *
             $file_array = file($IMBAdminIndexTemplate);
             $thrustRoot = ImbaSharedFunctions::getTrustRoot();
             foreach ($file_array as $line) {
@@ -98,22 +134,25 @@ switch ($_GET["load"]) {
 
             /**
              * End js/HTML injection code
-             */
+             *
             $tmpOut .= "</div>\";\ndocument.write(htmlContent);\n\n";
 
             /**
              * Some replace magic
-             */
+             *
             $tmpOut = str_replace("MYWEBPATHREPLACE", $thrustRoot, $tmpOut);
             $tmpOut = str_replace("MYAUTHPATHREPLACE", $authPath, $tmpOut);
 
             /**
              * Write the stuff
-             */
+             *
             echo $tmpOut;
-        } else {
+        } else 
             echo 'alert("FATAL ERROR! File ' . $IMBAdminIndexTemplate . ' not found. Aborting...");';
         }
+         * 
+         * History Ends
+         */
         break;
 
     case "css":

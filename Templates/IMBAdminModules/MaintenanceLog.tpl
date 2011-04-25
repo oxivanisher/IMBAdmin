@@ -22,7 +22,7 @@
         var data = {
             module: "Maintenance",
             request: "viewlogdetail",
-            secSession: "{$secSession}",
+            secSession: phpSessionID,
             id: id
         };
         loadImbaAdminTabContent(data);

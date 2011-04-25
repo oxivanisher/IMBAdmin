@@ -9,12 +9,13 @@ var phpSessionID = '{$phpSessionID}';
 
     include library javascript files
     
-*}{strip}
+*}
 {fetch file='Libs/jQuery/js/jquery-1.4.4.min.js'}
 {fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}
 {fetch file='Libs/DataTables/media/js/jquery.dataTables.min.js'}
 {fetch file='Libs/jquery_jeditable/jquery.jeditable.js'}
-{fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}{/strip}{* 
+{fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}
+{* 
 
     include our javascript files
 

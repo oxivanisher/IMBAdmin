@@ -95,6 +95,7 @@ function loadImbaGameTabContent(data, myGameTabId) {
         targetGameIabId = myGameTabId;
     }
     data.action = "game";
+    data.request = "loadtabcontent";
     data.secSession = phpSessionID;
 
     $.post(ajaxEntry, data, function (response){

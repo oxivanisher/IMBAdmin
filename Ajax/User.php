@@ -22,7 +22,10 @@ if (ImbaUserContext::getLoggedIn()) {
         $msgCountMax = -1;
 
         foreach ($users as $user) {
-            if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
+            //Ich finde das unlogin, cernu
+            //if (date("d-m-Y") == date("d-m-Y", $user->getLastonline())) {
+            //show all users which were onilne within tle last 36 houres
+            if ($user->getLastonline() > (time() - (60 * 60 * 24 * 3))) {
                 // Setting the color, depending on time
                 // < 5 min => lime
                 // < 10min => orange

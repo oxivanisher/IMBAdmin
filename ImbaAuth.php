@@ -304,7 +304,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
                 $managerLog->insert($log);
-                echo $log->getMessage();
                 ImbaUserContext::setImbaErrorMessage("OpenID Verification ERROR: " . $ex->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
             }

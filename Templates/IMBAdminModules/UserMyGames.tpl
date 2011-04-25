@@ -47,6 +47,7 @@
                             module: "User",
                             request: "editmygames",
                             hasActiveGame: "true",
+                            secSession: "{$secSession}",
                             activeGame: $("#MyGamesTab").accordion( "option", "active" )
                         };
                         loadImbaAdminTabContent(data);

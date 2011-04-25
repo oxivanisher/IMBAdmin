@@ -7,7 +7,7 @@
             $.post(ajaxEntry, {
                 action: "module",
                 module: "Admin",
-                secSession: {$secSession},
+                secSession: "{$secSession}",
                 request: "updategame",
                 gameid: "{$id}",
                 name: $("#myGameName").val(),

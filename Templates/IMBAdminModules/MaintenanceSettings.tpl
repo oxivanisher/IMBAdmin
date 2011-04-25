@@ -39,7 +39,8 @@
                 
             var data = {
                 module: "Maintenance",
-                request: "settings"
+                request: "settings",
+                secSession: "{$secSession}"
             };
             loadImbaAdminTabContent(data);
         }            
@@ -58,7 +59,8 @@
 
             var data = {
                 module: "Maintenance",
-                request: "settings"
+                request: "settings",
+                secSession: "{$secSession}"
             };
             loadImbaAdminTabContent(data);
                 

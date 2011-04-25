@@ -20,7 +20,8 @@
                 }, function(response){
                     var data = {
                         module: "Admin",
-                        request: "viewportaldetail"
+                        request: "viewportaldetail",
+                        secSession: "{$secSession}"
                     };
                     loadImbaAdminTabContent(data);
                 });

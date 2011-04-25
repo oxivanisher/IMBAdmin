@@ -39,7 +39,8 @@
                 
             var data = {
                 module: "Admin",
-                request: "gamecategory"
+                request: "gamecategory",
+                secSession: "{$secSession}"
             };
             loadImbaAdminTabContent(data);
         }            
@@ -51,13 +52,14 @@
                 action: "module",
                 module: "Admin",
                 request: "addgamecategory",
-                secSession: {$secSession},
+                secSession: "{$secSession}",
                 name: ImbaAddCategoryName.value.valueOf()
             });
 
             var data = {
                 module: "Admin",
-                request: "gamecategory"
+                request: "gamecategory",
+                secSession: "{$secSession}"
             };
             loadImbaAdminTabContent(data);
                 

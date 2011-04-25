@@ -39,7 +39,8 @@
 
                 var data = {
                     module: "Admin",
-                    request: "role"
+                    request: "role",
+                    secSession: "{$secSession}"
                 };
                 loadImbaAdminTabContent(data);
             }            
@@ -68,7 +69,8 @@
                 
                 var data = {
                     module: "Admin",
-                    request: "role"
+                    request: "role",
+                    secSession: "{$secSession}"
                 };
                 loadImbaAdminTabContent(data);
                 

@@ -1,5 +1,6 @@
 <?php
 require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaUserContext.php';
 
 /**
  * This file returns the available navigation options for the modules ($_POST["module"])
@@ -65,8 +66,6 @@ if (file_exists($navigationFile)) {
             echo json_encode($nav);
             break;
         case "name":
-            echo "Module not found (" . $navigationFile . ")!";
-            break;
         case "comment":
             echo "Module not found (" . $navigationFile . ")!";
             break;

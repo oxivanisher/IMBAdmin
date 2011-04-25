@@ -488,6 +488,7 @@ $(document).ready(function() {
                     data: {
                         action: "user",
                         loaduser: "true",
+                        session: phpSessionID,
                         startwith: request.term.substr(3 ,request.term.length)
                     },
                     success: function( data ) {
@@ -511,6 +512,7 @@ $(document).ready(function() {
                     session: phpSessionID,
                     data: {
                         action: "messenger",
+                        session: phpSessionID,
                         loadchannels: "true"
                     },
                     success: function( data ) {

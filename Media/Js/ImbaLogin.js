@@ -307,7 +307,9 @@ function loadImbaPortal(id) {
         } else {
             tmpError = false;
         }
+        alert('tmpError: ' + tmpError);
         if ((response != "") && (tmpError == false)) {
+            alert('response: ' + response);
             $.each($.parseJSON(response), function (name, icon) {
                 if (id != null) {
                     $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + name + '</big>', {
@@ -316,8 +318,8 @@ function loadImbaPortal(id) {
                     });
                 }
                 //AggraHelp: warsch. setze ich die hier nicht ganz standartkonform. FF bockt hier rum
-                imbaSsoLogoImage.src = icon;
-                document.title = name + ' Portal';
+                $("#imbaSsoLogoImage").attr('src', icon);
+                $("#document").attr('title', name + ' Portal');
             })
         }
     });

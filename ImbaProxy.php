@@ -172,9 +172,9 @@ if ($set['facility'] == "test") {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     } else {
         $tmpLogOut = "-------------------------------------------------------\n";
-        $tmpLogOut .= "facility: " . $_POST['facility'] . "\n";
-        $tmpLogOut .= "module: " . $_POST['module'] . "\n";
-        $tmpLogOut .= "action: " . $_POST['action'] . "\n";
+        $tmpLogOut .= "facility: " . $set['facility'] . "\n";
+        $tmpLogOut .= "module: " . $_POST['action'] . "\n";
+        $tmpLogOut .= "request: " . $_POST['request'] . "\n";
         $tmpLogOut .= "cookie: " . $mySession . "\n";
 
         foreach (explode("\n", $tmpLogOut) as $line) {

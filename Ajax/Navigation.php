@@ -47,7 +47,8 @@ if (file_exists($navigationFile)) {
             echo json_encode($nav);
             break;
         case "name":
-            echo $Navigation->getName();
+            //echo $Navigation->getName();
+            echo "test";
             break;
         case "comment":
             echo $Navigation->getComment();

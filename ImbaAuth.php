@@ -298,7 +298,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             if ($ex->getMessage() == "id_res_not_set") {
                 ImbaUserContext::setWaitingForVerify(false);
                 $log->setLevel(1);
-                $log->setMessage("OpenID Session expired. Restarting request.");
+                $log->setMessage("OpenID Anfrage ausgelaufen. Bitte nocheinmal versuchen.");
                 $managerLog->insert($log);
 
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());

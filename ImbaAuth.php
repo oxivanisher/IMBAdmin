@@ -73,14 +73,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      */
     if (ImbaUserContext::getWaitingForVerify() != true) {
         /**
-         * Save our referer to session
-         */
-        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-        }
-
-
-        /**
          * Determine Authentication method
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
@@ -95,6 +87,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             header("Location: " . ImbaUserContext::getRedirectUrl());
         }
 
+        /**
+         * Save our referer to session
+         */
+/*        if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+        }*/
+        ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
 
         /**
          * Do the Authentication
@@ -292,8 +291,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $log->setMessage("OpenID Session expired. Restarting request.");
                 $managerLog->insert($log);
 
-                header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
-                //echo "OpenID Session expired. Restarting request.";
+                //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
+                echo "OpenID Session expired. Please restart request.";
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());

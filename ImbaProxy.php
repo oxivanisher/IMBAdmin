@@ -119,32 +119,6 @@ curl_close($session);
 list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['answer'], 2);
 
 /**
- * generate output
- */
-function displayDebug($set) {
-    echo "<h2>Debug Info:</h2>";
-    echo "requestUrl: " . $set['requestUrl'] . "<br />";
-    echo "facility: " . $set['facility'] . "<br />";
-    echo "cookieFile: " . $set['cookieFilePath'] . "<br />";
-    echo "postvars: " . $set['postvars'] . "<br />";
-    echo "response:" . $set['answer'] . "<br />";
-    echo "<h3>returnHeaders:</h3><pre>";
-    print_r($set['returnHeaders']);
-    echo "PROXY SESSION ID: " . $mySession . "<br />";
-    echo "Client session cookieTmpString: " . $set['cookieTmpString'] . "<br />";
-    echo "Cookie File Path: " . $set['cookieFilePath'] . "<br />";
-    echo "Cookie Content:<br /><pre>" . file_get_contents($set['cookieFilePath']) . "</pre><br />";
-    echo "</pre><br />";
-    echo "<h3>POST:</h3><pre>";
-    print_r($_POST);
-    echo "</pre>";
-}
-
-function returnError($message) {
-    echo "Error:Proxy: " + $message;
-}
-
-/**
  * Setting up log output
  */
 $tmpLogOut = "secSession: " . $mySession . "\n";
@@ -157,13 +131,26 @@ $tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
 $tmpLogOut .= "header:\n" . $set['answerHeaders'] . "\n";
 $tmpLogOut .= "body:\n" . $set['answerContent'] . "\n";
 
+/**
+ * generate output
+ */
+function returnError($message) {
+    echo "Error:Proxy: " + $message;
+}
+
 if ($set['facility'] == "test") {
+    /**
+     * Test module
+     */
     header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     echo "PROXY SESSION ID: " . $mySession . "<br />";
     echo "Cookie File Path: " . $set['cookieFilePath'] . "<br />";
     echo "Cookie Content:<br /><pre>" . file_get_contents($set['cookieFilePath']) . "</pre><br />";
     echo $set['answerContent'];
 } elseif ($set['facility'] == "logout") {
+    /**
+     * logout
+     */
     unlink($set['cookieFilePath']);
     unset($set['cookieFilePath']);
     setcookie("PHPSESSID", "", time() - 3600);
@@ -176,9 +163,9 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if ($set['facility'] == "auth") {
-        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    }
+    /**
+     * normal proxy return
+     */
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);
@@ -188,13 +175,18 @@ if ($set['facility'] == "test") {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
     echo $set['answerContent'];
+    if ($set['proxyDebug'] == "true") {
+        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+    }
+    if ($set['facility'] == "auth") {
+        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+    }
 } else {
+    /**
+     * no return found
+     */
     $tmpLogOut .= "ee: no return received (error)\n";
     ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    if ($set['debug']) {
-        displayDebug($set);
-    } else {
-        returnError("No data recieved");
-    }
+    returnError("No data recieved");
 }
 ?>

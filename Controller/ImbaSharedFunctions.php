@@ -217,8 +217,23 @@ class ImbaSharedFunctions {
         return $aCookies;
     }
 
+    /**
+ * Function for temporary log writing (debug)
+ */
     public static function writeToLog($message) {
         $myFile = "Logs/ImbaLog.log";
+        if ($fh = fopen($myFile, 'a+')) {
+            $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
+            fwrite($fh, $stringData);
+            fclose($fh);
+        }
+    }
+
+    /**
+     * Function for the proxy to log unusual requests and stuff like that ... yo!
+     */
+    public static function writeProxyLog($message) {
+        $myFile = "Logs/ImbaProxyLog.log";
         if ($fh = fopen($myFile, 'a+')) {
             $stringData = date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "): " . $message . "\n";
             fwrite($fh, $stringData);

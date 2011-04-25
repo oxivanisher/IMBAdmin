@@ -68,15 +68,17 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
             $maintenenceJobs = array();
             $dbJobs = array();
             $userJobs = array();
-            
+
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
             array_push($maintenenceJobs, array('handle' => 'showSettings', 'name' => 'Show the $SETTINGS array'));
+            array_push($maintenenceJobs, array('handle' => 'showProxyLogs', 'name' => 'Show Proxy Logs'));
+            array_push($maintenenceJobs, array('handle' => 'deleteProxyLogs', 'name' => 'Delete Proxy Logs'));
             array_push($dbJobs, array('handle' => 'backupDatabase', 'name' => 'Create Database dump'));
             array_push($dbJobs, array('handle' => 'showDatabaseBackups', 'name' => 'Show Database backups'));
             array_push($userJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
             array_push($userJobs, array('handle' => 'fakeUsersOnline', 'name' => 'Fake some Users online status'));
-            array_push($userJobs, array('handle' => 'kickAllOffline', 'name' => 'Kick ass Users offline status'));
+            array_push($userJobs, array('handle' => 'kickAllOffline', 'name' => 'Kick all Users offline'));
 
             $smarty->assign('maintenanceJobs', $maintenenceJobs);
             $smarty->assign('dbJobs', $dbJobs);
@@ -162,11 +164,11 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                 case "showDatabaseBackups":
                     $backupPath = $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER["PHP_SELF"]) . "/Backup/";
 
-                    $tmpOut = "<h4>Files in ".$backupPath.":</h4>";
+                    $tmpOut = "<h4>Files in " . $backupPath . ":</h4>";
                     if ($handle = opendir($backupPath)) {
                         $filesArray = array();
                         while (false !== ($file = readdir($handle))) {
-                            if ($file != "." && $file != ".." && $file != ".htaccess"  && $file != ".gitignore") {
+                            if ($file != "." && $file != ".." && $file != ".htaccess" && $file != ".gitignore") {
                                 array_push($filesArray, '<a href="Backup/' . $file . '">' . $file . '</a>');
                             }
                         }
@@ -215,6 +217,19 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     }
 
                     $smarty->assign('message', $message);
+                    break;
+
+                case "showProxyLogs":
+                    touch("Logs/ImbaProxyLog.log");
+                    $smarty->assign('name', 'Show Proxy Logs');
+                    $smarty->assign('message', "<pre>" . file_get_contents("Logs/ImbaProxyLog.log") . "</pre>");
+                    break;
+
+                case "deleteProxyLogs":
+                    unlink("Logs/ImbaProxyLog.log");
+                    touch("Logs/ImbaProxyLog.log");
+                    $smarty->assign('name', 'Show Proxy Logs');
+                    $smarty->assign('message', "Proxy log cleared");
                     break;
 
                 default:

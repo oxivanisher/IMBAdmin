@@ -183,13 +183,13 @@ if ($set['facility'] == "test") {
     if ($set['facility'] == "auth") {
         //write requests without session to log
         foreach (explode("\n", $tmpLogOut) as $line) {
-            ImbaSharedFunctions::writeToLog($line);
+            ImbaSharedFunctions::writeProxyLog($line);
         }
     }
     echo $set['answerContent'];
 } else {
     $tmpLogOut .= "ee: no return received (error)\n";
-    ImbaSharedFunctions::writeToLog($tmpLogOut);
+    ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     if ($set['debug']) {
         displayDebug($set);
     } else {

@@ -9,11 +9,8 @@ $smarty->assign("thrustRoot", ImbaSharedFunctions::getTrustRoot());
 switch ($_GET["load"]) {
     case "js":
         header('Content-Type: application/javascript');
-        /**
-         * Betacode for the new js index loader
-         */
-        session_start();
 
+        session_start();
         require_once 'Model/ImbaUser.php';
         require_once 'Model/ImbaNavigation.php';
         require_once 'Controller/ImbaManagerDatabase.php';

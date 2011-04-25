@@ -148,12 +148,14 @@ function returnError($message) {
  * Setting up log output
  */
 $tmpLogOut = "secSession: " . $mySession . "\n";
-$tmpLogOut .= "facility: " . $set['facility'] . "\n";
-$tmpLogOut .= "action: " . $_POST['action'] . "\n";
-$tmpLogOut .= "module: " . $_POST['module'] . "\n";
-$tmpLogOut .= "game: " . $_POST['game'] . "\n";
-$tmpLogOut .= "request: " . $_POST['request'] . "\n";
-$tmpLogOut .= "openid: " . $_POST['openid'] . "\n";
+$tmpLogOut .= "facility : " . $set['facility'] . "\n";
+$tmpLogOut .= "action   : " . $_POST['action'] . "\n";
+$tmpLogOut .= "module   : " . $_POST['module'] . "\n";
+$tmpLogOut .= "game     : " . $_POST['game'] . "\n";
+$tmpLogOut .= "request  : " . $_POST['request'] . "\n";
+$tmpLogOut .= "openid   : " . $_POST['openid'] . "\n";
+$tmpLogOut .= "header   : " . $_POST['answerHeaders'] . "\n";
+$tmpLogOut .= "body     : " . $_POST['answerContent'] . "\n";
 
 if ($set['facility'] == "test") {
     header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");

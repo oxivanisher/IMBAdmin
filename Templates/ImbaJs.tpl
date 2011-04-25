@@ -18,13 +18,13 @@ var phpSessionID = '{$phpSessionID}';
 
     include our javascript files
 
-*}{strip}
+*}
 {fetch file='Media/ImbaBaseMethods.js'}
 {fetch file='Media/ImbaLogin.js'}
 {fetch file='Media/ImbaAdmin.js'}
 {fetch file='Media/ImbaGame.js'}
 {fetch file='Media/ImbaMessaging.js'}
-{/strip}{* 
+{* 
 
     fill our imbaAdminContainerWorld container with ImbaIndex.tpl
     

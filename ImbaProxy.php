@@ -176,6 +176,10 @@ if ($set['facility'] == "test") {
         $tmpLogOut .= "module: " . $_POST['module'] . "\n";
         $tmpLogOut .= "action: " . $_POST['action'] . "\n";
         $tmpLogOut .= "cookie: " . $mySession . "\n";
+
+        foreach (explode("\n", $tmpLogOut) as $line) {
+            ImbaSharedFunctions::writeToLog($line);
+        }
     }
     echo $set['answerContent'];
 } else {
@@ -185,8 +189,5 @@ if ($set['facility'] == "test") {
     } else {
         returnError("No data recieved");
     }
-}
-foreach (explode("\n", $tmpLogOut) as $line) {
-    ImbaSharedFunctions::writeToLog($line);
 }
 ?>

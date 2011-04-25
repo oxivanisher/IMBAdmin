@@ -72,7 +72,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
             $portal = $this->managerPortal->selectById($this->loadPortalContext);
             foreach ($portal->getNavitems() as $navElement) {
-                $return .= "<li><a href='" . $navElement->getUrl() . "' title='" . $navElement->getComment() . "'>" . $navElement->getName() . "</a></li>\\\n";
+                $return .= "<li><a href='" . $navElement->getUrl() . "' title='" . $navElement->getComment() . "'>" . $navElement->getName() . "</a></li>";
             }
         }
 
@@ -102,17 +102,17 @@ class ImbaManagerNavigation extends ImbaManagerBase {
              * Render Top Navigation Entries
              */
             foreach ($topNav->getElements() as $nav) {
-                $return .= "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>\\\n";
+                $return .= "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
             }
         }
         return $return;
     }
 
     public function renderImbaAdminNavigation() {
-        $return = "<li>\\\n";
+        $return = "<li>";
         $return .= "<a id='imbaMenuImbAdmin' href='javascript:void(0)' onclick='javascript: loadImbaAdminDefaultModule();' title='";
-        $return .= ImbaConstants::$WEB_IMBADMIN_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBADMIN_BUTTON_NAME . "</a>\\\n";
-        $return .= "<ul class='subnav'>\\\n";
+        $return .= ImbaConstants::$WEB_IMBADMIN_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBADMIN_BUTTON_NAME . "</a>";
+        $return .= "<ul class='subnav'>";
         $contentNav = new ImbaContentNavigation();
         if ($handle = opendir('Ajax/IMBAdminModules/')) {
             $identifiers = array();
@@ -129,7 +129,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
                         if ($showMe) {
                             $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>\\\n";
+                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaAdminModule(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
                             array_push($identifiers, $modIdentifier);
                             $Navigation = null;
                         }
@@ -138,16 +138,16 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             }
             closedir($handle);
         }
-        $return .= "</ul>\\\n";
-        $return .= "</li>\\\n";
+        $return .= "</ul>";
+        $return .= "</li>";
         return $return;
     }
 
     public function renderImbaGameNavigation() {
-        $return = "<li>\\\n";
+        $return = "<li>";
         $return .= "<a id='imbaMenuImbaGame' href='javascript:void(0)' onclick='javascript: loadImbaGameDefaultGame();' title='";
-        $return .= ImbaConstants::$WEB_IMBAGAME_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBAGAME_BUTTON_NAME . "</a>\\\n";
-        $return .= "<ul class='subnav'>\\\n";
+        $return .= ImbaConstants::$WEB_IMBAGAME_BUTTON_COMMENT . "'>" . ImbaConstants::$WEB_IMBAGAME_BUTTON_NAME . "</a>";
+        $return .= "<ul class='subnav'>";
         $contentNav = new ImbaContentNavigation();
         if ($handle = opendir('Ajax/IMBAdminGames/')) {
             $identifiers = array();
@@ -164,7 +164,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
                         if ($showMe) {
                             $modIdentifier = trim(str_replace(".Navigation.php", "", $file));
-                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>\\\n";
+                            $return .= "<li><a href='javascript:void(0)' onclick='javascript: loadImbaGame(\\\"" . $modIdentifier . "\\\");' title='" . $Navigation->getComment($nav) . "'>" . $Navigation->getName($nav) . "</a></li>";
                             array_push($identifiers, $modIdentifier);
                             $Navigation = null;
                         }
@@ -174,8 +174,8 @@ class ImbaManagerNavigation extends ImbaManagerBase {
             closedir($handle);
         }
 
-        $return .= "</ul>\\\n";
-        $return .= "</li>\\\n";
+        $return .= "</ul>";
+        $return .= "</li>";
         return $return;
     }
 
@@ -185,16 +185,16 @@ class ImbaManagerNavigation extends ImbaManagerBase {
     public function renderPortalChooser() {
         $managerPortal = ImbaManagerPortal::getInstance();
 
-        $return = "<li>\\\n";
-        $return .= "<a id='imbaMenuImbaPortal' href='javascript:void(0)' onclick='javascript: loadImbaPortal(-1);' title='Portal Zur&uuml;cksetzen'>Portal</a>\\\n";
-        $return .= "<ul class='subnav'>\\\n";
+        $return = "<li>";
+        $return .= "<a id='imbaMenuImbaPortal' href='javascript:void(0)' onclick='javascript: loadImbaPortal(-1);' title='Portal Zur&uuml;cksetzen'>Portal</a>";
+        $return .= "<ul class='subnav'>";
         foreach ($managerPortal->selectAll() as $portal) {
             $return .= "<li style='vertical-align: middle;'><a href='javascript:void(0)' onclick='javascript: loadImbaPortal(\\\"" . $portal->getId() . "\\\");' title='" . $portal->getComment() . "'>";
             $return .= "<img src='" . $portal->getIcon() . "' width='24px' height='24px' style='float: left;' /> " . $portal->getName();
-            $return .= "</a></li>\\\n";
+            $return .= "</a></li>";
         }
-        $return .= "</ul>\\\n";
-        $return .= "</li>\\\n";
+        $return .= "</ul>";
+        $return .= "</li>";
         return $return;
     }
 

@@ -1,34 +1,45 @@
 {* 
+    
     passing down our javascript vars 
+
 *}
 var ajaxEntry = '{$ajaxPath}';
 var phpSessionID = '{$phpSessionID}';
 {* 
-    include javascript files
+
+    include library javascript files
+    
+*}{strip}
+{fetch file='Libs/jQuery/js/jquery-1.4.4.min.js'}
+{fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}
+{fetch file='Libs/DataTables/media/js/jquery.dataTables.min.js'}
+{fetch file='Libs/jquery_jeditable/jquery.jeditable.js'}
+{fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}{/strip}{* 
+
+    include our javascript files
+
+*}{strip}
+{fetch file='Media/ImbaBaseMethods.js'}
+{fetch file='Media/ImbaLogin.js'}
+{fetch file='Media/ImbaAdmin.js'}
+{fetch file='Media/ImbaGame.js'}
+{fetch file='Media/ImbaMessaging.js'}
+{/strip}{* 
+
+    fill our imbaAdminContainerWorld container with ImbaIndex.tpl
+    
 *}
-{fetch file="file:../Libs/jQuery/js/jquery-1.4.4.min.js"}
-{fetch file="file:../Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js"}
-{fetch file="file:../Libs/DataTables/media/js/jquery.dataTables.min.js"}
-{fetch file="file:../Libs/jquery_jeditable/jquery.jeditable.js"}
-{fetch file="file:../Libs/jgrowl/jquery.jgrowl_compressed.js"}
-{fetch file="file:../Media/ImbaBaseMethods.js"}
-{fetch file="file:../Media/ImbaLogin.js"}
-{fetch file="file:../Media/ImbaAdmin.js"}
-{fetch file="file:../Media/ImbaGame.js"}
-{fetch file="file:../Media/ImbaMessaging.js"}
+htmlContent = "<div id='imbaAdminContainerWorld'><div id='imbaMenu'><ul class='topnav'> \
+{strip}
+{$PortalNavigation}
+{$ImbaAdminNavigation}
+{$ImbaGameNavigation}
+{$PortalChooser}
+{/strip}</ul> \
+</div>{include file="ImbaIndex.tpl"}</div>";
 {* 
-    fill our imbaAdminContainerWorld container
-*}
-htmlContent = "<div id='imbaAdminContainerWorld'> \
-<div id='imbaMenu'><ul class='topnav'> \
-{$PortalNavigation} \
-{$ImbaAdminNavigation} \
-{$ImbaGameNavigation} \
-{$PortalChooser} \
-</ul></div> \
-{include file="ImbaIndex.tpl"} \
-</div> \";
-{* 
+
     and inject it into the page
+    
 *}
 document.write(htmlContent);

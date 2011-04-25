@@ -104,6 +104,7 @@ class ImbaSharedFunctions {
         $smarty->setTemplateDir('Templates');
         $smarty->setCompileDir('Libs/smarty/templates_c');
         $smarty->setCacheDir('Libs/smarty/cache');
+        $smarty->caching = 0;
         $smarty->setConfigDir('Libs/smarty/configs');
         return $smarty;
     }

@@ -48,11 +48,9 @@ if (file_exists($navigationFile)) {
             break;
         case "name":
             echo $Navigation->getName();
-            //echo "test";
             break;
         case "comment":
-            echo "test2";
-            //echo $Navigation->getComment();
+            echo $Navigation->getComment();
             break;
         default:
             echo returnDefaultModule();

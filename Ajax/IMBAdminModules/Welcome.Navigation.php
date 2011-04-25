@@ -18,7 +18,7 @@ $Navigation = new ImbaContentNavigation();
 /**
  * Set module name
  */
-$Navigation->setName("");
+$Navigation->setName("Willkommen");
 $Navigation->setComment("Dies ist die Willkommens Site.");
 
 /**

@@ -4,7 +4,6 @@ header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
-$tmpLogOut = "-------------------------------------------------------\n";
 
 session_start();
 //print_r($GLOBALS); exit;
@@ -14,13 +13,6 @@ if (!empty($_COOKIE['PHPSESSID'])) {
 } elseif (!empty($_POST['secSession'])) {
     $mySession = $_POST['secSession'];
 }
-
-if ($mySession != false) {
-    $tmpLogOut .= "secSession: " . $mySession . "\n";
-} else {
-    $mySession = false;
-}
-
 
 /**
  * Determine which is our facility
@@ -179,10 +171,11 @@ if ($set['facility'] == "test") {
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     } else {
+        $tmpLogOut = "-------------------------------------------------------\n";
+        $tmpLogOut .= "facility: " . $_POST['facility'] . "\n";
         $tmpLogOut .= "module: " . $_POST['module'] . "\n";
         $tmpLogOut .= "action: " . $_POST['action'] . "\n";
-
-        $tmpLogOut .= "ou: " . $mySession . " (" . $set['facility'] . ")\n";
+        $tmpLogOut .= "cookie: " . $mySession . "\n";
     }
     echo $set['answerContent'];
 } else {

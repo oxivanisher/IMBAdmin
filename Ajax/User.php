@@ -1,8 +1,4 @@
 <?php
-
-// Extern Session start
-session_start();
-
 require_once 'Model/ImbaUser.php';
 require_once 'ImbaConfig.php';
 require_once 'Controller/ImbaManagerUser.php';

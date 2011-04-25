@@ -1,8 +1,5 @@
 <?php
 
-// Extern Session start
-session_start();
-
 require_once 'Model/ImbaMessage.php';
 require_once 'Model/ImbaChatMessage.php';
 require_once 'ImbaConstants.php';

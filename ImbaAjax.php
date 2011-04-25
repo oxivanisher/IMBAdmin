@@ -29,7 +29,6 @@ switch ($_POST["action"]) {
         break;
 
     case "game":
-        session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();
@@ -51,7 +50,6 @@ switch ($_POST["action"]) {
         break;
 
     case "module":
-        session_start();
         if (ImbaUserContext::getLoggedIn()) {
             $managerUser = ImbaManagerUser::getInstance();
             $managerUser->setMeOnline();

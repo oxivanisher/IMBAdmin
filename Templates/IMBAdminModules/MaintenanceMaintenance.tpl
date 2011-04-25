@@ -11,7 +11,13 @@
     }
 
     $(document).ready(function() {
-        {foreach $jobs as $job}
+        {foreach $maintenanceJobs as $job}
+        $("#imbaMaintenanceJob{$job.handle}").button();
+        {/foreach}
+        {foreach $dbJobs as $job}
+        $("#imbaMaintenanceJob{$job.handle}").button();
+        {/foreach}
+        {foreach $userJobs as $job}
         $("#imbaMaintenanceJob{$job.handle}").button();
         {/foreach}
     });

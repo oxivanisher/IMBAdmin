@@ -16,7 +16,6 @@ if (!empty($_COOKIE['PHPSESSID'])) {
 }
 
 if ($mySession != false) {
-    $tmpLogOut .= "action: " . $_POST['action'] . "\n";
     $tmpLogOut .= "secSession: " . $mySession . "\n";
 } else {
     $mySession = false;
@@ -179,7 +178,10 @@ if ($set['facility'] == "test") {
     }
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
-        //setcookie("PHPSESSID", session_id(), (time() + (60 * 60 * 24 * 30)));
+    } else {
+        $tmpLogOut .= "module: " . $_POST['module'] . "\n";
+        $tmpLogOut .= "action: " . $_POST['action'] . "\n";
+
         $tmpLogOut .= "ou: " . $mySession . " (" . $set['facility'] . ")\n";
     }
     echo $set['answerContent'];

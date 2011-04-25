@@ -288,7 +288,7 @@ function hideMenu() {
 }
 
 /**
- * Sets the actual portal
+ * Sets the current portal
  */
 function loadImbaPortal(id) {
     $.post(ajaxEntry, {
@@ -310,6 +310,7 @@ function loadImbaPortal(id) {
                         header: 'Portal geladen:<br /><br />'
                     });
                 }
+                //AggraHelp: warsch. setze ich die hier nicht ganz standartkonform. FF bockt hier rum
                 imbaSsoLogoImage.src = icon;
                 document.title = name + ' Portal';
             })

@@ -190,7 +190,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setMessage("No OpenId submitted");
                     $log->setLevel(2);
                     $managerLog->insert($log);
-                    ImbaUserContext::setImbaErrorMessage("No OpenId submitted");
+                    ImbaUserContext::setImbaErrorMessage($log->getMessage());
                     header("Location: " . ImbaUserContext::getRedirectUrl());
                 }
                 break;
@@ -199,8 +199,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              * Default auth type
              */
             default:
+                ImbaUserContext::setImbaErrorMessage("No Authtype included");
                 true;
         }
+        ImbaUserContext::setImbaErrorMessage("The other end of the World also!");
     } else {
         /**
          * first step completed. do the verification and actual login
@@ -210,6 +212,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $log->setMessage("Verification starting");
         $log->setLevel(2);
         $managerLog->insert($log);
+        ImbaUserContext::setImbaErrorMessage($log->getMessage());
 
         $log = $managerLog->getNew();
         $log->setModule("Auth");
@@ -234,7 +237,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
             $managerLog->insert($log);
-            ImbaUserContext::setImbaErrorMessage("OpenID Verification successful");
+            ImbaUserContext::setImbaErrorMessage($log->getMessage());
 
             $currentUser = $managerUser->selectByOpenId($esc_identity);
             /**
@@ -254,7 +257,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                ImbaUserContext::setImbaErrorMessage("Registering new user");
+                ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -297,13 +300,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerLog->insert($log);
 
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
-                ImbaUserContext::setImbaErrorMessage("OpenID Session expired. Please retry.");
+                ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
                 $managerLog->insert($log);
-                ImbaUserContext::setImbaErrorMessage("OpenID Verification ERROR: " . $ex->getMessage());
+                ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
             }
         }
@@ -327,10 +330,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setLevel(1);
     $managerLog->insert($log);
     //echo "You are logged in!";
-    ImbaUserContext::setImbaErrorMessage("Already logged in");
-    header("Location: " . ImbaUserContext::getRedirectUrl());
+    ImbaUserContext::setImbaErrorMessage($log->getMessage());
 }
-ImbaUserContext::setImbaErrorMessage("WTF? We reached the end of the world!");
 header("Location: " . ImbaUserContext::getRedirectUrl());
-echo ImbaUserContext::getImbaErrorMessage();
 ?>

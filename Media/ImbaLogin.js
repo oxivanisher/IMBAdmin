@@ -52,6 +52,7 @@ $(document).ready(function() {
     // Checking if user is online
     $.post(ajaxEntry, {
         action: "user",
+        request: "onlinecheck",
         secSession: phpSessionID
     }, function (response){
         if (checkError(response) == false) {  
@@ -185,6 +186,7 @@ function refreshUsersOnline(){
     if (isUserLoggedIn){
         $.post(ajaxEntry, {
             action: "user",
+            request: "loadusersonlinelist",
             loadusersonlinelist : "true",
             secSession: phpSessionID
         }, function (response){
@@ -293,6 +295,7 @@ function hideMenu() {
 function loadImbaPortal(id) {
     $.post(ajaxEntry, {
         action: "portal",
+        request: "loadportal",
         id: id,
         secSession: phpSessionID
     }, function (response){

@@ -67,15 +67,13 @@ function loadImbaAdminModule(moduleName, moduleDo, payLoad){
                 loadImbaAdminTabContent({
                     module: moduleName,
                     request: value.id,
-                    payLoad: payLoad,
-                    secSession: phpSessionID
+                    payLoad: payLoad
                 });
             } else if ((moduleDo != null) && (moduleDo != "")) {
                 loadImbaAdminTabContent({
                     module: moduleName,
                     request: moduleDo,
-                    payLoad: payLoad,
-                    secSession: phpSessionID
+                    payLoad: payLoad
                 });
             }
         });

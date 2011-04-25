@@ -95,8 +95,9 @@ function loadImbaAdminTabContent(data, myModuleTabId) {
         targetModuleIabId = myModuleTabId;
     }
 
-    //data.action = "module";
-    //data.request = "loadtabcontent";
+    if (data.action == "") {
+        data.action = "module";
+    }
     data.secSession = phpSessionID;
 
     $.post(ajaxEntry, data, function (response){

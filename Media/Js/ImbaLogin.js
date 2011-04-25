@@ -185,9 +185,8 @@ $(document).ready(function() {
     //Display potential Error Message
     if (imbaErrorMessage.length > 0) {
         $.jGrowl(imbaErrorMessage, {
-            header: 'Information:',
-            life: 1000,
-            sticky: true
+            header: 'Information aus der Session:',
+            life: 1000
         });
     }
 

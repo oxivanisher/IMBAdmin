@@ -25,8 +25,8 @@ $(document).ready(function() {
             $.jGrowl('Logging in...', {
                 header: 'Erfolg'
             });
-            imbaSsoOpenIdLoginReferer.value = document.URL;
-            imbaSsoLoginForm.submit();
+            $("#imbaSsoOpenIdLoginReferer").attr('value', $("#document").attr('URL'));
+            $("#imbaSsoLoginForm").submit();
         }
     });
     $("#imbaSsoOpenIdSubmitLogout").button();
@@ -34,8 +34,8 @@ $(document).ready(function() {
         $.jGrowl('Logging out...', {
             header: 'Erfolg'
         });
-        imbaSsoOpenIdLogoutReferer.value = document.URL;
-        imbaSsoLogoutForm.submit();
+        $("#imbaSsoOpenIdLogoutReferer").attr('value', $("#document").attr('URL'));
+        $("#imbaSsoLogoutForm").submit();
     });
     $("#imbaMessageTextSubmit").button();
     
@@ -298,8 +298,8 @@ function loadImbaPortal(id) {
     $.post(ajaxEntry, {
         action: "portal",
         request: "loadportal",
-        id: id,
-        secSession: phpSessionID
+        secSession: phpSessionID,
+        id: id
     }, function (response){
         var tmpError = true;
         if (id != null) {

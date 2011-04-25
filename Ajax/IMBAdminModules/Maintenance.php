@@ -66,6 +66,8 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
          */
         case "maintenance":
             $maintenenceJobs = array();
+            $dbJobs = array();
+            $userJobs = array();
             
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));

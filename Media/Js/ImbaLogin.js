@@ -186,7 +186,7 @@ $(document).ready(function() {
     if (imbaErrorMessage.length > 0) {
         $.jGrowl(imbaErrorMessage, {
             header: 'Information aus der Session:',
-            life: 1000
+            life: 10000
         });
     }
 

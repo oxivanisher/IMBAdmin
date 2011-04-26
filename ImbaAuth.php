@@ -73,7 +73,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
-    if (empty(ImbaUserContext::getWaitingForVerify())) {
+    if (empty($_SESSION["IUC_WaitingForVerify"])) {
         /**
          * Determine Authentication method (we also don't have to be verified)
          */

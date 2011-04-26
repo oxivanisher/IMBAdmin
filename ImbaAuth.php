@@ -45,15 +45,18 @@ $managerLog = ImbaManagerLog::getInstance();
 $managerUser = ImbaManagerUser::getInstance();
 
 /**
-* Helper for redirects
+ * Helper for redirects
  */
 function redirectMe($url, $line = __LINE__) {
-                //header("Location: " . $url);
-                echo $line . ": " . $url . "<br /><pre>";
-                print_r($GLOBALS);
-                echo "</pre>";
-                exit;
+    if ($line == 190) {
+        header("Location: " . $url);
+    }
+    echo $line . ": " . $url . "<br /><pre>";
+    print_r($GLOBALS);
+    echo "</pre>";
+    exit;
 }
+
 /**
  * OpenID auth logic
  */

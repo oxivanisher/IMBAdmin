@@ -225,6 +225,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("No Authtype included");
                 true;
         }
+        print_r($GLOBALS);
         echo __LINE__;
         exit;
     } else {
@@ -278,7 +279,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
                 ImbaUserContext::setWaitingForVerify("");
                 header("Location: " . $tmpUrl);
-
+                print_r($GLOBALS);
                 echo __LINE__;
                 exit;
             } elseif ($currentUser->getRole() == 0) {
@@ -315,8 +316,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
             //header("Location: " . $managerOpenId->getTrustRoot());
-            echo __LINE__ . ": " . $managerOpenId->getTrustRoot(); print_r($GLOBALS);
-            
+            echo __LINE__ . ": " . $managerOpenId->getTrustRoot();
+            print_r($GLOBALS);
+            print_r($GLOBALS);
             exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
@@ -331,7 +333,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setWaitingForVerify("");
                 header("Location: " . $managerOpenId->getTrustRoot());
                 echo __LINE__ . ": " . $managerOpenId->getTrustRoot();
-                
+                print_r($GLOBALS);
                 exit;
             } else {
                 $log->setLevel(1);
@@ -342,7 +344,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setWaitingForVerify("");
                 header("Location: " . $managerOpenId->getTrustRoot());
                 echo __LINE__ . ": " . $managerOpenId->getTrustRoot();
-                
+                print_r($GLOBALS);
                 exit;
             }
         }
@@ -367,6 +369,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     ImbaUserContext::setWaitingForVerify("");
     header("Location: " . $tmpUrl);
     echo __LINE__;
+    print_r($GLOBALS);
     exit;
 }
 header("Location: " . ImbaUserContext::getRedirectUrl());

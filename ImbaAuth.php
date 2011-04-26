@@ -197,7 +197,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              * In case the referer is not working, there is a redirecting solution like this:
                              * ImbaUserContext::setAuthReferer($redirectUrl);
                              */
-                            header("Location: " . trim($redirectUrl) . "");
+                            header("Location: " . $redirectUrl);
                             exit;
                             redirectMe($redirectUrl, __LINE__);
                         } else {
@@ -208,14 +208,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                             $managerLog->insert($log);
                             ImbaUserContext::setImbaErrorMessage($log->getMessage);
-                            redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                            header("Location : " . ImbaUserContext::getRedirectUrl);
+                            exit;
                         }
                     } catch (Exception $ex) {
                         $log->setLevel(1);
                         $log->setMessage("Authentification ERROR: " . $ex->getMessage() . " (" . $openid . ")");
                         $managerLog->insert($log);
                         ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                        redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                        header("Location : " . ImbaUserContext::getRedirectUrl);
+                        exit;
                     }
                 } else {
                     $log = $managerLog->getNew();
@@ -224,7 +226,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
                     ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                    redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                    header("Location : " . ImbaUserContext::getRedirectUrl);
+                    exit;
                 }
                 break;
 
@@ -364,5 +367,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     ImbaUserContext::setWaitingForVerify("");
     redirectMe($tmpUrl, __LINE__);
 }
-redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+header("Location : " . ImbaUserContext::getRedirectUrl);
+exit;
 ?>

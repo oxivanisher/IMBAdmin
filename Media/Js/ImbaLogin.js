@@ -27,21 +27,22 @@ $(document).ready(function() {
             loadImbaAdminDefaultModule();
             return true;
         } else {
-            $.jGrowl('Logging in...', {
-                header: 'Erfolg'
+            hideMenu();
+            $.jGrowl('Betrete das System...', {
+                header: 'Knock, Knock, Neo!'
             });
-            $("#imbaSsoOpenIdLoginReferer").attr('value', $("#document").attr('URL'));
             $("#imbaSsoLoginForm").submit();
             return true;
         }
     });
     $("#imbaSsoOpenIdSubmitLogout").button();
     $("#imbaSsoOpenIdSubmitLogout").click(function () {
-        $.jGrowl('Logging out...', {
-            header: 'Erfolg'
+        hideMenu();
+        $.jGrowl('Verlasse das System...', {
+            header: 'Knock, Knock, Neo!'
         });
-        $("#imbaSsoOpenIdLogoutReferer").attr('value', $("#document").attr('URL'));
         $("#imbaSsoLogoutForm").submit();
+        return true;
     });
     $("#imbaMessageTextSubmit").button();
     
@@ -188,7 +189,7 @@ $(document).ready(function() {
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
         $.jGrowl(imbaErrorMessage, {
-            header: 'Authentification forward:',
+            header: 'Browser Weiterleitung:',
             life: 2000
         });
     } else if (imbaErrorMessage.length > 0) {

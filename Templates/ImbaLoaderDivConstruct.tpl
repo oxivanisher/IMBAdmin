@@ -7,13 +7,13 @@
         <div id='imbaSsoLoginInner'>
             <form id='imbaSsoLoginForm' action='{$thrustRoot}{$authPath}' method='post'>
                 <input id='imbaSsoOpenId' name='openid' type='text' />
-                <input id='imbaSsoOpenIdLoginReferer' name='imbaSsoOpenIdLoginReferer' value='' type='hidden' />
+                <input id='imbaSsoOpenIdLoginReferer' name='imbaSsoOpenIdLoginReferer' value='{$thrustRoot}' type='hidden' />
                 <br />
                 <span id='imbaSsoOpenIdSubmit'>Login / Registrieren</span>
             </form>
             <form id='imbaSsoLogoutForm' action='{$thrustRoot}{$authPath}' method='post'>
                 <span id='imbaSsoShowNickname' onclick='loadImbaAdminModule(\"User\", \"editmyprofile\");'></span>
-                <input id='imbaSsoOpenIdLogoutReferer' name='imbaSsoOpenIdLogoutReferer' value='' type='hidden' />
+                <input id='imbaSsoOpenIdLogoutReferer' name='imbaSsoOpenIdLogoutReferer' value='{$thrustRoot}' type='hidden' />
                 <input name='logout' value='true' type='hidden' />
                 <br />
                 <span id='imbaSsoOpenIdSubmitLogout'>Logout</span>

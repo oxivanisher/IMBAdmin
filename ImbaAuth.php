@@ -51,6 +51,7 @@ function redirectMe($url, $line = __LINE__) {
     //if () {
     //($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)
     if (true) {
+        setcookie("imbaLoginRedirectLine", $line, (time() + 3600));
         header("Location: " . $url);
     } else {
         header("Content-Type: text/html");

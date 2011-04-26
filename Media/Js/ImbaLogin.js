@@ -195,7 +195,7 @@ $(document).ready(function() {
             life: 2000
         });
     } else if (imbaErrorMessage.length > 0) {
-        $.jGrowl(imbaErrorMessage, {
+        $.jGrowl(unescape(decodeURIComponent(readCookie("imbaLoginRedirectLine"))) + ': ' + imbaErrorMessage, {
             header: 'Information von vorher:',
             life: 1000
         });

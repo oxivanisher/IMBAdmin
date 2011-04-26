@@ -48,9 +48,9 @@ $managerUser = ImbaManagerUser::getInstance();
  * Helper for redirects
  */
 function redirectMe($url, $line = __LINE__) {
-    if (($line == 193)) {
-        // || ($line == 327) || ($line == 315) || ($line == 83)
-        //if (true) {
+    //if () {
+    //($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)
+    if (true) {
         header("Location: " . $url);
     } else {
         header("Content-Type: text/html");
@@ -360,5 +360,4 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     redirectMe($tmpUrl, __LINE__);
 }
 redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
-echo "hallo";
 ?>

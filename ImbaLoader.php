@@ -55,7 +55,9 @@ switch ($_GET["load"]) {
          * Set Savascript Debug
          */
         ImbaConstants::loadSettings();
-        if (empty(ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'])) {
+        if (! empty($_SESSION["IUC_Debug"])) {
+            $tmpJsDebug = ImbaUserContext::getDebug();
+        } elseif (empty(ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'])) {
             $tmpJsDebug = "false";
         } else {
             $tmpJsDebug = ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'];

@@ -21,7 +21,6 @@ $Navigation = new ImbaContentNavigation();
 $Navigation->setName("Maintenance");
 $Navigation->setComment("Hier werden Wartungsarbeten am System durchgef&uuml;hrt.");
 
-
 /**
  * Set when the module should be displayed (logged in 1/0)
  */

@@ -73,6 +73,14 @@ class ImbaUserContext {
         $_SESSION["IUC_AuthReferer"] = $url;
     }
 
+    public static function getDebug() {
+        return $_SESSION["IUC_Debug"];
+    }
+
+    public static function setDebug($debug) {
+        $_SESSION["IUC_Debug"] = $debug;
+    }
+
     public static function getImbaErrorMessage() {
         return $_SESSION["IUC_ImbaErrorMessage"];
     }

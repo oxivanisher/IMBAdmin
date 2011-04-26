@@ -20,6 +20,9 @@
         {foreach $userJobs as $job}
         $("#imbaMaintenanceJob{$job.handle}").button();
         {/foreach}
+        {foreach $debugJobs as $job}
+        $("#imbaMaintenanceJob{$job.handle}").button();
+        {/foreach}
     });
     
 </script>
@@ -37,5 +40,11 @@
 <br />
 <h3>Usermanagement Jobs</h3>
 {foreach $userJobs as $job}
+<a id="imbaMaintenanceJob{$job.handle}" href="javascript:void(0)" onclick="javascript: startMaintenanceJob('{$job.handle}');">{$job.name}</a>
+{/foreach}
+<br />
+<br />
+<h3>Debug Jobs</h3>
+{foreach $debugJobs as $job}
 <a id="imbaMaintenanceJob{$job.handle}" href="javascript:void(0)" onclick="javascript: startMaintenanceJob('{$job.handle}');">{$job.name}</a>
 {/foreach}

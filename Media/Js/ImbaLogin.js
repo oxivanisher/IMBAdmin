@@ -274,20 +274,20 @@ function checkReturn(returnData){
         if (returnData.substring(0,6) == "Error:") {
             $.jGrowl(returnData.substring(6), {
                 header: 'Error',
-                life: 1000,
+                life: 4000,
                 sticky: true
             });
             return true;
         } else if (returnData.length == 0) {
             $.jGrowl("Keine Daten erhalten", {
                 header: 'Warning',
-                life: 700
+                life: 1000
             });
             return false;
         } else {
             $.jGrowl("Daten geladen:<br />" + returnData, {
                 header: 'Info',
-                life: 300
+                life: 2000
             });
         }
         return false;

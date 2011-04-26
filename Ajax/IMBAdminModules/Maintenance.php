@@ -68,6 +68,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
             $maintenenceJobs = array();
             $dbJobs = array();
             $userJobs = array();
+            $debugJobs = array();
 
             array_push($maintenenceJobs, array('handle' => 'clearLog', 'name' => 'Clear System Messages'));
             array_push($maintenenceJobs, array('handle' => 'findUnusedRoles', 'name' => 'Analyze User Roles'));
@@ -79,10 +80,12 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
             array_push($userJobs, array('handle' => 'findIncompleteUsers', 'name' => 'Find incomplete User Profiles'));
             array_push($userJobs, array('handle' => 'fakeUsersOnline', 'name' => 'Fake some Users online status'));
             array_push($userJobs, array('handle' => 'kickAllOffline', 'name' => 'Kick all Users offline'));
+            array_push($debugJobs, array('handle' => 'toggleDebug', 'name' => 'Toggle Debug'));
 
             $smarty->assign('maintenanceJobs', $maintenenceJobs);
             $smarty->assign('dbJobs', $dbJobs);
             $smarty->assign('userJobs', $userJobs);
+            $smarty->assign('debugJobs', $debugJobs);
             $smarty->display('IMBAdminModules/MaintenanceMaintenance.tpl');
             break;
 
@@ -230,6 +233,28 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     touch("Logs/ImbaProxyLog.log");
                     $smarty->assign('name', 'Show Proxy Logs');
                     $smarty->assign('message', "Proxy log cleared");
+                    break;
+
+                case "toggleDebug":
+                    $oldState = ImbaUserContext::getDebug();
+                    ImbaConstants::loadSettings();
+                    $newState = null;
+                    
+                    function debugSwitch ($what) {
+                        if ($what == "false") {
+                            return "true";
+                        } else {
+                            return "false";
+                        }
+                    }
+                    
+                    if (empty($oldState)) {
+                        $oldState = ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'];
+                    }
+                    ImbaUserContext::setDebug(debugSwitch($oldState));
+                    
+                    $smarty->assign('name', 'Toggle Session Debug');
+                    $smarty->assign('message', "Debug is now set to: " . ImbaUserContext::getDebug() ."<br />Please reload page!");
                     break;
 
                 default:

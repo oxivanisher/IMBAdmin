@@ -182,7 +182,7 @@ if ($set['facility'] == "test") {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
     echo $set['answerContent'];
-    exit
+    exit;
 } else {
     /**
      * no return found

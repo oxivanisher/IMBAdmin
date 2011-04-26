@@ -199,7 +199,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              */
                             header("Location: " . $redirectUrl);
                             exit;
-                            redirectMe($redirectUrl, __LINE__);
                         } else {
                             /**
                              * something went wrong. display error end exit
@@ -208,14 +207,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                             $managerLog->insert($log);
                             ImbaUserContext::setImbaErrorMessage($log->getMessage);
-                            redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                            header("Location: " . ImbaUserContext::getRedirectUrl());
+                            exit;
                         }
                     } catch (Exception $ex) {
                         $log->setLevel(1);
                         $log->setMessage("Authentification ERROR: " . $ex->getMessage() . " (" . $openid . ")");
                         $managerLog->insert($log);
                         ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                        redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                        header("Location: " . ImbaUserContext::getRedirectUrl());
+                        exit;
                     }
                 } else {
                     $log = $managerLog->getNew();
@@ -224,7 +225,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
                     ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                    redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+                    header("Location: " . )ImbaUserContext::getRedirectUrl();
+                    exit;
                 }
                 break;
 
@@ -235,7 +237,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("No Authtype included");
                 true;
         }
-        redirectMe($_SERVER['HTTP_REFERER']);
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
     } else {
         /**
          * first step completed. do the verification and actual login
@@ -286,7 +289,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
                 ImbaUserContext::setWaitingForVerify("");
-                redirectMe($tmpUrl, __LINE__);
+                header("Location: " . $tmpUrl);
+                exit;
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
@@ -320,7 +324,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            redirectMe($tmpUrl, __LINE__);
+            header("Location: " . $tmpUrl);
+            exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
@@ -332,7 +337,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 ImbaUserContext::setWaitingForVerify("");
-                redirectMe($managerOpenId->getTrustRoot(), __LINE__);
+                header("Location: " . $managerOpenId->getTrustRoot());
+                exit;
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
@@ -340,7 +346,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
                 ImbaUserContext::setWaitingForVerify("");
-                redirectMe($managerOpenId->getTrustRoot(), __LINE__);
+                header("Location: " . $managerOpenId->getTrustRoot());
+                exit;
             }
         }
     }
@@ -362,7 +369,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $managerLog->insert($log);
     $tmpUrl = ImbaUserContext::getWaitingForVerify();
     ImbaUserContext::setWaitingForVerify("");
-    redirectMe($tmpUrl, __LINE__);
+    header("Location: " . $tmpUrl);
+    exit;
 }
-redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+header("Location: " . ImbaUserContext::getRedirectUrl());
+exit;
 ?>

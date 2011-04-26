@@ -225,7 +225,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
                     ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                    header("Location: " . )ImbaUserContext::getRedirectUrl();
+                    header("Location: " . ImbaUserContext::getRedirectUrl());
                     exit;
                 }
                 break;

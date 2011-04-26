@@ -14,6 +14,9 @@ if (!empty($_COOKIE['secSession'])) {
 } elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
 }
+if (empty($_SESSION['debugMode'])) {
+    $_SESSION['debugMode'] = false;
+}
 
 /**
  * Determine which is our facility
@@ -30,8 +33,28 @@ if (empty($_POST['facility'])) {
 }
 
 /**
- * Are we in debug mode?
+ * Toggle debug mode 
  */
+if ($_POST['toggleDebug'] == true) {
+    if ($_SESSION['debugMode'] == false) {
+        $_SESSION['debugMode'] = true;
+    } else {
+        $_SESSION['debugMode'] = false;
+    }
+}
+
+/**
+ * Set debug mode depending on session
+ */
+if ($_SESSION['debugMode'] == true) {
+    $set['debug'] = true;
+} else {
+    $set['debug'] = false;
+}
+
+/**
+ * Are we in debug mode?
+ *
 $set['debug'] = false;
 if (empty($_POST['proxyDebug'])) {
     if (!empty($_GET['proxyDebug'])) {
@@ -42,6 +65,8 @@ if (empty($_POST['proxyDebug'])) {
     $set['debug'] = true;
     unset($_POST['proxyDebug']);
 }
+ * 
+ */
 
 /**
  * Determine which file is our target $requestUrl

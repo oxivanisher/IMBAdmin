@@ -38,8 +38,12 @@ if (empty($_POST['facility'])) {
 if ($_POST['toggleDebug'] == true) {
     if ($_SESSION['debugMode'] == false) {
         $_SESSION['debugMode'] = true;
+        echo "Proxy Debug Enabled";
+        exit;
     } else {
         $_SESSION['debugMode'] = false;
+        echo "Proxy Debug Disabled";
+        exit;
     }
 }
 

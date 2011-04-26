@@ -30,7 +30,7 @@ class ImbaManagerOpenID {
     public function openidAuth($openid) {
         $this->lightOpenid = new LightOpenID;
         $this->lightOpenid->verify_peer = $WEB_AUTH_SSL_CHECK;
-        $this->lightOpenid->returnUrl = ImbaUserContext::getWaitingForVerify();
+        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 
         if (!$this->lightOpenid->mode) {
@@ -47,7 +47,7 @@ class ImbaManagerOpenID {
     public function openidVerify() {
         $this->lightOpenid = new LightOpenID;
         $this->lightOpenid->verify_peer = $WEB_AUTH_SSL_CHECK;
-        $this->lightOpenid->returnUrl = ImbaUserContext::getWaitingForVerify();
+        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 
         if ($this->lightOpenid->mode == 'cancel') {
@@ -57,6 +57,13 @@ class ImbaManagerOpenID {
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Return thrust root for redirection
+     */
+    public function getTrustRoot() {
+        return $this->lightOpenid->trustRoot;
     }
 
 }

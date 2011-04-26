@@ -53,6 +53,7 @@ function redirectMe($url, $line = __LINE__) {
         //if (true) {
         header("Location: " . $url);
     } else {
+        header("Content-Type: text/html");
         echo $line . ": " . $url . "<br /><pre>";
         print_r($GLOBALS);
         echo "</pre>";

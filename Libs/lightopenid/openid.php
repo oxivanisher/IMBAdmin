@@ -645,6 +645,14 @@ class LightOpenID {
                     . 'openid.claimed_id=' . $this->claimed_id;
         }
 
+        /**
+         * oxi hack, catch proxy redirects also
+         */
+        str_replace(ImbaConstants::$WEB_AUTH_PROXY_PATH, "imbaSession", $this->data['openid_return_to']);
+        str_replace(ImbaConstants::$WEB_AUTH_MAIN_PATH, "imbaSession", $this->data['openid_return_to']);
+        str_replace(ImbaConstants::$WEB_AUTH_PROXY_PATH, "imbaSession", $this->returnUrl);
+        str_replace(ImbaConstants::$WEB_AUTH_MAIN_PATH, "imbaSession", $this->returnUrl);
+        
         if ($this->data['openid_return_to'] != $this->returnUrl) {
             # The return_to url must match the url of current request.
             # I'm assuing that noone will set the returnUrl to something that doesn't make sense.

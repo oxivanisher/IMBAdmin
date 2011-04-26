@@ -66,6 +66,13 @@ class ImbaManagerOpenID {
         return $this->lightOpenid->trustRoot;
     }
 
+    /**
+     * Return openid of the actual auth process
+     */
+    public function getOpenId() {
+        return $this->lightOpenid->identity;
+    }
+
 }
 
 ?>

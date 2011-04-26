@@ -315,9 +315,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 exit;
             }
         } catch (Exception $ex) {
+            $esc_identity = $managerOpenId->getOpenId();
+            $currentUser = $managerUser->selectByOpenId($esc_identity);
+            $portalAlias = $currentUser->getPortalAlias();
+
+            $tmpUrl = ImbaUserContext::getWaitingForVerify();
+            ImbaUserContext::setWaitingForVerify("");
+
             if ($ex->getMessage() == "id_res_not_set") {
-                $tmpUrl = ImbaUserContext::getWaitingForVerify();
-                ImbaUserContext::setWaitingForVerify(false);
                 $log->setLevel(1);
                 $log->setMessage("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
                 $managerLog->insert($log);
@@ -328,10 +333,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
         }
         ImbaUserContext::setImbaErrorMessage($log->getMessage());
-        $tmpUrl = ImbaUserContext::getWaitingForVerify();
-        ImbaUserContext::setWaitingForVerify("");
-        header("Location: " . $managerOpenId->getTrustRoot());
-        exit;
+
+        if ($portalAlias != "") {
+            header("Location: " . $portalAlias);
+            exit;
+        } else {
+            $tmpUrl = ImbaUserContext::getWaitingForVerify();
+            ImbaUserContext::setWaitingForVerify("");
+            header("Location: " . $managerOpenId->getTrustRoot());
+            exit;
+        }
     }
 } else {
     ImbaUserContext::setWaitingForVerify("");

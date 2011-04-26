@@ -316,7 +316,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            redirectMe($managerOpenId->getTrustRoot(), __LINE__);
+            redirectMe($tmpUrl, __LINE__);
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();

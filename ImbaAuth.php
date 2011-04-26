@@ -314,7 +314,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            header("Location: " . $managerOpenId->getTrustRoot());
+            //header("Location: " . $managerOpenId->getTrustRoot());
             echo __LINE__ . ": " . $managerOpenId->getTrustRoot();
             
             exit;

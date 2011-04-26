@@ -98,7 +98,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             ImbaUserContext::setRedirectUrl($_SESSION["IUC_redirectUrl"]);
         } else if (! empty($_POST['imbaSsoOpenIdLoginReferer'])) {
             ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-        } else {
+        } else if (empty(ImbaUserContext::getRedirectUrl())) {
             ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
         }
 

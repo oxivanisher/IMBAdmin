@@ -293,7 +293,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 setcookie("ImbaSsoLastLoginName", $currentUser->getNickname(), (time() + (60 * 60 * 24 * 30)));
 
                 $managerUser->setMeOnline();
-                ImbaUserContext::setImbaErrorMessage("Sucessfully logged in with " . $currentUser->getNickname());
+                ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");

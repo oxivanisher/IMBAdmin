@@ -94,8 +94,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Save our referer to session if there is none safed till now
          */
-        if (empty($_SESSION["IUC_redirectUrl"])) {
-            if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+        if ($_SESSION["IUC_redirectUrl"] == "") {
+            if ($_POST['imbaSsoOpenIdLoginReferer'] != "") {
                 ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
             } else {
                 ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
@@ -238,10 +238,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify();
             if (empty($esc_identity)) {
-                throw new Exception("openidVerify failed!");
+                throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }
-
-            ImbaUserContext::setWaitingForVerify(false);
 
             $log->setLevel(2);
             $log->setMessage("OpenID Verification sucessful");
@@ -267,10 +265,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                $tmpUrl = ImbaUserContext::getWaitingForVerify();
-                ImbaUserContext::setWaitingForVerify("");
-                header("Location: " . $tmpUrl);
-                exit;
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
@@ -304,8 +298,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            //header("Location: " . $tmpUrl);
-            header("Location: " . $_SERVER[""]);
+            header("Location: " . $tmpUrl);
             exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
@@ -314,23 +307,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $log->setLevel(1);
                 $log->setMessage("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
                 $managerLog->insert($log);
-
-                //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
-                ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                ImbaUserContext::setWaitingForVerify("");
-                header("Location: " . $managerOpenId->getTrustRoot());
-                exit;
             } else {
                 $log->setLevel(1);
-                $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
+                $log->setMessage("Unnamed OpenID Verification ERROR: " . $ex->getMessage());
                 $managerLog->insert($log);
-                ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                $tmpUrl = ImbaUserContext::getWaitingForVerify();
-                ImbaUserContext::setWaitingForVerify("");
-                header("Location: " . $managerOpenId->getTrustRoot());
-                exit;
             }
         }
+        ImbaUserContext::setImbaErrorMessage($log->getMessage());
+        $tmpUrl = ImbaUserContext::getWaitingForVerify();
+        ImbaUserContext::setWaitingForVerify("");
+        header("Location: " . $managerOpenId->getTrustRoot());
+        exit;
     }
 } else {
     ImbaUserContext::setWaitingForVerify("");

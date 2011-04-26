@@ -45,26 +45,6 @@ $managerLog = ImbaManagerLog::getInstance();
 $managerUser = ImbaManagerUser::getInstance();
 
 /**
- * Helper for redirects
- */
-function redirectMe($url, $line = __LINE__) {
-    //if () {
-    //($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)
-    if (true) {
-        //setcookie("imbaLoginRedirectLine", $line, (time() + 3600));
-        ImbaUserContext::setAuthReferer($line);
-        header("Location: " . $url);
-        exit;
-    } else {
-        header("Content-Type: text/html");
-        echo $line . ": " . $url . "<br /><pre>";
-        print_r($GLOBALS);
-        echo "</pre>";
-    }
-    exit;
-}
-
-/**
  * OpenID auth logic
  */
 if ($_GET["logout"] == true || $_POST["logout"] == true) {
@@ -87,7 +67,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $targetUrl = $_POST['imbaSsoOpenIdLogoutReferer'];
     }
     ImbaUserContext::setImbaErrorMessage("Logging out (Redirecting)");
-    redirectMe($targetUrl, __LINE__);
+    header("Location: " . $targetUrl);
+    exit;
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
      * we are NOT logged in
@@ -106,7 +87,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              * Send the User to the registration page
              */
             ImbaUserContext::setImbaErrorMessage("Authentificationmethod not found");
-            redirectMe($_SERVER['HTTP_REFERER'], __LINE__);
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit;
         }
 
         /**
@@ -324,7 +306,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            header("Location: " . $tmpUrl);
+            //header("Location: " . $tmpUrl);
+            header("Location: " . $_SERVER[""]);
             exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {

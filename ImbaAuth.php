@@ -66,7 +66,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     } else {
         $targetUrl = $_POST['imbaSsoOpenIdLogoutReferer'];
     }
+    ImbaUserContext::setImbaErrorMessage("Logging out (Redirecting)");
     header("Location: " . $targetUrl);
+    exit;
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
      * we are NOT logged in
@@ -86,6 +88,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              */
             ImbaUserContext::setImbaErrorMessage("Authentificationmethod not found");
             header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit;
         }
 
         /**
@@ -162,13 +165,15 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              * we got a redirection url as answer. go there now!
                              */
                             $log->setLevel(2);
-                            $log->setMessage("Redirecting to: " . $redirectUrl);
+                            $log->setMessage("Redirecting to " . ImbaSharedFunctions::getDomain($redirectUrl));
                             $managerLog->insert($log);
-                            //saving redirection url
-                            ImbaUserContext::setAuthReferer($redirectUrl);
                             ImbaUserContext::setImbaErrorMessage($log->getMessage());
-
+                            /**
+                             * In case the referer is not working, there is a redirecting solution like this:
+                             * ImbaUserContext::setAuthReferer($redirectUrl);
+                             */
                             header("Location: " . $redirectUrl);
+                            exit;
                         } else {
                             /**
                              * something went wrong. display error end exit
@@ -176,8 +181,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setLevel(0);
                             $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                             $managerLog->insert($log);
-                            ImbaUserContext::setImbaErrorMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
+                            ImbaUserContext::setImbaErrorMessage($log->getMessage);
                             header("Location: " . ImbaUserContext::getRedirectUrl());
+                            exit;
                         }
                     } catch (Exception $ex) {
                         $log->setLevel(1);
@@ -185,6 +191,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         $managerLog->insert($log);
                         ImbaUserContext::setImbaErrorMessage($log->getMessage());
                         header("Location: " . ImbaUserContext::getRedirectUrl());
+                        exit;
                     }
                 } else {
                     $log = $managerLog->getNew();
@@ -194,6 +201,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $managerLog->insert($log);
                     ImbaUserContext::setImbaErrorMessage($log->getMessage());
                     header("Location: " . ImbaUserContext::getRedirectUrl());
+                    exit;
                 }
                 break;
 
@@ -204,7 +212,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("No Authtype included");
                 true;
         }
-        //ImbaUserContext::setImbaErrorMessage("The other end of the World also!");
+        exit;
     } else {
         /**
          * first step completed. do the verification and actual login
@@ -223,17 +231,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $esc_identity = $managerOpenId->openidVerify();
             if (empty($esc_identity)) {
                 throw new Exception("openidVerify failed!");
-                //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . $_GET['openid_identity']);
-                true;
             }
 
-            /**
-             * This is probably a login-greencard. so DONT ACTIVATE!1!11!einself
-             *
-              if (empty($esc_identity) && (!empty($_GET['openid_identity']))) {
-              $esc_identity = $_GET['openid_identity'];
-              }
-             */
             ImbaUserContext::setWaitingForVerify(false);
 
             $log->setLevel(2);
@@ -261,6 +260,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 }
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
+                exit;
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
@@ -294,22 +294,25 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             }
 
             header("Location: " . ImbaUserContext::getRedirectUrl());
+            exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
                 ImbaUserContext::setWaitingForVerify(false);
                 $log->setLevel(1);
-                $log->setMessage("OpenID Anfrage ausgelaufen. Bitte nocheinmal versuchen.");
+                $log->setMessage("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
                 $managerLog->insert($log);
 
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
+                exit;
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
                 $managerLog->insert($log);
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
                 header("Location: " . ImbaUserContext::getRedirectUrl());
+                exit;
             }
         }
     }

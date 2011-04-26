@@ -183,10 +183,18 @@ $(document).ready(function() {
     refreshUsersOnline();
     
     //Display potential Error Message
-    if (imbaErrorMessage.length > 0) {
+    if (imbatAuthReferer.length > 0) {
+        $("#window").location(imbatAuthReferer);
+        $("#imbaSsoLoginInner").hide();
+        $("#imbaUsersOnline").hide();
         $.jGrowl(imbaErrorMessage, {
-            header: 'Information aus der Session:',
-            life: 10000
+            header: 'Authentification forward:',
+            life: 2000
+        });
+    } else if (imbaErrorMessage.length > 0) {
+        $.jGrowl(imbaErrorMessage, {
+            header: 'Information von vorher:',
+            life: 1000
         });
     }
 

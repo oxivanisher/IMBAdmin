@@ -36,9 +36,24 @@ switch ($_GET["load"]) {
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());
         $smarty->assign("PortalChooser", $managerNavigation->renderPortalChooser());
+        
+        /**
+         * Set Auth referer for automatic redirection
+         */
+        $tmpAuthReferer = ImbaUserContext::getAuthReferer();
+        ImbaUserContext::setAuthReferer("");
+        $smarty->assign("imbatAuthReferer", $tmpAuthReferer);
+        
+        /**
+         * Show Session Error Message
+         */
         $tmpImbaErrorMsgs = ImbaUserContext::getImbaErrorMessage();
         ImbaUserContext::setImbaErrorMessage("");
         $smarty->assign("imbaErrorMessage", $tmpImbaErrorMsgs);
+        
+        /**
+         * Set Savascript Debug
+         */
         ImbaConstants::loadSettings();
         if (empty(ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'])) {
             $tmpJsDebug = "false";

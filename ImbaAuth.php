@@ -48,7 +48,8 @@ $managerUser = ImbaManagerUser::getInstance();
  * Helper for redirects
  */
 function redirectMe($url, $line = __LINE__) {
-    if (($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)) {
+    //if (($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)) {
+    if (true) {
         header("Location: " . $url);
     } else {
         echo $line . ": " . $url . "<br /><pre>";

@@ -52,6 +52,7 @@ function redirectMe($url, $line = __LINE__) {
     //($line == 193) || ($line == 327) || ($line == 315) || ($line == 83)
     if (true) {
         //setcookie("imbaLoginRedirectLine", $line, (time() + 3600));
+        ImbaUserContext::setAuthReferer($line);
         header("Location: " . $url);
     } else {
         header("Content-Type: text/html");

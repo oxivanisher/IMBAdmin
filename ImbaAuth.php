@@ -48,7 +48,7 @@ $managerUser = ImbaManagerUser::getInstance();
 * Helper for redirects
  */
 function redirectMe($url, $line = __LINE__) {
-                header("Location: " . $url);
+                //header("Location: " . $url);
                 echo $line . ": " . $url . "<br /><pre>";
                 print_r($GLOBALS);
                 echo "</pre>";

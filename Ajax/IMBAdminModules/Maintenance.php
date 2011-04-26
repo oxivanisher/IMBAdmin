@@ -81,7 +81,6 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
             array_push($userJobs, array('handle' => 'fakeUsersOnline', 'name' => 'Fake some Users online status'));
             array_push($userJobs, array('handle' => 'kickAllOffline', 'name' => 'Kick all Users offline'));
             array_push($debugJobs, array('handle' => 'toggleDebug', 'name' => 'Toggle Debug'));
-            array_push($debugJobs, array('handle' => 'toggleProxyDebug', 'name' => 'Toggle Proxy Debug'));
 
             $smarty->assign('maintenanceJobs', $maintenenceJobs);
             $smarty->assign('dbJobs', $dbJobs);
@@ -256,12 +255,6 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                     
                     $smarty->assign('name', 'Toggle Session Debug');
                     $smarty->assign('message', "Debug is now set to: " . ImbaUserContext::getDebug() ."<br />Please reload page!");
-                    break;
-
-                case "toggleProxyDebug":
-
-                    $smarty->assign('name', 'Toggle Proxy Logs');
-                    $smarty->assign('message', "Proxy log cleared");
                     break;
 
                 default:

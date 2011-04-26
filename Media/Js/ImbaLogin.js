@@ -66,6 +66,9 @@ $(document).ready(function() {
             } else {
                 setLoggedIn(true);
                 $("#imbaSsoShowNickname").html('Hallo ' + response);
+                
+                // Firsttime show users online
+                refreshUsersOnline();
             }
         }
     });
@@ -178,9 +181,6 @@ $(document).ready(function() {
      * Load current active Portal
      */
     loadImbaPortal();
-
-    // Firsttime show users online
-    refreshUsersOnline();
     
     //Display potential Error Message
     if (imbatAuthReferer.length > 0) {
@@ -197,7 +197,6 @@ $(document).ready(function() {
             life: 1000
         });
     }
-
 });
    
 /**

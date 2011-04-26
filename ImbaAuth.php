@@ -317,7 +317,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
             print_r($GLOBALS); exit;
-            redirectMe($tmpUrl, __LINE__);
+            redirectMe($_SERVER['HTTP_REFERER'], __LINE__);
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();

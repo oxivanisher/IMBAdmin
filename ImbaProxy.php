@@ -163,6 +163,13 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
+    if ($set['proxyDebug'] == "true") {
+        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+    }
+    if (empty($mySession)) {
+        $tmpLogOut .= "ee: no session found (error)\n";
+        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+    }
     /**
      * normal proxy return
      */
@@ -175,13 +182,7 @@ if ($set['facility'] == "test") {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
     echo $set['answerContent'];
-    if ($set['proxyDebug'] == "true") {
-        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    }
-    if (empty($mySession)) {
-        $tmpLogOut .= "ee: no session found (error)\n";
-        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    }
+    exit
 } else {
     /**
      * no return found

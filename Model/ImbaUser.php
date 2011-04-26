@@ -35,6 +35,7 @@ class ImbaUser extends ImbaBase {
     protected $lastonline = null;
     protected $games = array();
     protected $gamesPropertyValues = array();
+    protected $portalalias = null;
 
     /**
      * Properties
@@ -240,6 +241,14 @@ class ImbaUser extends ImbaBase {
 
     public function setGamesPropertyValues($gamesPropertyValues) {
         $this->gamesPropertyValues = $gamesPropertyValues;
+    }
+
+    public function getPortalalias() {
+        return $this->portalalias;
+    }
+
+    public function setPortalalias($portalalias) {
+        $this->portalalias = $portalalias;
     }
 
 }

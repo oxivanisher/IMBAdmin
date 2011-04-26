@@ -74,6 +74,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      */
     if (empty($_SESSION["IUC_WaitingForVerify"])) {
         /**
+         * Save our referer to session if there is none safed till now
+         */
+        if ($_SESSION["IUC_redirectUrl"] == "") {
+            if ($_POST['imbaSsoOpenIdLoginReferer'] != "") {
+                ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+            } else {
+                ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+            }
+        }
+
+        /**
          * Determine Authentication method (we also don't have to be verified)
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
@@ -91,21 +102,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
 
         /**
-         * Save our referer to session if there is none safed till now
-         */
-        if ($_SESSION["IUC_redirectUrl"] == "") {
-            if ($_POST['imbaSsoOpenIdLoginReferer'] != "") {
-                ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-            } else {
-                ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
-            }
-        }
-
-        /**
          * Do the Authentication
          */
         switch ($authMethod) {
-
+            /**
+             * Determine the authentification method
+             */
             case "openid":
                 if (empty($_POST["openid"]) && (!empty($_GET["openid"]))) {
                     $_POST["openid"] = $_GET["openid"];
@@ -113,6 +115,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 if (!empty($_POST["openid"])) {
                     $_POST["openid"] = trim($_POST["openid"]);
                     $redirectUrl = null;
+
+                    /**
+                     * Get all users
+                     */
+                    $allUsers = $managerUser->selectAllUser();
 
                     /**
                      * Check if this is a openid (which looks like a URL) or possibly the nickname of the user
@@ -128,7 +135,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                          */
                         $securityCounter = 0;
                         $tmpOpenid = null;
-                        $allUsers = $managerUser->selectAllUser();
                         foreach ($allUsers as $user) {
                             if (strtolower($user->getNickname()) == strtolower($_POST["openid"])) {
                                 $securityCounter++;
@@ -141,6 +147,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         } else {
                             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                         }
+                        $myUser = $managerUser->selectByOpenId($openid);
+                        $myUser->setPortalAlias($_POST['imbaSsoOpenIdLoginReferer']);
+                        $managerUser->update($myUser);
                     }
 
                     /**
@@ -295,10 +304,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
                 ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
             }
-            $tmpUrl = ImbaUserContext::getWaitingForVerify();
-            ImbaUserContext::setWaitingForVerify("");
-            header("Location: " . $tmpUrl);
-            exit;
+            $portalAlias = $currentUser->getPortalAlias();
+            if (!empty($portalAlias)) {
+                header("Location: " . $portalAlias);
+                exit;
+            } else {
+                $tmpUrl = ImbaUserContext::getWaitingForVerify();
+                ImbaUserContext::setWaitingForVerify("");
+                header("Location: " . $tmpUrl);
+                exit;
+            }
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();

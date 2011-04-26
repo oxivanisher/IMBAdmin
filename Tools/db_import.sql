@@ -26,7 +26,8 @@ update oom_openid_messages set subject = 'AJAX GUI' where subject = 'Was soll hi
 -- doing db updates on users:
 ALTER TABLE `oom_openid_user_profiles` DROP PRIMARY KEY;
 ALTER TABLE `oom_openid_user_profiles` ADD  `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
-ALTER TABLE  `oom_openid_user_profiles` ADD  `lastonline` INT( 18 ) NOT NULL;
+ALTER TABLE `oom_openid_user_profiles` ADD  `lastonline` INT( 18 ) NOT NULL;
+ALTER TABLE `oom_openid_user_profiles` ADD  `portalalias` VARCHAR( 200 ) NOT NULL ;
 
 -- doing db updates for multigaming:
 ALTER TABLE `oom_openid_multig_games` ADD  `icon` VARCHAR( 255 ) NULL , ADD  `forumlink` VARCHAR( 255 ) NULL;

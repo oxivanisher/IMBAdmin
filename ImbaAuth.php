@@ -158,11 +158,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
-                    //FIXME? echo session_id();
                     /**
                      * This replaces the old authDone=true
                      */
-                    ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
+                    //ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
+                    ImbaUserContext::setWaitingForVerify(ImbaUserContext::getRedirectUrl());
 
                     try {
                         $redirectUrl = $managerOpenId->openidAuth($openid);

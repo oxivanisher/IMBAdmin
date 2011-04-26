@@ -360,4 +360,5 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     redirectMe($tmpUrl, __LINE__);
 }
 redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
+echo "hallo";
 ?>

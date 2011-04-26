@@ -197,7 +197,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              * In case the referer is not working, there is a redirecting solution like this:
                              * ImbaUserContext::setAuthReferer($redirectUrl);
                              */
-                            header("Location: " . $redirectUrl);
+                            header("Location: " . trim($redirectUrl) . "");
                             exit;
                             redirectMe($redirectUrl, __LINE__);
                         } else {

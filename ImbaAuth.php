@@ -208,16 +208,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                             $managerLog->insert($log);
                             ImbaUserContext::setImbaErrorMessage($log->getMessage);
-                            header("Location : " . ImbaUserContext::getRedirectUrl);
-                            exit;
+                            redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
                         }
                     } catch (Exception $ex) {
                         $log->setLevel(1);
                         $log->setMessage("Authentification ERROR: " . $ex->getMessage() . " (" . $openid . ")");
                         $managerLog->insert($log);
                         ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                        header("Location : " . ImbaUserContext::getRedirectUrl);
-                        exit;
+                        redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
                     }
                 } else {
                     $log = $managerLog->getNew();
@@ -226,8 +224,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log->setLevel(2);
                     $managerLog->insert($log);
                     ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                    header("Location : " . ImbaUserContext::getRedirectUrl);
-                    exit;
+                    redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
                 }
                 break;
 
@@ -367,6 +364,5 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     ImbaUserContext::setWaitingForVerify("");
     redirectMe($tmpUrl, __LINE__);
 }
-header("Location : " . ImbaUserContext::getRedirectUrl);
-exit;
+redirectMe(ImbaUserContext::getRedirectUrl(), __LINE__);
 ?>

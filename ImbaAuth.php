@@ -94,12 +94,12 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Save our referer to session if there is none safed till now
          */
-        if (! empty($_SESSION["IUC_redirectUrl"])){
-            ImbaUserContext::setRedirectUrl($_SESSION["IUC_redirectUrl"]);
-        } else if (! empty($_POST['imbaSsoOpenIdLoginReferer'])) {
-            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-        } else if (empty(ImbaUserContext::getRedirectUrl())) {
-            ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+        if (empty($_SESSION["IUC_redirectUrl"])) {
+            if (!empty($_POST['imbaSsoOpenIdLoginReferer'])) {
+                ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+            } else {
+                ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
+            }
         }
 
         /**

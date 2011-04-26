@@ -73,9 +73,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we are NOT logged in
      */
-    if (ImbaUserContext::getWaitingForVerify() != true) {
+    if (empty(ImbaUserContext::getWaitingForVerify())) {
         /**
-         * Determine Authentication method
+         * Determine Authentication method (we also don't have to be verified)
          */
         if (!(empty($_POST['openid']) && (empty($_GET['openid'])))) {
             /**
@@ -94,7 +94,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Save our referer to session if there is none safed till now
          */
-        
         if (empty($_POST['imbaSsoOpenIdLoginReferer'])) {
             if (empty($_SESSION["IUC_redirectUrl"])) {
                 ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
@@ -159,7 +158,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
                     /**
-                     * This replaces the old authDone=true
+                     * If this is set, the user will be sent to verification next time
                      */
                     //ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
                     ImbaUserContext::setWaitingForVerify(ImbaUserContext::getRedirectUrl());
@@ -222,7 +221,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
         exit;
     } else {
-        echo ImbaUserContext::getWaitingForVerify(); exit;
         /**
          * first step completed. do the verification and actual login
          */
@@ -268,7 +266,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                header("Location: " . ImbaUserContext::getRedirectUrl());
+                ImbaUserContext::setWaitingForVerify("");
+                header("Location: " . ImbaUserContext::getWaitingForVerify());
                 exit;
             } elseif ($currentUser->getRole() == 0) {
                 /**
@@ -302,7 +301,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("Sucessfully logged in with " . $currentUser->getNickname());
             }
 
-            header("Location: " . ImbaUserContext::getRedirectUrl());
+            ImbaUserContext::setWaitingForVerify("");
+            header("Location: " . ImbaUserContext::getWaitingForVerify());
             exit;
         } catch (Exception $ex) {
             if ($ex->getMessage() == "id_res_not_set") {
@@ -313,22 +313,22 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
                 //header("Location: " . $_SERVER['PHP_SELF'] . "?openid=" . ImbaUserContext::getOpenIdUrl());
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                header("Location: " . ImbaUserContext::getRedirectUrl());
+                ImbaUserContext::setWaitingForVerify("");
+                header("Location: " . ImbaUserContext::getWaitingForVerify());
                 exit;
             } else {
                 $log->setLevel(1);
                 $log->setMessage("OpenID Verification ERROR: " . $ex->getMessage());
                 $managerLog->insert($log);
                 ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                header("Location: " . ImbaUserContext::getRedirectUrl());
+                ImbaUserContext::setWaitingForVerify("");
+                header("Location: " . ImbaUserContext::getWaitingForVerify());
                 exit;
             }
         }
     }
 } else {
-    if (ImbaUserContext::getWaitingForVerify()) {
-        ImbaUserContext::setWaitingForVerify(false);
-    }
+    ImbaUserContext::setWaitingForVerify("");
     /**
      * we are logged in! everithing is ok, we have a running session 
      * and we have a party here
@@ -344,7 +344,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setLevel(1);
     $managerLog->insert($log);
     //echo "You are logged in!";
-    ImbaUserContext::setImbaErrorMessage($log->getMessage());
+    ImbaUserContext::setWaitingForVerify("");
+    header("Location: " . ImbaUserContext::getWaitingForVerify());
+    exit;
 }
 header("Location: " . ImbaUserContext::getRedirectUrl());
 ?>

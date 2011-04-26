@@ -146,7 +146,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
                     $log->setMessage("Determing Auth style for " . $openid);
-                    $log->setLevel(2);
+                    $log->setLevel(3);
                     $managerLog->insert($log);
 
                     $log = $managerLog->getNew();
@@ -164,7 +164,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             /**
                              * we got a redirection url as answer. go there now!
                              */
-                            $log->setLevel(2);
+                            $log->setLevel(3);
                             $log->setMessage("Redirecting to " . ImbaSharedFunctions::getDomain($redirectUrl));
                             $managerLog->insert($log);
                             ImbaUserContext::setImbaErrorMessage($log->getMessage());
@@ -173,6 +173,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              * ImbaUserContext::setAuthReferer($redirectUrl);
                              */
                             header("Location: " . $redirectUrl);
+                            echo "hallo";
                             exit;
                         } else {
                             /**

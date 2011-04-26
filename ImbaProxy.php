@@ -179,6 +179,7 @@ if ($set['facility'] == "test") {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
     if ($mySession != false) {
+        $tmpLogOut .= "ee: no session found (error)\n";
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
 } else {

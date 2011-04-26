@@ -187,9 +187,9 @@ $(document).ready(function() {
     
     //Display potential Error Message
     if (imbatAuthReferer.length > 0) {
-        $("#window").location(imbatAuthReferer);
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
+        $("#window").location(imbatAuthReferer);
         $.jGrowl(imbaErrorMessage, {
             header: 'Browser Weiterleitung:',
             life: 2000

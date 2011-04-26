@@ -54,6 +54,7 @@ function redirectMe($url, $line = __LINE__) {
         //setcookie("imbaLoginRedirectLine", $line, (time() + 3600));
         ImbaUserContext::setAuthReferer($line);
         header("Location: " . $url);
+        exit;
     } else {
         header("Content-Type: text/html");
         echo $line . ": " . $url . "<br /><pre>";
@@ -196,6 +197,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                              * In case the referer is not working, there is a redirecting solution like this:
                              * ImbaUserContext::setAuthReferer($redirectUrl);
                              */
+                            header("Location: " . $redirectUrl);
+                            exit;
                             redirectMe($redirectUrl, __LINE__);
                         } else {
                             /**

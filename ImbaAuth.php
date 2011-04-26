@@ -57,16 +57,15 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     $log->setLevel(2);
     $managerLog->insert($log);
 
-    setcookie(session_id(), "", time() - 3600);
-    session_destroy();
-    session_write_close();
-
     if (empty($_POST['imbaSsoOpenIdLogoutReferer'])) {
         $targetUrl = ImbaSharedFunctions::getTrustRoot();
     } else {
         $targetUrl = $_POST['imbaSsoOpenIdLogoutReferer'];
     }
-    ImbaUserContext::setImbaErrorMessage("Logging out (Redirecting)");
+
+    setcookie(session_id(), "", time() - 3600);
+    session_destroy();
+    session_write_close();
     header("Location: " . $targetUrl);
     exit;
 } elseif (!ImbaUserContext::getLoggedIn()) {
@@ -326,9 +325,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * and we have a party here
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
-     */
-    /**
-     * FIXME: we need to check if the session is still good. we get logged in but should fell offline sometimes
      */
     $log = $managerLog->getNew();
     $log->setModule("Auth");

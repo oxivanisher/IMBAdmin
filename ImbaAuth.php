@@ -222,6 +222,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
         exit;
     } else {
+        echo ImbaUserContext::getWaitingForVerify(); exit;
         /**
          * first step completed. do the verification and actual login
          */

@@ -31,6 +31,7 @@ $(document).ready(function() {
             $.jGrowl('Betrete das System...', {
                 header: 'Knock, Knock, Neo!'
             });
+            $("#imbaSsoOpenIdLoginReferer").attr('value', window.location);
             $("#imbaSsoLoginForm").submit();
             return true;
         }
@@ -41,6 +42,7 @@ $(document).ready(function() {
         $.jGrowl('Verlasse das System...', {
             header: 'Knock, Knock, Neo!'
         });
+        $("#imbaSsoOpenIdLogoutReferer").attr('value', window.location);
         $("#imbaSsoLogoutForm").submit();
         return true;
     });

@@ -35,7 +35,7 @@ if (empty($_POST['facility'])) {
 /**
  * Toggle debug mode 
  */
-if ($_POST['toggleDebug'] == true) {
+if ($_POST['toggleProxyDebug'] == true) {
     if ($_SESSION['debugMode'] == false) {
         $_SESSION['debugMode'] = true;
         echo "Proxy Debug Enabled";

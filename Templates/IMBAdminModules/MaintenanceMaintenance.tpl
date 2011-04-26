@@ -22,6 +22,18 @@
         {foreach $debugJobs as $job}
         $("#imbaMaintenanceJob{$job.handle}").button();
         {/foreach}
+        $("#imbaMaintenanceJobtoggleProxyLog").button();
+        $("#imbaMaintenanceJobtoggleProxyLog").click(function () {
+            $.post(ajaxEntry, {
+                toggletoggleProxyDebugDebug: true,
+                secSession: phpSessionID
+            }, function (response){
+                $.jGrowl(response, {
+                    header: 'Proxy return:',
+                    life: 1000
+                });
+            });
+        });
     });
     
 </script>
@@ -47,3 +59,4 @@
 {foreach $debugJobs as $job}
 <a id="imbaMaintenanceJob{$job.handle}" href="javascript:void(0)" onclick="javascript: startMaintenanceJob('{$job.handle}');">{$job.name}</a>
 {/foreach}
+<a id="imbaMaintenanceJobtoggleProxyLog" href="javascript:void(0)" onclick="javascript: toggleProxyLog();">Toggle Proxy Log</a>

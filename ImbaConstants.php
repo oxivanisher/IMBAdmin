@@ -25,7 +25,7 @@ class ImbaConstants extends ImbaConfig {
     public static $WEB_AJAX_PROXY_PATH = "ImbaProxy.php?facility=ajax";
     public static $WEB_AUTH_MAIN_PATH = "ImbaAuth.php";
     public static $WEB_AJAX_MAIN_PATH = "ImbaAjax.php";
-    public static $WEB_FORCE_PROXY = true;
+    public static $WEB_FORCE_PROXY = false;
     public static $WEB_AUTH_SSL_CHECK = false;
 
 

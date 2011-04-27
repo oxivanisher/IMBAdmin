@@ -20,6 +20,7 @@
                     action: "module",
                     module: "Admin",
                     request: "updaterole",
+                    secSession: phpSessionID,
                     roleid: this.parentNode.getAttribute('id').substr(7),
                     rolecolumn: getColumnHeadByIndex("ImbaAjaxAdminRoleTable", oTable.fnGetPosition(this)[2])
                 };

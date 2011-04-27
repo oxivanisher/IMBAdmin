@@ -190,7 +190,12 @@ if ($set['facility'] == "test") {
      */
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
-            header($hdr);
+            if (strpos($hdr, "Transfer-Encoding: chunked") == false) {
+                header($hdr);
+            } else {
+                header("Content-Length: " . strlen($set['answerContent']));
+                header("Content-Type: text/html");
+            }
         }
     }
     if ($mySession != false) {

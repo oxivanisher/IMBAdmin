@@ -190,16 +190,20 @@ if ($set['facility'] == "test") {
     /**
      * normal proxy return
      */
+    $contentType = "Content-Type: text/html";
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             if ($hdr == "Transfer-Encoding: chunked") {
-                header("Content-Type: text/html");
                 header("Content-Length: " . strlen($set['answerContent']));
-            } else {
+            } elseif (strpos($hdr, "Content-Type") == false) { 
                 header($hdr);
+            } else {
+                $contentType = $hdr;
             }
         }
     }
+    header($contentType);
+    
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }

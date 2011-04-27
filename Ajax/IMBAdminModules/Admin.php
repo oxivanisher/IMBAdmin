@@ -185,6 +185,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
 
             $managerRole->update($role);
             echo $_POST["value"];
+            echo "test";
             break;
 
         case "deleterole":

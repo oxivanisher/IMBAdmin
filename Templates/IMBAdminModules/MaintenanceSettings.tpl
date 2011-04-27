@@ -20,6 +20,7 @@
                     action: "module",
                     module: "Maintenance",
                     request: "updatesetting",
+                    secSession: phpSessionID,
                     settingid: this.parentNode.getAttribute('id').substr(10),
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
                 };
@@ -27,51 +28,51 @@
             "height": "14px"
         } );
         
-    $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
-        if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
-            $.post(ajaxEntry, {
-                action: "module",
-                module: "Maintenance",
-                request: "deletesetting",
-                secSession: phpSessionID,
-                settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
-            });
+        $("#ImbaAjaxAdminSettingsTable tr td span").click(function(){
+            if(confirm("Soll die Einstellung wirklich gelöscht werden?")){                
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Maintenance",
+                    request: "deletesetting",
+                    secSession: phpSessionID,
+                    settingid: this.parentNode.parentNode.getAttribute('id').substr(10)
+                });
                 
-            var data = {
-                module: "Maintenance",
-                request: "settings",
-                secSession: phpSessionID
-            };
-            loadImbaAdminTabContent(data);
-        }            
-    });
+                var data = {
+                    module: "Maintenance",
+                    request: "settings",
+                    secSession: phpSessionID
+                };
+                loadImbaAdminTabContent(data);
+            }            
+        });
         
-    $("#ImbaAddSettingOK").click( function() {
-        if ((ImbaAddSettingName.value.valueOf() != "") && (ImbaAddSettingValue.value.valueOf() != "")) {
-            $.post(ajaxEntry, {
-                action: "module",
-                module: "Maintenance",
-                request: "addsetting",
-                secSession: phpSessionID,
-                name: ImbaAddSettingName.value.valueOf(),
-                value: ImbaAddSettingValue.value.valueOf()
-            });
+        $("#ImbaAddSettingOK").click( function() {
+            if ((ImbaAddSettingName.value.valueOf() != "") && (ImbaAddSettingValue.value.valueOf() != "")) {
+                $.post(ajaxEntry, {
+                    action: "module",
+                    module: "Maintenance",
+                    request: "addsetting",
+                    secSession: phpSessionID,
+                    name: ImbaAddSettingName.value.valueOf(),
+                    value: ImbaAddSettingValue.value.valueOf()
+                });
 
-            var data = {
-                module: "Maintenance",
-                request: "settings",
-                secSession: phpSessionID
-            };
-            loadImbaAdminTabContent(data);
+                var data = {
+                    module: "Maintenance",
+                    request: "settings",
+                    secSession: phpSessionID
+                };
+                loadImbaAdminTabContent(data);
                 
-        } else {
-            alert('Please fill out all the fields');
+            } else {
+                alert('Please fill out all the fields');
                 
-        }
+            }
                 
-    });
+        });
         
-} );  
+    } );  
 </script>
 <table id="ImbaAjaxAdminSettingsTable" class="dataTableDisplay">
     <thead>

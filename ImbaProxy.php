@@ -134,7 +134,7 @@ if (!function_exists('apache_request_headers')) {
  * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
  */
 $requestHeaders = array();
-foreach (apache_request_headers() as $name => $vale) {
+foreach (apache_request_headers() as $name => $value) {
     array_push($requestHeaders, $name . ": " . $value);
     /*
     if ($name == "X-Requested-With") {

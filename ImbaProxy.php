@@ -137,7 +137,6 @@ foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, array($name => $value));
     }
-    echo "Error:X-Requested-With found!"; exit;
 }
 
 /**

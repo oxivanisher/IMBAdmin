@@ -15,17 +15,12 @@
                 var aPos = oTable.fnGetPosition( this );
                 oTable.fnUpdate( sValue, aPos[0], aPos[1] );
             },
-            "beforesSend": function(xhr) {
-                alert('check');
-                xhr.setRequestHeader("X_REQUESTED_WITH", "XMLHttpRequest");
-            },
             "submitdata": function ( value, settings ) {
                 return {
                     action: "module",
                     module: "Maintenance",
                     request: "updatesetting",
                     secSession: phpSessionID,
-                    X_REQUESTED_WITH: "XMLHttpRequest",
                     settingid: this.parentNode.getAttribute('id').substr(10),
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
                 };

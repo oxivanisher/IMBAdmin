@@ -135,14 +135,13 @@ if (!function_exists('apache_request_headers')) {
  */
 $requestHeaders = array();
 foreach (apache_request_headers() as $name => $value) {
-    //array_push($requestHeaders, $name . ": " . $value);
+    array_push($requestHeaders, $name . ": " . $value);
     /*
-    if ($name == "X-Requested-With") {
-        array_push($requestHeaders, $name . ": " . $value);
-        $_POST['b'] = "b";
-    }
+      if ($name == "X-Requested-With") {
+      array_push($requestHeaders, $name . ": " . $value);
+      $_POST['b'] = "b";
+      }
      */
-    $_POST['a'] = $_POST['a'] . "\n". $name . ": " . $value;
 }
 
 /**
@@ -189,6 +188,11 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
 $tmpLogOut .= "headSize  : " . strlen($set['answerHeaders']) . "\n";
 $tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
+$tmpLogOut .= "------------------------------- request header -------------------------------\n" . $set['answerHeaders'] . "\n";
+foreach ($requestHeaders as $header) {
+    $tmpLogOut .= $header . "\n";
+}
+$tmpLogOut .= "-------------------------------  request body  -------------------------------\n" . $set['answerHeaders'] . "\n";
 foreach ($_GET as $key => $value) {
     $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
 }

@@ -25,7 +25,7 @@
         $("#imbaMaintenanceJobtoggleProxyLog").button();
         $("#imbaMaintenanceJobtoggleProxyLog").click(function () {
             $.post(ajaxEntry, {
-                toggleProxyDebug: true,
+                toggleProxyDebug: "true",
                 secSession: phpSessionID
             }, function (response){
                 $.jGrowl(response, {

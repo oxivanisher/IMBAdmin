@@ -35,12 +35,12 @@ if (empty($_POST['facility'])) {
 /**
  * Toggle debug mode 
  */
-if ($_POST['toggleProxyDebug'] == true) {
-    if ($_SESSION['debugMode'] == false) {
-        $_SESSION['debugMode'] = true;
+if ($_POST['toggleProxyDebug'] == "true") {
+    if ($_SESSION['debugMode'] == "false") {
+        $_SESSION['debugMode'] = "true";
         echo "Proxy Debug Enabled";
     } else {
-        $_SESSION['debugMode'] = false;
+        $_SESSION['debugMode'] = "false";
         echo "Proxy Debug Disabled";
     }
     session_write_close();
@@ -50,10 +50,10 @@ if ($_POST['toggleProxyDebug'] == true) {
 /**
  * Set debug mode depending on session
  */
-if ($_SESSION['debugMode'] == true) {
-    $set['debug'] = true;
+if ($_SESSION['debugMode'] == "true") {
+    $set['debug'] = "true";
 } else {
-    $set['debug'] = false;
+    $set['debug'] = "false";
 }
 
 /**

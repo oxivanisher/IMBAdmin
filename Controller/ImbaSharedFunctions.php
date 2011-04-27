@@ -238,6 +238,7 @@ class ImbaSharedFunctions {
             $stringData = "-------------------------------------------------------------------------------\n";
             $stringData .= date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "):\n";
             $stringData .= $message . "\n";
+            $stringData .= "-------------------------------------------------------------------------------\n";
             fwrite($fh, $stringData);
             fclose($fh);
         }

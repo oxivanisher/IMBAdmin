@@ -137,15 +137,10 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
  */
 $tmpLogOut = "secSession: " . $mySession . "\n";
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
-$tmpLogOut .= "action    : " . $_POST['action'] . "\n";
-$tmpLogOut .= "module    : " . $_POST['module'] . "\n";
-$tmpLogOut .= "game      : " . $_POST['game'] . "\n";
-$tmpLogOut .= "request   : " . $_POST['request'] . "\n";
-$tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
-$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
+$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
 $tmpLogOut .= "return header:\n" . $set['answerHeaders'] . "\n";
 $tmpLogOut .= "return body:\n" . $set['answerContent'] . "\n";
 

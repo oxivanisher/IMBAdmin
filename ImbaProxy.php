@@ -177,7 +177,7 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if ($set['proxyDebug'] == "true") {
+    if ($set['proxyDebug'] != "true") {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
     if (empty($mySession)) {

@@ -130,6 +130,16 @@ if (!function_exists('apache_request_headers')) {
 }
 
 /**
+ * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
+ */
+$requestHeaders = array();
+foreach (apache_request_headers() as $name => $value) {
+    if ($name == "X-Requested-With") {
+        array_push($requestHeaders, array($name => $value));
+    }
+}
+
+/**
  * Curl Magic
  */
 //$headers = ($_POST['headers']);
@@ -147,7 +157,7 @@ curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-curl_setopt($session, CURLOPT_HTTPHEADER, apache_request_headers());
+curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
 
 //X-Requested-With:XMLHttpRequest
 //http_get_request_headers

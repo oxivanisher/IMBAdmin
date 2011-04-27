@@ -142,7 +142,7 @@ foreach (apache_request_headers() as $head) {
         $_POST['b'] = "b";
     }
      */
-    $_POST['a'] = $_POST['a'] . $name;
+    $_POST['a'] = $_POST['a'] . $head;
 }
 
 /**

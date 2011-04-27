@@ -235,7 +235,7 @@ class ImbaSharedFunctions {
     public static function writeProxyLog($message) {
         $myFile = "Logs/ImbaProxyLog.log";
         if ($fh = fopen($myFile, 'a+')) {
-            $stringData = "--------------------------------------------------------------\n";
+            $stringData = "-------------------------------------------------------------------------------\n";
             $stringData .= date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "):\n";
             $stringData .= $message . "\n";
             fwrite($fh, $stringData);

@@ -142,7 +142,7 @@ $tmpLogOut .= "module    : " . $_POST['module'] . "\n";
 $tmpLogOut .= "game      : " . $_POST['game'] . "\n";
 $tmpLogOut .= "request   : " . $_POST['request'] . "\n";
 $tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
-$tmpLogOut .= "bodySize  : " . count($set['answerContent']) . "\n";
+$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
 $tmpLogOut .= "header:\n" . $set['answerHeaders'] . "\n";
 $tmpLogOut .= "body:\n" . $set['answerContent'] . "\n";
 

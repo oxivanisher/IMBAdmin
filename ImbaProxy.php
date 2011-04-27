@@ -1,4 +1,9 @@
 <?php
+
+print_r(($_POST['headers']));
+print_r($GLOBALS);
+print_r(apache_request_headers());
+exit;
 //print_r($GLOBALS); exit;
 header('Access-Control-Allow-Origin: *');
 
@@ -104,6 +109,24 @@ while ($element = current($_POST)) {
 }
 
 /**
+ * Helper function for headers if we are not on a apache server
+ * (who does such a thing??)
+ */
+if (!function_exists('apache_request_headers')) {
+
+    function apache_request_headers() {
+        $headers = array();
+        foreach ($_SERVER as $key => $value) {
+            if (substr($key, 0, 5) == 'HTTP_') {
+                $headers[str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))))] = $value;
+            }
+        }
+        return $headers;
+    }
+
+}
+
+/**
  * Curl Magic
  */
 //$headers = ($_POST['headers']);
@@ -124,14 +147,12 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 //X-Requested-With:XMLHttpRequest
 //http_get_request_headers
-
 //curl_setopt($session, CURLOPT_ENCODING, "");
 //curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 //curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
-//curl_setopt($session, CURLOPT_HTTPHEADER, getallheaders());
+curl_setopt($session, CURLOPT_HTTPHEADER, apache_request_headers());
 //curl_setopt($session, CURLINFO_HEADER_OUT, true);
 //curl_setopt($session, CURLOPT_TIMEOUT, 5);
-
 // Make the call
 $set['answer'] = curl_exec($session);
 //$set['returnHeaders'] = curl_getinfo($session);
@@ -153,7 +174,7 @@ foreach ($_GET as $key => $value) {
 }
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
-}              
+}
 
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n" . $set['answerHeaders'] . "\n";
 $tmpLogOut .= "-------------------------------  return  body  -------------------------------\n" . $set['answerContent'] . "\n";
@@ -213,7 +234,7 @@ if ($set['facility'] == "test") {
         }
     }
     header($contentType);
-    
+
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }

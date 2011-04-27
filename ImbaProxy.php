@@ -137,12 +137,12 @@ $requestHeaders = array();
 foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, array($name => $value));
-        echo "Error:";
+        echo "Error:aa";
         print_r($requestHeaders);
         exit;
     }
     if (count($requestHeaders)) {
-        echo "Error:";
+        echo "Error:bb";
         print_r($requestHeaders);
         exit;
     }
@@ -166,7 +166,7 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
 if (count($requestHeaders)) {
-    echo "Error:";
+    echo "Error:cc";
     print_r($requestHeaders);
     exit;
 }

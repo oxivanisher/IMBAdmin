@@ -156,7 +156,11 @@ if (!empty($set['cookieFilePath'])) {
     curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
 }
-curl_setopt($session, CURLOPT_HEADER, true);
+if (!$requestHeaders) {
+    curl_setopt($session, CURLOPT_HEADER, true);
+} else {
+    curl_setopt($session, CURLOPT_HEADER, false);
+}
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 

@@ -152,6 +152,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
             break;
 
         case "updaterole":
+            echo "testme";
             $role = $managerRole->selectById($_POST["roleid"]);
 
             switch ($_POST["rolecolumn"]) {

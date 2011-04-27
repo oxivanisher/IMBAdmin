@@ -136,13 +136,14 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
  * Setting up log output
  */
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
+$tmpLogOut .= "headSize  : " . strlen($set['answerHeaders']) . "\n";
+$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
 foreach ($_GET as $key => $value) {
     $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
 }
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
-$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
 $tmpLogOut .= "return header:\n" . $set['answerHeaders'] . "\n";
 $tmpLogOut .= "return body:\n" . $set['answerContent'] . "\n";
 

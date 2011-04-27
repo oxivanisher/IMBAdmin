@@ -137,6 +137,7 @@ foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, array($name => $value));
     }
+    echo "Error:X-Requested-With found!"; exit;
 }
 
 /**
@@ -147,8 +148,6 @@ foreach (apache_request_headers() as $name => $value) {
 //Start the Curl session
 $session = curl_init($set['requestUrl']);
 
-curl_setopt($session, CURLOPT_POST, true);
-curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 if (!empty($set['cookieFilePath'])) {
     curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
@@ -158,12 +157,15 @@ curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
+curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
+curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
+
+curl_setopt($session, CURLOPT_POST, true);
+curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 
 //X-Requested-With:XMLHttpRequest
 //http_get_request_headers
 //curl_setopt($session, CURLOPT_ENCODING, "");
-curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
-curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
 //curl_setopt($session, CURLINFO_HEADER_OUT, true);
 //curl_setopt($session, CURLOPT_TIMEOUT, 5);
 // Make the call

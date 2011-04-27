@@ -192,20 +192,21 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
 $tmpLogOut .= "headSize  : " . strlen($set['answerHeaders']) . "\n";
 $tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
-$tmpLogOut .= "------------------------------- request header -------------------------------\n" . $set['answerHeaders'] . "\n";
+$tmpLogOut .= "------------------------------- request header -------------------------------\n";
 foreach ($requestHeaders as $header) {
     $tmpLogOut .= $header . "\n";
 }
-$tmpLogOut .= "-------------------------------  request body  -------------------------------\n" . $set['answerHeaders'] . "\n";
+$tmpLogOut .= "-------------------------------  request data  -------------------------------\n";
 foreach ($_GET as $key => $value) {
     $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
 }
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
-
-$tmpLogOut .= "------------------------------- return  header -------------------------------\n" . $set['answerHeaders'] . "\n";
-$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n" . $set['answerContent'] . "\n";
+$tmpLogOut .= "------------------------------- return  header -------------------------------\n";
+$tmpLogOut .= $set['answerHeaders'] . "\n";
+$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
+$tmpLogOut .= $set['answerContent'] . "\n";
 
 /**
  * generate output

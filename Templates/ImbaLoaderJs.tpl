@@ -13,7 +13,7 @@ var imbatAuthReferer = '{$imbatAuthReferer}';
     include library javascript files
     
 *}
-{fetch file='Libs/jQuery/js/jquery-1.5.2.min'}
+{fetch file='Libs/jQuery/js/jquery-1.5.2.min.js'}
 {fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}
 {fetch file='Libs/DataTables/media/js/jquery.dataTables.min.js'}
 {fetch file='Libs/jquery_jeditable/jquery.jeditable.js'}

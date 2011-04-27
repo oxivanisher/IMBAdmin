@@ -139,7 +139,7 @@ foreach (apache_request_headers() as $name => $value) {
         array_push($requestHeaders, $name . ": " . $value);
         $_POST['b'] = "b";
     }
-    $_POST['a'] = "a";
+    $_POST['a'] = $_POST['a'] . $name;
 }
 
 /**

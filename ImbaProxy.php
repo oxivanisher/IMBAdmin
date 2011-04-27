@@ -134,14 +134,9 @@ if (!function_exists('apache_request_headers')) {
  * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
  */
 $requestHeaders = array();
-/* foreach (apache_request_headers() as $name => $value) {
-  array_push($requestHeaders, $name . ": " . $value);
-  if ($name == "X-Requested-With") {
-  array_push($requestHeaders, $name . ": " . $value);
-  $_POST['b'] = "b";
-  }
- *
-  } */
+foreach (apache_request_headers() as $name => $value) {
+    array_push($requestHeaders, $name . ": " . $value);
+}
 if (!empty($_POST['addToHeader'])) {
     array_push($requestHeaders, $_POST['addToHeader']);
 }

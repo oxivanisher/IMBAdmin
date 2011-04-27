@@ -144,8 +144,8 @@ foreach ($_GET as $key => $value) {
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
-$tmpLogOut .= "return header:\n" . $set['answerHeaders'] . "\n";
-$tmpLogOut .= "return body:\n" . $set['answerContent'] . "\n";
+$tmpLogOut .= "----- return header: ----- \n" . $set['answerHeaders'] . "\n";
+$tmpLogOut .= "----- return   body: ----- \n" . $set['answerContent'] . "\n";
 
 /**
  * generate output

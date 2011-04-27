@@ -190,11 +190,11 @@ if ($set['facility'] == "test") {
      */
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
-            if (strpos($hdr, "Transfer-Encoding: chunked") == false) {
-                header($hdr);
-            } else {
-                header("Content-Length: " . strlen($set['answerContent']));
+            if ($hdr == "Transfer-Encoding: chunked") {
                 header("Content-Type: text/html");
+                header("Content-Length: " . strlen($set['answerContent']));
+            } else {
+                header($hdr);
             }
         }
     }

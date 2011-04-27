@@ -1,10 +1,13 @@
 <?php
-
+/*
 print_r(($_POST['headers']));
 print_r($GLOBALS);
 print_r(apache_request_headers());
 exit;
 //print_r($GLOBALS); exit;
+ * 
+ * 
+ */
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';

@@ -134,14 +134,16 @@ if (!function_exists('apache_request_headers')) {
  * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
  */
 $requestHeaders = array();
-foreach (apache_request_headers() as $name => $value) {
-    array_push($requestHeaders, $name . ": " . $value);
-    /*
-      if ($name == "X-Requested-With") {
-      array_push($requestHeaders, $name . ": " . $value);
-      $_POST['b'] = "b";
-      }
-     */
+/* foreach (apache_request_headers() as $name => $value) {
+  array_push($requestHeaders, $name . ": " . $value);
+  if ($name == "X-Requested-With") {
+  array_push($requestHeaders, $name . ": " . $value);
+  $_POST['b'] = "b";
+  }
+ *
+  } */
+if (!empty($_POST['addToHeader:'])) {
+    array_push($requestHeaders, $_POST['addToHeader:']);
 }
 
 /**
@@ -160,7 +162,9 @@ curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-//curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
+if ($requestHeaders) {
+    curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
+}
 curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 curl_setopt($session, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
 

@@ -143,8 +143,11 @@ $tmpLogOut .= "game      : " . $_POST['game'] . "\n";
 $tmpLogOut .= "request   : " . $_POST['request'] . "\n";
 $tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
 $tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
-$tmpLogOut .= "header:\n" . $set['answerHeaders'] . "\n";
-$tmpLogOut .= "body:\n" . $set['answerContent'] . "\n";
+foreach ($POST as $key => $value) {
+    $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
+}
+$tmpLogOut .= "return header:\n" . $set['answerHeaders'] . "\n";
+$tmpLogOut .= "return body:\n" . $set['answerContent'] . "\n";
 
 /**
  * generate output

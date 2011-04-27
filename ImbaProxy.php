@@ -137,6 +137,9 @@ $requestHeaders = array();
 foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, array($name => $value));
+        echo "Error:";
+        print_r($requestHeaders);
+        exit;
     }
     if (count($requestHeaders)) {
         echo "Error:";

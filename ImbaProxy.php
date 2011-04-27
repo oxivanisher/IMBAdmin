@@ -43,6 +43,8 @@ if ($_POST['toggleProxyDebug'] == true) {
         $_SESSION['debugMode'] = false;
         echo "Proxy Debug Disabled";
     }
+    session_write_close();
+    exit;
 }
 
 /**

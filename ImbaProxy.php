@@ -125,7 +125,7 @@ curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_ENCODING, "");
 //curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 //curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
-curl_setopt($session, CURLOPT_HTTPHEADER, http_get_request_headers());
+curl_setopt($session, CURLOPT_HTTPHEADER, HttpResponse::getHeader());
 //curl_setopt($session, CURLOPT_TIMEOUT, 5);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 

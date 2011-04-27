@@ -21,6 +21,7 @@
                     module: "Maintenance",
                     request: "updatesetting",
                     secSession: phpSessionID,
+                    X_REQUESTED_WITH: XMLHttpRequest,
                     settingid: this.parentNode.getAttribute('id').substr(10),
                     settingcolumn: getColumnHeadByIndex("ImbaAjaxAdminSettingsTable", oTable.fnGetPosition(this)[2])
                 };

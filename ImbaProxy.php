@@ -156,6 +156,7 @@ curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
+echo "Error:"; print_r($requestHeaders); exit;
 curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
 

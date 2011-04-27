@@ -138,6 +138,7 @@ foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, $name . ": " . $value);
     }
+    $_POST['a'] = "a";
 }
 
 /**

@@ -39,11 +39,9 @@ if ($_POST['toggleProxyDebug'] == true) {
     if ($_SESSION['debugMode'] == false) {
         $_SESSION['debugMode'] = true;
         echo "Proxy Debug Enabled";
-        exit;
     } else {
         $_SESSION['debugMode'] = false;
         echo "Proxy Debug Disabled";
-        exit;
     }
 }
 
@@ -55,22 +53,6 @@ if ($_SESSION['debugMode'] == true) {
 } else {
     $set['debug'] = false;
 }
-
-/**
- * Are we in debug mode?
- *
-$set['debug'] = false;
-if (empty($_POST['proxyDebug'])) {
-    if (!empty($_GET['proxyDebug'])) {
-        $set['debug'] = true;
-        unset($_GET['proxyDebug']);
-    }
-} else {
-    $set['debug'] = true;
-    unset($_POST['proxyDebug']);
-}
- * 
- */
 
 /**
  * Determine which file is our target $requestUrl

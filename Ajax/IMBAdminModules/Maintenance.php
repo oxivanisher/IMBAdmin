@@ -47,6 +47,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
         case "updatesetting":
             $managerDatabase = ImbaManagerDatabase::getInstance();
             $managerDatabase->query("UPDATE %s SET value='%s' WHERE name='%s';", array(ImbaConstants::$DATABASE_TABLES_SYS_SETTINGS, $_POST["value"], $_POST["settingid"]));
+            echo "sldfjsldkfjsd";
             echo $_POST["value"];
             break;
 

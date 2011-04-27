@@ -135,9 +135,12 @@ if (!function_exists('apache_request_headers')) {
  */
 $requestHeaders = array();
 if (!empty($_POST['addToHeader'])) {
-    foreach (apache_request_headers() as $name => $value) {
-        array_push($requestHeaders, $name . ": " . $value);
-    }
+    /*
+      foreach (apache_request_headers() as $name => $value) {
+      }
+      array_push($requestHeaders, $name . ": " . $value);
+      }
+     */
     array_push($requestHeaders, $_POST['addToHeader']);
 }
 

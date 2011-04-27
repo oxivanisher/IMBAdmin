@@ -1,10 +1,11 @@
 <?php
+
 /*
-print_r(($_POST['headers']));
-print_r($GLOBALS);
-print_r(apache_request_headers());
-exit;
-//print_r($GLOBALS); exit;
+  print_r(($_POST['headers']));
+  print_r($GLOBALS);
+  print_r(apache_request_headers());
+  exit;
+  //print_r($GLOBALS); exit;
  * 
  * 
  */
@@ -156,9 +157,13 @@ curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
-echo "Error:"; print_r($requestHeaders); exit;
+if (count($requestHeaders)) {
+    echo "Error:";
+    print_r($requestHeaders);
+    exit;
+}
 curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
-curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
+curl_setopt($session, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
 
 curl_setopt($session, CURLOPT_POST, true);
 curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);

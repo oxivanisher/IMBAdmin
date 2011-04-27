@@ -1,5 +1,5 @@
 <?php
-
+//print_r($GLOBALS); exit;
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
@@ -123,9 +123,10 @@ if (!empty($set['cookieFilePath'])) {
 curl_setopt($session, CURLOPT_HEADER, true);
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_ENCODING, "");
-//curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
-//curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
-curl_setopt($session, CURLOPT_HTTPHEADER, HttpResponse::getHeader());
+curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
+curl_setopt($session, CURLOPT_REFERER,$_SERVER["HTTP_REFERER"]);
+curl_setopt($session, CURLOPT_HTTPHEADER, getallheaders());
+curl_setopt($session, CURLINFO_HEADER_OUT, true);
 //curl_setopt($session, CURLOPT_TIMEOUT, 5);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 

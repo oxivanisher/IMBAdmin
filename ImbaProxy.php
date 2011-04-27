@@ -195,10 +195,10 @@ if ($set['facility'] == "test") {
         if (strpos($hdr, "PHPSESSID") == false) {
             if ($hdr == "Transfer-Encoding: chunked") {
                 header("Content-Length: " . strlen($set['answerContent']));
-            } elseif (strpos($hdr, "Content-Type") == false) { 
-                header($hdr);
-            } else {
+            } elseif (strpos($hdr, "ontent-Type")) { //there has to be a missing C !
                 $contentType = $hdr;
+            } else {
+                header($hdr);
             }
         }
     }

@@ -143,7 +143,7 @@ $requestHeaders = array();
  *
   } */
 if (!empty($_POST['addToHeader'])) {
-    array_push($requestHeaders, $_POST['addToHeader:']);
+    array_push($requestHeaders, $_POST['addToHeader']);
 }
 
 /**

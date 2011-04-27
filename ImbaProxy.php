@@ -143,7 +143,7 @@ $tmpLogOut .= "game      : " . $_POST['game'] . "\n";
 $tmpLogOut .= "request   : " . $_POST['request'] . "\n";
 $tmpLogOut .= "openid    : " . $_POST['openid'] . "\n";
 $tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
-foreach ($POST as $key => $value) {
+foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
 $tmpLogOut .= "return header:\n" . $set['answerHeaders'] . "\n";

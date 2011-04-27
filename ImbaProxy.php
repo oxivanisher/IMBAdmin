@@ -135,8 +135,10 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 /**
  * Setting up log output
  */
-$tmpLogOut = "secSession: " . $mySession . "\n";
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
+foreach ($_GET as $key => $value) {
+    $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
+}
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }

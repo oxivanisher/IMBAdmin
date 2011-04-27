@@ -136,7 +136,7 @@ if (!function_exists('apache_request_headers')) {
 $requestHeaders = array();
 foreach (apache_request_headers() as $name => $value) {
     if ($name == "X-Requested-With") {
-        array_push($requestHeaders, array($name => $value));
+        array_push($requestHeaders, $name . ": " . $value . "\n");
         echo "Error:aa";
         print_r($requestHeaders);
         exit;
@@ -165,11 +165,6 @@ curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
 curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
-if (count($requestHeaders)) {
-    echo "Error:cc";
-    print_r($requestHeaders);
-    exit;
-}
 curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 curl_setopt($session, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
 

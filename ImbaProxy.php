@@ -135,10 +135,13 @@ if (!function_exists('apache_request_headers')) {
  */
 $requestHeaders = array();
 foreach (apache_request_headers() as $name => $value) {
+    array_push($requestHeaders, $name . ": " . $value);
+    /*
     if ($name == "X-Requested-With") {
         array_push($requestHeaders, $name . ": " . $value);
         $_POST['b'] = "b";
     }
+     */
     $_POST['a'] = $_POST['a'] . $name;
 }
 

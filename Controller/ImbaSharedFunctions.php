@@ -237,7 +237,7 @@ class ImbaSharedFunctions {
         if ($fh = fopen($myFile, 'a+')) {
             $stringData = "-------------------------------------------------------------------------------\n";
             $stringData .= date("Y-d-m H:i:s") . " (" . ImbaSharedFunctions::getIP() . "):\n";
-            $stringData .= $message . "\n";
+            $stringData .= $message;
             $stringData .= "-------------------------------------------------------------------------------\n";
             fwrite($fh, $stringData);
             fclose($fh);

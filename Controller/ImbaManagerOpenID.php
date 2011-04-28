@@ -29,7 +29,7 @@ class ImbaManagerOpenID {
      */
     public function openidAuth($openid) {
         $this->lightOpenid = new LightOpenID;
-        $this->lightOpenid->verify_peer = $WEB_AUTH_SSL_CHECK;
+        $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
         $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 
@@ -46,7 +46,7 @@ class ImbaManagerOpenID {
      */
     public function openidVerify() {
         $this->lightOpenid = new LightOpenID;
-        $this->lightOpenid->verify_peer = $WEB_AUTH_SSL_CHECK;
+        $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
         $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
         $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
 

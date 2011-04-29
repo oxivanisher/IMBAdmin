@@ -16,6 +16,10 @@ require_once 'Controller/ImbaSharedFunctions.php';
 
 session_start();
 $mySession = false;
+
+/**
+ * discover my PHP Session id at Trust Root Host
+ */
 if (!empty($_COOKIE['secSession'])) {
     $mySession = $_COOKIE['secSession'];
 } elseif (!empty($_POST['secSession'])) {
@@ -23,23 +27,25 @@ if (!empty($_COOKIE['secSession'])) {
 } elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
 }
+
 if (empty($_SESSION['debugMode'])) {
     $_SESSION['debugMode'] = false;
 }
 
 /**
- * Determine which is our facility
+ * Determine which is our facility (ajax/auth)
  */
 $set['facility'] = "";
 if (empty($_POST['facility'])) {
     if (!empty($_GET['facility'])) {
         $set['facility'] = $_GET['facility'];
-        unset($_GET['facility']);
     }
 } else {
     $set['facility'] = $_POST['facility'];
-    unset($_POST['facility']);
 }
+
+unset($_POST['facility']);
+unset($_GET['facility']);
 
 /**
  * Toggle debug mode 
@@ -74,7 +80,7 @@ if (!($_GET["logout"] == false && $_POST["logout"] == false)) {
 }
 $set['requestUrl'] = "";
 if (empty($set['facility'])) {
-    echo "ERROR:No facility recieved";
+    echo "Error:No facility recieved";
     exit;
 } else {
     if ($set['facility'] == "ajax") {
@@ -90,6 +96,10 @@ if (empty($set['facility'])) {
         exit;
     }
 }
+
+/**
+ * If we have a GET make it a POST
+ */
 if (empty($_POST) && (!empty($_GET))) {
     $_POST = $_GET;
 }
@@ -157,7 +167,7 @@ if (!empty($set['cookieFilePath'])) {
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
 }
 //if (!$requestHeaders) {
-    curl_setopt($session, CURLOPT_HEADER, true);
+curl_setopt($session, CURLOPT_HEADER, true);
 //} else {
 //    curl_setopt($session, CURLOPT_HEADER, false);
 //}

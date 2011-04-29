@@ -49,7 +49,10 @@ class ImbaUser extends ImbaBase {
     }
 
     public function getNickname() {
-        return $this->nickname;
+        if ($this->nickname != null)
+            return $this->nickname;
+        else
+            return "Anonymous";
     }
 
     public function setNickname($nickname) {

@@ -194,7 +194,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             $log->setLevel(0);
                             $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
                             $managerLog->insert($log);
-                            ImbaUserContext::setImbaErrorMessage($log->getMessage);
+                            ImbaUserContext::setImbaErrorMessage($log->getMessage());
                             header("Location: " . ImbaUserContext::getRedirectUrl());
                             exit;
                         }

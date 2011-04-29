@@ -41,7 +41,13 @@ class ImbaManagerLog extends ImbaManagerBase {
         $log->setTimestamp(time());
         $log->setIp(ImbaSharedFunctions::getIP());
         $log->setSession(session_id());
-        $log->setUser(ImbaUserContext::getUserId());
+
+        // If not logged in, set User with id 1
+        if (ImbaUserContext::getLoggedIn()) {
+            $log->setUser(ImbaUserContext::getUserId());
+        } else {
+            $log->setUser(1);
+        }
 
         return $log;
     }
@@ -98,14 +104,14 @@ class ImbaManagerLog extends ImbaManagerBase {
      * Clear all system messages
      */
     public function clearAll() {
-            $query = "DELETE FROM %s;";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
-            
-            $log = $this->getNew(); 
-            $log->setModule("Admin");
-            $log->setMessage("Logs cleared");
-            $log->setLevel(0);
-            $this->insert($log);
+        $query = "DELETE FROM %s;";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_SYSTEMMESSAGES));
+
+        $log = $this->getNew();
+        $log->setModule("Admin");
+        $log->setMessage("Logs cleared");
+        $log->setLevel(0);
+        $this->insert($log);
     }
 
     public function selectId($id) {

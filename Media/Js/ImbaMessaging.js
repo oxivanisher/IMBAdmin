@@ -11,6 +11,7 @@ var chatCache = new Array();
 
 // Reload Chats every 2000 ms
 setInterval('refreshChat()', 2000);
+setInterval('pingChats()', 10000);
 
 /**
  * Refreshs the current chatwindow
@@ -73,6 +74,34 @@ function refreshChat() {
             loadChatWindowContent(selectedTab);
         }
     }
+}
+
+/**
+ * Sends a ping to say that im still in Channel
+ */
+function pingChats() {
+    var chats = new Array();
+    
+    // Walk through all the open tabs    
+    $.each($("#imbaMessages a"), function (k, v) {
+        // leave out info tab
+        if (k > 0){
+            var tabData = getTabDataFromTabIndex(k);
+            
+            // Check if its a chat
+            if (tabData.substr(0, 1) == "#"){
+                chats.push(tabData.substring(1));
+            }
+        }
+    });
+
+    // send ping
+    $.post(ajaxEntry, {
+        action: "messenger",
+        secSession: phpSessionID,
+        channelping: "true",
+        channelids: chats
+    });
 }
 
 /**
@@ -218,6 +247,23 @@ function loadChatWindowContent(tabIndex) {
         if (tabData.substr(0, 1) == "#"){
             var channelId = tabData.substring(1);
 
+            // update chat users
+            $.post(ajaxEntry, {
+                action: "messenger",
+                secSession: phpSessionID,
+                channelid: channelId,
+                channelusers: "true"
+            },
+            function(response) {
+                var htmlUserList = "";
+
+                $.each($.parseJSON(response), function(key, val) {
+                    htmlUserList += val + "<br />";
+                });
+                    
+                $("#imbaChatConversationUserlist").html(htmlUserList);
+            });
+
             if (chatSinceIds[channelId] == -1){
                 // init chat
                 $.post(ajaxEntry, {
@@ -245,11 +291,9 @@ function loadChatWindowContent(tabIndex) {
                     $("#imbaChatConversation").attr({
                         scrollTop: $("#imbaChatConversation").attr("scrollHeight")
                     });
-
-                    $("#imbaChatConversationUserlist").html("You<br />");
                 });
-            } else {
-                // update chat
+            } else {         
+                // update chat messages
                 $.post(ajaxEntry, {
                     action: "messenger",
                     request: "loadchat",
@@ -276,9 +320,7 @@ function loadChatWindowContent(tabIndex) {
                     $("#imbaChatConversation").attr({
                         scrollTop: $("#imbaChatConversation").attr("scrollHeight")
                     });
-
-                    $("#imbaChatConversationUserlist").html("You<br />");
-                });
+                });                
             }
         } else {
             // load messenger
@@ -419,6 +461,20 @@ $(document).ready(function() {
     // close icon: removing the tab on click
     $("#imbaMessages div.ui-icon-close").live("click", function() {
         var index = $("li", $msgTabs).index($(this).parent());
+        
+        var tabData = getTabDataFromTabIndex(index);
+            
+        // Check if its a chat
+        if (tabData.substr(0, 1) == "#"){
+            // send close
+            $.post(ajaxEntry, {
+                action: "messenger",
+                secSession: phpSessionID,
+                channelclose: "true",
+                channelid: tabData.substring(1)
+            });
+        }
+        
         $msgTabs.tabs("remove", index);
         if (countOpenTabs > 0) {
             countOpenTabs--;

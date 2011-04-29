@@ -65,6 +65,7 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_USR_MESSAGES = "oom_openid_messages";
     public static $DATABASE_TABLES_CHAT_CHATCHANNELS = "oom_openid_chatchannels";
     public static $DATABASE_TABLES_CHAT_CHATMESSAGES = "oom_openid_chatmessages";
+    public static $DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER = "oom_openid_chat_int_chatchannels_user";
     public static $DATABASE_TABLES_GAME_EVE_CHARS = "oom_game_eve_chars";
     /**
      * currently unused tables

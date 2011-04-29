@@ -9,6 +9,14 @@ require_once 'Model/ImbaChatChannel.php';
 /**
  *  Controller / Manager for Chat Channels
  *  - insert, update, delete, join, leave
+ * 
+ * CREATE TABLE IF NOT EXISTS `oom_openid_chat_int_chatchannels_user` (
+  `user` int(11) NOT NULL,
+  `channel` int(11) NOT NULL,
+  `timestamp` int(11) NOT NULL,
+  KEY `channel` (`channel`),
+  KEY `user` (`user`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
  */
 class ImbaManagerChatChannel extends ImbaManagerBase {
 
@@ -32,6 +40,7 @@ class ImbaManagerChatChannel extends ImbaManagerBase {
     /*
      * Singleton init
      */
+
     public static function getInstance() {
         if (self::$instance === null)
             self::$instance = new self();
@@ -108,6 +117,68 @@ class ImbaManagerChatChannel extends ImbaManagerBase {
                 return $channel;
         }
         return null;
+    }
+
+    /**
+     * Updates a User in Channels (Ping)
+     * -> $channelIds is an array of int
+     */
+    public function channelPing($channelIds) {
+        // Delete offline users
+        $query = "DELETE FROM %s WHERE timestamp < UNIX_TIMESTAMP() - 20;";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER
+        ));
+
+        // Update me
+        foreach ($channelIds as $channelId) {
+            $query = "DELETE FROM %s WHERE user = '%s' AND channel = '%s';";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER,
+                ImbaUserContext::getUserId(),
+                $channelId
+            ));
+
+            $query = "INSERT INTO %s (user, channel, timestamp) VALUES ('%s','%s','%s');";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER,
+                ImbaUserContext::getUserId(),
+                $channelId,
+                date("U")
+            ));
+        }
+    }
+
+    /**
+     * Removes a User from Channel
+     */
+    public function channelClose($channelId) {
+        $query = "DELETE FROM %s Where user = '%s' And channel = '%s';";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER,
+            ImbaUserContext::getUserId(),
+            $channelId
+        ));
+    }
+
+    /**
+     * Returns the Users in a Channel
+     */
+    public function channelUsers($channelId) {
+        // get users in channel
+        $query = "SELECT Nickname FROM %s where id in (SELECT user FROM %s WHERE channel = '%s');";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,
+            ImbaConstants::$DATABASE_TABLES_CHAT_INTERCEPT_CHATCHANNELS_USER,
+            $channelId
+        ));
+
+        $result = array();
+        while ($row = $this->database->fetchRow()) {
+            array_push($result, $row["Nickname"]);
+        }
+        
+        return $result;
     }
 
 }

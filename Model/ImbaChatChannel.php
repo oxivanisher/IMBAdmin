@@ -15,6 +15,7 @@ class ImbaChatChannel extends ImbaBase {
     protected $allowed = null;
     protected $created = null;
     protected $lastmessage = null;
+    protected $users = null;
 
     /**
      * Properties
@@ -57,6 +58,14 @@ class ImbaChatChannel extends ImbaBase {
 
     public function setLastmessage($lastmessage) {
         $this->lastmessage = $lastmessage;
+    }
+
+    public function getUsers() {
+        return $this->users;
+    }
+
+    public function setUsers($users) {
+        $this->users = $users;
     }
 
 }

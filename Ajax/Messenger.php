@@ -97,6 +97,11 @@ if (ImbaUserContext::getLoggedIn()) {
         echo json_encode($result);
     }
     /**
+     * Gets the Users in a channel
+     */ else if (isset($_POST['channelusers']) && isset($_POST['channelid'])) {
+        echo json_encode($managerChatChannel->channelUsers($_POST['channelid']));
+    }
+    /**
      * init the ChatMessages
      */ else if (isset($_POST['initchat']) && isset($_POST['channelid'])) {
         $result = array();
@@ -126,6 +131,15 @@ if (ImbaUserContext::getLoggedIn()) {
         } else {
             echo "No Message";
         }
+    }/**
+     * Close a Chat
+     */ else if (isset($_POST['channelclose']) && isset($_POST['channelid'])) {
+        $managerChatChannel->channelClose($_POST['channelid']);
+    }
+    /**
+     * Pings the User into a channel
+     */ else if (isset($_POST['channelping']) && isset($_POST['channelids'])) {
+        $managerChatChannel->channelPing($_POST['channelids']);
     }
 } else {
     echo "Not logged in!";

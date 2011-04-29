@@ -10,12 +10,7 @@ require_once 'Controller/ImbaSharedFunctions.php';
 
 /**
  *  Controller / Manager for User
- *  - insert, update, delete Users
- * CREATE TABLE IF NOT EXISTS `oom_openid_multig_int_user_gameproperties` (
-  `openid` varchar(200) NOT NULL,
-  `property_id` int(11) NOT NULL,
-  `value` varchar(255) NOT NULL
-  );
+ *  - insert, update, delete Users 
  */
 class ImbaManagerUser extends ImbaManagerBase {
 
@@ -116,8 +111,8 @@ class ImbaManagerUser extends ImbaManagerBase {
 
             foreach ($result as $user) {
                 // fetch games for user
-                $query = "SELECT * FROM %s WHERE openid = '%s';";
-                $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId()));
+                $query = "SELECT * FROM %s WHERE user = '%s';";
+                $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getId()));
 
                 while ($row = $this->database->fetchRow()) {
                     $game = ImbaManagerGame::getInstance()->selectById($row["gameid"]);
@@ -126,8 +121,8 @@ class ImbaManagerUser extends ImbaManagerBase {
 
                 // fetch games properties for user if it is me
                 if ($user->getOpenId() == ImbaUserContext::getOpenIdUrl() && ImbaUserContext::getLoggedIn()) {
-                    $query = "SELECT * FROM %s WHERE openid = '%s';";
-                    $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId()));
+                    $query = "SELECT * FROM %s WHERE user = '%s';";
+                    $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getId()));
 
                     while ($row = $this->database->fetchRow()) {
                         $value = new ImbaGamePropertyValue();
@@ -215,21 +210,21 @@ class ImbaManagerUser extends ImbaManagerBase {
         ));
 
         // Games updaten
-        $query = "DELETE FROM %s WHERE openid = '%s'";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId()));
+        $query = "DELETE FROM %s WHERE user = '%s'";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getId()));
 
         foreach ($user->getGames() as $game) {
-            $query = "INSERT INTO %s (openid, gameid) VALUES ('%s', '%s')";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getOpenId(), $game->getId()));
+            $query = "INSERT INTO %s (user, gameid) VALUES ('%s', '%s')";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_NAMES, $user->getId(), $game->getId()));
         }
 
         // Game PropertyValues updaten
-        $query = "DELETE FROM %s WHERE openid = '%s'";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId()));
+        $query = "DELETE FROM %s WHERE user = '%s'";
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getId()));
 
         foreach ($user->getGamesPropertyValues() as $gamePropertyValue) {
-            $query = "INSERT INTO %s (openid, property_id, value) VALUES ('%s', '%s', '%s')";
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getOpenId(), $gamePropertyValue->getProperty()->getId(), $gamePropertyValue->getValue()));
+            $query = "INSERT INTO %s (user, property_id, value) VALUES ('%s', '%s', '%s')";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_USR_MULTIGAMING_INTERCEPT_GAMES_PROPERTY, $user->getId(), $gamePropertyValue->getProperty()->getId(), $gamePropertyValue->getValue()));
         }
 
         $this->usersCached = null;

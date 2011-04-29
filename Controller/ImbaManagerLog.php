@@ -41,7 +41,7 @@ class ImbaManagerLog extends ImbaManagerBase {
         $log->setTimestamp(time());
         $log->setIp(ImbaSharedFunctions::getIP());
         $log->setSession(session_id());
-        $log->setUser(ImbaUserContext::getOpenIdUrl());
+        $log->setUser(ImbaUserContext::getUserId());
 
         return $log;
     }

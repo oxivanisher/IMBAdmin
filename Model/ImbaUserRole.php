@@ -67,7 +67,7 @@ class ImbaUserRole extends ImbaBase {
         if ($this->icon == null || $this->icon == "") {
             return ImbaSharedFunctions::fixWebPath("Images/noicon.png");
         } else {
-            return ImbaSharedFunctions::fixWebPath($this->icon);
+            return $this->icon;
         }
     }
 

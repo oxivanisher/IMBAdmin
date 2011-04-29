@@ -77,46 +77,40 @@ class ImbaManagerPortal extends ImbaManagerBase {
      * Updates a portal into the Database
      */
     public function update(ImbaPortal $portal) {
-        /*        if ($game->getId() == null)
-          throw new Exception("No Game Id given");
+        if ($portal->getId() == null)
+            throw new Exception("No Portal Id given");
 
-          $query = "UPDATE %s SET ";
-          $query .= "name = '%s', icon= '%s', url = '%s', comment = '%s',  forumlink = '%s' ";
-          $query .= "WHERE id = '%s'";
+        // update the portal itself
+        $query = "UPDATE %s SET ";
+        $query .= "name = '%s', icon = '%s', comment = '%s' ";
+        $query .= "WHERE id = '%s';";
 
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_PORTALS,
-          $game->getName(),
-          $game->getIcon(),
-          $game->getUrl(),
-          $game->getComment(),
-          $game->getForumlink(),
-          $game->getId()
-          ));
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS,
+            $portal->getName(),
+            $portal->getIcon(),
+            $portal->getComment(),
+            $portal->getId()
+        ));
 
-          foreach ($game->getCategories() as $category) {
-          if ($category->getId() == null)
-          throw new Exception("No Category Id given");
+        // add the aliases
+        $query = "DELETE FROM %s WHERE portal_id = '%s';";
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_ALIAS,
+            $portal->getId()
+        ));
 
-          $query = "DELETE FROM %s WHERE game_id = '%s';";
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
-          $game->getId()
-          ));
+        foreach ($portal->getAliases() as $alias) {
+            $query = "INSERT INTO %s (name, portal_id) VALUES('%s', '%s');";
+            $this->database->query($query, array(
+                ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_ALIAS,
+                $alias,
+                $portal->getId()
+            ));
+        }
 
-          foreach ($game->getCategories() as $category) {
-          $query = "INSERT INTO %s (game_id, cat_id) VALUES ('%s', '%s');";
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
-          $game->getId(),
-          $category->getId()
-          ));
-          }
-          }
 
-          $this->portalsCached = null;
-          }
-         */
+        $this->portalsCached = null;
     }
 
     /**

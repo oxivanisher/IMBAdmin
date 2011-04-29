@@ -11,7 +11,7 @@ class ImbaPortal extends ImbaBase {
 
     protected $name = null;
     protected $icon = null;
-    protected $aliases = null;
+    protected $aliases = array();
     protected $navitems = null;
     protected $comment = null;
 
@@ -27,7 +27,7 @@ class ImbaPortal extends ImbaBase {
         if ($this->icon == null || $this->icon == "") {
             return ImbaSharedFunctions::fixWebPath("Images/noicon.png");
         } else {
-            return ImbaSharedFunctions::fixWebPath($this->icon);
+            return $this->icon;
         }
     }
 
@@ -41,6 +41,10 @@ class ImbaPortal extends ImbaBase {
 
     public function setAliases($aliases) {
         $this->aliases = $aliases;
+    }
+    
+    public function addAlias($alias){
+        array_push($this->aliases, $alias);
     }
 
     public function getNavitems() {

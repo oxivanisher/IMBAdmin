@@ -11,7 +11,7 @@ require_once 'Model/ImbaPortal.php';
 /**
  * Mysql Setup
  * 
-  CREATE TABLE IF NOT EXISTS `oom_openid_navigation_items` (
+  CREATE TABLE IF NOT EXISTS `oom_openid_portals_navigation_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `handle` varchar(20) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -56,10 +56,10 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
     /**
      * Inserts a PortalEntry into the Database
      */
-    public function insert(ImbaManagerPortalEntry $portalEntry) {
+    public function insert(ImbaPortalEntry $portalEntry) {
         $query = "INSERT INTO %s (handle, name, target, url, comment, loggedin, role) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
         $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES,
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS,
             $portalEntry->getHandle(),
             $portalEntry->getName(),
             $portalEntry->getTarget(),
@@ -81,47 +81,25 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
     /**
      * Updates a game into the Database
      */
-    public function update(ImbaGame $game) {
-        /*        if ($game->getId() == null)
-          throw new Exception("No Game Id given");
+    public function update(ImbaPortalEntry $portalEntry) {
+        if ($portalEntry->getId() == null)
+            throw new Exception("No Portal Entry Id given");
 
-          $query = "UPDATE %s SET ";
-          $query .= "name = '%s', icon= '%s', url = '%s', comment = '%s',  forumlink = '%s' ";
-          $query .= "WHERE id = '%s'";
+        $query = "UPDATE %s SET handle= '%s', name= '%s', target= '%s', url= '%s', comment= '%s', loggedin= '%s', role= '%s' WHERE id = '%s';";
 
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES,
-          $game->getName(),
-          $game->getIcon(),
-          $game->getUrl(),
-          $game->getComment(),
-          $game->getForumlink(),
-          $game->getId()
-          ));
+        $this->database->query($query, array(
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS,
+            $portalEntry->getHandle(),
+            $portalEntry->getName(),
+            $portalEntry->getTarget(),
+            $portalEntry->getUrl(),
+            $portalEntry->getComment(),
+            $portalEntry->getLoggedin(),
+            $portalEntry->getRole(),
+            $portalEntry->getId()
+        ));
 
-          foreach ($game->getCategories() as $category) {
-          if ($category->getId() == null)
-          throw new Exception("No Category Id given");
-
-          $query = "DELETE FROM %s WHERE game_id = '%s';";
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
-          $game->getId()
-          ));
-
-          foreach ($game->getCategories() as $category) {
-          $query = "INSERT INTO %s (game_id, cat_id) VALUES ('%s', '%s');";
-          $this->database->query($query, array(
-          ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_INTERCEPT_GAMES_CATEGORY,
-          $game->getId(),
-          $category->getId()
-          ));
-          }
-          }
-
-          $this->portalEntriesCached = null;
-          }
-         */
+        $this->portalEntriesCached = null;
     }
 
     /**
@@ -129,9 +107,8 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
      */
     public function delete($id) {
         $query = "DELETE FROM %s Where id = '%s';";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES, $id));
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS, $id));
 
-        //FIXME: we need to delet this portalentry also in the portal
         $this->portalEntriesCached = null;
     }
 
@@ -144,19 +121,19 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
 
             $query = "SELECT * FROM %s WHERE 1 ORDER BY name ASC;";
 
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_MULTIGAMING_GAMES));
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS));
             while ($row = $this->database->fetchRow()) {
                 $entry = new ImbaPortalEntry();
-                $entry->setId($id);
-                $entry->setHandle($handle);
-                $entry->setComment($comment);
-                $entry->setLoggedin($loggedin);
-                $entry->setName($name);
-                $entry->setRole($role);
-                $entry->setTarget($target);
-                $entry->setUrl($url);
+                $entry->setId($row["id"]);
+                $entry->setHandle($row["handle"]);
+                $entry->setComment($row["comment"]);
+                $entry->setLoggedin($row["loggedin"]);
+                $entry->setName($row["name"]);
+                $entry->setRole($row["role"]);
+                $entry->setTarget($row["target"]);
+                $entry->setUrl($row["url"]);
 
-                array_push($result, $game);
+                array_push($result, $entry);
             }
             $this->portalEntriesCached = $result;
         }
@@ -181,6 +158,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
         }
         return null;
     }
+
 }
 
 ?>

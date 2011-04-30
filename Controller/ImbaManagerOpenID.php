@@ -36,7 +36,7 @@ class ImbaManagerOpenID {
         if (!$this->lightOpenid->mode) {
             if (isset($openid)) {
                 $this->lightOpenid->identity = $openid;
-                return $this->lightOpenid->authUrl();
+                return $this->lightOpenid->authUrl(true);
             }
         }
     }

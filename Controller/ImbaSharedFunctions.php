@@ -254,7 +254,7 @@ class ImbaSharedFunctions {
      * Function for creating random strings
      */
     function getRandomString($length = 8) {
-        $validCharacters = "abcdefghijklmnopqrstuxyvwzABCDEFGHIJKLMNOPQRSTUXYVWZ-_";
+        $validCharacters = "abcdefghijklmnopqrstuxyvwzABCDEFGHIJKLMNOPQRSTUXYVWZ";
         $validCharNumber = strlen($validCharacters);
         $result = "";
         for ($i = 0; $i < $length; $i++) {

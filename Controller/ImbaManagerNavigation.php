@@ -35,18 +35,17 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         $this->loadPortalContext = ImbaConstants::$SETTINGS['DEFAULT_PORTAL_ID'];
         $this->managerPortal = ImbaManagerPortal::getInstance();
 
-        if (ImbaUserContext::getPortalContext()) {
-            $this->loadPortalContext = ImbaUserContext::getPortalContext();
-        } else {
-            foreach ($this->managerPortal->selectAll() as $tmpPortal) {
-                if (count($tmpPortal->getAliases())) {
-                    foreach ($tmpPortal->getAliases() as $tmpAlias) {
-                        if ($_SERVER[HTTP_HOST] == $tmpAlias) {
-                            $this->loadPortalContext = $tmpPortal->getId();
-                        }
+        foreach ($this->managerPortal->selectAll() as $tmpPortal) {
+            if (count($tmpPortal->getAliases())) {
+                foreach ($tmpPortal->getAliases() as $tmpAlias) {
+                    if ($_SERVER[HTTP_HOST] == $tmpAlias) {
+                        $this->loadPortalContext = $tmpPortal->getId();
                     }
                 }
             }
+        }
+        if ($this->loadPortalContext == null) {
+            $this->loadPortalContext = ImbaUserContext::getPortalContext();
         }
     }
 
@@ -64,9 +63,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
      * Display Portal Navigation
      */
     public function displayLoaderPortalNavigation() {
-        if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
-            return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation($this->loadPortalContext) . "</div>";
-        }
+        return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation($this->loadPortalContext) . "</div>";
     }
 
     /**

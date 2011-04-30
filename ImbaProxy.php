@@ -45,22 +45,20 @@ if (empty($_SESSION['debugMode'])) {
 if (!empty($_GET['imbaHash'])) {
     $_POST['imbaHash'] = $_GET['imbaHash'];
     unset($_GET['imbaHash']);
-    print_r($GLOBALS); exit;
-    
-      $_POST['openid_assoc_handle'] = $_GET['openid_assoc_handle'];
-      $_POST['openid_claimed_id'] = $_GET['openid_claimed_id'];
-      $_POST['openid_identity'] = $_GET['openid_identity'];
-      $_POST['openid_mode'] = $_GET['openid_mode'];
-      $_POST['openid_ns'] = $_GET['openid_ns'];
-      $_POST['openid_op_endpoint'] = $_GET['openid_op_endpoint'];
-      $_POST['openid_response_nonce'] = $_GET['openid_response_nonce'];
-      $_POST['openid_return_to'] = $_GET['openid_return_to'];
-      $_POST['openid_sig'] = $_GET['openid_sig'];
-      $_POST['openid_signed'] = $_GET['openid_signed'];
 
-      $_POST['openid'] = $_GET['openid'];
-      unset ($_GET['openid']);
-     
+    $_POST['openid_assoc_handle'] = $_GET['openid_assoc_handle'];
+    $_POST['openid_claimed_id'] = $_GET['openid_claimed_id'];
+    $_POST['openid_identity'] = $_GET['openid_identity'];
+    $_POST['openid_mode'] = $_GET['openid_mode'];
+    $_POST['openid_ns'] = $_GET['openid_ns'];
+    $_POST['openid_op_endpoint'] = $_GET['openid_op_endpoint'];
+    $_POST['openid_response_nonce'] = $_GET['openid_response_nonce'];
+    $_POST['openid_return_to'] = $_GET['openid_return_to'];
+    $_POST['openid_sig'] = $_GET['openid_sig'];
+    $_POST['openid_signed'] = $_GET['openid_signed'];
+
+    $_POST['openid'] = $_GET['openid'];
+    unset($_GET['openid']);
 }
 
 /**
@@ -289,12 +287,12 @@ if ($set['facility'] == "test") {
     /*
      * if (empty($mySession)) {
      *
-        $tmpLogOut .= "ee: no session found (error)\n";
-        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    }
+      $tmpLogOut .= "ee: no session found (error)\n";
+      ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+      }
      * 
      */
-    
+
     /**
      * normal proxy return headers
      */

@@ -279,8 +279,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         redirectTo(__LINE__, $_SERVER['HTTP_REFERER'], $tmpMsg);
         exit;
     } else {
-        print_r($GLOBALS);
-        exit;
         /**
          * first step completed. do the verification and actual login
          * we shall go to the saved realm in the database after

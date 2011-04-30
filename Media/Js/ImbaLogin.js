@@ -343,23 +343,17 @@ function loadImbaPortal(id) {
         secSession: phpSessionID,
         id: id
     }, function (response){
-        var tmpError = true;
-        if (id != null) {
-            tmpError = checkReturn(response);
-        } else {
-            tmpError = false;
-        }
-        if ((response != "") && (tmpError == false)) {            
+        if (checkReturn(response) == false) {            
             var currentPortal = $.parseJSON(response);
-                if (id != null) {
-                    $.jGrowl('<img src="' + currentPortal.icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + currentPortal.name + '</big>', {
-                        life: 350,
-                        header: 'Portal geladen:<br /><br />'
-                    });
-                }
-                $("#imbaNavigationPortal").html(currentPortal.navigation);
-                $("#imbaSsoLogoImage").attr('src', currentPortal.icon);
-                $("#document").attr('title', currentPortal.name + ' Portal');
+            if (id != null) {
+                $.jGrowl('<img src="' + currentPortal.icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + currentPortal.name + '</big>', {
+                    life: 350,
+                    header: 'Portal geladen:<br /><br />'
+                });
+            }
+            $("#imbaNavigationPortal").html(currentPortal.navigation);
+            $("#imbaSsoLogoImage").attr('src', currentPortal.icon);
+            $("#document").attr('title', currentPortal.name + ' Portal');
         }
     });
 }

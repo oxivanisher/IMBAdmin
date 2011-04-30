@@ -50,7 +50,12 @@ class ImbaUserContext {
     }
 
     public static function getUserRole() {
-        return $_SESSION["IUC_UserRole"];
+        if (empty($_SESSION["IUC_UserRole"])) {
+            $tmpRole = 0;
+        } else {
+            $tmpRole = $_SESSION["IUC_UserRole"];
+        }
+        return $tmpRole;
     }
 
     public static function setUserRole($UserRole) {

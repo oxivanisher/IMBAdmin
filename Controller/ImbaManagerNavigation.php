@@ -3,6 +3,7 @@
 require_once 'Controller/ImbaManagerBase.php';
 require_once 'Controller/ImbaManagerPortal.php';
 require_once 'Model/ImbaNavigation.php';
+require_once 'Controller/ImbaUserContext.php';
 
 /**
  *  Controller / Manager for Top Navigation
@@ -63,7 +64,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
      * Display Portal Navigation
      */
     public function displayLoaderPortalNavigation() {
-        return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation($this->loadPortalContext) . "</div>";
+        return "<div id='imbaNavigationPortal'></div>";
     }
 
     /**
@@ -77,7 +78,16 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         $portal = $this->managerPortal->selectById($portalId);
         foreach ($portal->getPortalEntries() as $portalEntry) {
-            $return .= "<li><a href='" . $portalEntry->getUrl() . "' title='" . $portalEntry->getComment() . "'>" . $portalEntry->getName() . "</a></li>";
+            $showMe = false;
+            if (ImbaUserContext::getUserRole() >= $portalEntry->getRole()) {
+                $showMe = false;
+                if ((ImbaUserContext::getLoggedIn() && $portalEntry->getLoggedin()) || ($portalEntry->getLoggedin() == 0)) {
+                    $showMe = true;
+                }
+            }
+            if ($showMe) {
+                $return .= "<li><a href='" . $portalEntry->getUrl() . "' title='" . $portalEntry->getComment() . "'>" . $portalEntry->getName() . "</a></li>";
+            }
         }
         return $return;
     }

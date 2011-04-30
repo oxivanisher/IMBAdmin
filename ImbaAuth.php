@@ -315,6 +315,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {
+                print_r($GLOBALS); exit;
                 throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }
             writeAuthLog("OpenID Verification sucessful", 2);

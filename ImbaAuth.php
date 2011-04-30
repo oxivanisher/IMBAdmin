@@ -313,7 +313,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         writeAuthLog("Verification starting", 2);
         if (strpos($authRequest->getReturnTo, "facility=auth")) {
-            $authRequest->setReturnTo(str_replace("&imbaHash=".$authRequest->gethash(), "", $authRequest->getReturnTo()));
+            $authRequest->setReturnTo(str_replace("&imbaHash=".$authRequest->getHash(), "", $authRequest->getReturnTo()));
         }
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());

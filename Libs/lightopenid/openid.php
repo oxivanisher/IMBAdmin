@@ -665,7 +665,7 @@ class LightOpenID {
         }
 
         $params['openid.mode'] = 'check_authentication';
-
+        echo "s:".$server.", p:".$params; exit;
         $response = $this->request($server, 'POST', $params);
 
         return preg_match('/is_valid\s*:\s*true/i', $response);

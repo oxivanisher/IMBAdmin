@@ -45,6 +45,7 @@ if (empty($_SESSION['debugMode'])) {
 if (!empty($_GET['imbaHash'])) {
     $_POST['imbaHash'] = $_GET['imbaHash'];
     unset($_GET['imbaHash']);
+    print_r($GLOBALS); exit;
     
       $_POST['openid.assoc_handle'] = $_GET['openid.assoc_handle'];
       $_POST['openid.claimed_id'] = $_GET['openid.claimed_id'];

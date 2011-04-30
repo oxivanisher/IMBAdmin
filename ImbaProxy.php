@@ -38,13 +38,15 @@ if (empty($_SESSION['debugMode'])) {
 }
 
 /**
- * Reqrite possible imba auth hash from $_GET to $_POST
+ * Require possible imba auth hash from $_GET to $_POST
  * which is needed to discover our authrequest if auth is
- * in progress.
+ * in progress. Also do this for the openid array
  */
 if (!empty($_GET['imbaHash'])) {
     $_POST['imbaHash'] = $_GET['imbaHash'];
     unset($_GET['imbaHash']);
+    $_POST['openid'] = $_GET['openid'];
+    unset ($_GET['openid']);
 }
 
 /**

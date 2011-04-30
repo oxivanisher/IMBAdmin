@@ -217,7 +217,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $authRequest->setUserId($myUser->getId());
                     $authRequest->setHash(ImbaSharedFunctions::getRandomString());
                     $authRequest->setRealm(ImbaSharedFunctions::getTrustRoot());
-                    $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
+                    $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo()); //$authRequest->getHash()
                     $authRequest->setType($authMethod);
                     $authRequest->setDomain($_POST['imbaSsoOpenIdLoginReferer']);
                     $managerAuthRequest->insert($authRequest);
@@ -354,7 +354,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 setcookie("ImbaSsoLastLoginName", $currentUser->getNickname(), (time() + (60 * 60 * 24 * 30)));
 
                 $managerUser->setMeOnline();
-                ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
+                ImbaUserContext::setImbaErrorMessage("Du bist angemeldet als " . $currentUser->getNickname());
             }
             $myDomain = $authRequest->getDomain();
             if (!empty($myDomain)) {

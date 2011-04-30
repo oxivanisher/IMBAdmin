@@ -381,6 +381,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         } else {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
+            $managerAuthRequest->delete($imbaHash);
             header("Location: " . $managerOpenId->getTrustRoot());
             exit;
         }

@@ -174,7 +174,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         $return .= "<ul class='subnav'>";
         foreach ($managerPortal->selectAll() as $portal) {
             $return .= "<li style='vertical-align: middle;'><a href='javascript:void(0)' onclick='javascript: loadImbaPortal(\\\"" . $portal->getId() . "\\\");' title='" . $portal->getComment() . "'>";
-            $return .= "<img src='" . $portal->getIcon() . "' width='24px' height='24px' style='float: left;' /> " . $portal->getName();
+            $return .= "<img src='" . ImbaSharedFunctions::fixWebPath($portal->getIcon()) . "' width='24px' height='24px' style='float: left;' /> " . $portal->getName();
             $return .= "</a></li>";
         }
         $return .= "</ul>";

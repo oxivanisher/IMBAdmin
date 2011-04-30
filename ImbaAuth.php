@@ -313,7 +313,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         writeAuthLog("Verification starting", 2);
         try {
-            $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
+            $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), str_replace("&imbaHash=".$imbaHash, $authRequest->getReturnTo()));
             if (empty($esc_identity)) {
                 throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }

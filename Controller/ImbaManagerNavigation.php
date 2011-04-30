@@ -61,6 +61,13 @@ class ImbaManagerNavigation extends ImbaManagerBase {
     }
 
     /**
+     * Display Portal Navigation
+     */
+    public function displayPortalNavigation() {
+        return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation() . "</div>";
+    }
+
+    /**
      * Render Portal Navigation
      */
     public function renderPortalNavigation() {
@@ -71,8 +78,8 @@ class ImbaManagerNavigation extends ImbaManagerBase {
          */
         if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
             $portal = $this->managerPortal->selectById($this->loadPortalContext);
-            foreach ($portal->getNavitems() as $navElement) {
-                $return .= "<li><a href='" . $navElement->getUrl() . "' title='" . $navElement->getComment() . "'>" . $navElement->getName() . "</a></li>";
+            foreach ($portal->getNavitems() as $portalEntry) {
+                $return .= "<li><a href='" . $portalEntry->getUrl() . "' title='" . $portalEntry->getComment() . "'>" . $portalEntry->getName() . "</a></li>";
             }
         }
 
@@ -140,7 +147,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         }
         $return .= "</ul>";
         $return .= "</li>";
-        return $return;
+        return "<div id='imbaNavigationImbaAdmin'>" . $return . "</div>";
     }
 
     public function renderImbaGameNavigation() {
@@ -176,7 +183,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
 
         $return .= "</ul>";
         $return .= "</li>";
-        return $return;
+        return "<div id='imbaNavigationImbaGame'>" . $return . "</div>";
     }
 
     /**
@@ -195,7 +202,7 @@ class ImbaManagerNavigation extends ImbaManagerBase {
         }
         $return .= "</ul>";
         $return .= "</li>";
-        return $return;
+        return "<div id='imbaNavigationPortalChooser'>" . $return . "</div>";
     }
 
 }

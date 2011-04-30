@@ -357,9 +357,11 @@ function loadImbaPortal(id) {
                         header: 'Portal geladen:<br /><br />'
                     });
                 }
-                //AggraHelp: warsch. setze ich die hier nicht ganz standartkonform. FF bockt hier rum
+                //FIXME: AGGRADEBUG
+                //$("#imbaNavigationPortal").html ....
                 $("#imbaSsoLogoImage").attr('src', icon);
                 $("#document").attr('title', name + ' Portal');
+
             })
         }
     });

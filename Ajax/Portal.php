@@ -1,9 +1,11 @@
 <?php
 require_once 'ImbaConfig.php';
 require_once 'Controller/ImbaManagerPortal.php';
+require_once 'Controller/ImbaManagerNavigation.php';
 require_once 'Controller/ImbaUserContext.php';
 
 $managerPortal = ImbaManagerPortal::getInstance();
+$managerNavigation = ImbaManagerNavigation::getInstance();
 
 /**
  * ImbaLogin.js asks us to set the users actual selected portal
@@ -22,6 +24,8 @@ $managerPortal = ImbaManagerPortal::getInstance();
  * get currently active portal and send the data back
  */
 $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
+$navContent = $managerNavigation->renderPortalNavigation();
 
+//FIXME: AGGRADEBUG
 echo json_encode(array($portal->getName() => $portal->getIcon()));
 ?>

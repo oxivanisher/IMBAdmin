@@ -310,6 +310,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          * Get the stored data for the current authrequest from the database
          */
         $authRequest = $managerAuthRequest->select($imbaHash);
+                print_r($GLOBALS);
+                exit;
 
         writeAuthLog("Verification starting", 2);
         try {

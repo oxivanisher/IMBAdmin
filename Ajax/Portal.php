@@ -45,5 +45,5 @@ $managerNavigation = ImbaManagerNavigation::getInstance();
 /**
  * get currently active portal and send the data back
  */
-echo json_encode(array("name" => $portal->getName(), "icon" => $portal->getIcon(), "navigation" => $navContent));
+echo json_encode(array("name" => $portal->getName(), "icon" => ImbaSharedFunctions::fixWebPath($portal->getIcon()), "navigation" => $navContent));
 ?>

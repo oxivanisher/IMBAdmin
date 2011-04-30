@@ -126,7 +126,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
          */
         case "naventry";
 
-            $smarty->display('IMBAdminModules/AdminNavigationEntries.tpl');
+            $smarty->display('IMBAdminModules/AdminNavigationEntriesOverview.tpl');
             break;
 
         /**

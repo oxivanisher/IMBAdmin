@@ -7,23 +7,6 @@ require_once 'Model/ImbaPortal.php';
  *  Controller / Manager for Portal Entries
  *  - insert, update, delete Portal Entry
  */
-
-/**
- * Mysql Setup
- * 
-  CREATE TABLE IF NOT EXISTS `oom_openid_portals_navigation_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `handle` varchar(20) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `target` varchar(20) NOT NULL,
-  `url` varchar(250) NOT NULL,
-  `comment` text NOT NULL,
-  `loggedin` int(1) NOT NULL,
-  `role` int(2) NOT NULL,
-  PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
- *  
- */
 class ImbaManagerPortalEntry extends ImbaManagerBase {
 
     /**
@@ -98,7 +81,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
             $portalEntry->getRole(),
             $portalEntry->getId()
         ));
-
+        
         $this->portalEntriesCached = null;
     }
 

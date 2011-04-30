@@ -45,6 +45,17 @@ if (empty($_SESSION['debugMode'])) {
 if (!empty($_GET['imbaHash'])) {
     $_POST['imbaHash'] = $_GET['imbaHash'];
     unset($_GET['imbaHash']);
+    $_POST['openid.assoc_handle'] = $_GET['openid.assoc_handle'];
+    $_POST['openid.claimed_id'] = $_GET['openid.claimed_id'];
+    $_POST['openid.identity'] = $_GET['openid.identity'];
+    $_POST['openid.mode'] = $_GET['openid.mode'];
+    $_POST['openid.ns'] = $_GET['openid.ns'];
+    $_POST['openid.op_endpoint'] = $_GET['openid.op_endpoint'];
+    $_POST['openid.response_nonce'] = $_GET['openid.response_nonce'];
+    $_POST['openid.return_to'] = $_GET['openid.return_to'];
+    $_POST['openid.sig'] = $_GET['openid.sig'];
+    $_POST['openid.signed'] = $_GET['openid.signed'];
+    
     $_POST['openid'] = $_GET['openid'];
     unset ($_GET['openid']);
 }

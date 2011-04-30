@@ -54,7 +54,7 @@ if (!empty($_GET['imbaHash'])) {
     $_POST['openid_op_endpoint'] = $_GET['openid_op_endpoint'];
     $_POST['openid_response_nonce'] = $_GET['openid_response_nonce'];
     //if ((strpos($_GET['openid_return_to'], "imbaHash") == false) && ($_GET['openid_return_to'] != "")) {
-        $_POST['openid_return_to'] = $_GET['openid_return_to'] . htmlspecialchars("&imbaHash=") . $_POST['imbaHash'];
+        $_POST['openid_return_to'] = $_GET['openid_return_to'] . "&imbaHash=" . $_POST['imbaHash'];
     //    $_POST['openid_return_to'] = $_GET['openid_return_to'];
     //}
 

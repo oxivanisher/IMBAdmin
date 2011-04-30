@@ -82,7 +82,7 @@ function redirectTo($line, $url, $message = "") {
      * Discover if we need to do the html redirect and make it so
      */
 //if (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']) != ImbaSharedFunctions::getDomain($url)) {
-    if (!headers_sent()) {
+    if (headers_sent()) {
         $smarty = ImbaSharedFunctions::newSmarty();
         $smarty->assign("redirectUrl", $url);
         $smarty->assign("redirectDomain", $myDomain);
@@ -380,8 +380,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             } else {
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
             }
-            print_r($GLOBALS);
-            exit;
             $myDomain = $authRequest->getDomain();
             if (!empty($myDomain)) {
                 /* header("Location: " . $authRequest->getDomain()); */

@@ -377,7 +377,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
-                $managerLog->insert($log);
             } else {
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR: " . $ex->getMessage(), 1);
             }

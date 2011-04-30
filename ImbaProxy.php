@@ -282,13 +282,18 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user")) {
+    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($_POST['facility'] == "auth")) {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
-    if (empty($mySession)) {
+    /*
+     * if (empty($mySession)) {
+     *
         $tmpLogOut .= "ee: no session found (error)\n";
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
+     * 
+     */
+    
     /**
      * normal proxy return headers
      */

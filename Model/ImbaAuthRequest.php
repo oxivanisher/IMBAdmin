@@ -16,6 +16,7 @@ class ImbaAuthRequest extends ImbaBase {
     protected $realm = null;
     protected $returnTo = null;
     protected $type = null;
+    protected $domain = null;
 
     /**
      * Properties
@@ -66,6 +67,14 @@ class ImbaAuthRequest extends ImbaBase {
 
     public function setType($type) {
         $this->type = $type;
+    }
+
+    public function getDomain() {
+        return $this->domain;
+    }
+
+    public function setDomain($domain) {
+        $this->domain = $domain;
     }
 
 }

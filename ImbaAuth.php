@@ -161,9 +161,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         $authRequest = $managerAuthRequest->getNew();
                         $authRequest->setUserId($myUser->getId());
                         $authRequest->setHash(ImbaSharedFunctions::getRandomString());
-                        $authRequest->setRealm($_POST['imbaSsoOpenIdLoginReferer']);
+                        $authRequest->setRealm(ImbaSharedFunctions::getTrustRoot());
                         $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
                         $authRequest->setType($authMethod);
+                        $authRequest->setDomain($_POST['imbaSsoOpenIdLoginReferer']);
                         $managerAuthRequest->insert($authRequest);
                     }
 

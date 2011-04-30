@@ -258,10 +258,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $imbaHash = $_POST['imbaHash'];
             unset($_POST['imbaHash']);
         } else {
-            unset($_SESSION["IUC_WaitingForVerify"]);
             ImbaUserContext::setImbaErrorMessage("<b> Morpheus, help!</b><br /><i>There was an error in descovering your auth request</i>");
             $tmpUrl = $_SESSION["IUC_WaitingForVerify"];
-            $_SESSION["IUC_WaitingForVerify"] = false;
+            unset($_SESSION["IUC_WaitingForVerify"]);
             header("Location: " . $tmpUrl);
             //throw new Exception("There was an error in descovering your auth request! Please reload the website.");
         }

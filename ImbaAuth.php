@@ -312,7 +312,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-        print_r($GLOBALS); exit;
+        if (strpos($authRequest->getReturnTo, "faxility=auth")) {
+            $_POST['openid_return_to'] = $authRequest->getReturnTo();
+        }
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {

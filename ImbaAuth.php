@@ -82,7 +82,7 @@ function redirectTo($line, $url, $message = "") {
      * Discover if we need to do the html redirect and make it so
      */
 //if (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']) != ImbaSharedFunctions::getDomain($url)) {
-    //if (headers_sent()) {
+    if (headers_sent()) {
         $smarty = ImbaSharedFunctions::newSmarty();
         $smarty->assign("redirectUrl", $url);
         $smarty->assign("redirectDomain", $myDomain);
@@ -90,10 +90,10 @@ function redirectTo($line, $url, $message = "") {
         $smarty->assign("internalMessage", $message);
         $smarty->display("ImbaAuthRedirect.tpl");
         exit;
-    /*} else {
+    } else {
         header("Location: " . $url);
         exit;
-    }*/
+    }
 
 
     /**
@@ -294,7 +294,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $imbaHash = $_POST['imbaHash'];
             unset($_POST['imbaHash']);
         } else {
-//echo "blablal"; print_r($GLOBALS); exit;
+echo "blablal"; print_r($GLOBALS); exit;
             /**
              * We have no imbaHash, this is not good! kill yourself and go back where you came from
              */

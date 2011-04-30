@@ -290,11 +290,11 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         if (!empty($_GET['imbaHash'])) {
             $imbaHash = $_GET['imbaHash'];
             unset($_GET['imbaHash']);
-        } else if (!empty($_GET['imbaHash'])) {
+        } else if (!empty($_POST['imbaHash'])) {
             $imbaHash = $_POST['imbaHash'];
             unset($_POST['imbaHash']);
         } else {
-echo "blablal"; print_r($GLOBALS); exit;
+//echo "blablal"; print_r($GLOBALS); exit;
             /**
              * We have no imbaHash, this is not good! kill yourself and go back where you came from
              */

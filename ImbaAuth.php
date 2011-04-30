@@ -310,8 +310,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
          * Get the stored data for the current authrequest from the database
          */
         $authRequest = $managerAuthRequest->select($imbaHash);
-                print_r($GLOBALS);
-                exit;
 
         writeAuthLog("Verification starting", 2);
         try {
@@ -384,8 +382,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
             }
             $myDomain = $authRequest->getDomain();
-                print_r($GLOBALS);
-                exit;
             if (!empty($myDomain)) {
                 /* header("Location: " . $authRequest->getDomain()); */
                 //$managerAuthRequest->delete($imbaHash);

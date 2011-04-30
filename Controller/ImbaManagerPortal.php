@@ -131,33 +131,84 @@ class ImbaManagerPortal extends ImbaManagerBase {
             $managerPortalEntries = ImbaManagerPortalEntry::getInstance();
             $result = array();
 
-            $query = "SELECT * FROM %s WHERE 1 ORDER BY name ASC;";
+            /**
+             * Get the aliases of the portals
+             */
+            $query = "SELECT * FROM %s WHERE 1;";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_ALIAS));
+            $aliases = array();
+            while ($row = $this->database->fetchRow()) {
+                array_push($aliases, array("portal_id" => $row['portal_id'], "name" => $row['name']));
+            }
 
+            /**
+             * Get the portal entries of the portals
+             */
+            $query = "SELECT * FROM %s WHERE 1;";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_PORTALENTRIES));
+            $portalentries = array();
+            while ($row = $this->database->fetchRow()) {
+                $portalEntry = $managerPortalEntries->getNew();
+                $portalEntry->setId($row['id']);
+                $portalEntry->setHandle($row['handle']);
+                $portalEntry->setName($row['name']);
+                $portalEntry->setTarget($row['target']);
+                $portalEntry->setUrl($row['url']);
+                $portalEntry->setComment($row['comment']);
+                $portalEntry->setLoggedin($row['loggedin']);
+                $portalEntry->setRole($row['role']);
+                array_push($portalentries, $portalEntry);
+            }
+
+            /**
+             * Get the portal <-> entries intersect data
+             */
+            $query = "SELECT * FROM %s WHERE 1;";
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_INTERCEPT_PORTALS_PORTALENTRIES));
+            $portalentries_intersect = array();
+            while ($row = $this->database->fetchRow()) {
+                array_push($portalentries_intersect, array(
+                    "portal_id" => $row['portal_id'],
+                    "portalentry_id" => $row['portalentry_id']
+                ));
+            }
+
+            /**
+             * Get the portals data and put it all together
+             */
+            $query = "SELECT * FROM %s WHERE 1 ORDER BY name ASC;";
             $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS));
             while ($row = $this->database->fetchRow()) {
-                //load the data trough ImbaManagerPortalEntry
-
                 $portal = new ImbaPortal();
                 $portal->setId($row["id"]);
                 $portal->setName($row["name"]);
                 $portal->setComment($row["comment"]);
                 $portal->setIcon($row["icon"]);
 
+                /**
+                 * Fill the aliases
+                 */
                 $tmpAliases = array();
-                if (count(json_decode($row["aliases"]))) {
-                    foreach (json_decode($row["aliases"]) as $alias) {
-                        array_push($tmpAliases, $alias);
+                foreach ($aliases as $alias) {
+                    if ($alias['portal_id'] == $portal->getId()) {
+                        array_push($tmpAliases, $alias['name']);
                     }
                 }
                 $portal->setAliases($tmpAliases);
 
+                /**
+                 * Fill the portal entries
+                 */
                 $tmpEntries = array();
-                if (count(json_decode($row["navitems"]))) {
-                    foreach (json_decode($row["navitems"]) as $navItemId) {
-                        array_push($tmpEntries, $managerPortalEntries->selectById($navItemId));
+                foreach ($portalentries_intersect as $intersect) {
+                    if ($intersect['portal_id'] == $portal->getId()) {
+                        foreach ($portalentries as $portalEntry) {
+                            if ($intersect['portalentry_id'] == $portalEntry->getId())
+                                array_push($tmpEntries, $portalEntry);
+                        }
                     }
                 }
-                $portal->setNavitems($tmpEntries);
+                $portal->setPortalEntries($tmpEntries);
 
                 array_push($result, $portal);
             }

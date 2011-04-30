@@ -12,7 +12,7 @@ class ImbaPortal extends ImbaBase {
     protected $name = null;
     protected $icon = null;
     protected $aliases = array();
-    protected $navitems = null;
+    protected $portalEntries = array();
     protected $comment = null;
 
     public function getName() {
@@ -47,12 +47,16 @@ class ImbaPortal extends ImbaBase {
         array_push($this->aliases, $alias);
     }
 
-    public function getNavitems() {
-        return $this->navitems;
+    public function getPortalEntries() {
+        return $this->portalEntries;
     }
 
-    public function setNavitems($navitems) {
-        $this->navitems = $navitems;
+    public function setPortalEntries($portalEntries) {
+        $this->portalEntries = $portalEntries;
+    }
+
+    public function addEntry($entry) {
+        array_push($this->portalEntries, $entry);
     }
 
     public function getComment() {

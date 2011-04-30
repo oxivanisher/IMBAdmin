@@ -43,10 +43,13 @@ function includeitall() {
 
 includeitall();
 
-$manager = ImbaManagerPortalEntry::getInstance();
+$manager = ImbaManagerPortal::getInstance();
+echo "<pre>";
 
-$entries = $manager->selectAll();
-$e = $entries[0];
-$manager->delete($e->getId());
+$portal = $manager->selectById("4");
+var_dump($portal);
 
+
+
+echo "</pre>";
 ?>

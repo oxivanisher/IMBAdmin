@@ -35,9 +35,10 @@ CREATE TABLE `oom_openid_multig_int_games_cat` (`game_id` int(11) NOT NULL, `cat
 CREATE TABLE `oom_openid_multig_game_properties` (`id` INT NOT NULL AUTO_INCREMENT ,`game_id` INT NOT NULL ,`property` VARCHAR( 255 ) NOT NULL ,PRIMARY KEY (  `id` )) ENGINE = INNODB;
 
 -- doing db updates for portal:
-CREATE TABLE `oom_openid_portals` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `name` varchar(50) NOT NULL,  `aliases` text NOT NULL,  `navitems` text NOT NULL,  `icon` varchar(200) NOT NULL,  `comment` text NOT NULL,  PRIMARY KEY (`id`)) ENGINE = INNODB;
+CREATE TABLE `oom_openid_portals` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `name` varchar(50) NOT NULL, `icon` varchar(200) NOT NULL,  `comment` text NOT NULL,  PRIMARY KEY (`id`)) ENGINE = INNODB;
 CREATE TABLE `oom_openid_navigation_items` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `handle` varchar(20) NOT NULL,  `name` varchar(100) NOT NULL,  `target` varchar(20) NOT NULL,  `url` varchar(250) NOT NULL,  `comment` text NOT NULL,  `loggedin` int(1) NOT NULL,  `role` int(2) NOT NULL,  PRIMARY KEY (`id`)  ) ENGINE = INNODB;
-CREATE TABLE `oom_openid_portals_navigation_items` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `handle` varchar(20) NOT NULL,  `name` varchar(100) NOT NULL,  `target` varchar(20) NOT NULL,  `url` varchar(250) NOT NULL,  `comment` text NOT NULL,  `loggedin` int(1) NOT NULL,  `role` int(2) NOT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+CREATE TABLE `oom_openid_portals_portalentries` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `handle` varchar(20) NOT NULL,  `name` varchar(100) NOT NULL,  `target` varchar(20) NOT NULL,  `url` varchar(250) NOT NULL,  `comment` text NOT NULL,  `loggedin` int(1) NOT NULL,  `role` int(2) NOT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB AUTO_INCREMENT=1;
+CREATE TABLE `oom_openid_portals_int_portal_portalentries` (  `portal_id` int(10) NOT NULL,  `portalentry_id` int(10) NOT NULL,  UNIQUE KEY `portal_id` (`portal_id`,`portalentry_id`)) ENGINE=InnoDB;
 
  -- doing db updates for game properties:
 CREATE TABLE `oom_openid_multig_int_user_gameproperties` (  `openid` varchar(200) NOT NULL,  `property_id` int(11) NOT NULL,  `value` varchar(255) NOT NULL);

@@ -357,7 +357,6 @@ function loadImbaPortal(id) {
                         header: 'Portal geladen:<br /><br />'
                     });
                 }
-                
                 $("#imbaNavigationPortal").html(currentPortal.navigation);
                 $("#imbaSsoLogoImage").attr('src', currentPortal.icon);
                 $("#document").attr('title', currentPortal.name + ' Portal');

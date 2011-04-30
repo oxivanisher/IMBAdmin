@@ -24,7 +24,7 @@ $managerNavigation = ImbaManagerNavigation::getInstance();
  * get currently active portal and send the data back
  */
 $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
-$navContent = $managerNavigation->renderPortalNavigation();
+$navContent = $managerNavigation->renderPortalNavigation(ImbaUserContext::getPortalContext());
 
 echo json_encode(array("name" => $portal->getName(), "icon" => $portal->getIcon(), "navigation" => $navContent));
 ?>

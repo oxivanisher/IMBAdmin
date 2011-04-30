@@ -63,54 +63,24 @@ class ImbaManagerNavigation extends ImbaManagerBase {
     /**
      * Display Portal Navigation
      */
-    public function displayPortalNavigation() {
-        return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation() . "</div>";
+    public function displayLoaderPortalNavigation() {
+        if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
+            return "<div id='imbaNavigationPortal'>" . $this->renderPortalNavigation($this->loadPortalContext) . "</div>";
+        }
     }
 
     /**
      * Render Portal Navigation
      */
-    public function renderPortalNavigation() {
+    public function renderPortalNavigation($portalId) {
         $return = "";
 
         /**
          * Set up the portal navigation
          */
-        if ($this->managerPortal->selectById($this->loadPortalContext) != null) {
-            $portal = $this->managerPortal->selectById($this->loadPortalContext);
-            foreach ($portal->getNavitems() as $portalEntry) {
-                $return .= "<li><a href='" . $portalEntry->getUrl() . "' title='" . $portalEntry->getComment() . "'>" . $portalEntry->getName() . "</a></li>";
-            }
-        }
-
-        /**
-         * Workaround. delete after protal magic works
-         */
-        if (empty($return)) {
-            $topNav = new ImbaTopNavigation();
-            switch (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER'])) {
-                case "http://www.oom.ch": //OOM
-                case "http://oom.ch":
-                    $topNav->addElement("blog", "Blog", "_top", "https://oom.ch/blog/", "OOM Blog");
-                    $topNav->addElement("wiki", "Wiki", "_top", "https://oom.ch/wiki/", "OOM Wiki");
-                    break;
-                case "http://b.oom.ch": //EVE
-                    $topNav->addElement("forum", "Forum", "_top", "http://b.oom.ch/forum/", "the Dudez Forum");
-                    $topNav->addElement("killboard", "Killboard", "_top", "http://b.oom.ch/kb/", "the Dudez Killboard");
-                    break;
-                case "http://www.alptroeim.ch": //WOW
-                case "http://alptroeim.ch":
-                default:
-                    $topNav->addElement("blog", "News", "_top", "http://alptroeim.ch/blog/", "Zu Unserem Blog");
-                    $topNav->addElement("forum", "Forum", "_top", "http://alptroeim.ch/forum/", "Zu unserem Forum");
-                    break;
-            }
-            /**
-             * Render Top Navigation Entries
-             */
-            foreach ($topNav->getElements() as $nav) {
-                $return .= "<li><a href='" . $topNav->getElementUrl($nav) . "' title='" . $topNav->getElementComment($nav) . "'>" . $topNav->getElementName($nav) . "</a></li>";
-            }
+        $portal = $this->managerPortal->selectById($portalId);
+        foreach ($portal->getPortalEntries() as $portalEntry) {
+            $return .= "<li><a href='" . $portalEntry->getUrl() . "' title='" . $portalEntry->getComment() . "'>" . $portalEntry->getName() . "</a></li>";
         }
         return $return;
     }

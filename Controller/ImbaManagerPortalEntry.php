@@ -42,7 +42,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
     public function insert(ImbaPortalEntry $portalEntry) {
         $query = "INSERT INTO %s (handle, name, target, url, comment, loggedin, role) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');";
         $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS,
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_PORTALENTRIES,
             $portalEntry->getHandle(),
             $portalEntry->getName(),
             $portalEntry->getTarget(),
@@ -71,7 +71,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
         $query = "UPDATE %s SET handle= '%s', name= '%s', target= '%s', url= '%s', comment= '%s', loggedin= '%s', role= '%s' WHERE id = '%s';";
 
         $this->database->query($query, array(
-            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS,
+            ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_PORTALENTRIES,
             $portalEntry->getHandle(),
             $portalEntry->getName(),
             $portalEntry->getTarget(),
@@ -90,7 +90,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
      */
     public function delete($id) {
         $query = "DELETE FROM %s Where id = '%s';";
-        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS, $id));
+        $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_PORTALENTRIES, $id));
 
         $this->portalEntriesCached = null;
     }
@@ -104,7 +104,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
 
             $query = "SELECT * FROM %s WHERE 1 ORDER BY name ASC;";
 
-            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS));
+            $this->database->query($query, array(ImbaConstants::$DATABASE_TABLES_SYS_PORTALS_PORTALENTRIES));
             while ($row = $this->database->fetchRow()) {
                 $entry = new ImbaPortalEntry();
                 $entry->setId($row["id"]);
@@ -127,7 +127,7 @@ class ImbaManagerPortalEntry extends ImbaManagerBase {
      * Get a new PortalEntry
      */
     public function getNew() {
-        $portalEntry = new ImbaManagerPortalEntry();
+        $portalEntry = new ImbaPortalEntry();
         return $portalEntry;
     }
 

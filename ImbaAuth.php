@@ -357,7 +357,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
             }
             $myDomain = $authRequest->getDomain();
-            if (!empty($myRealm)) {
+            if (!empty($myDomain)) {
                 /* header("Location: " . $myDomain); */
                 redirectTo(__LINE__, $myDomain, $tmpMsg);
                 exit;
@@ -384,7 +384,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         if ($authRequest->getDomain() != "") {
             /* header("Location: " . $authRequest->getDomain()); */
-            //$managerAuthRequest->delete($imbaHash);
+            $managerAuthRequest->delete($imbaHash);
             redirectTo(__LINE__, $authRequest->getDomain(), $tmpMsg);
             exit;
         } else {

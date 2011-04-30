@@ -139,6 +139,9 @@ class ImbaSharedFunctions {
                 $authPath .= "&imbaHash=" . $hash;
             }
         }
+        //FIXME: i overwrite the logic above
+        //$authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
+        //$authPath .= "&imbaHash=" . $hash;
 
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), $authPath));
     }

@@ -7,7 +7,7 @@ var ajaxEntry = '{$ajaxPath}';
 var phpSessionID = '{$phpSessionID}';
 var imbaJsDebug = '{$jsDebug}';
 var imbaErrorMessage = '{$imbaErrorMessage}';
-var imbatAuthReferer = '{$imbatAuthReferer}';
+var imbaAuthReferer = '{$imbaAuthReferer}';
 {* 
 
     include library javascript files

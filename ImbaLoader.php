@@ -42,7 +42,7 @@ switch ($_GET["load"]) {
          */
         $tmpAuthReferer = ImbaUserContext::getAuthReferer();
         ImbaUserContext::setAuthReferer("");
-        $smarty->assign("imbatAuthReferer", $tmpAuthReferer);
+        $smarty->assign("imbaAuthReferer", $tmpAuthReferer);
         
         /**
          * Show Session Error Message

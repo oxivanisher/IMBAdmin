@@ -384,13 +384,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         if ($authRequest->getDomain() != "") {
             /* header("Location: " . $authRequest->getDomain()); */
-            $managerAuthRequest->delete($imbaHash);
+            //$managerAuthRequest->delete($imbaHash);
             redirectTo(__LINE__, $authRequest->getDomain(), $tmpMsg);
             exit;
         } else {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
-            $managerAuthRequest->delete($imbaHash);
+            //$managerAuthRequest->delete($imbaHash);
             /* header("Location: " . $tmpUrl); */
             redirectTo(__LINE__, $tmpUrl, $tmpMsg);
             exit;

@@ -385,6 +385,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         
         $myDomain = $authRequest->getDomain();
         if (!empty($myDomain)) {
+            print_r($GLOBALS); exit;
             /* header("Location: " . $authRequest->getDomain()); */
             //$managerAuthRequest->delete($imbaHash);
             redirectTo(__LINE__, $myDomain, $tmpMsg);

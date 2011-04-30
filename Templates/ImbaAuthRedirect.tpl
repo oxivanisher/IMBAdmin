@@ -11,7 +11,7 @@
                     <br />
                     <br />
                     <br />
-                    <h2>Redirecting to {$redirectDomain} for Authenficication</h2>
+                    <h2>Redirecting to {$redirectDomain}</h2>
                     <br />
                     <br />
                     <br />

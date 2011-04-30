@@ -376,9 +376,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             ImbaUserContext::setWaitingForVerify("");
 
             if ($ex->getMessage() == "id_res_not_set") {
-                $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
+                $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: ".$imbaHash.")");
             } else {
-                $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR: " . $ex->getMessage(), 1);
+                $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: ".$imbaHash."):" . $ex->getMessage(), 1);
             }
         }
 

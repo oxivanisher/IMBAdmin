@@ -33,6 +33,15 @@ if (empty($_SESSION['debugMode'])) {
 }
 
 /**
+ * Reqrite possible imba auth hash from $_GET to $_POST
+ * which is needed to discover our authrequest if auth is
+ * in progress.
+ */
+if (! empty($_GET['imbaHash'])) {
+    $_POST['imbaHash'] = $_GET['imbaHash'];
+}
+
+/**
  * Determine which is our facility (ajax/auth)
  */
 $set['facility'] = "";

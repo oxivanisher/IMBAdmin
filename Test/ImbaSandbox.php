@@ -47,7 +47,6 @@ $manager = ImbaManagerPortalEntry::getInstance();
 
 $entries = $manager->selectAll();
 $e = $entries[0];
-$e->setName("uiuiui guck guck guck!");
-$manager->update($e);
+$manager->delete($e->getId());
 
 ?>

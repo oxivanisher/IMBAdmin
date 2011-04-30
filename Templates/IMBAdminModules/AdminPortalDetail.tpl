@@ -62,7 +62,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Navigation Items</td>
+                <td>Portal Entries</td>
                 <td>
                     {foreach $navitems as $navitem}
                     {$navitem}

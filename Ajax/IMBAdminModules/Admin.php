@@ -107,7 +107,7 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                 }
             }
             $smarty->assign("navitems", $smartyPortalEntries);
-            
+
             $smartyPortalAliases = array();
             if (count($portal->getAliases())) {
                 foreach ($portal->getAliases() as $alias) {
@@ -117,16 +117,97 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                 }
             }
             $smarty->assign("aliases", $smartyPortalAliases);
-            
+
             $smarty->display('IMBAdminModules/AdminPortalDetail.tpl');
             break;
 
         /**
          * Navigation Entries Management
          */
-        case "naventry";
+        case "portalentry":
+            $portalEntries = $managerPortalEntry->selectAll();
+            $smartyPortalEntries = array();
 
+            foreach ($portalEntries as $naventry) {
+                array_push($smartyPortalEntries, array(
+                    "id" => $naventry->getId(),
+                    "handle" => $naventry->getHandle(),
+                    "name" => $naventry->getName(),
+                    "target" => $naventry->getTarget(),
+                    "url" => $naventry->getUrl(),
+                    "comment" => $naventry->getComment(),
+                    "loggedin" => $naventry->getLoggedin(),
+                    "role" => $naventry->getRole()
+                ));
+            }
+
+            $smarty->assign("entries", $smartyPortalEntries);
             $smarty->display('IMBAdminModules/AdminNavigationEntriesOverview.tpl');
+            break;
+
+        case "deleteportalentry":
+            $managerPortalEntry->delete($_POST["portalentryid"]);
+            echo "Ok";
+            break;
+
+        case "addportalentry":
+            try {
+                $newPortalEntry = new ImbaPortalEntry();
+                $newPortalEntry->setHandle($_POST["handle"]);
+                $newPortalEntry->setName($_POST["name"]);
+                $newPortalEntry->setTarget($_POST["target"]);
+                $newPortalEntry->setUrl($_POST["url"]);
+                $newPortalEntry->setComment($_POST["comment"]);
+                $newPortalEntry->setLoggedin($_POST["loggedin"]);
+                $newPortalEntry->setRole($_POST["role"]);
+
+                $managerPortalEntry->insert($newPortalEntry);
+                echo "Ok";
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+            break;
+
+        case "updateportalentry":
+            $portalentry = new ImbaPortalEntry();
+            $portalentry = $managerPortalEntry->selectById($_POST["portalentryid"]);
+
+            switch ($_POST["portalentrycolumn"]) {
+                case "Name":
+                    $portalentry->setName($_POST["value"]);
+                    break;
+                
+                case "Interner Handle":
+                    $portalentry->setHandle($_POST["value"]);
+                    break;
+                
+                case "Target":
+                    $portalentry->setTarget($_POST["value"]);
+                    break;
+                
+                case "Url":
+                    $portalentry->setUrl($_POST["value"]);
+                    break;
+                
+                case "Comment":
+                    $portalentry->setComment($_POST["value"]);
+                    break;
+                
+                case "Only show if logged in":
+                    $portalentry->setLoggedin($_POST["value"]);
+                    break;
+                
+                case "Which role is allowed":
+                    $portalentry->setRole($_POST["value"]);
+                    break;
+
+                default:
+                    break;
+            }
+
+            $managerPortalEntry->update($portalentry);
+            echo $_POST["value"];
+            break;
             break;
 
         /**

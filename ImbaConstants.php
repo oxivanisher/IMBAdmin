@@ -31,7 +31,7 @@ class ImbaConstants extends ImbaConfig {
      *  0   => Auto, let the system decide
      * +1   => always use proxy
      * -1   => never use proxy
-     */    
+     */
     public static $WEB_FORCE_PROXY = false;
     public static $WEB_AUTH_SSL_CHECK = false;
 

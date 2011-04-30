@@ -82,7 +82,7 @@ function redirectTo($line, $url, $message = "") {
      * Discover if we need to do the html redirect and make it so
      */
 //if (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']) != ImbaSharedFunctions::getDomain($url)) {
-    if (! headers_sent()) {
+    if (!headers_sent()) {
         $smarty = ImbaSharedFunctions::newSmarty();
         $smarty->assign("redirectUrl", $url);
         $smarty->assign("redirectDomain", $myDomain);
@@ -359,6 +359,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $myDomain = $authRequest->getDomain();
             if (!empty($myDomain)) {
                 /* header("Location: " . $myDomain); */
+                $managerAuthRequest->delete($imbaHash);
                 redirectTo(__LINE__, $myDomain, $tmpMsg);
                 exit;
             } else {
@@ -376,16 +377,17 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             ImbaUserContext::setWaitingForVerify("");
 
             if ($ex->getMessage() == "id_res_not_set") {
-                $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: ".$imbaHash.")");
+                $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: " . $imbaHash . ")");
             } else {
-                $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: ".$imbaHash."):" . $ex->getMessage(), 1);
+                $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
             }
         }
-
-        if ($authRequest->getDomain() != "") {
+        
+        $myDomain = $authRequest->getDomain();
+        if (!empty($myDomain)) {
             /* header("Location: " . $authRequest->getDomain()); */
-            $managerAuthRequest->delete($imbaHash);
-            redirectTo(__LINE__, $authRequest->getDomain(), $tmpMsg);
+            //$managerAuthRequest->delete($imbaHash);
+            redirectTo(__LINE__, $myDomain, $tmpMsg);
             exit;
         } else {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();

@@ -15,6 +15,7 @@ class ImbaAuthRequest extends ImbaBase {
     protected $timestamp = null;
     protected $realm = null;
     protected $returnTo = null;
+    protected $type = null;
 
     /**
      * Properties
@@ -57,6 +58,14 @@ class ImbaAuthRequest extends ImbaBase {
 
     public function setReturnTo($returnTo) {
         $this->returnTo = $returnTo;
+    }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
     }
 
 }

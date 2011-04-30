@@ -42,7 +42,7 @@ CREATE TABLE `oom_openid_navigation_items` (  `id` int(11) NOT NULL AUTO_INCREME
 CREATE TABLE `oom_openid_multig_int_user_gameproperties` (  `openid` varchar(200) NOT NULL,  `property_id` int(11) NOT NULL,  `value` varchar(255) NOT NULL);
 
 -- creating table for auth requests
-CREATE TABLE IF NOT EXISTS `oom_openid_auth_request` (  `hash` varchar(40) NOT NULL,  `userid` int(10) NOT NULL,  `realm` varchar(30) NOT NULL,  `timestamp` int(18) NOT NULL,  `returnto` varchar(255) NOT NULL,  UNIQUE KEY `hash` (`hash`)) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `oom_openid_auth_request` (  `hash` varchar(40) NOT NULL,  `userid` int(10) NOT NULL,  `realm` varchar(30) NOT NULL,  `timestamp` int(18) NOT NULL,  `returnto` varchar(255) NOT NULL,  `type` varchar(20) NOT NULL,  UNIQUE KEY `hash` (`hash`)) ENGINE=INNODB;
 
 -- finally, optimize remaining tables:
 OPTIMIZE TABLE  `oom_openid_chatchannels` ,  `oom_openid_chatmessages` ,  `oom_openid_frontend_safe` ,  `oom_openid_messages` ,  `oom_openid_multig_category` ,  `oom_openid_multig_games` ,  `oom_openid_multig_game_properties` ,  `oom_openid_multig_int_games_cat` ,  `oom_openid_multig_int_user_gameproperties` ,  `oom_openid_multig_names` , `oom_openid_navigation_items` ,  `oom_openid_portals` ,  `oom_openid_profiles` ,  `oom_openid_session` ,  `oom_openid_settings` ,  `oom_openid_systemmessages` ,  `oom_openid_usermanager` ,  `oom_openid_user_profiles` ,  `oom_openid_xmpp`

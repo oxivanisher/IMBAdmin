@@ -163,6 +163,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         $authRequest->setHash(ImbaSharedFunctions::getRandomString());
                         $authRequest->setRealm($_POST['imbaSsoOpenIdLoginReferer']);
                         $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
+                        $authRequest->setType($authMethod);
                         $managerAuthRequest->insert($authRequest);
                     }
 
@@ -262,6 +263,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $tmpUrl = $_SESSION["IUC_WaitingForVerify"];
             unset($_SESSION["IUC_WaitingForVerify"]);
             header("Location: " . $tmpUrl);
+            exit;
             //throw new Exception("There was an error in descovering your auth request! Please reload the website.");
         }
 

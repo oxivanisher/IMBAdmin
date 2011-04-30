@@ -54,6 +54,7 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_SYS_PORTALS = "oom_openid_portals";
     public static $DATABASE_TABLES_SYS_SETTINGS = "oom_openid_settings";
     public static $DATABASE_TABLES_SYS_PROFILES = "oom_openid_profiles";
+    public static $DATABASE_TABLES_SYS_AUTH_REQUEST = "oom_openid_auth_request";
     public static $DATABASE_TABLES_SYS_USER_PROFILES = "oom_openid_user_profiles";
     public static $DATABASE_TABLES_SYS_SYSTEMMESSAGES = "oom_openid_systemmessages";
     public static $DATABASE_TABLES_SYS_MULTIGAMING_GAMES = "oom_openid_multig_games";

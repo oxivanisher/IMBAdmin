@@ -125,13 +125,19 @@ class ImbaSharedFunctions {
      *
      * get ReturnTo Address
      */
-    public function getReturnTo() {
+    public function getReturnTo($hash = false) {
         // this sould be like that, if the webserver would be set up correctly
         // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
         if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
             $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
+            if ($hash != false) {
+                $authPath .= "?imbaHash=" . $hash;
+            }
         } else {
             $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
+            if ($hash != false) {
+                $authPath .= "&imbaHash=" . $hash;
+            }
         }
 
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), $authPath));
@@ -218,8 +224,8 @@ class ImbaSharedFunctions {
     }
 
     /**
- * Function for temporary log writing (debug)
- */
+     * Function for temporary log writing (debug)
+     */
     public static function writeToLog($message) {
         $myFile = "Logs/ImbaLog.log";
         if ($fh = fopen($myFile, 'a+')) {
@@ -242,6 +248,20 @@ class ImbaSharedFunctions {
             fwrite($fh, $stringData);
             fclose($fh);
         }
+    }
+
+    /**
+     * Function for creating random strings
+     */
+    function getRandomString($length = 8) {
+        $validCharacters = "abcdefghijklmnopqrstuxyvwzABCDEFGHIJKLMNOPQRSTUXYVWZ-_";
+        $validCharNumber = strlen($validCharacters);
+        $result = "";
+        for ($i = 0; $i < $length; $i++) {
+            $index = mt_rand(0, $validCharNumber - 1);
+            $result .= $validCharacters[$index];
+        }
+        return $result;
     }
 
     /* import from functions.inc.php ! BIG

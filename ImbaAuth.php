@@ -14,6 +14,7 @@ require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaManagerOauth.php';
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -43,6 +44,11 @@ $managerLog = ImbaManagerLog::getInstance();
  * Manager for users
  */
 $managerUser = ImbaManagerUser::getInstance();
+
+/**
+ * Manager for AuthRequests
+ */
+$managerAuthRequest = ImbaManagerAuthRequest::getInstance();
 
 /**
  * OpenID auth logic
@@ -148,8 +154,16 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                         }
                         $myUser = $managerUser->selectByOpenId($openid);
-                        $myUser->setPortalAlias($_POST['imbaSsoOpenIdLoginReferer']);
-                        $managerUser->update($myUser);
+
+                        /**
+                         * Saving our authrequest into the database
+                         */
+                        $authRequest = $managerAuthRequest->getNew();
+                        $authRequest->setUserId($myUser->getId());
+                        $authRequest->setHash(ImbaSharedFunctions::getRandomString());
+                        $authRequest->setRealm($_POST['imbaSsoOpenIdLoginReferer']);
+                        $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
+                        $managerAuthRequest->insert($authRequest);
                     }
 
                     /**
@@ -164,7 +178,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $log = $managerLog->getNew();
                     $log->setModule("Auth");
                     try {
-                        $redirectUrl = $managerOpenId->openidAuth($openid);
+                        $redirectUrl = $managerOpenId->openidAuth($openid, $authRequest->getHash(), $authRequest->getRealm(), $authRequest->getReturnTo());
 
                         if (!empty($redirectUrl)) {
                             /**
@@ -230,9 +244,28 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     } else {
         /**
          * first step completed. do the verification and actual login
-         * we shall go to ImbaUserContext::getWaitingForVerify() after
+         * we shall go to the saved realm in the database after
          * we are finished here.
          */
+        
+        /**
+         * Convert imbaHash from possible GET and POST to local var (proxy...)
+         */
+        if (!empty($_GET['imbaHash'])) {
+            $imbaHash = $_GET['imbaHash'];
+            unset($_GET['imbaHash']);
+        } else if (!empty($_GET['imbaHash'])) {
+            $imbaHash = $_POST['imbaHash'];
+            unset($_POST['imbaHash']);
+        } else {
+            throw new Exception("There was an error in descovering your auth request!");
+        }
+
+        /**
+         * Get the stored data for the current authrequest from the database
+         */
+        $authRequest = $managerAuthRequest->select($imbaHash);
+        
         $log = $managerLog->getNew();
         $log->setModule("Auth");
         $log->setMessage("Verification starting");
@@ -243,8 +276,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $log = $managerLog->getNew();
         $log->setModule("Auth");
 
+
         try {
-            $esc_identity = $managerOpenId->openidVerify();
+            $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {
                 throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }
@@ -304,9 +338,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $managerUser->setMeOnline();
                 ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
             }
-            $portalAlias = $currentUser->getPortalAlias();
-            if (!empty($portalAlias)) {
-                header("Location: " . $portalAlias);
+            $myRealm = $authRequest->getRealm();
+            if (!empty($myRealm)) {
+                header("Location: " . $myRealm);
+                $managerAuthRequest->delete($imbaHash);
                 exit;
             } else {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
@@ -317,7 +352,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         } catch (Exception $ex) {
             $esc_identity = $managerOpenId->getOpenId();
             $currentUser = $managerUser->selectByOpenId($esc_identity);
-            $portalAlias = $currentUser->getPortalAlias();
 
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
@@ -334,8 +368,9 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         }
         ImbaUserContext::setImbaErrorMessage($log->getMessage());
 
-        if ($portalAlias != "") {
-            header("Location: " . $portalAlias);
+        if ($authRequest->getRealm() != "") {
+            header("Location: " . $authRequest->getRealm());
+            $managerAuthRequest->delete($imbaHash);
             exit;
         } else {
             $tmpUrl = ImbaUserContext::getWaitingForVerify();

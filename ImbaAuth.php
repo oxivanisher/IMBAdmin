@@ -381,24 +381,26 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             } else {
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
             }
-        }
-        
-        $myDomain = $authRequest->getDomain();
-        if (!empty($myDomain)) {
-            /* header("Location: " . $authRequest->getDomain()); */
-            //$managerAuthRequest->delete($imbaHash);
-            redirectTo(__LINE__, $myDomain, $tmpMsg);
-            exit;
-        } else {
-            $tmpUrl = ImbaUserContext::getWaitingForVerify();
-            ImbaUserContext::setWaitingForVerify("");
-            //$managerAuthRequest->delete($imbaHash);
-            /* header("Location: " . $tmpUrl); */
-            print_r($GLOBALS); exit;
-            redirectTo(__LINE__, $tmpUrl, $tmpMsg);
-            exit;
+            $myDomain = $authRequest->getDomain();
+            if (!empty($myDomain)) {
+                /* header("Location: " . $authRequest->getDomain()); */
+                //$managerAuthRequest->delete($imbaHash);
+                redirectTo(__LINE__, $myDomain, $tmpMsg);
+                exit;
+            } else {
+                $tmpUrl = ImbaUserContext::getWaitingForVerify();
+                ImbaUserContext::setWaitingForVerify("");
+                //$managerAuthRequest->delete($imbaHash);
+                /* header("Location: " . $tmpUrl); */
+                print_r($GLOBALS);
+                exit;
+                redirectTo(__LINE__, $tmpUrl, $tmpMsg);
+                exit;
+            }
         }
     }
+    echo "we shall not get here ...";
+    exit;
 } else {
     ImbaUserContext::setWaitingForVerify("");
     /**

@@ -26,6 +26,5 @@ $managerNavigation = ImbaManagerNavigation::getInstance();
 $portal = $managerPortal->selectById(ImbaUserContext::getPortalContext());
 $navContent = $managerNavigation->renderPortalNavigation();
 
-//FIXME: AGGRADEBUG
-echo json_encode(array($portal->getName() => $portal->getIcon()));
+echo json_encode(array("name" => $portal->getName(), "icon" => $portal->getIcon(), "navigation" => $navContent));
 ?>

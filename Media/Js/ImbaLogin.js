@@ -349,20 +349,18 @@ function loadImbaPortal(id) {
         } else {
             tmpError = false;
         }
-        if ((response != "") && (tmpError == false)) {
-            $.each($.parseJSON(response), function (name, icon) {
+        if ((response != "") && (tmpError == false)) {            
+            var currentPortal = $.parseJSON(response);
                 if (id != null) {
-                    $.jGrowl('<img src="' + icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + name + '</big>', {
+                    $.jGrowl('<img src="' + currentPortal.icon + '" style="width: 24px; height: 24px; vertical-align: middle; padding: 3px;" /> <big>' + currentPortal.name + '</big>', {
                         life: 350,
                         header: 'Portal geladen:<br /><br />'
                     });
                 }
-                //FIXME: AGGRADEBUG
-                //$("#imbaNavigationPortal").html ....
-                $("#imbaSsoLogoImage").attr('src', icon);
-                $("#document").attr('title', name + ' Portal');
-
-            })
+                
+                $("#imbaNavigationPortal").html(currentPortal.navigation);
+                $("#imbaSsoLogoImage").attr('src', currentPortal.icon);
+                $("#document").attr('title', currentPortal.name + ' Portal');
         }
     });
 }

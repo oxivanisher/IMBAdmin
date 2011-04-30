@@ -382,6 +382,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
             }
             $myDomain = $authRequest->getDomain();
+                print_r($GLOBALS);
+                exit;
             if (!empty($myDomain)) {
                 /* header("Location: " . $authRequest->getDomain()); */
                 //$managerAuthRequest->delete($imbaHash);
@@ -392,8 +394,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 ImbaUserContext::setWaitingForVerify("");
                 //$managerAuthRequest->delete($imbaHash);
                 /* header("Location: " . $tmpUrl); */
-                print_r($GLOBALS);
-                exit;
                 redirectTo(__LINE__, $tmpUrl, $tmpMsg);
                 exit;
             }

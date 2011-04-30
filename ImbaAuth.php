@@ -315,7 +315,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {
-                print_r($GLOBALS); exit;
                 throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }
             writeAuthLog("OpenID Verification sucessful", 2);
@@ -379,6 +378,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: " . $imbaHash . ")");
             } else {
+                                print_r($GLOBALS); exit;
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "): " . $ex->getMessage(), 1);
             }
             $myDomain = $authRequest->getDomain();

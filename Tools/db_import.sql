@@ -37,8 +37,9 @@ CREATE TABLE `oom_openid_multig_game_properties` (`id` INT NOT NULL AUTO_INCREME
 -- doing db updates for portal:
 CREATE TABLE `oom_openid_portals` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `name` varchar(50) NOT NULL,  `aliases` text NOT NULL,  `navitems` text NOT NULL,  `icon` varchar(200) NOT NULL,  `comment` text NOT NULL,  PRIMARY KEY (`id`)) ENGINE = MYISAM;
 CREATE TABLE `oom_openid_navigation_items` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `handle` varchar(20) NOT NULL,  `name` varchar(100) NOT NULL,  `target` varchar(20) NOT NULL,  `url` varchar(250) NOT NULL,  `comment` text NOT NULL,  `loggedin` int(1) NOT NULL,  `role` int(2) NOT NULL,  PRIMARY KEY (`id`)  ) ENGINE = MYISAM;
+CREATE TABLE IF NOT EXISTS `oom_openid_portals_navigation_items` (  `id` int(11) NOT NULL AUTO_INCREMENT,  `handle` varchar(20) NOT NULL,  `name` varchar(100) NOT NULL,  `target` varchar(20) NOT NULL,  `url` varchar(250) NOT NULL,  `comment` text NOT NULL,  `loggedin` int(1) NOT NULL,  `role` int(2) NOT NULL,  PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
--- doing db updates for game properties:
+ -- doing db updates for game properties:
 CREATE TABLE `oom_openid_multig_int_user_gameproperties` (  `openid` varchar(200) NOT NULL,  `property_id` int(11) NOT NULL,  `value` varchar(255) NOT NULL);
 
 -- creating table for auth requests

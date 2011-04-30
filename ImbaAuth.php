@@ -378,7 +378,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: " . $imbaHash . ")");
             } else {
-                                print_r($GLOBALS); exit;
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "): " . $ex->getMessage(), 1);
             }
             $myDomain = $authRequest->getDomain();

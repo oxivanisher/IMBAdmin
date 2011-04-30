@@ -312,8 +312,8 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-        if (strpos($authRequest->getReturnTo, "faxility=auth")) {
-            $_POST['openid_return_to'] = $authRequest->getReturnTo();
+        if (strpos($authRequest->getReturnTo, "facility=auth")) {
+            $authRequest->setReturnTo(str_replace("&imbaHash=".$authRequest->gethash(), "", $authRequest->getReturnTo()));
         }
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
@@ -381,7 +381,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             if ($ex->getMessage() == "id_res_not_set") {
                 $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: " . $imbaHash . ")");
             } else {
-                                print_r($GLOBALS); exit;
                 $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "): " . $ex->getMessage(), 1);
             }
             $myDomain = $authRequest->getDomain();

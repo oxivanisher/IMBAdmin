@@ -22,6 +22,7 @@ class ImbaConstants extends ImbaConfig {
      * Files and Folders
      */
     public static $WEB_AUTH_PROXY_PATH = "ImbaProxy.php?facility=auth";
+    //public static $WEB_AUTH_PROXY_PATH = "ImbaAuth.php";
     public static $WEB_AUTH_MAIN_PATH = "ImbaAuth.php";
     public static $WEB_AJAX_PROXY_PATH = "ImbaProxy.php?facility=ajax";
     public static $WEB_AJAX_MAIN_PATH = "ImbaAjax.php";
@@ -36,7 +37,6 @@ class ImbaConstants extends ImbaConfig {
 
 
     public static $WEB_ENTRY_INDEX_FILE = "index.html";
-    //History: public static $WEB_BASE_TEMPLATE = "Templates/ImbaIndex.html.tpl";
     public static $WEB_DEFAULT_LOGGED_IN_MODULE = "Welcome";
     public static $WEB_DEFAULT_LOGGED_OUT_MODULE = "Register";
     public static $WEB_DEFAULT_GAME = "Index";
@@ -62,6 +62,7 @@ class ImbaConstants extends ImbaConfig {
     public static $DATABASE_TABLES_SYS_PORTALS_NAVIGATION_ITEMS = "oom_openid_portals_navigation_items";
     public static $DATABASE_TABLES_SYS_SETTINGS = "oom_openid_settings";
     public static $DATABASE_TABLES_SYS_PROFILES = "oom_openid_profiles";
+    public static $DATABASE_TABLES_SYS_AUTH_REQUEST = "oom_openid_auth_request";
     public static $DATABASE_TABLES_SYS_USER_PROFILES = "oom_openid_user_profiles";
     public static $DATABASE_TABLES_SYS_SYSTEMMESSAGES = "oom_openid_systemmessages";
     public static $DATABASE_TABLES_SYS_MULTIGAMING_GAMES = "oom_openid_multig_games";

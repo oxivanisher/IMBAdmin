@@ -186,10 +186,10 @@ $(document).ready(function() {
     loadImbaPortal();
     
     //Display potential Error Message
-    if (imbatAuthReferer.length > 0) {
+    if (imbaAuthReferer.length > 0) {
         $("#imbaSsoLoginInner").hide();
         $("#imbaUsersOnline").hide();
-        $("#window").location(imbatAuthReferer);
+        $("#window").location(imbaAuthReferer);
         $.jGrowl(imbaErrorMessage, {
             header: 'Browser Weiterleitung:',
             life: 2000

@@ -27,16 +27,18 @@ class ImbaManagerOpenID {
     /**
      * OpenID Auth
      */
-    public function openidAuth($openid) {
+    public function openidAuth($openid, $hash, $realm, $returnTo) {
         $this->lightOpenid = new LightOpenID;
         $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
-        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
-        $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
+        $this->lightOpenid->realm = $realm;
+        $this->lightOpenid->returnUrl = $returnTo;
 
         if (!$this->lightOpenid->mode) {
             if (isset($openid)) {
                 $this->lightOpenid->identity = $openid;
                 return $this->lightOpenid->authUrl();
+                //return $this->lightOpenid->authUrl(true);
+                // with true, openid check_immediate is used
             }
         }
     }
@@ -44,11 +46,11 @@ class ImbaManagerOpenID {
     /**
      * OpenID verify
      */
-    public function openidVerify() {
+    public function openidVerify($realm, $hash, $returnTo) {
         $this->lightOpenid = new LightOpenID;
         $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
-        $this->lightOpenid->returnUrl = ImbaSharedFunctions::getReturnTo();
-        $this->lightOpenid->realm = ImbaSharedFunctions::getTrustRoot();
+        $this->lightOpenid->returnUrl = $returnTo;
+        $this->lightOpenid->realm = $realm;
 
         if ($this->lightOpenid->mode == 'cancel') {
             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_CANCEL);

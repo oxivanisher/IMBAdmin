@@ -18,6 +18,11 @@ session_start();
 $mySession = false;
 
 /**
+ * Default content type
+ */
+$contentType = "Content-Type: text/html";
+
+/**
  * discover my PHP Session id at Trust Root Host
  */
 if (!empty($_COOKIE['secSession'])) {
@@ -30,6 +35,34 @@ if (!empty($_COOKIE['secSession'])) {
 
 if (empty($_SESSION['debugMode'])) {
     $_SESSION['debugMode'] = false;
+}
+
+/**
+ * Require possible imba auth hash from $_GET to $_POST
+ * which is needed to discover our authrequest if auth is
+ * in progress. Also do this for the openid array
+ */
+if (!empty($_GET['imbaHash'])) {
+    $_POST['imbaHash'] = $_GET['imbaHash'];
+    unset($_GET['imbaHash']);
+
+    $_POST['openid_assoc_handle'] = $_GET['openid_assoc_handle'];
+    $_POST['openid_claimed_id'] = $_GET['openid_claimed_id'];
+    $_POST['openid_identity'] = $_GET['openid_identity'];
+    $_POST['openid_mode'] = $_GET['openid_mode'];
+    $_POST['openid_ns'] = $_GET['openid_ns'];
+    $_POST['openid_op_endpoint'] = $_GET['openid_op_endpoint'];
+    $_POST['openid_response_nonce'] = $_GET['openid_response_nonce'];
+    //if ((strpos($_GET['openid_return_to'], "imbaHash") == false) && ($_GET['openid_return_to'] != "")) {
+    //    $_POST['openid_return_to'] = $_GET['openid_return_to'] . htmlspecialchars("&imbaHash=") . $_POST['imbaHash'];
+        $_POST['openid_return_to'] = $_GET['openid_return_to'];
+    //}
+
+    $_POST['openid_sig'] = $_GET['openid_sig'];
+    $_POST['openid_signed'] = $_GET['openid_signed'];
+
+    $_POST['openid'] = $_GET['openid'];
+    unset($_GET['openid']);
 }
 
 /**
@@ -252,33 +285,66 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user")) {
+    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($_POST['facility'] == "auth")) {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
-    if (empty($mySession)) {
-        $tmpLogOut .= "ee: no session found (error)\n";
-        ImbaSharedFunctions::writeProxyLog($tmpLogOut);
-    }
-    /**
-     * normal proxy return
+    /*
+     * if (empty($mySession)) {
+     *
+      $tmpLogOut .= "ee: no session found (error)\n";
+      ImbaSharedFunctions::writeProxyLog($tmpLogOut);
+      }
+     * 
      */
-    $contentType = "Content-Type: text/html";
+
+    /**
+     * normal proxy return headers
+     */
+    $lockedContentType = false;
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
+            /**
+             * if it is NOT a phpsessid cookie, do:
+             */
             if ($hdr == "Transfer-Encoding: chunked") {
+                /**
+                 * the server return was chunked. curl fixed that for us,
+                 * so we have to set the
+                 */
                 header("Content-Length: " . strlen($set['answerContent']));
+                $contentType = "Content-Type: text/html";
+                $lockedContentType = true;
             } elseif (strpos($hdr, "ontent-Type")) { //there has to be a missing C !
-                $contentType = $hdr;
+                /**
+                 * Server side set content type, check if we are allowed to overwrite
+                 * our default and set it.
+                 */
+                if ($lockedContentType != true) {
+                    $contentType = $hdr;
+                }
             } else {
+                /**
+                 * non-special header information. just pass it trough
+                 */
                 header($hdr);
             }
         }
     }
+    /**
+     * Set the content type of the request
+     */
     header($contentType);
 
+    /**
+     * If available, set our phpsession on the client
+     */
     if ($mySession != false) {
         header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
     }
+
+    /**
+     * display the body (html /json content)
+     */
     echo $set['answerContent'];
     exit;
 } else {

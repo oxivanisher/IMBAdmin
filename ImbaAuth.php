@@ -14,6 +14,7 @@ require_once 'Controller/ImbaManagerLog.php';
 require_once 'Controller/ImbaManagerOpenID.php';
 require_once 'Controller/ImbaManagerOauth.php';
 require_once 'Controller/ImbaManagerUser.php';
+require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaUserContext.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 require_once 'Model/ImbaUser.php';
@@ -35,14 +36,71 @@ $managerOpenId = new ImbaManagerOpenID();
   chdir($tmpPath); */
 
 /**
- * Load the logger
- */
-$managerLog = ImbaManagerLog::getInstance();
-
-/**
  * Manager for users
  */
 $managerUser = ImbaManagerUser::getInstance();
+
+/**
+ * Manager for AuthRequests
+ */
+$managerAuthRequest = ImbaManagerAuthRequest::getInstance();
+
+/**
+ * private function to write to logs
+ */
+function writeAuthLog($message, $level = 3) {
+    /**
+     * Load the logger
+     */
+    $managerLog = ImbaManagerLog::getInstance();
+
+    $log = $managerLog->getNew();
+    $log->setModule("ImbaAuth");
+    $log->setMessage($message);
+    $log->setLevel($level);
+    $managerLog->insert($log);
+    ImbaUserContext::setImbaErrorMessage($message);
+    return $message;
+}
+
+/**
+ * Kill our session and go to URL, function
+ */
+function killAndRedirect($targetUrl) {
+    setcookie(session_id(), "", time() - 3600);
+    session_destroy();
+    session_write_close();
+    header("Location: " . $targetUrl);
+}
+
+/**
+ * Redirect with domain magic
+ */
+function redirectTo($line, $url, $message = "") {
+    $myDomain = ImbaSharedFunctions::getDomain($url);
+    /**
+     * Discover if we need to do the html redirect and make it so
+     */
+//if (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']) != ImbaSharedFunctions::getDomain($url)) {
+    if (!headers_sent()) {
+        $smarty = ImbaSharedFunctions::newSmarty();
+        $smarty->assign("redirectUrl", $url);
+        $smarty->assign("redirectDomain", $myDomain);
+        $smarty->assign("internalCode", $line);
+        $smarty->assign("internalMessage", $message);
+        $smarty->display("ImbaAuthRedirect.tpl");
+        exit;
+    } else {
+        header("Location: " . $url);
+        exit;
+    }
+
+
+    /**
+     * In case the referer is not working, there is a redirecting solution like this:
+     * ImbaUserContext::setAuthReferer($redirectUrl);
+     */
+}
 
 /**
  * OpenID auth logic
@@ -51,11 +109,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
     /**
      * we want to log out
      */
-    $log = $managerLog->getNew();
-    $log->setModule("Auth");
-    $log->setMessage("Logging out (Redirecting)");
-    $log->setLevel(2);
-    $managerLog->insert($log);
+    writeAuthLog("Logging out (Redirecting)", 2);
 
     if (empty($_POST['imbaSsoOpenIdLogoutReferer'])) {
         $targetUrl = ImbaSharedFunctions::getTrustRoot();
@@ -63,10 +117,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $targetUrl = $_POST['imbaSsoOpenIdLogoutReferer'];
     }
 
-    setcookie(session_id(), "", time() - 3600);
-    session_destroy();
-    session_write_close();
-    header("Location: " . $targetUrl);
+    killAndRedirect($targetUrl);
     exit;
 } elseif (!ImbaUserContext::getLoggedIn()) {
     /**
@@ -76,10 +127,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Save our referer to session if there is none safed till now
          */
-        if ($_SESSION["IUC_redirectUrl"] == "") {
-            if ($_POST['imbaSsoOpenIdLoginReferer'] != "") {
-                ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
-            } else {
+        if ($_POST['imbaSsoOpenIdLoginReferer'] != "") {
+            ImbaUserContext::setRedirectUrl($_POST['imbaSsoOpenIdLoginReferer']);
+        } else {
+            if ($_SESSION["IUC_redirectUrl"] == "") {
                 ImbaUserContext::setRedirectUrl($_SERVER['HTTP_REFERER']);
             }
         }
@@ -96,8 +147,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             /**
              * Send the User to the registration page
              */
-            ImbaUserContext::setImbaErrorMessage("Authentificationmethod not found");
-            header("Location: " . $_SERVER['HTTP_REFERER']);
+            if (empty($_SERVER['HTTP_REFERER'])) {
+                $tmpUrl = ImbaSharedFunctions::getTrustRoot();
+            } else {
+                $tmpUrl = $_SERVER['HTTP_REFERER'];
+            }
+            $tmpMsg = writeAuthLog("Authentificationmethod not found");
+            /* header("Location: " . $_SERVER['HTTP_REFERER']); */
+            redirectTo(__LINE__, $tmpUrl, $tmpMsg);
             exit;
         }
 
@@ -147,73 +204,65 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                         } else {
                             throw new Exception(ImbaConstants::$ERROR_OPENID_Auth_OpenID_INVALID_URI);
                         }
-                        $myUser = $managerUser->selectByOpenId($openid);
-                        $myUser->setPortalAlias($_POST['imbaSsoOpenIdLoginReferer']);
-                        $managerUser->update($myUser);
                     }
+                    /**
+                     * Discovering our user
+                     */
+                    $myUser = $managerUser->selectByOpenId($openid);
+
+                    /**
+                     * Saving our authrequest into the database
+                     */
+                    $authRequest = $managerAuthRequest->getNew();
+                    $authRequest->setUserId($myUser->getId());
+                    $authRequest->setHash(ImbaSharedFunctions::getRandomString());
+                    $authRequest->setRealm(ImbaSharedFunctions::getTrustRoot());
+                    $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
+                    $authRequest->setType($authMethod);
+                    $authRequest->setDomain($_POST['imbaSsoOpenIdLoginReferer']);
+                    $managerAuthRequest->insert($authRequest);
 
                     /**
                      * try to do the first step of the openid authentication steps
                      */
-                    $log = $managerLog->getNew();
-                    $log->setModule("Auth");
-                    $log->setMessage("Determing Auth style for " . $openid);
-                    $log->setLevel(3);
-                    $managerLog->insert($log);
+                    writeAuthLog("Determing Auth style for " . $openid);
 
-                    $log = $managerLog->getNew();
-                    $log->setModule("Auth");
                     try {
-                        $redirectUrl = $managerOpenId->openidAuth($openid);
+                        $redirectUrl = $managerOpenId->openidAuth($openid, $authRequest->getHash(), $authRequest->getRealm(), $authRequest->getReturnTo());
 
                         if (!empty($redirectUrl)) {
                             /**
                              * we got a redirection url as answer. go there now!
                              */
-                            $log->setLevel(3);
-                            $log->setMessage("Redirecting to " . ImbaSharedFunctions::getDomain($redirectUrl));
-                            $managerLog->insert($log);
-                            ImbaUserContext::setImbaErrorMessage($log->getMessage());
+                            $tmpMsg = writeAuthLog("OpenIdAuth redirecting to: " . $redirectUrl);
 
                             /**
                              * If this is set, the user will be sent to verification next time
                              */
-                            //ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
+//ImbaUserContext::setWaitingForVerify(ImbaSharedFunctions::getReturnTo());
                             ImbaUserContext::setWaitingForVerify(ImbaUserContext::getRedirectUrl());
 
-                            /**
-                             * In case the referer is not working, there is a redirecting solution like this:
-                             * ImbaUserContext::setAuthReferer($redirectUrl);
-                             */
-                            header("Location: " . $redirectUrl);
+                            redirectTo(__LINE__, $redirectUrl, $tmpMsg);
                             exit;
                         } else {
                             /**
                              * something went wrong. display error end exit
                              */
-                            $log->setLevel(0);
-                            $log->setMessage("Special Error: Ehhrmm keine URL, weil ehhrmm");
-                            $managerLog->insert($log);
-                            ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                            header("Location: " . ImbaUserContext::getRedirectUrl());
+                            $tmpMsg = writeAuthLog("Special Error: Ehhrmm keine URL, weil ehhrmm", 0);
+//header("Location: " . ImbaUserContext::getRedirectUrl());
+                            redirectTo(__LINE__, ImbaUserContext::getRedirectUrl(), $tmpMsg);
                             exit;
                         }
                     } catch (Exception $ex) {
-                        $log->setLevel(1);
-                        $log->setMessage("Authentification ERROR: " . $ex->getMessage() . " (" . $openid . ")");
-                        $managerLog->insert($log);
-                        ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                        header("Location: " . ImbaUserContext::getRedirectUrl());
+                        $tmpMsg = writeAuthLog("Authentification ERROR: " . $ex->getMessage() . " (" . $openid . ")", 1);
+//header("Location: " . ImbaUserContext::getRedirectUrl());
+                        redirectTo(__LINE__, ImbaUserContext::getRedirectUrl(), $tmpMsg);
                         exit;
                     }
                 } else {
-                    $log = $managerLog->getNew();
-                    $log->setModule("Auth");
-                    $log->setMessage("No OpenId submitted");
-                    $log->setLevel(2);
-                    $managerLog->insert($log);
-                    ImbaUserContext::setImbaErrorMessage($log->getMessage());
-                    header("Location: " . ImbaUserContext::getRedirectUrl());
+                    $tmpMsg = writeAuthLog("No OpenId submitted", 2);
+//header("Location: " . ImbaUserContext::getRedirectUrl());
+                    redirectTo(__LINE__, ImbaUserContext::getRedirectUrl(), $tmpMsg);
                     exit;
                 }
                 break;
@@ -222,37 +271,53 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
              * Default auth type
              */
             default:
-                ImbaUserContext::setImbaErrorMessage("No Authtype included");
+                $tmpMsg = writeAuthLog("No Authtype submitted");
                 true;
         }
-        header("Location: " . $_SERVER['HTTP_REFERER']);
+
+        /* header("Location: " . $_SERVER['HTTP_REFERER']); */
+        redirectTo(__LINE__, $_SERVER['HTTP_REFERER'], $tmpMsg);
         exit;
     } else {
         /**
          * first step completed. do the verification and actual login
-         * we shall go to ImbaUserContext::getWaitingForVerify() after
+         * we shall go to the saved realm in the database after
          * we are finished here.
          */
-        $log = $managerLog->getNew();
-        $log->setModule("Auth");
-        $log->setMessage("Verification starting");
-        $log->setLevel(2);
-        $managerLog->insert($log);
-        ImbaUserContext::setImbaErrorMessage($log->getMessage());
+        /**
+         * Convert imbaHash from possible GET and POST to local var (proxy...)
+         */
+        if (!empty($_GET['imbaHash'])) {
+            $imbaHash = $_GET['imbaHash'];
+            unset($_GET['imbaHash']);
+        } else if (!empty($_POST['imbaHash'])) {
+            $imbaHash = $_POST['imbaHash'];
+            unset($_POST['imbaHash']);
+        } else {
+//echo "blablal"; print_r($GLOBALS); exit;
+            /**
+             * We have no imbaHash, this is not good! kill yourself and go back where you came from
+             */
+            $tmpMsg = writeAuthLog("Morpheus, help! Forwarding to: " . ImbaSharedFunctions::getTrustRoot());
+            /* header("Location: " . $_SERVER['HTTP_REFERER']); */
+            ImbaUserContext::setWaitingForVerify("");
+            redirectTo(__LINE__, ImbaSharedFunctions::getTrustRoot(), $tmpMsg);
+            exit;
+//throw new Exception("There was an error in descovering your auth request! Please reload the website.");
+        }
 
-        $log = $managerLog->getNew();
-        $log->setModule("Auth");
+        /**
+         * Get the stored data for the current authrequest from the database
+         */
+        $authRequest = $managerAuthRequest->select($imbaHash);
 
+        writeAuthLog("Verification starting", 2);
         try {
-            $esc_identity = $managerOpenId->openidVerify();
+            $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {
                 throw new Exception("OpenIdVerify failed! No Openid recieved from the OpenId Manager.");
             }
-
-            $log->setLevel(2);
-            $log->setMessage("OpenID Verification sucessful");
-            $managerLog->insert($log);
-            ImbaUserContext::setImbaErrorMessage($log->getMessage());
+            writeAuthLog("OpenID Verification sucessful", 2);
 
             $currentUser = $managerUser->selectByOpenId($esc_identity);
             /**
@@ -262,36 +327,23 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 /**
                  * This is a new user. let him register
                  */
-                $log = $managerLog->getNew();
-                $log->setModule("Auth");
-                $log->setMessage("Registering new user");
-                $log->setLevel(2);
-                $managerLog->insert($log);
+                writeAuthLog("Registering new user", 2);
 
                 if (!empty($esc_identity)) {
                     ImbaUserContext::setNeedToRegister(true);
                     ImbaUserContext::setOpenIdUrl($esc_identity);
                 }
-                ImbaUserContext::setImbaErrorMessage($log->getMessage());
             } elseif ($currentUser->getRole() == 0) {
                 /**
                  * this user is banned
                  */
-                $log = $managerLog->getNew();
-                $log->setModule("Auth");
-                $log->setMessage($currentUser->getName() . " is banned but tried to login");
-                $log->setLevel(2);
-                $managerLog->insert($log);
+                writeAuthLog($currentUser->getName() . " is banned but tried to login", 1);
                 throw new Exception("You are Banned!");
             } elseif ($currentUser->getRole() != null) {
                 /**
                  * this user is allowed to log in
                  */
-                $log = $managerLog->getNew();
-                $log->setModule("Auth");
-                $log->setMessage($currentUser->getNickname() . " logged in");
-                $log->setLevel(2);
-                $managerLog->insert($log);
+                $tmpMsg = writeAuthLog($currentUser->getNickname() . " logged in", 1);
 
                 ImbaUserContext::setLoggedIn(true);
                 ImbaUserContext::setOpenIdUrl($esc_identity);
@@ -302,48 +354,50 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                 setcookie("ImbaSsoLastLoginName", $currentUser->getNickname(), (time() + (60 * 60 * 24 * 30)));
 
                 $managerUser->setMeOnline();
-                ImbaUserContext::setImbaErrorMessage("Erfolgreich angemeldet als " . $currentUser->getNickname());
+                ImbaUserContext::setImbaErrorMessage("Du bist angemeldet als " . $currentUser->getNickname());
             }
-            $portalAlias = $currentUser->getPortalAlias();
-            if (!empty($portalAlias)) {
-                header("Location: " . $portalAlias);
+            $myDomain = $authRequest->getDomain();
+            if (!empty($myDomain)) {
+                /* header("Location: " . $myDomain); */
+                $managerAuthRequest->delete($imbaHash);
+                redirectTo(__LINE__, $myDomain, $tmpMsg);
                 exit;
             } else {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
                 ImbaUserContext::setWaitingForVerify("");
-                header("Location: " . $tmpUrl);
+                /* header("Location: " . $tmpUrl); */
+                redirectTo(__LINE__, $tmpUrl, $tmpMsg);
                 exit;
             }
         } catch (Exception $ex) {
             $esc_identity = $managerOpenId->getOpenId();
-            $currentUser = $managerUser->selectByOpenId($esc_identity);
-            $portalAlias = $currentUser->getPortalAlias();
 
             $tmpUrl = ImbaUserContext::getWaitingForVerify();
             ImbaUserContext::setWaitingForVerify("");
 
             if ($ex->getMessage() == "id_res_not_set") {
-                $log->setLevel(1);
-                $log->setMessage("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren.");
-                $managerLog->insert($log);
+                $tmpMsg = writeAuthLog("Aktuelle OpenID Anfrage ausgelaufen. Bitte nocheinmal von neuen probieren. (Hash: " . $imbaHash . ")");
             } else {
-                $log->setLevel(1);
-                $log->setMessage("Unnamed OpenID Verification ERROR: " . $ex->getMessage());
-                $managerLog->insert($log);
+                $tmpMsg = writeAuthLog("Unnamed OpenID Verification ERROR (Hash: " . $imbaHash . "):" . $ex->getMessage(), 1);
+            }
+            $myDomain = $authRequest->getDomain();
+            if (!empty($myDomain)) {
+                /* header("Location: " . $authRequest->getDomain()); */
+                //$managerAuthRequest->delete($imbaHash);
+                redirectTo(__LINE__, $myDomain, $tmpMsg);
+                exit;
+            } else {
+                $tmpUrl = ImbaUserContext::getWaitingForVerify();
+                ImbaUserContext::setWaitingForVerify("");
+                //$managerAuthRequest->delete($imbaHash);
+                /* header("Location: " . $tmpUrl); */
+                redirectTo(__LINE__, $tmpUrl, $tmpMsg);
+                exit;
             }
         }
-        ImbaUserContext::setImbaErrorMessage($log->getMessage());
-
-        if ($portalAlias != "") {
-            header("Location: " . $portalAlias);
-            exit;
-        } else {
-            $tmpUrl = ImbaUserContext::getWaitingForVerify();
-            ImbaUserContext::setWaitingForVerify("");
-            header("Location: " . $managerOpenId->getTrustRoot());
-            exit;
-        }
     }
+    echo "we shall not get here ...";
+    exit;
 } else {
     ImbaUserContext::setWaitingForVerify("");
     /**
@@ -352,16 +406,14 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
      * - set cookie with logged in openid for autofill login box
      * - redirect back to page
      */
-    $log = $managerLog->getNew();
-    $log->setModule("Auth");
-    $log->setMessage("Already logged in with: " . ImbaUserContext::getOpenIdUrl() . ")");
-    $log->setLevel(1);
-    $managerLog->insert($log);
+    writeAuthLog("Already logged in with: " . ImbaUserContext::getOpenIdUrl() . ")", 1);
     $tmpUrl = ImbaUserContext::getWaitingForVerify();
-    ImbaUserContext::setWaitingForVerify("");
-    header("Location: " . $tmpUrl);
+    $tmpMsg = ImbaUserContext::setWaitingForVerify("");
+    /* header("Location: " . $tmpUrl); */
+    redirectTo(__LINE__, $tmpUrl, $tmpMsg);
     exit;
 }
-header("Location: " . ImbaUserContext::getRedirectUrl());
+/* header("Location: " . ImbaUserContext::getRedirectUrl()); */
+redirectTo(__LINE__, ImbaUserContext::getRedirectUrl(), "We should never have gone so far...");
 exit;
 ?>

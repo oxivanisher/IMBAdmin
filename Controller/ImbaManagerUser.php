@@ -101,7 +101,6 @@ class ImbaManagerUser extends ImbaManagerBase {
                 $user->setAccurate($row["accurate"]);
                 $user->setLastonline($row["lastonline"]);
                 $user->setRole($row["role"]);
-                $user->setPortalalias($row["portalalias"]);
                 array_push($result, $user);
             }
 
@@ -147,8 +146,8 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     public function insert(ImbaUser $user) {
         $query = "INSERT INTO %s ";
-        $query .= "(openid, nickname, email, surname, forename, dob, mob, yob, sex, icq, msn, skype, usertitle, avatar, signature, website, motto, accurate, portalalias, role) VALUES ";
-        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
+        $query .= "(openid, nickname, email, surname, forename, dob, mob, yob, sex, icq, msn, skype, usertitle, avatar, signature, website, motto, accurate, role) VALUES ";
+        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_USER_PROFILES,
             $user->getOpenId(),
@@ -169,7 +168,6 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getPortalAlias(),
             $user->getRole()
         ));
 
@@ -182,7 +180,7 @@ class ImbaManagerUser extends ImbaManagerBase {
      */
     public function update(ImbaUser $user) {
         $query = "UPDATE %s SET ";
-        $query .= "nickname = '%s', email = '%s', surname = '%s', forename = '%s', dob = '%s', mob = '%s', yob = '%s', sex = '%s', icq = '%s', msn = '%s', skype = '%s', usertitle = '%s', avatar = '%s', signature = '%s', website = '%s', motto = '%s', accurate = '%s', portalalias = '%s', role = '%s' ";
+        $query .= "nickname = '%s', email = '%s', surname = '%s', forename = '%s', dob = '%s', mob = '%s', yob = '%s', sex = '%s', icq = '%s', msn = '%s', skype = '%s', usertitle = '%s', avatar = '%s', signature = '%s', website = '%s', motto = '%s', accurate = '%s', role = '%s' ";
         $query .= "WHERE openid = '%s'";
 
         $this->database->query($query, array(
@@ -204,7 +202,6 @@ class ImbaManagerUser extends ImbaManagerBase {
             $user->getWebsite(),
             $user->getMotto(),
             $user->getAccurate(),
-            $user->getPortalalias(),
             $user->getRole(),
             $user->getOpenId()
         ));

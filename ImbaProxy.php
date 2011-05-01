@@ -29,6 +29,9 @@ if (!empty($_COOKIE['secSession'])) {
     $mySession = $_COOKIE['secSession'];
 } elseif (!empty($_POST['secSession'])) {
     $mySession = $_POST['secSession'];
+} elseif (!empty($_GET['secSession'])) {
+    $mySession = $_GET['secSession'];
+    unset ($_GET['secSession']);
 } elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
 }

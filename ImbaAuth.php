@@ -294,7 +294,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $imbaHash = $_POST['imbaHash'];
             unset($_POST['imbaHash']);
         } else {
-//echo "blablal"; print_r($GLOBALS); exit;
+
             /**
              * We have no imbaHash, this is not good! kill yourself and go back where you came from
              */
@@ -313,7 +313,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         writeAuthLog("Verification starting", 2);
         if (strpos($authRequest->getReturnTo(), "facility=auth")) {
-            $authRequest->setReturnTo(str_replace("&imbaHash=".$authRequest->getHash(), "", $authRequest->getReturnTo()));
+            $authRequest->setReturnTo(str_replace("&imbaHash=" . $authRequest->getHash(), "", $authRequest->getReturnTo()));
         }
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->gethash(), $authRequest->getRealm(), $authRequest->getReturnTo());

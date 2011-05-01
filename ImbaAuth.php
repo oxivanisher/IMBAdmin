@@ -312,7 +312,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-        if (strpos($authRequest->getReturnTo, "facility=auth")) {
+        if (strpos($authRequest->getReturnTo(), "facility=auth")) {
             $authRequest->setReturnTo(str_replace("&imbaHash=".$authRequest->getHash(), "", $authRequest->getReturnTo()));
         }
         try {

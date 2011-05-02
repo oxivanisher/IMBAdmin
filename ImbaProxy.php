@@ -9,6 +9,8 @@
  * 
  * 
  */
+
+
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
@@ -23,6 +25,12 @@ $mySession = false;
 $contentType = "Content-Type: text/html";
 
 /**
+ * Merging the _GET into _POST and get rid of _GET
+ */
+$_POST = array_merge($_POST, $_GET);
+unset($_GET);
+
+/**
  * discover my PHP Session id at Trust Root Host
  */
 if (!empty($_COOKIE['secSession'])) {
@@ -31,10 +39,10 @@ if (!empty($_COOKIE['secSession'])) {
     $mySession = $_POST['secSession'];
 } elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
-} elseif (!empty($_GET['secSession'])) {
+} /*elseif (!empty($_GET['secSession'])) {
     $mySession = $_GET['secSession'];
     unset ($_GET['secSession']);
-}
+}*/
 
 if (empty($_SESSION['debugMode'])) {
     $_SESSION['debugMode'] = false;
@@ -45,6 +53,7 @@ if (empty($_SESSION['debugMode'])) {
  * which is needed to discover our authrequest if auth is
  * in progress. Also do this for the openid array
  */
+/*
 if (!empty($_GET['imbaHash'])) {
     $_POST['imbaHash'] = $_GET['imbaHash'];
     unset($_GET['imbaHash']);
@@ -67,11 +76,13 @@ if (!empty($_GET['imbaHash'])) {
     $_POST['openid'] = $_GET['openid'];
     unset($_GET['openid']);
 }
+ */
 
 /**
  * Determine which is our facility (ajax/auth)
  */
-$set['facility'] = "";
+$set['facility'] = $_POST['facility'];
+/*
 if (empty($_POST['facility'])) {
     if (!empty($_GET['facility'])) {
         $set['facility'] = $_GET['facility'];
@@ -82,7 +93,7 @@ if (empty($_POST['facility'])) {
 
 unset($_POST['facility']);
 unset($_GET['facility']);
-
+*/
 /**
  * Toggle debug mode 
  */
@@ -108,12 +119,14 @@ if ($_SESSION['debugMode'] == "true") {
     $set['debug'] = "false";
 }
 
+
 /**
  * Determine which file is our target $requestUrl
  */
-if (!($_GET["logout"] == false && $_POST["logout"] == false)) {
+if (!($_POST["logout"] == false)) {
     $set['facility'] = "logout";
 }
+
 $set['requestUrl'] = "";
 if (empty($set['facility'])) {
     echo "Error:No facility recieved";
@@ -135,10 +148,11 @@ if (empty($set['facility'])) {
 
 /**
  * If we have a GET make it a POST
- */
+
 if (empty($_POST) && (!empty($_GET))) {
     $_POST = $_GET;
-}
+} 
+ */
 
 /**
  * Set Cookie File Path with one session magic

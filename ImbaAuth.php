@@ -316,7 +316,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-        $authRequest->setReturnTo(substr($authRequest->getReturnTo(), 0, (1 + strpos($authRequest->getReturnTo(), "&imbaHash"))));
+
+        if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {
+            $authRequest->setReturnTo(substr($authRequest->getReturnTo(), 0, strpos($authRequest->getReturnTo(), "&imbaHash")));
+        }
         //if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {
 //            $authRequest->setReturnTo(str_replace("&imbaHash=" . $authRequest->getHash(), "", $authRequest->getReturnTo()));
         //}

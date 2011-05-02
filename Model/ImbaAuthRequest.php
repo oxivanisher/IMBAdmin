@@ -17,6 +17,7 @@ class ImbaAuthRequest extends ImbaBase {
     protected $returnTo = null;
     protected $type = null;
     protected $domain = null;
+    protected $phpsession = null;
 
     /**
      * Properties
@@ -75,6 +76,14 @@ class ImbaAuthRequest extends ImbaBase {
 
     public function setDomain($domain) {
         $this->domain = $domain;
+    }
+
+    public function getPhpsession() {
+        return $this->phpsession;
+    }
+
+    public function setPhpsession($phpsession) {
+        $this->phpsession = $phpsession;
     }
 
 }

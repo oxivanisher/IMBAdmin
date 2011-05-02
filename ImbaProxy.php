@@ -1,19 +1,9 @@
 <?php
 
-/*
-  print_r(($_POST['headers']));
-  print_r($GLOBALS);
-  print_r(apache_request_headers());
-  exit;
-  //print_r($GLOBALS); exit;
- * 
- * 
- */
-
-
 header('Access-Control-Allow-Origin: *');
 
 require_once 'ImbaConstants.php';
+require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
 session_start();
@@ -39,61 +29,28 @@ if (!empty($_COOKIE['secSession'])) {
     $mySession = $_POST['secSession'];
 } elseif (!empty($_COOKIE['PHPSESSID'])) {
     $mySession = $_COOKIE['PHPSESSID'];
-} /*elseif (!empty($_GET['secSession'])) {
-    $mySession = $_GET['secSession'];
-    unset ($_GET['secSession']);
-}*/
+} elseif (!empty($_GET['imbaHash'])) {
+    
+    /**
+     * check for imbaHash and load this session when no secSession or PHPSESSID is present
+     */
+    $managerAuthRequest = ImbaManagerAuthRequest::getInstance();
+    $authRequest = $managerAuthRequest->select($_GET['imbaHash']);
+    $mySession = $authRequest->getPhpsession();
+    
+    unset ($_GET['imbaHash']);
+}
 
 if (empty($_SESSION['debugMode'])) {
     $_SESSION['debugMode'] = false;
 }
 
 /**
- * Require possible imba auth hash from $_GET to $_POST
- * which is needed to discover our authrequest if auth is
- * in progress. Also do this for the openid array
- */
-/*
-if (!empty($_GET['imbaHash'])) {
-    $_POST['imbaHash'] = $_GET['imbaHash'];
-    unset($_GET['imbaHash']);
-
-    $_POST['openid_assoc_handle'] = $_GET['openid_assoc_handle'];
-    $_POST['openid_claimed_id'] = $_GET['openid_claimed_id'];
-    $_POST['openid_identity'] = $_GET['openid_identity'];
-    $_POST['openid_mode'] = $_GET['openid_mode'];
-    $_POST['openid_ns'] = $_GET['openid_ns'];
-    $_POST['openid_op_endpoint'] = $_GET['openid_op_endpoint'];
-    $_POST['openid_response_nonce'] = $_GET['openid_response_nonce'];
-    //if ((strpos($_GET['openid_return_to'], "imbaHash") == false) && ($_GET['openid_return_to'] != "")) {
-    //$_POST['openid_return_to'] = $_GET['openid_return_to'] . "&imbaHash=" . $_POST['imbaHash'];
-    $_POST['openid_return_to'] = $_GET['openid_return_to'];
-    //}
-
-    $_POST['openid_sig'] = $_GET['openid_sig'];
-    $_POST['openid_signed'] = $_GET['openid_signed'];
-
-    $_POST['openid'] = $_GET['openid'];
-    unset($_GET['openid']);
-}
- */
-
-/**
  * Determine which is our facility (ajax/auth)
  */
 $set['facility'] = $_POST['facility'];
-/*
-if (empty($_POST['facility'])) {
-    if (!empty($_GET['facility'])) {
-        $set['facility'] = $_GET['facility'];
-    }
-} else {
-    $set['facility'] = $_POST['facility'];
-}
 
-unset($_POST['facility']);
-unset($_GET['facility']);
-*/
+
 /**
  * Toggle debug mode 
  */
@@ -147,14 +104,6 @@ if (empty($set['facility'])) {
 }
 
 /**
- * If we have a GET make it a POST
-
-if (empty($_POST) && (!empty($_GET))) {
-    $_POST = $_GET;
-} 
- */
-
-/**
  * Set Cookie File Path with one session magic
  */
 if ($mySession != false) {
@@ -173,34 +122,11 @@ while ($element = current($_POST)) {
 }
 
 /**
- * Helper function for headers if we are not on a apache server
- * (who does such a thing??)
- */
-if (!function_exists('apache_request_headers')) {
-
-    function apache_request_headers() {
-        $headers = array();
-        foreach ($_SERVER as $key => $value) {
-            if (substr($key, 0, 5) == 'HTTP_') {
-                $headers[str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))))] = $value;
-            }
-        }
-        return $headers;
-    }
-
-}
-
-/**
  * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
+ * -> temp code. no impact
  */
 $requestHeaders = array();
 if (!empty($_POST['addToHeader'])) {
-    /*
-      foreach (apache_request_headers() as $name => $value) {
-      }
-      array_push($requestHeaders, $name . ": " . $value);
-      }
-     */
     array_push($requestHeaders, $_POST['addToHeader']);
 }
 
@@ -211,28 +137,20 @@ if (!empty($_POST['addToHeader'])) {
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
 //Start the Curl session
 $session = curl_init($set['requestUrl']);
-
 if (!empty($set['cookieFilePath'])) {
     curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
     curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
 }
-//if (!$requestHeaders) {
 curl_setopt($session, CURLOPT_HEADER, true);
-//} else {
-//    curl_setopt($session, CURLOPT_HEADER, false);
-//}
 curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
 if ($requestHeaders) {
     curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
 }
 curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 curl_setopt($session, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
-
 curl_setopt($session, CURLOPT_POST, true);
 curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
-
 //X-Requested-With:XMLHttpRequest
 //http_get_request_headers
 //curl_setopt($session, CURLOPT_ENCODING, "");
@@ -240,7 +158,6 @@ curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
 //curl_setopt($session, CURLOPT_TIMEOUT, 5);
 // Make the call
 $set['answer'] = curl_exec($session);
-//$set['returnHeaders'] = curl_getinfo($session);
 curl_close($session);
 
 /**
@@ -252,16 +169,14 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
  * Setting up log output
  */
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
-$tmpLogOut .= "headSize  : " . strlen($set['answerHeaders']) . "\n";
-$tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
+$tmpLogOut .= "return headSize  : " . strlen($set['answerHeaders']) . "\n";
+$tmpLogOut .= "return bodySize  : " . strlen($set['answerContent']) . "\n";
 $tmpLogOut .= "---------------------------- in  request data  -------------------------------\n";
-foreach ($_POST as $key => $value) {
+foreach ($_POST as $key => $value)
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
-}
 $tmpLogOut .= "--------------------------- out request header -------------------------------\n";
-foreach ($requestHeaders as $header) {
+foreach ($requestHeaders as $header)
     $tmpLogOut .= $header . "\n";
-}
 $tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
 $tmpLogOut .= str_replace("&", "\n", $set['postvars']) . "\n";
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
@@ -301,7 +216,7 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($set['facility'] == "auth")) {        
+    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($set['facility'] == "auth")) {
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
     /*
@@ -371,4 +286,29 @@ if ($set['facility'] == "test") {
     ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     returnError("No data recieved");
 }
+
+
+
+/**
+ * TMP STUFF. DELETE AS SOON AS PROXY WORKS
+ * 
+
+  /**
+ * Helper function for headers if we are not on a apache server
+ * (who does such a thing??)
+ *
+  if (!function_exists('apache_request_headers')) {
+
+  function apache_request_headers() {
+  $headers = array();
+  foreach ($_SERVER as $key => $value) {
+  if (substr($key, 0, 5) == 'HTTP_') {
+  $headers[str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))))] = $value;
+  }
+  }
+  return $headers;
+  }
+
+  }
+ */
 ?>

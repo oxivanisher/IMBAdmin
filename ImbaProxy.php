@@ -223,8 +223,8 @@ foreach ($_POST as $key => $value)
 $tmpLogOut .= "--------------------------- out request header -------------------------------\n";
 foreach ($requestHeaders as $header)
     $tmpLogOut .= $header . "\n";
-$tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
-$tmpLogOut .= str_replace("&", "\n", $set['postvars']);
+//$tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
+//$tmpLogOut .= str_replace("&", "\n", $set['postvars']);
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
 foreach ($set['answerHeadersArray'] as $header) 
     $tmpLogOut .= $header . "\n";

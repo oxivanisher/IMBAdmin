@@ -37,8 +37,8 @@ class ImbaManagerAuthRequest extends ImbaManagerBase {
 
     public function insert(ImbaAuthRequest $authRequest) {
         $query = "INSERT INTO %s ";
-        $query .= "(hash, userid, phpsession, realm, timestamp, returnto, type, domain) VALUES ";
-        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
+        $query .= "(hash, userid, phpsession, realm, timestamp, returnto, type, domain, ip) VALUES ";
+        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_AUTH_REQUEST,
@@ -49,7 +49,8 @@ class ImbaManagerAuthRequest extends ImbaManagerBase {
             time(),
             $authRequest->getReturnTo(),
             $authRequest->getType(),
-            $authRequest->getDomain()
+            $authRequest->getDomain(),
+            $authRequest->getIp()
         ));
     }
 
@@ -70,6 +71,7 @@ class ImbaManagerAuthRequest extends ImbaManagerBase {
             $authRequest->setReturnTo($row["returnto"]);
             $authRequest->setType($row["type"]);
             $authRequest->setDomain($row["domain"]);
+            $authRequest->setIp($row["ip"]);
         }
         return $authRequest;
     }

@@ -18,6 +18,7 @@ class ImbaAuthRequest extends ImbaBase {
     protected $type = null;
     protected $domain = null;
     protected $phpsession = null;
+    protected $ip = null;
 
     /**
      * Properties
@@ -84,6 +85,14 @@ class ImbaAuthRequest extends ImbaBase {
 
     public function setPhpsession($phpsession) {
         $this->phpsession = $phpsession;
+    }
+
+    public function getIp() {
+        return $this->ip;
+    }
+
+    public function setIp($ip) {
+        $this->ip = $ip;
     }
 
 }

@@ -272,11 +272,13 @@ if ($set['facility'] == "test") {
     /*
     unlink($set['cookieFilePath']);
     unset($set['cookieFilePath']);
-     * 
-     */
     setcookie("PHPSESSID", "", time() - 3600);
     session_destroy();
     session_write_close();
+     * 
+     */
+    session_start();
+    session_regenerate_id();
     foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
         if (strpos($hdr, "PHPSESSID") == false) {
             header($hdr);

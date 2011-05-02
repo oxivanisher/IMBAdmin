@@ -214,7 +214,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
                     $authRequest->setReturnTo(ImbaSharedFunctions::getReturnTo($authRequest->getHash()));
                     $authRequest->setType($authMethod);
                     $authRequest->setDomain($_POST['imbaSsoOpenIdLoginReferer']);
-                    $authRequest->setPhpsession(session_name());
+                    $authRequest->setPhpsession(session_id());
                     $managerAuthRequest->insert($authRequest);
 
                     /**

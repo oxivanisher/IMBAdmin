@@ -6,9 +6,9 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
-$lifetime = 600;
+session_set_cookie_params(500);
 session_start();
-setcookie(session_name(), session_id(), time() + $lifetime);
+
 $mySession = false;
 
 /**

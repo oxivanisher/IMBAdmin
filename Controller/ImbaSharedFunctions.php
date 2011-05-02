@@ -137,6 +137,10 @@ class ImbaSharedFunctions {
             }
         }
 
+        /**
+         * Use no proxy for auth ("magic")
+         */
+        $useProxy = false;
         if (!$useProxy) {
             $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
             if ($hash != false) {
@@ -149,10 +153,7 @@ class ImbaSharedFunctions {
                 //$authPath .= "&secSession=" . session_id();
             }
         }
-        //FIXME: i overwrite the logic above
-        //$authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
-        //$authPath .= "&imbaHash=" . $hash;
-
+        
         return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/%s/%s", $_SERVER['SERVER_NAME'], dirname($_SERVER['PHP_SELF']), $authPath));
     }
 

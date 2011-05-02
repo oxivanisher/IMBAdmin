@@ -8,12 +8,11 @@ session_set_cookie_params(500);
 session_start();
 /**
  *
-$lifetime = 600;
-session_start();
-setcookie(session_name(), session_id(), time() + $lifetime);
+  $lifetime = 600;
+  session_start();
+  setcookie(session_name(), session_id(), time() + $lifetime);
 
  */
-
 /**
  * Load dependencies
  */
@@ -292,7 +291,6 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Convert imbaHash from possible GET and POST to local var (proxy...)
          */
-        
         if (!empty($_GET['imbaHash'])) {
             $imbaHash = $_GET['imbaHash'];
             unset($_GET['imbaHash']);
@@ -318,7 +316,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-        $authRequest->setReturnTo($authRequest->getReturnTo(), substr(0, strpos($authRequest->getReturnTo(), "&imbaHash")));
+        $authRequest->setReturnTo(substr($authRequest->getReturnTo(), 0, strpos($authRequest->getReturnTo(), "&imbaHash")));
         //if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {
 //            $authRequest->setReturnTo(str_replace("&imbaHash=" . $authRequest->getHash(), "", $authRequest->getReturnTo()));
         //}

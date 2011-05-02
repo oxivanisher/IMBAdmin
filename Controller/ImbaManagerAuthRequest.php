@@ -38,7 +38,7 @@ class ImbaManagerAuthRequest extends ImbaManagerBase {
     public function insert(ImbaAuthRequest $authRequest) {
         $query = "INSERT INTO %s ";
         $query .= "(hash, userid, phpsession, realm, timestamp, returnto, type, domain) VALUES ";
-        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s')";
+        $query .= "('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')";
 
         $this->database->query($query, array(
             ImbaConstants::$DATABASE_TABLES_SYS_AUTH_REQUEST,

@@ -29,7 +29,7 @@ if (!empty($_POST['imbaHash'])) {
      * check for imbaHash and load this session when no secSession or PHPSESSID is present
      */
     $managerAuthRequest = ImbaManagerAuthRequest::getInstance();
-    $authRequest = $managerAuthRequest->select($_GET['imbaHash']);
+    $authRequest = $managerAuthRequest->select($_POST['imbaHash']);
     $mySession = $authRequest->getPhpsession();
     echo $mySession . "<<"; exit;
     unset ($_POST['imbaHash']);

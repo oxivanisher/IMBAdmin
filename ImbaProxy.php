@@ -6,8 +6,9 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
-session_set_cookie_params(500);
+$lifetime = 600;
 session_start();
+setcookie(session_name(), session_id(), time() + $lifetime);
 $mySession = false;
 
 /**
@@ -19,8 +20,10 @@ $contentType = "Content-Type: text/html";
  * Merging the _GET into _POST and get rid of _GET
  */
 // check if $_POST["secSession"] is set, if so delete the  $_GET["secSession"]
-if (!empty ($_POST["secSession"])) unset($_GET["secSession"]);
-if (!empty ($_POST["imbaHash"])) unset($_GET["imbaHash"]);
+if (!empty($_POST["secSession"]))
+    unset($_GET["secSession"]);
+if (!empty($_POST["imbaHash"]))
+    unset($_GET["imbaHash"]);
 
 $_POST = array_merge($_POST, $_GET);
 unset($_GET);
@@ -231,7 +234,7 @@ foreach ($requestHeaders as $header)
 $tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
 $tmpLogOut .= str_replace("&", "\n", $set['postvars']);
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
-foreach ($set['answerHeadersArray'] as $header) 
+foreach ($set['answerHeadersArray'] as $header)
     $tmpLogOut .= $header . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
 //$tmpLogOut .= $set['answerContent'] . "\n";

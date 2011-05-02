@@ -1,8 +1,9 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
-session_set_cookie_params(500);
+$lifetime = 600;
 session_start();
+setcookie(session_name(), session_id(), time() + $lifetime);
 
 require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaSharedFunctions.php';
@@ -42,31 +43,31 @@ switch ($_GET["load"]) {
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
         }
 
-        
+
         $smarty->assign("PortalNavigation", $managerNavigation->displayLoaderPortalNavigation());
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());
         $smarty->assign("ImbaGameNavigation", $managerNavigation->renderImbaGameNavigation());
         $smarty->assign("PortalChooser", $managerNavigation->renderPortalChooser());
-        
+
         /**
          * Set Auth referer for automatic redirection
          */
         $tmpAuthReferer = ImbaUserContext::getAuthReferer();
         ImbaUserContext::setAuthReferer("");
         $smarty->assign("imbaAuthReferer", $tmpAuthReferer);
-        
+
         /**
          * Show Session Error Message
          */
         $tmpImbaErrorMsgs = ImbaUserContext::getImbaErrorMessage();
         ImbaUserContext::setImbaErrorMessage("");
         $smarty->assign("imbaErrorMessage", $tmpImbaErrorMsgs);
-        
+
         /**
          * Set Savascript Debug
          */
         ImbaConstants::loadSettings();
-        if (! empty($_SESSION["IUC_Debug"])) {
+        if (!empty($_SESSION["IUC_Debug"])) {
             $tmpJsDebug = ImbaUserContext::getDebug();
         } elseif (empty(ImbaConstants::$SETTINGS['ENABLE_JS_DEBUG'])) {
             $tmpJsDebug = "false";

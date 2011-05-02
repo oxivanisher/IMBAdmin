@@ -4,8 +4,9 @@ header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
  */
-session_set_cookie_params(500);
+$lifetime = 600;
 session_start();
+setcookie(session_name(), session_id(), time() + $lifetime);
 
 /**
  * Load dependencies

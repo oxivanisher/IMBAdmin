@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
  */
-session_set_cookie_params(500);
+session_set_cookie_params(3600);
 session_start();
 /**
  *
@@ -394,13 +394,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             $myDomain = $authRequest->getDomain();
             if (!empty($myDomain)) {
                 /* header("Location: " . $authRequest->getDomain()); */
-                //$managerAuthRequest->delete($imbaHash);
+                $managerAuthRequest->delete($imbaHash);
                 redirectTo(__LINE__, $myDomain, $tmpMsg);
                 exit;
             } else {
                 $tmpUrl = ImbaUserContext::getWaitingForVerify();
                 ImbaUserContext::setWaitingForVerify("");
-                //$managerAuthRequest->delete($imbaHash);
+                $managerAuthRequest->delete($imbaHash);
                 /* header("Location: " . $tmpUrl); */
                 redirectTo(__LINE__, $tmpUrl, $tmpMsg);
                 exit;

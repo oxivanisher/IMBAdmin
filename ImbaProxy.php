@@ -31,7 +31,6 @@ if (!empty($_POST['imbaHash'])) {
     $managerAuthRequest = ImbaManagerAuthRequest::getInstance();
     $authRequest = $managerAuthRequest->select($_POST['imbaHash']);
     $mySession = $authRequest->getPhpsession();
-    echo $mySession . "<<"; exit;
     unset ($_POST['imbaHash']);
 } elseif (!empty($_COOKIE['secSession'])) {
     $mySession = $_COOKIE['secSession'];

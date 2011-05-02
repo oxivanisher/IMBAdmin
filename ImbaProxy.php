@@ -49,7 +49,7 @@ if (empty($_SESSION['debugMode'])) {
  * Determine which is our facility (ajax/auth)
  */
 $set['facility'] = $_POST['facility'];
-
+unset ($_POST['facility']);
 
 /**
  * Toggle debug mode 
@@ -115,6 +115,7 @@ if ($mySession != false) {
 /**
  * Create Post var
  */
+array_unique($_POST);
 $set['postvars'] = '';
 while ($element = current($_POST)) {
     $set['postvars'] .= key($_POST) . '=' . $element . '&';

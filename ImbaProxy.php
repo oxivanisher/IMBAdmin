@@ -251,6 +251,8 @@ foreach ($_GET as $key => $value) {
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
+$tmpLogOut .= "---------------------------- set['postvars']  header -----------------------------\n";
+$tmpLogOut .= $set['postvars'] . "\n";
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
 $tmpLogOut .= $set['answerHeaders'] . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";

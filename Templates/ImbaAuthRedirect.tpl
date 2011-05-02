@@ -2,13 +2,9 @@
     <head>
         <title>IMBAdmin is Redirecting you to {$redirectDomain}</title>
         <link type='text/css' href='{$thrustRoot}ImbaLoader.php?load=css' rel='Stylesheet' />
+        <script type='text/javascript' src='{$thrustRoot}Libs/jQuery/js/jquery-1.5.2.min.js'></script>
+        <script type='text/javascript' src='{$thrustRoot}Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'></script>
         <script type="text/javascript">
-            {fetch file='Libs/jQuery/js/jquery-1.5.2.min.js'}
-            {fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}
-            {fetch file='Libs/DataTables/media/js/jquery.dataTables.min.js'}
-            {fetch file='Libs/jquery_jeditable/jquery.jeditable.js'}
-            {fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}
-
             $(document).ready(function() {    
                 $("#imbaRedirectDialog").dialog({
                     autoOpen: true

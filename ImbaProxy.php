@@ -144,10 +144,16 @@ if (!empty($_POST['addToHeader'])) {
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
 //Start the Curl session
 $curlSession = curl_init($set['requestUrl']);
-if (!empty($set['cookieFilePath'])) {
-    curl_setopt($curlSession, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
-    curl_setopt($curlSession, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
+if ($mySession != false) {
+    curl_setopt($curlSession, CURLOPT_COOKIE, "PHPSESSID=" . $mySession . ";");
 }
+/*
+  if (!empty($set['cookieFilePath'])) {
+  curl_setopt($curlSession, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
+  curl_setopt($curlSession, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
+  }
+ * 
+ */
 curl_setopt($curlSession, CURLOPT_HEADER, true);
 curl_setopt($curlSession, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);

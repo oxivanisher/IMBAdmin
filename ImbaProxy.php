@@ -259,9 +259,9 @@ foreach ($requestHeaders as $header) {
     $tmpLogOut .= $header . "\n";
 }
 $tmpLogOut .= "-------------------------------  request data  -------------------------------\n";
-foreach ($_GET as $key => $value) {
+/*foreach ($_GET as $key => $value) {
     $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
-}
+}*/
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }

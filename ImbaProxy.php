@@ -17,6 +17,10 @@ $contentType = "Content-Type: text/html";
 /**
  * Merging the _GET into _POST and get rid of _GET
  */
+// check if $_POST["secSession"] is set, if so delete the  $_GET["secSession"]
+if (!empty ($_POST["secSession"])) unset($_GET["secSession"]);
+if (!empty ($_POST["imbaHash"])) unset($_GET["imbaHash"]);
+
 $_POST = array_merge($_POST, $_GET);
 unset($_GET);
 
@@ -135,29 +139,29 @@ if (!empty($_POST['addToHeader'])) {
 //$headers = ($_POST['headers']);
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
 //Start the Curl session
-$session = curl_init($set['requestUrl']);
+$curlSession = curl_init($set['requestUrl']);
 if (!empty($set['cookieFilePath'])) {
-    curl_setopt($session, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
-    curl_setopt($session, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
+    curl_setopt($curlSession, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
+    curl_setopt($curlSession, CURLOPT_COOKIEFILE, $set['cookieFilePath']);
 }
-curl_setopt($session, CURLOPT_HEADER, true);
-curl_setopt($session, CURLOPT_FOLLOWLOCATION, true);
-curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curlSession, CURLOPT_HEADER, true);
+curl_setopt($curlSession, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
 if ($requestHeaders) {
-    curl_setopt($session, CURLOPT_HTTPHEADER, $requestHeaders);
+    curl_setopt($curlSession, CURLOPT_HTTPHEADER, $requestHeaders);
 }
-curl_setopt($session, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
-curl_setopt($session, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
-curl_setopt($session, CURLOPT_POST, true);
-curl_setopt($session, CURLOPT_POSTFIELDS, $set['postvars']);
+curl_setopt($curlSession, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
+curl_setopt($curlSession, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
+curl_setopt($curlSession, CURLOPT_POST, true);
+curl_setopt($curlSession, CURLOPT_POSTFIELDS, $set['postvars']);
 //X-Requested-With:XMLHttpRequest
 //http_get_request_headers
-//curl_setopt($session, CURLOPT_ENCODING, "");
-//curl_setopt($session, CURLINFO_HEADER_OUT, true);
-//curl_setopt($session, CURLOPT_TIMEOUT, 5);
+//curl_setopt($curlSession, CURLOPT_ENCODING, "");
+//curl_setopt($curlSession, CURLINFO_HEADER_OUT, true);
+//curl_setopt($curlSession, CURLOPT_TIMEOUT, 5);
 // Make the call
-$set['answer'] = curl_exec($session);
-curl_close($session);
+$set['answer'] = curl_exec($curlSession);
+curl_close($curlSession);
 
 /**
  * Compute return

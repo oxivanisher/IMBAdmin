@@ -318,9 +318,10 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         $authRequest = $managerAuthRequest->select($imbaHash);
 
         writeAuthLog("Verification starting", 2);
-/*        if (strpos($authRequest->getReturnTo(), "facility=auth")) {
-            $authRequest->setReturnTo(str_replace("&imbaHash=" . $authRequest->getHash(), "", $authRequest->getReturnTo()));
-        }*/
+        $authRequest->setReturnTo(substr(0, strpos($authRequest->getReturnTo(), "&imbaHash")));
+        //if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {
+//            $authRequest->setReturnTo(str_replace("&imbaHash=" . $authRequest->getHash(), "", $authRequest->getReturnTo()));
+        //}
         try {
             $esc_identity = $managerOpenId->openidVerify($authRequest->getRealm(), $authRequest->getReturnTo());
             if (empty($esc_identity)) {

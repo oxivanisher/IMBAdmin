@@ -253,8 +253,8 @@ foreach ($_POST as $key => $value) {
 }
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
 $tmpLogOut .= $set['answerHeaders'] . "\n";
-$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
-$tmpLogOut .= $set['answerContent'] . "\n";
+//$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
+//$tmpLogOut .= $set['answerContent'] . "\n";
 
 /**
  * generate output

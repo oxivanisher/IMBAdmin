@@ -128,7 +128,16 @@ class ImbaSharedFunctions {
     public function getReturnTo($hash = false) {
         // this sould be like that, if the webserver would be set up correctly
         // return sprintf("%s://%s:%s%s/?authDone=true", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
-        if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
+        $useProxy = false;
+        if (ImbaConstants::$WEB_FORCE_PROXY == 1) {
+            $useProxy = true;
+        } else if (ImbaConstants::$WEB_FORCE_PROXY == 0) {
+            if (($_SERVER['HTTP_REFERER'] != ImbaSharedFunctions::getTrustRoot())) {
+                $useProxy = true;
+            }
+        }
+
+        if (!$useProxy) {
             $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
             if ($hash != false) {
                 $authPath .= "?imbaHash=" . $hash;

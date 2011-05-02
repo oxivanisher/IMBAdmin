@@ -24,13 +24,23 @@ switch ($_GET["load"]) {
 
         $managerNavigation = ImbaManagerNavigation::getInstance();
 
-        if (($_SERVER['HTTP_REFERER'] == ImbaSharedFunctions::getTrustRoot()) && (ImbaConstants::$WEB_FORCE_PROXY == false)) {
+        $useProxy = false;
+        if (ImbaConstants::$WEB_FORCE_PROXY == 1) {
+            $useProxy = true;
+        } else if (ImbaConstants::$WEB_FORCE_PROXY == 0) {
+            if (($_SERVER['HTTP_REFERER'] != ImbaSharedFunctions::getTrustRoot())) {
+                $useProxy = true;
+            }
+        }
+
+        if (!$useProxy) {
             $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_MAIN_PATH);
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_MAIN_PATH));
         } else {
             $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_PROXY_PATH);
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
         }
+
         
         $smarty->assign("PortalNavigation", $managerNavigation->displayLoaderPortalNavigation());
         $smarty->assign("ImbaAdminNavigation", $managerNavigation->renderImbaAdminNavigation());

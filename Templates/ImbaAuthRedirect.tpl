@@ -7,7 +7,7 @@
             {fetch file='Libs/jQuery/js/jquery-ui-1.8.10.custom.min.js'}
 
             $(document).ready(function() {    
-                $("#imbaRedirectDialog").dialog({
+                $("#imbaContentDialog").dialog({
                     autoOpen: true
                 })
                 .dialog("option", "width", 500)
@@ -16,7 +16,7 @@
         </script>
     </head>
     <body onload="/*location.href='{$redirectUrl}'*/" style="background-color: 333333; color: #999999;">
-        <div id='imbaRedirectDialog' title='IMBAdminRedirect' style='padding: 3px;'>
+        <div id='imbaContentDialog' title='IMBAdminRedirect' style='padding: 3px;'>
             <div id='imbaContentNav' style="text-align: center; height: 98%; width: 100%; overflow: auto;">
                 <br />
                 <br />

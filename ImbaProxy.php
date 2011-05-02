@@ -184,6 +184,7 @@ $tmpLogOut .= "------------------------------- return  header ------------------
 $tmpLogOut .= $set['answerHeaders'] . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
 //$tmpLogOut .= $set['answerContent'] . "\n";
+$tmpLogOut .= "\n";
 
 /**
  * generate output

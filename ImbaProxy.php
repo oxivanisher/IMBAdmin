@@ -23,7 +23,7 @@ unset($_GET);
 /**
  * discover my PHP Session id at Trust Root Host
  */
-if (!empty($_GET['imbaHash'])) {
+if (!empty($_POST['imbaHash'])) {
     
     /**
      * check for imbaHash and load this session when no secSession or PHPSESSID is present
@@ -32,7 +32,7 @@ if (!empty($_GET['imbaHash'])) {
     $authRequest = $managerAuthRequest->select($_GET['imbaHash']);
     $mySession = $authRequest->getPhpsession();
     echo $mySession . "<<"; exit;
-    unset ($_GET['imbaHash']);
+    unset ($_POST['imbaHash']);
 } elseif (!empty($_COOKIE['secSession'])) {
     $mySession = $_COOKIE['secSession'];
 } elseif (!empty($_POST['secSession'])) {

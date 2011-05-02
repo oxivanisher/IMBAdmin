@@ -145,7 +145,7 @@ if (!empty($_POST['addToHeader'])) {
 //Start the Curl session
 $curlSession = curl_init($set['requestUrl']);
 if ($mySession != false) {
-    curl_setopt($curlSession, CURLOPT_COOKIE, "PHPSESSID=" . $mySession . ";");
+    curl_setopt($curlSession, CURLOPT_COOKIE, "PHPSESSID=" . $mySession . "; path=/';");
 }
 /*
   if (!empty($set['cookieFilePath'])) {

@@ -292,7 +292,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
         /**
          * Convert imbaHash from possible GET and POST to local var (proxy...)
          */
-        /*
+        
         if (!empty($_GET['imbaHash'])) {
             $imbaHash = $_GET['imbaHash'];
             unset($_GET['imbaHash']);
@@ -304,13 +304,13 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
             /**
              * We have no imbaHash, this is not good! kill yourself and go back where you came from
              */
-        //    $tmpMsg = writeAuthLog("Morpheus, help! Forwarding to: " . ImbaSharedFunctions::getTrustRoot());
+            $tmpMsg = writeAuthLog("Morpheus, help! Forwarding to: " . ImbaSharedFunctions::getTrustRoot());
             /* header("Location: " . $_SERVER['HTTP_REFERER']); */
-        //    ImbaUserContext::setWaitingForVerify("");
-        //    redirectTo(__LINE__, ImbaSharedFunctions::getTrustRoot(), $tmpMsg);
-        //    exit;
+            ImbaUserContext::setWaitingForVerify("");
+            redirectTo(__LINE__, ImbaSharedFunctions::getTrustRoot(), $tmpMsg);
+            exit;
 //throw new Exception("There was an error in descovering your auth request! Please reload the website.");
-        //}
+        }
 
         /**
          * Get the stored data for the current authrequest from the database

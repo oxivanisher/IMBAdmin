@@ -140,12 +140,13 @@ class ImbaSharedFunctions {
         if (!$useProxy) {
             $authPath = ImbaConstants::$WEB_AUTH_MAIN_PATH;
             if ($hash != false) {
-                $authPath .= "?imbaHash=" . $hash;
+                //$authPath .= "?imbaHash=" . $hash;
             }
         } else {
             $authPath = ImbaConstants::$WEB_AUTH_PROXY_PATH;
             if ($hash != false) {
-                $authPath .= "&imbaHash=" . $hash . "&secSession=" . session_id();
+                //$authPath .= "&imbaHash=" . $hash . "&secSession=" . session_id();
+                $authPath .= "&secSession=" . session_id();
             }
         }
         //FIXME: i overwrite the logic above

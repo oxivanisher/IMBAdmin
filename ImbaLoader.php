@@ -43,6 +43,10 @@ switch ($_GET["load"]) {
             $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_PROXY_PATH);
             $smarty->assign("ajaxPath", ImbaSharedFunctions::fixWebPath(ImbaConstants::$WEB_AJAX_PROXY_PATH));
         }
+        /**
+         * Use no proxy for auth ("magic")
+         */
+        $smarty->assign("authPath", ImbaConstants::$WEB_AUTH_MAIN_PATH);
 
 
         $smarty->assign("PortalNavigation", $managerNavigation->displayLoaderPortalNavigation());

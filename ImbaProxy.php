@@ -24,7 +24,7 @@ unset($_GET);
  * discover my PHP Session id at Trust Root Host
  */
 if (!empty($_POST['imbaHash'])) {
-    
+
     /**
      * check for imbaHash and load this session when no secSession or PHPSESSID is present
      */
@@ -47,7 +47,7 @@ if (empty($_SESSION['debugMode'])) {
  * Determine which is our facility (ajax/auth)
  */
 $set['facility'] = $_POST['facility'];
-unset ($_POST['facility']);
+unset($_POST['facility']);
 
 /**
  * Toggle debug mode 
@@ -165,6 +165,53 @@ curl_close($session);
 list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['answer'], 2);
 
 /**
+ * normal proxy return headers (prepare return headers)
+ */
+$lockedContentType = false;
+$set['answerHeadersArray'] = array();
+foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
+    if (strpos($hdr, "PHPSESSID") == false) {
+        /**
+         * if it is NOT a phpsessid cookie, do:
+         */
+        if ($hdr == "Transfer-Encoding: chunked") {
+            /**
+             * the server return was chunked. curl fixed that for us,
+             * so we have to set the
+             */
+            array_push($set['answerHeadersArray'], "Content-Length: " . strlen($set['answerContent']));
+            $contentType = "Content-Type: text/html";
+            $lockedContentType = true;
+        } elseif (strpos($hdr, "ontent-Type")) { //there has to be a missing C !
+            /**
+             * Server side set content type, check if we are allowed to overwrite
+             * our default and set it.
+             */
+            if ($lockedContentType != true) {
+                $contentType = $hdr;
+            }
+        } else {
+            /**
+             * non-special header information. just pass it trough
+             */
+            array_push($set['answerHeadersArray'], $hdr);
+        }
+    }
+}
+
+/**
+ * Set the content type of the request
+ */
+array_push($set['answerHeadersArray'], $contentType);
+
+/**
+ * If available, set our phpsession on the client
+ */
+if ($mySession != false) {
+    array_push($set['answerHeadersArray'], "Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
+}
+
+/**
  * Setting up log output
  */
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
@@ -179,7 +226,8 @@ foreach ($requestHeaders as $header)
 $tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
 $tmpLogOut .= str_replace("&", "\n", $set['postvars']);
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
-$tmpLogOut .= $set['answerHeaders'] . "\n";
+foreach ($set['answerHeadersArray'] as $header) 
+    $tmpLogOut .= $header . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";
 //$tmpLogOut .= $set['answerContent'] . "\n";
 $tmpLogOut .= "\n";
@@ -227,50 +275,11 @@ if ($set['facility'] == "test") {
       }
      * 
      */
-
     /**
-     * normal proxy return headers
+     * Display the headers
      */
-    $lockedContentType = false;
-    foreach (explode("\r\n", $set['answerHeaders']) as $hdr) {
-        if (strpos($hdr, "PHPSESSID") == false) {
-            /**
-             * if it is NOT a phpsessid cookie, do:
-             */
-            if ($hdr == "Transfer-Encoding: chunked") {
-                /**
-                 * the server return was chunked. curl fixed that for us,
-                 * so we have to set the
-                 */
-                header("Content-Length: " . strlen($set['answerContent']));
-                $contentType = "Content-Type: text/html";
-                $lockedContentType = true;
-            } elseif (strpos($hdr, "ontent-Type")) { //there has to be a missing C !
-                /**
-                 * Server side set content type, check if we are allowed to overwrite
-                 * our default and set it.
-                 */
-                if ($lockedContentType != true) {
-                    $contentType = $hdr;
-                }
-            } else {
-                /**
-                 * non-special header information. just pass it trough
-                 */
-                header($hdr);
-            }
-        }
-    }
-    /**
-     * Set the content type of the request
-     */
-    header($contentType);
-
-    /**
-     * If available, set our phpsession on the client
-     */
-    if ($mySession != false) {
-        header("Set-Cookie: PHPSESSID=" . $mySession . "; path=/ ");
+    foreach ($set['answerHeadersArray'] as $header) {
+        header($header);
     }
 
     /**

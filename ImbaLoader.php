@@ -1,6 +1,7 @@
 <?php
 
 header('Access-Control-Allow-Origin: *');
+session_set_cookie_params(500);
 session_start();
 
 require_once 'ImbaConstants.php';

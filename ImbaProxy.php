@@ -23,13 +23,7 @@ unset($_GET);
 /**
  * discover my PHP Session id at Trust Root Host
  */
-if (!empty($_COOKIE['secSession'])) {
-    $mySession = $_COOKIE['secSession'];
-} elseif (!empty($_POST['secSession'])) {
-    $mySession = $_POST['secSession'];
-} elseif (!empty($_COOKIE['PHPSESSID'])) {
-    $mySession = $_COOKIE['PHPSESSID'];
-} elseif (!empty($_GET['imbaHash'])) {
+if (!empty($_GET['imbaHash'])) {
     
     /**
      * check for imbaHash and load this session when no secSession or PHPSESSID is present
@@ -39,6 +33,12 @@ if (!empty($_COOKIE['secSession'])) {
     $mySession = $authRequest->getPhpsession();
     
     unset ($_GET['imbaHash']);
+} elseif (!empty($_COOKIE['secSession'])) {
+    $mySession = $_COOKIE['secSession'];
+} elseif (!empty($_POST['secSession'])) {
+    $mySession = $_POST['secSession'];
+} elseif (!empty($_COOKIE['PHPSESSID'])) {
+    $mySession = $_COOKIE['PHPSESSID'];
 }
 
 if (empty($_SESSION['debugMode'])) {

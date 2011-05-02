@@ -32,7 +32,8 @@
                     <br />
                     <br />
                     <small>
-                        <pre>{$internalMessage} ({$internalCode})</pre>
+                        {$internalCode}: {$internalMessage}<br />
+                        {$phpsession}
                     </small>
                     {/if}
                 </div>

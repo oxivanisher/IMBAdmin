@@ -88,6 +88,7 @@ function redirectTo($line, $url, $message = "") {
         $smarty->assign("redirectDomain", $myDomain);
         $smarty->assign("internalCode", $line);
         $smarty->assign("internalMessage", $message);
+        $smarty->assign("phpsession", session_id());
         $smarty->display("ImbaAuthRedirect.tpl");
         exit;
     } else {

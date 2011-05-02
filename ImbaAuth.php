@@ -317,7 +317,7 @@ if ($_GET["logout"] == true || $_POST["logout"] == true) {
 
         writeAuthLog("Verification starting", 2);
 
-        if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {
+        if (strpos($authRequest->getReturnTo(), "&imbaHash")) {
             $authRequest->setReturnTo(substr($authRequest->getReturnTo(), 0, strpos($authRequest->getReturnTo(), "&imbaHash")));
         }
         //if (substr(0, strpos($authRequest->getReturnTo(), "&imbaHash"))) {

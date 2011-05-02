@@ -19,7 +19,7 @@
         </script>
     </head>
     <body onload="/*location.href='{$redirectUrl}'*/" style="background-color: 333333; color: #999999;">
-        <div id='imbaContentDialog' title='IMBAdmin' style='padding: 3px;'>
+        <div id='imbaRedirectDialog' title='IMBAdminRedirect' style='padding: 3px;'>
             <div id='imbaContentNav' style="text-align: center; height: 98%; width: 100%; overflow: auto;">
                 <br />
                 <br />

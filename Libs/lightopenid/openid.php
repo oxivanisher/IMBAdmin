@@ -620,10 +620,6 @@ class LightOpenID {
             return false;
         }
         if ($this->mode != 'id_res') {
-            var_dump($GLOBALS);
-            echo "<hr>";
-            var_dump($this);
-            exit();
             throw new Exception("id_res_not_set");
             return false;
         }

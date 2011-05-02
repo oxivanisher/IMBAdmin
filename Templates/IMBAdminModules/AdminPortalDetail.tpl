@@ -54,19 +54,23 @@
                 <td><textarea id="myProfileComment" name="comment" rows="4" cols="50">{$comment}</textarea></td>
             </tr>
             <tr>
-                <td>Aliases</td>
+                <td style="vertical-align: top;">Aliases</td>
                 <td>
-                    {foreach $aliases as $alias}
-                    {$alias}
-                    {/foreach}
+                    <ul>
+                        {foreach $aliases as $alias}
+                        <li>{$alias}</li>
+                        {/foreach}
+                    </ul>
                 </td>
             </tr>
             <tr>
-                <td>Portal Entries</td>
+                <td style="vertical-align: top;">Portal Entries</td>
                 <td>
-                    {foreach $navitems as $navitem}
-                    {$navitem}
-                    {/foreach}
+                    <ul>
+                        {foreach $portalentries as $portalentry}
+                        <li>{$portalentry.id} => {$portalentry.name}</li>
+                        {/foreach}
+                    </ul>
                 </td>
             </tr>
 

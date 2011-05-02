@@ -46,7 +46,7 @@ includeitall();
 $manager = ImbaManagerPortal::getInstance();
 echo "<pre>";
 
-$portal = $manager->selectById("4");
+$portal = $manager->selectById("3");
 var_dump($portal);
 
 

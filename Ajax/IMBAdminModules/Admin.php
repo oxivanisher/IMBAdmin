@@ -84,35 +84,25 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
 
         case "viewportaldetail":
             $portal = $managerPortal->selectById($_POST['portalid']);
-
-            /*
-              protected $name = null;
-              protected $icon = null;
-              protected $aliases = null;
-              protected $navitems = null;
-              protected $comment = null;
-              $id
-             */
             $smarty->assign("id", $portal->getId());
             $smarty->assign("name", $portal->getName());
             $smarty->assign("comment", $portal->getComment());
             $smarty->assign("icon", $portal->getIcon());
 
             $smartyPortalEntries = array();
-            if (count($portal->getNavitems())) {
-                foreach ($portal->getNavitems() as $navitem) {
-                    //FIXME: i don't work
-                    var_dump($navitem);
-                    array_push($smartyPortalEntries, $navitem);
+            if ($portal->getPortalEntries() != null) {
+                foreach ($portal->getPortalEntries() as $portalentry) {
+                    array_push($smartyPortalEntries, array(
+                        "id" => $portalentry->getId(),
+                        "name" => $portalentry->getName()
+                    ));
                 }
             }
-            $smarty->assign("navitems", $smartyPortalEntries);
+            $smarty->assign("portalentries", $smartyPortalEntries);
 
             $smartyPortalAliases = array();
-            if (count($portal->getAliases())) {
+            if ($portal->getAliases() != null) {
                 foreach ($portal->getAliases() as $alias) {
-                    //FIXME: i don't work
-                    var_dump($alias);
                     array_push($smartyPortalAliases, $alias);
                 }
             }
@@ -176,27 +166,27 @@ if (ImbaUserContext::getLoggedIn() && ImbaUserContext::getUserRole() >= 3) {
                 case "Name":
                     $portalentry->setName($_POST["value"]);
                     break;
-                
+
                 case "Interner Handle":
                     $portalentry->setHandle($_POST["value"]);
                     break;
-                
+
                 case "Target":
                     $portalentry->setTarget($_POST["value"]);
                     break;
-                
+
                 case "Url":
                     $portalentry->setUrl($_POST["value"]);
                     break;
-                
+
                 case "Comment":
                     $portalentry->setComment($_POST["value"]);
                     break;
-                
+
                 case "Only show if logged in":
                     $portalentry->setLoggedin($_POST["value"]);
                     break;
-                
+
                 case "Which role is allowed":
                     $portalentry->setRole($_POST["value"]);
                     break;

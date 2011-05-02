@@ -143,6 +143,7 @@ if (!empty($_POST['addToHeader'])) {
 //$headers = ($_POST['headers']);
 //$mimeType =($_POST['mimeType']) ? $_POST['mimeType'] : $_GET['mimeType'];
 //Start the Curl session
+session_write_close();
 $curlSession = curl_init($set['requestUrl']);
 if ($mySession != false) {
     curl_setopt($curlSession, CURLOPT_COOKIE, "PHPSESSID=" . $mySession . "; path=/;");

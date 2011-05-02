@@ -28,7 +28,7 @@ class ImbaManagerOpenID {
      * OpenID Auth
      */
     public function openidAuth($openid, $hash, $realm, $returnTo) {
-        $this->lightOpenid = new LightOpenID;
+        $this->lightOpenid = new LightOpenID();
         $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
         $this->lightOpenid->returnUrl = $returnTo;
         $this->lightOpenid->realm = $realm;
@@ -47,7 +47,7 @@ class ImbaManagerOpenID {
      * OpenID verify
      */
     public function openidVerify($realm, $hash, $returnTo) {
-        $this->lightOpenid = new LightOpenID;
+        $this->lightOpenid = new LightOpenID();
         $this->lightOpenid->verify_peer = ImbaConstants::$WEB_AUTH_SSL_CHECK;
         $this->lightOpenid->returnUrl = $returnTo;
         $this->lightOpenid->realm = $realm;

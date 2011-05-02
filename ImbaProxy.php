@@ -6,6 +6,7 @@ require_once 'ImbaConstants.php';
 require_once 'Controller/ImbaManagerAuthRequest.php';
 require_once 'Controller/ImbaSharedFunctions.php';
 
+session_set_cookie_params(500);
 session_start();
 $mySession = false;
 

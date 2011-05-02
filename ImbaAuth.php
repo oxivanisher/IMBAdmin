@@ -4,6 +4,7 @@ header('Access-Control-Allow-Origin: *');
 /**
  * start the php session
  */
+session_set_cookie_params(500);
 session_start();
 
 /**

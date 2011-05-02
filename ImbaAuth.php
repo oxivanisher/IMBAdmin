@@ -89,7 +89,7 @@ function redirectTo($line, $url, $message = "") {
      * Discover if we need to do the html redirect and make it so
      */
 //if (ImbaSharedFunctions::getDomain($_SERVER['HTTP_REFERER']) != ImbaSharedFunctions::getDomain($url)) {
-    if (!headers_sent()) {
+    if (headers_sent()) {
         $smarty = ImbaSharedFunctions::newSmarty();
         $smarty->assign("redirectUrl", $url);
         $smarty->assign("redirectDomain", $myDomain);

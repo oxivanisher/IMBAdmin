@@ -288,7 +288,7 @@ if ($set['facility'] == "test") {
     }
     echo $set['answerContent'];
 } elseif ($set['answer']) {
-    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($_POST['facility'] == "auth")) {
+    if (($_POST['action'] != "messenger") && ($_POST['action'] != "user") && ($set['facility'] == "auth")) {        
         ImbaSharedFunctions::writeProxyLog($tmpLogOut);
     }
     /*

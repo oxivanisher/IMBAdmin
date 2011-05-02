@@ -174,12 +174,12 @@ $tmpLogOut .= "return headSize  : " . strlen($set['answerHeaders']) . "\n";
 $tmpLogOut .= "return bodySize  : " . strlen($set['answerContent']) . "\n";
 $tmpLogOut .= "---------------------------- in  request data  -------------------------------\n";
 foreach ($_POST as $key => $value)
-    $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
+    $tmpLogOut .= $key . " => " . $value . "\n";
 $tmpLogOut .= "--------------------------- out request header -------------------------------\n";
 foreach ($requestHeaders as $header)
     $tmpLogOut .= $header . "\n";
 $tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
-$tmpLogOut .= str_replace("&", "\n", $set['postvars']) . "\n";
+$tmpLogOut .= str_replace("&", "\n", $set['postvars']);
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
 $tmpLogOut .= $set['answerHeaders'] . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";

@@ -254,19 +254,16 @@ list($set['answerHeaders'], $set['answerContent']) = explode("\r\n\r\n", $set['a
 $tmpLogOut .= "facility  : " . $set['facility'] . "\n";
 $tmpLogOut .= "headSize  : " . strlen($set['answerHeaders']) . "\n";
 $tmpLogOut .= "bodySize  : " . strlen($set['answerContent']) . "\n";
-$tmpLogOut .= "------------------------------- request header -------------------------------\n";
-foreach ($requestHeaders as $header) {
-    $tmpLogOut .= $header . "\n";
-}
-$tmpLogOut .= "-------------------------------  request data  -------------------------------\n";
-/*foreach ($_GET as $key => $value) {
-    $tmpLogOut .= "GETDATA  : " . $key . " => " . $value . "\n";
-}*/
+$tmpLogOut .= "---------------------------- in  request data  -------------------------------\n";
 foreach ($_POST as $key => $value) {
     $tmpLogOut .= "POSTDATA  : " . $key . " => " . $value . "\n";
 }
-$tmpLogOut .= "---------------------------- set['postvars']  header -----------------------------\n";
-$tmpLogOut .= $set['postvars'] . "\n";
+$tmpLogOut .= "--------------------------- out request header -------------------------------\n";
+foreach ($requestHeaders as $header) {
+    $tmpLogOut .= $header . "\n";
+}
+$tmpLogOut .= "--------------------------- out  request data  -------------------------------\n";
+$tmpLogOut .= str_replace("&", "\n", $set['postvars']) . "\n";
 $tmpLogOut .= "------------------------------- return  header -------------------------------\n";
 $tmpLogOut .= $set['answerHeaders'] . "\n";
 //$tmpLogOut .= "-------------------------------  return  body  -------------------------------\n";

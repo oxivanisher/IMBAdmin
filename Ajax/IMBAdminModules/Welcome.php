@@ -79,7 +79,7 @@ if (ImbaUserContext::getLoggedIn()) {
             $allUsers = $managerUser->selectAllUser();
             $smarty->assign('nickname', $myself->getNickname());
             $smarty->assign("today", date("d") . "." . date("m") . " " . date("Y"));
-            $smarty->assign("thrustRoot", urlencode(ImbaSharedFunctions::getTrustRoot()));
+            $smarty->assign("thrustRoot", urlencode(ImbaSharedFunctions::getSiteDomainUrl()));
             /*
              * ToDo:
              * $events

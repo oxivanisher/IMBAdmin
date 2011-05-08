@@ -168,6 +168,16 @@ class ImbaSharedFunctions {
     }
 
     /**
+     *
+     * get site domein url
+     */
+    public function getSiteDomainUrl() {
+        // this sould be like that, if the webserver would be set up correctly
+        // return sprintf("%s://%s:%s%s/", $this->getScheme(), $_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'], dirname($_SERVER['PHP_SELF']));
+        return ImbaSharedFunctions::getScheme() . "://" . str_replace("//", "/", sprintf("%s/", $_SERVER['SERVER_NAME']));
+    }
+
+    /**
      * 
      * fix the path of images for web display
      */

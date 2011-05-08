@@ -112,20 +112,21 @@ if (empty($set['facility'])) {
 /**
  * Set Cookie File Path with one session magic
  *
-if ($mySession != false) {
-    $set['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $mySession;
-} else {
-    $set['cookieFilePath'] = false;
-}
-*/
-
+  if ($mySession != false) {
+  $set['cookieFilePath'] = ImbaSharedFunctions::getTmpPath() . "/ImbaSession-" . $mySession;
+  } else {
+  $set['cookieFilePath'] = false;
+  }
+ */
 /**
  * Create Post var
  */
 array_unique($_POST);
 $set['postvars'] = '';
 while ($element = current($_POST)) {
-    $set['postvars'] .= key($_POST) . '=' . $element . '&';
+    if (!empty($element)) {
+        $set['postvars'] .= key($_POST) . '=' . $element . '&';
+    }
     next($_POST);
 }
 
@@ -149,7 +150,7 @@ $curlSession = curl_init($set['requestUrl']);
 if ($mySession != false) {
     curl_setopt($curlSession, CURLOPT_COOKIE, "PHPSESSID=" . $mySession . "; path=/;");
 }
- 
+
 /*
   if (!empty($set['cookieFilePath'])) {
   curl_setopt($curlSession, CURLOPT_COOKIEJAR, $set['cookieFilePath']);
@@ -270,11 +271,11 @@ if ($set['facility'] == "test") {
      * logout
      */
     /*
-    unlink($set['cookieFilePath']);
-    unset($set['cookieFilePath']);
-    setcookie("PHPSESSID", "", time() - 3600);
-    session_destroy();
-    session_write_close();
+      unlink($set['cookieFilePath']);
+      unset($set['cookieFilePath']);
+      setcookie("PHPSESSID", "", time() - 3600);
+      session_destroy();
+      session_write_close();
      * 
      */
     session_start();

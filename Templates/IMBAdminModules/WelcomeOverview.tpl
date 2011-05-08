@@ -18,33 +18,33 @@
 </style>
 <script>
     $(function() {
-        $( ".portletColumn" ).sortable({
-            connectWith: ".portletColumn"
+        $( ".imbaPortletColumn" ).sortable({
+            connectWith: ".imbaPortletColumn"
         });
 
-        $( ".portlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
-        .find( ".portlet-header" )
+        $( ".imbaPortlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+        .find( ".imbaPortlet-header" )
         .addClass( "ui-widget-header ui-corner-all" )
         .prepend( "<span class='ui-icon ui-icon-minusthick'></span>")
         .end()
-        .find( ".portlet-content" );
+        .find( ".imbaPortlet-content" );
 
-        $( ".portlet-header .ui-icon" ).click(function() {
+        $( ".imbaPortlet-header .ui-icon" ).click(function() {
             $( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
-            $( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
+            $( this ).parents( ".imbaPortlet:first" ).find( ".imbaPortlet-content" ).toggle();
         });
 
-        $( ".portletColumn" ).disableSelection();
+        $( ".imbaPortletColumn" ).disableSelection();
     });
 </script>
 {foreach $navs as $nav}
 {*
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
 *}
-<div class="portletColumn">
-    <div class="portlet">
-        <div class="portlet-header">{$nav.name}</div>
-        <div class="portlet-content" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.comment}</div>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">{$nav.name}</div>
+        <div class="imbaPortlet-content" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.comment}</div>
     </div>
 </div>
 {/foreach}

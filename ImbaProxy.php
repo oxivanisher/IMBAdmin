@@ -124,7 +124,7 @@ if (empty($set['facility'])) {
 array_unique($_POST);
 $set['postvars'] = '';
 while ($element = current($_POST)) {
-    if ($element != "id") {
+    if (key($_POST) != "id") {
         $set['postvars'] .= key($_POST) . '=' . $element . '&';
     }
     next($_POST);

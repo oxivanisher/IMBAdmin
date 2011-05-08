@@ -19,7 +19,8 @@
 <script>
     $(function() {
         $( ".imbaPortletColumn" ).sortable({
-            connectWith: ".imbaPortletColumn"
+            connectWith: ".imbaPortletColumn",
+            tolerance: "pointer"
         });
 
         $( ".imbaPortlet" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
@@ -37,6 +38,36 @@
         $( ".imbaPortletColumn" ).disableSelection();
     });
 </script>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">Geburtstage</div>
+        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+    </div>
+</div>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">Events</div>
+        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+    </div>
+</div>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">Neueste Mitglieder</div>
+        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+    </div>
+</div>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">Aufgaben</div>
+        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+    </div>
+</div>
+<div class="imbaPortletColumn">
+    <div class="imbaPortlet">
+        <div class="imbaPortlet-header">I Linke on Facebook</div>
+        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+    </div>
+</div>
 {foreach $navs as $nav}
 {*
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>

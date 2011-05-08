@@ -604,7 +604,7 @@ table.display tr.gradeU {
 .imbaPortlet { margin: 0 1em 1em 0; }
 .imbaPortlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 .imbaPortlet-header .ui-icon { float: right; }
-.imbaPortlet-content { padding: 0.4em; }
+.imbaPortlet-content { padding: 0.4em; cursor: pointer; }
 .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
 .ui-sortable-placeholder * { visibility: hidden; }
 

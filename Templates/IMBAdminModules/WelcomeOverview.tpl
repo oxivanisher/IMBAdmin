@@ -34,14 +34,14 @@
             $( this ).parents( ".portlet:first" ).find( ".portlet-content" ).toggle();
         });
 
-        $( ".column" ).disableSelection();
+        $( ".portletColumn" ).disableSelection();
     });
 </script>
 {foreach $navs as $nav}
 {*
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
 *}
-<div class="column">
+<div class="portletColumn">
     <div class="portlet">
         <div class="portlet-header">{$nav.name}</div>
         <div class="portlet-content" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.comment}</div>

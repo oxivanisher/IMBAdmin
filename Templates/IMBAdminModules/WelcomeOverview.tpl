@@ -46,7 +46,7 @@
     Hallo {$nickname}.<br />
     <i>Heute ist {$today} um <span class="jclock"></span></i>.
 </div>
-<div style="float: right; clear: both;">
+<div style="float: right; clear: left;">
     <iframe src="http://www.facebook.com/plugins/like.php?href={$thrustRoot}&amp;send=true&amp;layout=button_count&amp;width=190&amp;show_faces=true&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:190px; height:90px;" allowTransparency="true"></iframe>
 </div>
 <div>

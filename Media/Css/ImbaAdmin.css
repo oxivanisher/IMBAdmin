@@ -600,11 +600,12 @@ table.display tr.gradeU {
 /**
 * Portlet design
 */
-.imbaPortletColumn { width: 200px; float: left; padding-bottom: 100px; }
+.imbaPortletColumn { width: 215px; float: left; padding-bottom: 10px; }
 .imbaPortlet { margin: 0 1em 1em 0; }
 .imbaPortlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 .imbaPortlet-header .ui-icon { float: right; }
-.imbaPortlet-content { padding: 0.4em; cursor: pointer; }
+.imbaPortlet-content { padding-left: 1em; padding-right: 1em; padding-top: 1em; padding-bottom: 2em; }
+.imbaPortlet-content-clickable { padding-left: 1em; padding-right: 1em; padding-top: 1em; padding-bottom: 2em; cursor: pointer; }
 .ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
 .ui-sortable-placeholder * { visibility: hidden; }
 
@@ -624,4 +625,13 @@ table.display tr.gradeU {
     margin:1em 0 1em 0;
     line-height:17px;
     font-weight:normal!important;
+}
+
+/*
+* make nice title
+*/
+.imbaTitle {
+    font-weight:bold!important;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

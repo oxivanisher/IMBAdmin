@@ -18,6 +18,8 @@ var imbaAuthReferer = '{$imbaAuthReferer}';
 {fetch file='Libs/DataTables/media/js/jquery.dataTables.min.js'}
 {fetch file='Libs/jquery_jeditable/jquery.jeditable.js'}
 {fetch file='Libs/jgrowl/jquery.jgrowl_compressed.js'}
+{fetch file='Libs/jquery_jqclock/format_date.js'}
+{fetch file='Libs/jquery_jqclock/jqclock_2.2.0.js'}
 {* 
 
     include imba javascript files

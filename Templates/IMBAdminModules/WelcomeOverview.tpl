@@ -37,45 +37,63 @@
 
         $( ".imbaPortletColumn" ).disableSelection();
     });
+    
+    $(function($) {
+        $('.jclock').jclock();
+    });
 </script>
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">Geburtstage</div>
-        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
+<div class="imbaTitle" style="float: left;">
+    Hallo {$nickname}.<br />
+    <i>Heute ist {$today} um <span class="jclock"></span></i>.
+</div>
+<div style="float right;">
+    <iframe src="http://www.facebook.com/plugins/like.php?href={$thrustRoot}&amp;send=true&amp;layout=button_count&amp;width=190&amp;show_faces=true&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:190px; height:90px;" allowTransparency="true"></iframe>
+</div>
+<div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">N&auml;chste Geburtstage</div>
+            <div class="imbaPortlet-content">{$birthdays}</div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Events</div>
+            <div class="imbaPortlet-content">{$events}</div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Neue Mitglieder</div>
+            <div class="imbaPortlet-content">{$newMembers}</div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Aufgaben</div>
+            <div class="imbaPortlet-content">{$todo}</div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Spenden</div>
+            <div class="imbaPortlet-content"></div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Pic of the Moment</div>
+            <div class="imbaPortlet-content"></div>
+        </div>
+    </div>
+    <div class="imbaPortletColumn">
+        <div class="imbaPortlet">
+            <div class="imbaPortlet-header">Navigation</div>
+            <div class="imbaPortlet-content">
+                {foreach $navs as $nav}
+                <a href="javascript:void();"  onclick="javascript: loadImbaAdminModule('{$nav.identifier}');" title="{$nav.comment}">{$nav.name}</a><br />
+                {/foreach}
+            </div>
+        </div>
     </div>
 </div>
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">Events</div>
-        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
-    </div>
-</div>
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">Neueste Mitglieder</div>
-        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
-    </div>
-</div>
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">Aufgaben</div>
-        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
-    </div>
-</div>
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">I Linke on Facebook</div>
-        <div class="imbaPortlet-content">lorem ipsum bla bla bla bla</div>
-    </div>
-</div>
-{foreach $navs as $nav}
-{*
-<div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
-*}
-<div class="imbaPortletColumn">
-    <div class="imbaPortlet">
-        <div class="imbaPortlet-header">{$nav.name}</div>
-        <div class="imbaPortlet-content" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');">{$nav.comment}</div>
-    </div>
-</div>
-{/foreach}

@@ -631,7 +631,6 @@ table.display tr.gradeU {
 * make nice title
 */
 .imbaTitle {
-    font-weight:bold!important;
     padding-top: 20px;
     padding-bottom: 20px;
 }

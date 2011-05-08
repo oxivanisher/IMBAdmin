@@ -46,7 +46,9 @@
     });
 </script>
 {foreach $navs as $nav}
+{*
 <div id="ImbaContentClickable" onclick="javascript: loadImbaAdminModule('{$nav.identifier}');"><h3>{$nav.name}</h3>{$nav.comment}</div>
+*}
 
 <div class="column">
 

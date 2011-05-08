@@ -123,11 +123,16 @@ if (empty($set['facility'])) {
  */
 //array_unique($_POST);
 $set['postvars'] = '';
-while ($element = each($_POST)) {
+/*
+while ($element = current($_POST)) {
     $set['postvars'] .= key($_POST) . '=' . $element . '&';
     next($_POST);
 }
-
+ * 
+ */
+foreach ($_POST as $name => $value) {
+    $set['postvars'] .= $name . '=' . $value. '&';
+}
 /**
  * Prepare for possible ajax/jquery X-Requested-With:XMLHttpRequest
  * -> temp code. no impact

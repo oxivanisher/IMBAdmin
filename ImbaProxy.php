@@ -121,7 +121,7 @@ if (empty($set['facility'])) {
 /**
  * Create Post var
  */
-array_unique($_POST);
+//array_unique($_POST);
 $set['postvars'] = '';
 while ($element = current($_POST)) {
     if (key($_POST) != "id") {

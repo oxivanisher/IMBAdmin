@@ -123,9 +123,6 @@ if (empty($set['facility'])) {
  */
 //array_unique($_POST);
 $set['postvars'] = '';
-if (!empty($_POST['id'])) {
-    unset($_POST['id']);
-}
 while ($element = current($_POST)) {
     $set['postvars'] .= key($_POST) . '=' . $element . '&';
     next($_POST);
@@ -162,9 +159,13 @@ if ($mySession != false) {
 curl_setopt($curlSession, CURLOPT_HEADER, true);
 curl_setopt($curlSession, CURLOPT_FOLLOWLOCATION, true);
 curl_setopt($curlSession, CURLOPT_RETURNTRANSFER, true);
-if ($requestHeaders) {
+/*
+ * if ($requestHeaders) {
+ *
     curl_setopt($curlSession, CURLOPT_HTTPHEADER, $requestHeaders);
 }
+ * 
+ */
 curl_setopt($curlSession, CURLOPT_USERAGENT, $_SERVER["HTTP_USER_AGENT"]);
 curl_setopt($curlSession, CURLOPT_REFERER, $_SERVER["HTTP_REFERER"]);
 curl_setopt($curlSession, CURLOPT_POST, true);

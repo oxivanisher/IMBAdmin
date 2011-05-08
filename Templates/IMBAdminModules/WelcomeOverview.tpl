@@ -46,7 +46,7 @@
     <div class="imbaTitle" style="float: left;">
         Hallo {$nickname}.<br />
     </div>
-    <div style="float: right;">        
+    <div style="float: left;">        
         <i>Heute ist {$today} um <span class="jclock"></span></i>.
     </div>
     <div style="float: right;">
